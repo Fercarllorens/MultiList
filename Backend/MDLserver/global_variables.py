@@ -16,6 +16,7 @@ class SPOTIFY():
         HEADER = "{'Content-Type': 'application/json', 'Authorization': Bearer {token}}"
         class TYPES():
             CODE = "code"
+            AUTH_CODE = "authorization_code"
     class RESPONSE():
         URL = "url"
     class MODEL():

@@ -1,9 +1,12 @@
 from datetime import timedelta
+import requests as req
 # Django
 from django.utils import timezone
 # Local
 from .models import SpotifyToken
 import global_variables as gv
+
+from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI #TODO MOVE THIS TO ENV VARIABLES
 
 def get_user_tokens(sess_id: str) -> SpotifyToken or None:
     """Returns the user tokens or None if no tokens were found"""
@@ -29,11 +32,28 @@ def update_user_tokens(sess_id: str, access_token: str, token_type: str, expires
     return obj, created
 
 def is_spotify_authenticated(sess_id: str) -> bool:
+    """Returns wether the user is auth or not, and updates the user token"""
     tokens = get_user_tokens(sess_id)
     if tokens:
         if tokens.expires_in <= timezone.now():
-            pass
+            refresh_spotify_token(sess_id)
+        return True
     return False
 
 def refresh_spotify_token(sess_id: str) -> None:
-    pass
+    """Updates the user token"""
+    refresh_token = get_user_tokens(sess_id).refresh_token
+
+    response = req.post(gv.SPOTIFY.URL.TOKENS, data={
+        gv.SPOTIFY.REQUEST.GRANT_TYPE: gv.SPOTIFY.MODEL.REFRESH_TOKEN,
+        gv.SPOTIFY.MODEL.REFRESH_TOKEN: refresh_token,
+        gv.SPOTIFY.REQUEST.CLIENT_ID: CLIENT_ID,
+        gv.SPOTIFY.REQUEST.CLIENT_SECRET: CLIENT_SECRET,
+    }).json()
+
+    access_token = response[gv.SPOTIFY.MODEL.ACCESS_TOKEN]
+    token_type = response[gv.SPOTIFY.MODEL.TOKEN_TYPE]
+    expires_in = response[gv.SPOTIFY.MODEL.EXPIRES_IN]
+    refresh_token = response[gv.SPOTIFY.MODEL.REFRESH_TOKEN]
+
+    update_user_tokens(sess_id, access_token, token_type, expires_in, refresh_token)
