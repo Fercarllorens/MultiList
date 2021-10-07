@@ -1,6 +1,7 @@
 class SPOTIFY():
     class URL():
         AUTH = "https://accounts.spotify.com/authorize"
+        TOKENS = "https://accounts.spotify.com/api/token"
         SEARCH = "https://api.spotify.com/v1/search?q={query}&type={type}"
     class SCOPES():
         CONNECT = "user-read-playback-state user-modify-playback-state user-read-currently-playing"
@@ -10,6 +11,8 @@ class SPOTIFY():
         RESPONSE_TYPE = "response_type"
         REDIRECT_URI = "redirect_uri"
         CLIENT_ID = "client_id"
+        CLIENT_SECRET = "client_secret"
+        GRANT_TYPE = "grant_type"
         HEADER = "{'Content-Type': 'application/json', 'Authorization': Bearer {token}}"
         class TYPES():
             CODE = "code"

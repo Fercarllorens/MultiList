@@ -27,3 +27,13 @@ def update_user_tokens(sess_id: str, access_token: str, token_type: str, expires
         gv.SPOTIFY.MODEL.TOKEN_TYPE: token_type,
     })
     return obj, created
+
+def is_spotify_authenticated(sess_id: str) -> bool:
+    tokens = get_user_tokens(sess_id)
+    if tokens:
+        if tokens.expires_in <= timezone.now():
+            pass
+    return False
+
+def refresh_spotify_token(sess_id: str) -> None:
+    pass

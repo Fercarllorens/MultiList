@@ -1,6 +1,6 @@
 import requests as req
 # Django
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
@@ -18,7 +18,6 @@ class Api(APIView):
         req.Request('GET', url=query, headers=gv.SPOTIFY.HEADER.format(token))
 
 
-
 # THIS CLASS IS ON HOLD FOR NOW
 class AuthURL(APIView):
     def get(self, request: req.Request, format=None) -> Response:
@@ -33,17 +32,19 @@ class AuthURL(APIView):
 
         return Response({gv.SPOTIFY.RESPONSE.URL: url}, status=status.HTTP_200_OK)
 
-    def spotify_callback(self, request: req.Request, format=None) -> None:
+    def spotify_callback(self, request: req.Request, format=None) -> redirect:
+        # Get request params
         data = request.GET
         code = data.get('code')
         error = data.get('error')
 
-        response = req.post('https://accounts.spotify.com/api/token', data={
-            'grant-type': 'authorization_code',
-            'code': code,
-            'redirect_uri': REDIRECT_URI,
-            'client_id': CLIENT_ID,
-            'client_secret': CLIENT_SECRET,
+        # Get all the response data as json
+        response = req.post(gv.SPOTIFY.URL.TOKENS, data={
+            gv.SPOTIFY.REQUEST.GRANT_TYPE: 'authorization_code',
+            gv.SPOTIFY.REQUEST.TYPE.CODE: code,
+            gv.SPOTIFY.REQUEST.REDIRECT_URI: REDIRECT_URI,
+            gv.SPOTIFY.REQUEST.CLIENT_ID: CLIENT_ID,
+            gv.SPOTIFY.REQUEST.CLIENT_SECRET: CLIENT_SECRET,
         }).json
 
         access_token = response.get('access_token')
@@ -52,13 +53,16 @@ class AuthURL(APIView):
         expires_in = response.get('expires_in')
         error = response.get('error')
 
+        # Create session if it was disconected
         if not request.session.exists(request.session.session_key):
-            ut.update_user_tokens(
-                request.session.session_key,
-                access_token, 
-                token_type, 
-                refresh_token, 
-                expires_in
-            )
-        # will return a redirect, on hold on for the momment
-        return None
+            request.session.create()
+
+        ut.update_user_tokens(
+            request.session.session_key,
+            access_token, 
+            token_type, 
+            refresh_token, 
+            expires_in
+        )
+        # Returns a redirect to the main page of the frontend
+        return redirect('frontend:')
