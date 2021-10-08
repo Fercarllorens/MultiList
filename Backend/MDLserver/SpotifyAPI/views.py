@@ -9,14 +9,15 @@ import global_variables as gv
 from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI #TODO MOVE THIS TO ENV VARIABLES
 from . import utils as ut
 
-
+"""
 class Api(APIView):
     def get(self, request, format=None):
+        user = request.GET.get('user')
         q = request.session.get('query')
         t = request.session.get('type')
         query = gv.SPOTIFY.URL.SEARCH.format(query=q, type=t)
         req.Request('GET', url=query, headers=gv.SPOTIFY.HEADER.format(token))
-
+"""
 
 # THIS CLASS IS ON HOLD FOR NOW
 class AuthURL(APIView):
