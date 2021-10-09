@@ -35,10 +35,17 @@ class SPOTIFY():
         TOKEN_TYPE = "token_type"
         REFRESH_TOKEN = "refresh_token"
         EXPIRES_IN = "expires_in"
+    class ERRORS():
+        REQUEST = "Something went wrong with your request"
 
 
 class COMMON():
     ERROR = "error"
     ITEM = "item"
     ITEMS = "items"
+    USER = "user"
+    PASSWORD = "password"
+    QUERY = "query"
+    TYPE = "type"
+    ID = "id"
     

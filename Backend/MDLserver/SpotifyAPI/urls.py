@@ -1,12 +1,12 @@
 from django.urls import path
-from .views import AuthURL, IsAuth, Api, spotify_callback
+from .views import AuthURL, IsAuth, GetTrack, GetAlbum, GetArtists, Search, spotify_callback
 
 urlpatterns = [
     path("get-auth-url", AuthURL.as_view()),
     path("redirect", spotify_callback),
     path("is-auth", IsAuth.as_view()),
-    path("search", Api.search),
-    path("get-track", Api.get_track),
-    path("get-album", Api.get_album),
-    path("get-artist", Api.get_artist),
+    path("search", Search.as_view()),
+    path("get-track", GetTrack.as_view()),
+    path("get-album", GetAlbum.as_view()),
+    path("get-artist", GetArtists.as_view()),
 ]

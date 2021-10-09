@@ -23,10 +23,6 @@ def update_user_tokens(sess_id: str, access_token: str, token_type: str, refresh
         Updates or Creates a new SpotifyToken with the given data and returns the object, 
         and a bool determining whether the object was created or not
     """
-    print(access_token)
-    print(token_type)
-    print(refresh_token)
-    print(expires_in)
     # Get the actual time the token will expire
     expires_in = timezone.now() + timedelta(seconds=expires_in)
     obj, created = SpotifyToken.objects.update_or_create(user=sess_id, defaults={
@@ -64,10 +60,11 @@ def refresh_spotify_token(sess_id: str) -> None:
 
     update_user_tokens(sess_id, access_token, token_type, expires_in, refresh_token)
 
-def request_spotify_api(req_type: str, sess_id: str, endpoint: str) -> any:
+def request_spotify_api(req_type: str, sess_id: str, endpoint: str) -> dict:
+    """Executes a request to the spotify api, provided with the req_type, the endpoint, and the user id"""
     tokens = get_user_tokens(sess_id)
     headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + tokens.access_token} 
-
+    print("Headers: ", headers)
     requests = {
         "POST": req.post,
         "PUT":  req.put,
@@ -77,4 +74,9 @@ def request_spotify_api(req_type: str, sess_id: str, endpoint: str) -> any:
     try:
         return requests[req_type](gv.SPOTIFY.URL.BASE + endpoint, headers=headers).json()
     except:
-        return {gv.COMMON.ERROR: 'Something went wrong with your request'}
+        return {gv.COMMON.ERROR: gv.SPOTIFY.ERRORS.REQUEST}
+
+def get_item(req_type: str, sess_id, item_id: str) -> dict:
+    """Returns an item given the type, the session id, and the id of the item"""
+    endpoint = gv.SPOTIFY.ENDPOINTS.ITEMS[req_type].format(id=item_id)
+    return request_spotify_api("GET", sess_id, endpoint)
