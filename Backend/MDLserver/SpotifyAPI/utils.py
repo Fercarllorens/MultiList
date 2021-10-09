@@ -8,6 +8,8 @@ import global_variables as gv
 
 from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI #TODO MOVE THIS TO ENV VARIABLES
 
+# sess_id = user_id 
+
 def get_user_tokens(sess_id: str) -> SpotifyToken or None:
     """Returns the user tokens or None if no tokens were found"""
     user_tokens = SpotifyToken.objects.filter(user=sess_id)
@@ -16,23 +18,27 @@ def get_user_tokens(sess_id: str) -> SpotifyToken or None:
         return user_tokens[0]
     return None
 
-def update_user_tokens(sess_id: str, access_token: str, token_type: str, expires_in: int, refresh_token: str) -> tuple:
+def update_user_tokens(sess_id: str, access_token: str, token_type: str, refresh_token: str, expires_in: int) -> tuple:
     """
         Updates or Creates a new SpotifyToken with the given data and returns the object, 
         and a bool determining whether the object was created or not
     """
+    print(access_token)
+    print(token_type)
+    print(refresh_token)
+    print(expires_in)
     # Get the actual time the token will expire
     expires_in = timezone.now() + timedelta(seconds=expires_in)
     obj, created = SpotifyToken.objects.update_or_create(user=sess_id, defaults={
         gv.SPOTIFY.MODEL.ACCESS_TOKEN: access_token,
         gv.SPOTIFY.MODEL.REFRESH_TOKEN: refresh_token,
-        gv.SPOTIFY.MODEL.expires_in: expires_in,
+        gv.SPOTIFY.MODEL.EXPIRES_IN: expires_in,
         gv.SPOTIFY.MODEL.TOKEN_TYPE: token_type,
     })
     return obj, created
 
 def is_spotify_authenticated(sess_id: str) -> bool:
-    """Returns wether the user is auth or not, and updates the user token"""
+    """Returns wether the user is auth or not, and updates the user token given the sess_id"""
     tokens = get_user_tokens(sess_id)
     if tokens:
         if tokens.expires_in <= timezone.now():
@@ -41,7 +47,7 @@ def is_spotify_authenticated(sess_id: str) -> bool:
     return False
 
 def refresh_spotify_token(sess_id: str) -> None:
-    """Updates the user token"""
+    """Updates the user token given the sess_id"""
     refresh_token = get_user_tokens(sess_id).refresh_token
 
     response = req.post(gv.SPOTIFY.URL.TOKENS, data={
@@ -57,3 +63,18 @@ def refresh_spotify_token(sess_id: str) -> None:
     refresh_token = response[gv.SPOTIFY.MODEL.REFRESH_TOKEN]
 
     update_user_tokens(sess_id, access_token, token_type, expires_in, refresh_token)
+
+def request_spotify_api(req_type: str, sess_id: str, endpoint: str) -> any:
+    tokens = get_user_tokens(sess_id)
+    headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + tokens.access_token} 
+
+    requests = {
+        "POST": req.post,
+        "PUT":  req.put,
+        "GET":  req.get,
+    }
+
+    try:
+        return requests[req_type](gv.SPOTIFY.URL.BASE + endpoint, headers=headers).json()
+    except:
+        return {gv.COMMON.ERROR: 'Something went wrong with your request'}
