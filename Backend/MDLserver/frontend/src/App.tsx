@@ -1,13 +1,13 @@
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
-import Music_finder from './components/Music_finder'
+import Finder from './components/Finder/Finder'
 
 
 function App() {
   return (
     <div className='App'>
-      <Music_finder />
+      <Finder />
     </div>
   )
 }
