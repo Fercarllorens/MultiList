@@ -64,7 +64,7 @@ class Search(APIView):
         print("REQUEST: ", request.query_params.get('query'))
         endpoint = gv.SPOTIFY.ENDPOINTS.SEARCH.format(query=request.query_params.get(gv.COMMON.QUERY), type=request.query_params.get(gv.COMMON.TYPE))
         response = ut.request_spotify_api("GET", request.query_params.get(gv.COMMON.USER), endpoint)
-        if gv.COMMON.ERROR in response or gv.COMMON.ITEMS not in response:
+        if gv.COMMON.ERROR in response:
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
         return Response(response, status=status.HTTP_200_OK)
