@@ -10,7 +10,7 @@ const SongPreview: React.FC<Props> = (props) => {
     const {} = SongPreviewLogic()
 
     return (
-        <div className="SongPreviewContainer" onClick={() => console.log("song clicked")}>
+        <div className="SongPreviewContainer" onClick={() => console.log(typeof [1,2,3])}>
             <div className="picture-div">
                 <img className="picture" src="https://i.scdn.co/image/107819f5dc557d5d0a4b216781c6ec1b2f3c5ab2" height="130" width="130"></img>
             </div>

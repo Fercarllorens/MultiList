@@ -5,12 +5,12 @@ import './Finder.css'
 import FindSongs from '../FindSongs/FindSongs';
 
 const Finder: React.FC = () => {
-    const {set_films, set_series, set_songs, type_selected} = FinderLogic()
+    const {find, select_films, select_series, select_songs, type_selected} = FinderLogic()
 
     return (
         <div className="FinderContainer">
-            <Search_bar />
-            <Filters set_films={set_films} set_series={set_series} set_songs={set_songs} type_selected={type_selected}/>
+            <Search_bar find={find} />
+            <Filters set_films={select_films} set_series={select_series} set_songs={select_songs} type_selected={type_selected}/>
             <FindSongs />
         </div>
     )
