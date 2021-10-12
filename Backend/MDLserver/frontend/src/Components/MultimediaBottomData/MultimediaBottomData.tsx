@@ -3,7 +3,7 @@ import MultimediaBottomDataLogic  from './MultimediaBottomDataLogic'
 import './MultimediaBottomData.css'
 
 interface Data{
-    list: string[];
+    list: string[] ;
 }
 
 const MultimediaBottomData = (props:Data) => {

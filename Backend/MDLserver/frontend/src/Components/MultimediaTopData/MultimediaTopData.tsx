@@ -8,7 +8,9 @@ interface Data{
 
 const MultimediaTopData = (props:Data) => {
     const {title, type, year, genre, color} = MultimediaTopDataLogic(props)
-    let color_type:string = color;
+    let color_type:string
+    if(color != null) { color_type= color}
+    else{color_type= 'transparent'}
     return (
         <div className="data-container">
             <h3 className="title-top-data">{title}</h3>

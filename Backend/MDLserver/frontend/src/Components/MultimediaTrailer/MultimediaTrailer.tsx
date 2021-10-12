@@ -8,10 +8,13 @@ interface Props{
 
 const MultimediaTrailer = (props:Props) => {
     const {trailer} = MultimediaTrailerLogic(props)
-    return (
+        let url: string 
+        if(trailer == null){url = ''}
+        else{ url = trailer}
+        return (
         <div className="data-container">
             <video>
-                <source src={trailer} type=""></source>
+                <source src={url} type=""></source>
             </video>
         </div>
     )

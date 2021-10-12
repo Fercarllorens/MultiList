@@ -3,10 +3,10 @@ import React from 'react';
 import PicLogic from './PicLogic';
 
 interface Props{
-    imageData: string;
+    url: string;
 }
 
-const Pic: React.FC<Props> = (props) => {
+const Pic: React.FC<Props> = (props:Props) => {
     const { pic, setPic } = PicLogic(props)
 
     return (

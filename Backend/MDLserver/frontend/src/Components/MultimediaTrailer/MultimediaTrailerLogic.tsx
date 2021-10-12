@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 interface Props {
-    trailer: string;
+    trailer: string | null;
 }
 
 // trailer es string, pasamos la url para usarla como source
 const MultimediaBottomDataLogic = (props:Props) => {
-    let trailer:string = props.trailer;
+    const [trailer, setTrailer] = useState<null | string>(null)
+    setTrailer(props.trailer)
     return {trailer}
 }
 
