@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 interface Props{
-    list: string[]
+    list: string[] | null
 }
 
 
@@ -11,10 +11,10 @@ const MultimediaBottomDataLogic = (props:Props) => {
     const [seasons, setSeasons] = useState<null | string>(null)
     const [date, setDate] = useState<null | string>(null)
     
-    setDuration(props.list[0])
-    setEpisodes(props.list[1])
-    setSeasons(props.list[2])
-    setDate(props.list[3])
+    setDuration(props != null ? props.list != null ? props.list[0] : '2H' : '2H')
+    setEpisodes(props != null ? props.list != null ? props.list[0] : '1' : '1')
+    setSeasons(props != null ? props.list != null ? props.list[0] : '1' : '1')
+    setDate(props != null ? props.list != null ? props.list[0] : '01/01/2000' : '01/01/2000')
     return { duration, episodes, seasons, date}
 }
 

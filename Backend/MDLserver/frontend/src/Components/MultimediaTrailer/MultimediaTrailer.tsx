@@ -3,18 +3,15 @@ import MultimediaTrailerLogic  from './MultimediaTrailerLogic'
 import './MultimediaTrailer.css'
 
 interface Props{
-    trailer: string;
+    trailer: string | null;
 }
 
 const MultimediaTrailer = (props:Props) => {
     const {trailer} = MultimediaTrailerLogic(props)
-        let url: string 
-        if(trailer == null){url = ''}
-        else{ url = trailer}
         return (
         <div className="data-container">
             <video>
-                <source src={url} type=""></source>
+                <source src={trailer != null ? trailer : 'NoVideo'} type=""></source>
             </video>
         </div>
     )

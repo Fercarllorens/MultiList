@@ -3,16 +3,14 @@ import React from 'react';
 import PicLogic from './PicLogic';
 
 interface Props{
-    url: string;
+    url: string | null;
 }
 
 const Pic: React.FC<Props> = (props:Props) => {
     const { pic, setPic } = PicLogic(props)
 
     return (
-        <div>
-            Hola
-        </div>
+        <img src={pic != null ? pic : 'ImageNotFound'} />
     )
 }
 

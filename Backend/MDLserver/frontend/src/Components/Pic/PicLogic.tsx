@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 interface Props{
-    url: string;
+    url: string | null;
 }
 
 const PicLogic = (props:Props) => {
