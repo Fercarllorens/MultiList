@@ -38,8 +38,15 @@ class SPOTIFY():
     class ERRORS():
         REQUEST = "Something went wrong with your request"
 
+class USER():
+    USERNAME = "username"
+    PASSWORD = "password"
+    EMAIL = "email"
+    SPOTIFY_TOKEN = "spotify_token"
+    LISTS = "lists"
 
 class COMMON():
+    CONTENT = "content"
     ERROR = "error"
     ITEM = "item"
     ITEMS = "items"
