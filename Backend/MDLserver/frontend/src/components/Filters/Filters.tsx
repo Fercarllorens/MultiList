@@ -17,9 +17,9 @@ const Filters: React.FC<Props> = ({set_films, set_series, set_songs, type_select
 
     return (
         <div className="filter-container">
-            <button id="films" className={type_selected.films_selected ? 'type selected' : 'type'} onClick={() => {set_films()}}>Films</button>
-            <button id="series" className={type_selected.series_selected ? 'type selected' : 'type'} onClick={() => {set_series()}}>Series</button>
-            <button id="songs" className={type_selected.songs_selected ? 'type selected' : 'type'} onClick={() => {set_songs()}}>Songs</button>
+            <button id="films" className={type_selected.films_selected ? 'type films-selected' : 'type'} onClick={() => {set_films()}}>Films</button>
+            <button id="series" className={type_selected.series_selected ? 'type series-selected' : 'type'} onClick={() => {set_series()}}>Series</button>
+            <button id="songs" className={type_selected.songs_selected ? 'type songs-selected' : 'type'} onClick={() => {set_songs()}}>Songs</button>
         </div>
     )
 }

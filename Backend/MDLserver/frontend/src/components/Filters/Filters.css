@@ -5,6 +5,7 @@
     padding-left: 10px;
     margin-top: 30px;
     width: 960px;
+    padding-bottom: 10px;
 }
 
 .type{
@@ -16,6 +17,20 @@
     cursor: pointer;
 }
 
-.selected{
+.films-selected{
+    box-shadow: -4px 4px 5px #4c4848;
+    background-color: blue;
+    border-radius: 10px;
+}
+
+.series-selected{
+    box-shadow: -4px 4px 5px #4c4848;
+    background-color: red;
+    border-radius: 10px;
+}
+
+.songs-selected{
+    box-shadow: -4px 4px 5px #4c4848;
     background-color: green;
+    border-radius: 10px;
 }
