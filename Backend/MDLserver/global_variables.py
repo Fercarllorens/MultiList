@@ -38,6 +38,12 @@ class SPOTIFY():
     class ERRORS():
         REQUEST = "Something went wrong with your request"
 
+class VIDEO():
+    class URL():
+        BASE = ""
+    class ENDPOINTS():
+        BYID = ""
+        QUERY = ""
 
 class COMMON():
     ERROR = "error"
