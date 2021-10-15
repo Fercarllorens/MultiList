@@ -1,27 +1,15 @@
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import React from 'react'
+import logo from './logo.svg'
 import './App.css'
-// Screens
 import MultimediaContent from './Components/MultimediaContent/MultimediaContent'
 
-let datos: JSON = JSON.parse('{}')
-const App = () => {
-   return (
-    <MultimediaContent data = {datos} />)
-      
-      
-      
-      {/*
-          
-        <Router>
-       
-       <Switch>
-         {/*<Route exact Path='/Multimedia' component={}></Route>}
 
-       </Switch>
-     </Router>*/}
-   
+function App() {
+  return (
+    <div className='App'>
+      <MultimediaContent data={null}/>
+    </div>
+  )
+}
 
- }
-
- export default App
+export default App

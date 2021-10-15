@@ -6,11 +6,11 @@ interface TopData {
 
 
 const MultimediaTopDataLogic = (props:TopData) => {
-    const [title , setTitle] = useState<null | string>(null)
-    const [type , setType] = useState<null | string>(null)
-    const [year , setYear] = useState<null | string>(null)
-    const [genre , setGenre] = useState<null | string>(null)
-    const [color , setColor] = useState<null | string>(null)
+    const [title , setTitle] = useState<null | string>('no disponible')
+    const [type , setType] = useState<null | string>('no disponible')
+    const [year , setYear] = useState<null | string>('no disponible')
+    const [genre , setGenre] = useState<null | string>('no disponible')
+    const [color , setColor] = useState<null | string>('no disponible')
     setTitle(props != null ? props.list != null ? props.list[0] : 'Título' : 'Título' )
     setType(props != null ? props.list != null ? props.list[1] : 'Tipo' : 'Tipo')
     setYear(props != null ? props.list != null ? props.list[2] : '2000' : '2000')

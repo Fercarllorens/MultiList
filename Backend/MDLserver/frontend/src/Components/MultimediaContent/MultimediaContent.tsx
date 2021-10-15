@@ -7,21 +7,23 @@ import MultimediaTopData from '../MultimediaTopData/MultimediaTopData'
 import MultimediaTrailer from '../MultimediaTrailer/MultimediaTrailer'
 import MultimediaBottomData from '../MultimediaBottomData/MultimediaBottomData'
 import Pic from '../Pic/Pic'
-import { Interface } from 'readline'
+
 
 interface Props{
     data : JSON | null;
 }
 
-const MultimediaContent = (props:Props) => {
+const MultimediaContent: React.FC<Props> = (props) => {
     const {listTop, imageUrl, trailerUrl, listBottom} = MultimediaContentLogic(props)
   
     return (
         <div className="multimedia-cont">
-            <MultimediaTopData list={listTop} />
-            <Pic url={imageUrl} />
-            <MultimediaTrailer trailer={trailerUrl}/>
-            <MultimediaBottomData list={listBottom}/>
+            {/*
+            <MultimediaTopData list={[""]} />
+            <Pic url={""} />
+            <MultimediaTrailer trailer={""}/>
+            <MultimediaBottomData list={[""]}/>
+            */}
         </div>
     )
 }

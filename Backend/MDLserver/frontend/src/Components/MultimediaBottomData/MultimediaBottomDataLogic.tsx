@@ -6,10 +6,10 @@ interface Props{
 
 
 const MultimediaBottomDataLogic = (props:Props) => {
-    const [duration, setDuration] = useState<null | string>(null)
-    const [episodes, setEpisodes] = useState<null | string>(null)
-    const [seasons, setSeasons] = useState<null | string>(null)
-    const [date, setDate] = useState<null | string>(null)
+    const [duration, setDuration] = useState<null | string>('no disponible')
+    const [episodes, setEpisodes] = useState<null | string>('no disponible')
+    const [seasons, setSeasons] = useState<null | string>('no disponible')
+    const [date, setDate] = useState<null | string>('no disponible')
     
     setDuration(props != null ? props.list != null ? props.list[0] : '2H' : '2H')
     setEpisodes(props != null ? props.list != null ? props.list[0] : '1' : '1')

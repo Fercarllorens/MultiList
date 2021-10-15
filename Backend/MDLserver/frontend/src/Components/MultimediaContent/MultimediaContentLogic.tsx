@@ -7,18 +7,19 @@ interface Props {
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
     
-    const [data, setData] = useState<null | JSON>(null)
-    setData (props.data)
+    /*const [data, setData] = useState<null | JSON>(null)
+    if(props.data == null){ setData (JSON.parse("{}")) }
+    else {setData (props.data)}*/
 
     let placeholder: string[] = ['placeholder', '', '', '', '']
-    const [ imageUrl, setImageUrl] = useState<null | string>(null)
-    const [ trailerUrl , setTrailerUrl] = useState<null | string>(null)
-    const [ listTop , setListTop] = useState<null | string[]>(null)
-    const [ listBottom , setListBottom] = useState<null | string[]>(null)
-    setImageUrl(placeholder[0])
-    setTrailerUrl(placeholder[0])
-    setListBottom(placeholder)
-    setListTop(placeholder)
+    const [ imageUrl, setImageUrl] = useState<null | string>('no disponible')
+    const [ trailerUrl , setTrailerUrl] = useState<null | string>('no disponible')
+    const [ listTop , setListTop] = useState<null | string[]>(['no disponible'])
+    const [ listBottom , setListBottom] = useState<null | string[]>(['no disponible'])
+    //setImageUrl(placeholder[0])
+    //setTrailerUrl(placeholder[0])
+    //setListBottom(placeholder)
+    //setListTop(placeholder)
     
     return {listTop, imageUrl, trailerUrl, listBottom}
 }
