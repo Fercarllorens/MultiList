@@ -6,7 +6,7 @@ interface Props{
     url: string | null;
 }
 
-const Pic: React.FC<Props> = (props:Props) => {
+const Pic: React.FC<Props> = (props) => {
     const { pic, setPic } = PicLogic(props)
 
     return (

@@ -23,3 +23,17 @@ class SPOTIFY():
         TOKEN_TYPE = "token_type"
         REFRESH_TOKEN = "refresh_token"
         EXPIRES_IN = "expires_in"
+
+class COMMON():
+    CONTENT = "content"
+    ERROR = "error"
+    ITEM = "item"
+    ITEMS = "items"
+    USER = "user"
+    PASSWORD = "password"
+    QUERY = "query"
+    TYPE = "type"
+    ID = "id"
+
+class FILM():
+    EXTERNAL_ID = "id"

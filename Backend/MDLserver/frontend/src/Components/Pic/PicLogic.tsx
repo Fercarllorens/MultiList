@@ -5,7 +5,7 @@ interface Props{
 }
 
 const PicLogic = (props:Props) => {
-    const [pic, setPic] = useState<null | string>(null)
+    const [pic, setPic] = useState<null | string>('no disponible')
     setPic(props.url)
     return {pic, setPic }
 }
