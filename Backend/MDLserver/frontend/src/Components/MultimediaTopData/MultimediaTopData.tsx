@@ -2,11 +2,11 @@ import React from 'react'
 import MultimediaTopDataLogic  from './MultimediaTopDataLogic'
 import './MultimediaTopData.css'
 
-interface Data{
+interface Props{
     list: string[] | null;
 }
 
-const MultimediaTopData = (props:Data) => {
+const MultimediaTopData: React.FC<Props> = (props) => {
     const {title, type, year, genre, color} = MultimediaTopDataLogic(props)
 
     return (

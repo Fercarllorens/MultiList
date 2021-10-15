@@ -2,11 +2,11 @@ import React from 'react'
 import MultimediaBottomDataLogic  from './MultimediaBottomDataLogic'
 import './MultimediaBottomData.css'
 
-interface Data{
+interface Props{
     list: string[] |null;
 }
 
-const MultimediaBottomData = (props:Data) => {
+const MultimediaBottomData: React.FC<Props> = (props) => {
     const {duration, episodes, seasons, date} = MultimediaBottomDataLogic(props)
     return (
         <div className="data-container">

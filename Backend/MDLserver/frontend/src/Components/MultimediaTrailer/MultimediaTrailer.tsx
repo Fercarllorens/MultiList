@@ -6,7 +6,7 @@ interface Props{
     trailer: string | null;
 }
 
-const MultimediaTrailer = (props:Props) => {
+const MultimediaTrailer: React.FC<Props> = (props) => {
     const {trailer} = MultimediaTrailerLogic(props)
         return (
         <div className="data-container">

@@ -7,10 +7,10 @@ interface Props{
 }
 
 const Pic: React.FC<Props> = (props) => {
-    const { pic, setPic } = PicLogic(props)
+    const {pic} = PicLogic(props)
 
     return (
-        <img src={pic != null ? pic : 'ImageNotFound'} />
+        <img src={pic != null ? pic : 'ImageNotFound'} alt="No disponible" />
     )
 }
 
