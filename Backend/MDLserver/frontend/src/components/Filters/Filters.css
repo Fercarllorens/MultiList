@@ -1,4 +1,4 @@
-.filter-container{
+.FilterContainer{
     border-bottom: 1px solid black;
     padding: 5px;
     font-size: 18px;
@@ -8,7 +8,7 @@
     padding-bottom: 10px;
 }
 
-.type{
+.Type{
     margin-left: 10px;
     margin-right: 10px;
     font-size: 18px;
@@ -17,19 +17,19 @@
     cursor: pointer;
 }
 
-.films-selected{
+.FilmsSelected{
     box-shadow: -4px 4px 5px #4c4848;
     background-color: blue;
     border-radius: 10px;
 }
 
-.series-selected{
+.SeriesSelected{
     box-shadow: -4px 4px 5px #4c4848;
     background-color: red;
     border-radius: 10px;
 }
 
-.songs-selected{
+.SongsSelected{
     box-shadow: -4px 4px 5px #4c4848;
     background-color: green;
     border-radius: 10px;

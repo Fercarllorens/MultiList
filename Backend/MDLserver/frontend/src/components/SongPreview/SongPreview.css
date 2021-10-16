@@ -10,7 +10,7 @@
     margin-bottom: 35px;
 }
 
-.picture-div{
+.PictureDiv{
     float: left;
     height: 130px;
     width: 130px;
@@ -20,43 +20,55 @@
     margin-right: 20px;
 }
 
-.picture{
+.Picture{
     border-radius: 10px;
 }
 
-.song-info{
+.SongInfo{
     margin-top: 10px;
     float: left;
 }
 
-.song-name{
+.SongName{
     color: rgb(127 118 220);
     font-weight: bold;
     border-bottom: 3px solid black;
     width: 225px;
     font-size: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.song-author{
+.SongAuthor{
     color: rgb(127 118 220);
     border-bottom: 1px solid black;
-    width: 100px;
+    width: 150px;
     margin-top: 20px;
     margin-left: 15px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.song-date{
+.SongDate{
     color: rgb(127 118 220);
     border-bottom: 1px solid black;
     width: 100px;
     margin-top: 10px;
     margin-left: 125px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.song-genre{
+.SongGenre{
     color: rgb(127 118 220);
     border-bottom: 1px solid black;
     width: 100px;
     margin-top: 10px;
     margin-left: 30px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

@@ -3,24 +3,33 @@ import FindSongsLogic from './FindSongsLogic'
 import SongPreview from '../SongPreview/SongPreview'
 import './FindSongs.css'
 
-interface Props{
-    
+interface Song{
+    name: string;
+    authors: string;
+    date: string;
+    img: string;
+    preview_url: string;
+    album: any;
 }
 
-const FindSongs: React.FC<Props> = (props) => {
+interface Props{
+    songs: Song[] | undefined
+}
+
+const FindSongs: React.FC<Props> = ({songs}) => {
     const {} = FindSongsLogic()
 
     return (
         <div className="FindSongsContainer">
-            <SongPreview />
-            <SongPreview />
-            <SongPreview />
-            <SongPreview />
-            <SongPreview />
-            <SongPreview />
-            <SongPreview />
-            <SongPreview />
-            <SongPreview />
+            <>
+            {
+                songs!==undefined ?
+                    songs.map((element) => (
+                        <SongPreview song={element} />
+                    ))
+                : 'No results'
+            }
+            </>
         </div>
     )
 }

@@ -2,29 +2,38 @@ import React from 'react'
 import SongPreviewLogic from './SongPreviewLogic'
 import './SongPreview.css'
 
-interface Props{
-
+interface Song{
+    name: string;
+    authors: string;
+    date: string;
+    img: string;
+    preview_url: string;
+    album: any;
 }
 
-const SongPreview: React.FC<Props> = (props) => {
-    const {} = SongPreviewLogic()
+interface Props{
+    song: Song
+}
+
+const SongPreview: React.FC<Props> = ({song}) => {
+    const {show_song} = SongPreviewLogic()
 
     return (
-        <div className="SongPreviewContainer" onClick={() => console.log(typeof [1,2,3])}>
-            <div className="picture-div">
-                <img className="picture" src="https://i.scdn.co/image/107819f5dc557d5d0a4b216781c6ec1b2f3c5ab2" height="130" width="130"></img>
+        <div className="SongPreviewContainer" onClick={() => {show_song()}}>
+            <div className="PictureDiv">
+                <img className="Picture" src={song.img} height="130" width="130"></img>
             </div>
-            <div className="song-info">
-                <div className="song-name">
-                    Name
+            <div className="SongInfo">
+                <div className="SongName">
+                    {song.name}
                 </div>
-                <div className="song-author">
-                    Author
+                <div className="SongAuthor">
+                    {song.authors}
                 </div>
-                <div className="song-date">
-                    Date
+                <div className="SongDate">
+                    {song.date}
                 </div>
-                <div className="song-genre">
+                <div className="SongGenre">
                     Genre
                 </div>
             </div>
