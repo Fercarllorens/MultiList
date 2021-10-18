@@ -6,16 +6,11 @@ interface TopData {
 
 
 const MultimediaTopDataLogic = (props:TopData) => {
-    const [title , setTitle] = useState<null | string>('no disponible')
-    const [type , setType] = useState<null | string>('no disponible')
-    const [year , setYear] = useState<null | string>('no disponible')
-    const [genre , setGenre] = useState<null | string>('no disponible')
-    const [color , setColor] = useState<null | string>('no disponible')
-    setTitle(props != null ? props.list != null ? props.list[0] : 'Título' : 'Título' )
-    setType(props != null ? props.list != null ? props.list[1] : 'Tipo' : 'Tipo')
-    setYear(props != null ? props.list != null ? props.list[2] : '2000' : '2000')
-    setGenre(props != null ? props.list != null ? props.list[3] : 'Comedia' : 'Comedia')
-    setColor(props != null ? props.list != null ? props.list[4] : 'Red' : 'Red')
+    const [title , setTitle] = useState<null | string>(props != null && props.list != null ? props.list[0]: 'no disponible')
+    const [type , setType] = useState<null | string>(props != null && props.list != null ? props.list[1]: 'no disponible')
+    const [year , setYear] = useState<null | string>(props != null && props.list != null ? props.list[2]: 'no disponible')
+    const [genre , setGenre] = useState<null | string>(props != null && props.list != null ? props.list[3]: 'no disponible')
+    const [color , setColor] = useState<null | string>(props != null && props.list != null ? props.list[4]: 'no disponible')
     return { title, type, year, genre, color}
 }
 

@@ -18,10 +18,10 @@ const MultimediaContent: React.FC<Props> = (props) => {
   
     return (
         <div className="multimedia-cont">
-            {/*<MultimediaTopData list={listTop} />
+            <MultimediaTopData list={listTop} />
             <Pic url={imageUrl} />
             <MultimediaTrailer trailer={trailerUrl}/>
-            <MultimediaBottomData list={listBottom}/>*/}
+            <MultimediaBottomData list={listBottom}/> 
         </div>
     )
 }

@@ -5,8 +5,8 @@ interface Props {
 
 // trailer es string, pasamos la url para usarla como source
 const MultimediaBottomDataLogic = (props:Props) => {
-    const [trailer, setTrailer] = useState<null | string>('no disponible')
-    setTrailer(props.trailer)
+    const [trailer, setTrailer] = useState<null | string>(props != null ? props.trailer : 'no disponible')
+   
     return {trailer}
 }
 
