@@ -1,0 +1,38 @@
+.navbar {
+  width: 100vw;
+  height: 80px;
+  align-items: center;
+  display: inline-flex;
+  background: rgb(247, 37, 133);
+  background: #242038;
+}
+
+.navbar__logo {
+  margin-left: 2rem;
+  margin-right: auto;
+  text-decoration: none;
+}
+
+.navbar__link {
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.navbar__menu {
+  margin-right: 4rem;
+}
+
+.navbar__menu > .navbar__link {
+  color: #ffffff;
+  margin: 2rem;
+  font-weight: bolder;
+  padding: 15px;
+  transition: ease-in 0.3s all;
+}
+
+.navbar__menu > .navbar__link:hover {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: -8px 8px 4px -4px rgba(0, 0, 0, 0.25);
+  color: rgb(247, 37, 133);
+}
