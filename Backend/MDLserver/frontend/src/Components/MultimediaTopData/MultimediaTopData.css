@@ -12,7 +12,7 @@
 }
 
 .label-data-type{
-    background-color: red;
+    display: inline-block;
     border-radius: 5px;
 }
 
