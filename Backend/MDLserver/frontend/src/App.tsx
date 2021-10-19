@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import Finder from './components/Finder/Finder'
+import Finder from './Components/Finder/Finder'
 
 
 function App() {

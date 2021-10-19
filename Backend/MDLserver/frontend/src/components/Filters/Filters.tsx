@@ -1,4 +1,4 @@
-import FiltersLogic from './FiltersLogic';
+import FiltersLogic from './FiltersLogic'
 import './Filters.css'
 
 interface Props{

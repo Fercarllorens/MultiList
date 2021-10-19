@@ -11,7 +11,7 @@ const Finder: React.FC = () => {
         <div className="FinderContainer">
             <SearchBar find={find} />
             <Filters set_films={select_films} set_series={select_series} set_songs={select_songs} type_selected={type_selected}/>
-            <FindSongs songs={songs}/>
+            {type_selected.songs_selected && <FindSongs songs={songs}/>}
         </div>
     )
 }
