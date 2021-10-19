@@ -37,3 +37,6 @@ class COMMON():
 
 class FILM():
     EXTERNAL_ID = "id"
+
+class SERIES():
+    EXTERNAL_ID = "id"

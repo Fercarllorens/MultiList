@@ -1,11 +1,15 @@
 from django.urls import path
-from .views import FilmController
+from .views.film_view import GetFilm, PostFilm, PutFilm
+from .views.series_view import GetSeries, PostSeries, PutSeries
 
 app_name = 'Api'
 
-film_urls = [
-    path('post-film', FilmController.as_view()),
-    path('put-film', FilmController.as_view()),
-    path('get-film', FilmController.as_view())
+urlpatterns = [
+    path('post-film', PostFilm.as_view()),
+    path('put-film', PutFilm.as_view()),
+    path('get-film', GetFilm.as_view()),
+    path('post-series', PostSeries.as_view()),
+    path('put-series', PutSeries.as_view()),
+    path('get-series', GetSeries.as_view())
 ]
 
