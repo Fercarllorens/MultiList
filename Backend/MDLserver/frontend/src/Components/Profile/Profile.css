@@ -1,0 +1,37 @@
+.profile-container {
+  position: fixed;
+  margin: 50px;
+  width: 80vw;
+  height: 80vh;
+  background: #8d86c9;
+  box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.profile-pic {
+  top: 3rem;
+  left: 40px;
+  width: 18rem;
+  height: 18rem;
+  position: absolute;
+}
+
+.profile-data {
+  bottom: 3rem;
+  left: 40px;
+  width: 18rem;
+  position: absolute;
+}
+
+.profile-settings {
+  top: 3rem;
+  right: 40px;
+  width: 18rem;
+  position: absolute;
+}
+
+.profile-data h4,
+.profile-settings h4 {
+  text-align: center;
+}

@@ -48,6 +48,7 @@ def spotify_callback(request, format=None) -> redirect:
         response.get(gv.SPOTIFY.MODEL.REFRESH_TOKEN), 
         response.get(gv.SPOTIFY.MODEL.EXPIRES_IN),
     )
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAA: ", request.session.session_key)
     # Returns a redirect to the main page of the frontend, frontend should manage the redirect inside
     return redirect('frontend:')
 

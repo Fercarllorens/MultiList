@@ -13,7 +13,11 @@ class GetUser(APIView):
         if obj is None:
             return Response({obj}, status=status.HTTP_204_NO_CONTENT)
         return Response({obj}, status=status.HTTP_200_OK)
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 1f9de60da02855988c55fbcd66a3f79d63f1b0ad
 class PostUser(APIView):
     def post(self, request, format=None):
         """Creates and return a User Model"""

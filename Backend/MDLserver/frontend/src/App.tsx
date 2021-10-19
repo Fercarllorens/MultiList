@@ -1,24 +1,21 @@
 import React from 'react'
-import logo from './logo.svg'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
+import Navbar from './Components/Navbar/Navbar'
+import Profile from './Components/Profile/Profile'
+import Finder from './Components/Finder/Finder'
+
 import './App.css'
 
 function App() {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'>
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <Switch>
+        {/*Todo las rutas que haya que meter, se meten aqui como una Route*/}
+        <Route path='/Profile' component={Profile} />
+      </Switch>
+    </Router>
   )
 }
 

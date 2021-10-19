@@ -35,6 +35,8 @@ class SPOTIFY():
         TOKEN_TYPE = "token_type"
         REFRESH_TOKEN = "refresh_token"
         EXPIRES_IN = "expires_in"
+        
+
     class ERRORS():
         REQUEST = "Something went wrong with your request"
 
@@ -52,7 +54,23 @@ class COMMON():
     ITEMS = "items"
     USER = "user"
     PASSWORD = "password"
-    QUERY = "query"
-    TYPE = "type"
-    ID = "id"
-    
+    EMAIL = "email"
+    SPOTIFY_TOKEN = "spotify_token"
+    LISTS = "lists"
+
+    class COMMON():
+        CONTENT = "content"
+        ERROR = "error"
+        ITEM = "item"
+        ITEMS = "items"
+        USER = "user"
+        PASSWORD = "password"
+        QUERY = "query"
+        TYPE = "type"
+        ID = "id"
+
+    class FILM():
+        EXTERNAL_ID = "id"
+
+    class SERIES():
+        EXTERNAL_ID = "id"
