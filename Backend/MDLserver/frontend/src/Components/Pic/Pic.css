@@ -1,0 +1,15 @@
+.image{
+    position: absolute;
+    left: 5%;
+    right: 35%;
+    top: 20%;
+    bottom: 60%;
+    height: 40% ;
+    width: 30%;
+    border: 2px 2px black;
+}
+
+.image img{
+    width:100%;
+    height: 100%;   
+}

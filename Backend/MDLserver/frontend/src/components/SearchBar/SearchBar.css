@@ -1,0 +1,13 @@
+.SearchBar::placeholder{
+    background-image: url(./lupa.png);
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    background-position: 2px center;
+    padding-left: 20px;
+}
+
+.SearchBar{
+    border-radius: 10px;
+    height: 30px;
+    box-shadow: -4px 4px 5px #4c4848;
+}
