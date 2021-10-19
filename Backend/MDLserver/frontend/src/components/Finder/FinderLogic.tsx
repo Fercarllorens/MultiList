@@ -486,10 +486,15 @@ const FinderLogic = () => {
     const find = (e: any) => {
         var keycode = (e.keyCode ? e.keyCode : e.which);
         if (keycode == '13') {
-            build_songs()
+            type_selected.songs_selected && find_songs()
             e.preventDefault();
             return false;
         }
+    }
+
+    // Search the songs
+    const find_songs = () => {
+        build_songs()
     }
 
     // Transforms the array of tracks into a array of songs saved on songs
