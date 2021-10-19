@@ -8,7 +8,9 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Switch></Switch>
+      <Switch>
+        {/*Todo las rutas que haya que meter, se meten aqui como una Route*/}
+      </Switch>
     </Router>
   )
 }
