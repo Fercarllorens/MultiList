@@ -47,6 +47,17 @@ class USER():
     SPOTIFY_TOKEN = "spotify_token"
     LISTS = "lists"
 
+class COMMON():
+    CONTENT = "content"
+    ERROR = "error"
+    ITEM = "item"
+    ITEMS = "items"
+    USER = "user"
+    PASSWORD = "password"
+    EMAIL = "email"
+    SPOTIFY_TOKEN = "spotify_token"
+    LISTS = "lists"
+
     class COMMON():
         CONTENT = "content"
         ERROR = "error"
