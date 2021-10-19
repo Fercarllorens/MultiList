@@ -74,3 +74,6 @@ class COMMON():
 
     class SERIES():
         EXTERNAL_ID = "id"
+
+    class SONG():
+        EXTERNAL_ID = "id"
