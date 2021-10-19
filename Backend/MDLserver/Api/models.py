@@ -14,3 +14,6 @@ class Film (models.Model):
 
 class Series (models.Model):
     external_id = models.CharField(max_length=300, unique=True)
+
+class Song (models.Model):
+    external_id = models.CharField(max_length=300, unique=True)

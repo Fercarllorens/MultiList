@@ -1,5 +1,4 @@
 import React from 'react'
-//import MultmediaContentLogic from './MultimediaContentLogic'
 import './MultimediaContent.css'
 import MultimediaContentLogic from './MultimediaContentLogic'
 //componentes
