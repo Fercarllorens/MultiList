@@ -1,4 +1,5 @@
 from django.urls import path
+
 from .views.film_view import GetFilm, PostFilm, PutFilm
 from .views.series_view import GetSeries, PostSeries, PutSeries
 
@@ -12,4 +13,5 @@ urlpatterns = [
     path('put-series', PutSeries.as_view()),
     path('get-series', GetSeries.as_view())
 ]
+
 

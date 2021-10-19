@@ -1,8 +1,18 @@
 class SPOTIFY():
     class URL():
+        BASE = "https://api.spotify.com/v1/"
         AUTH = "https://accounts.spotify.com/authorize"
         TOKENS = "https://accounts.spotify.com/api/token"
-        SEARCH = "https://api.spotify.com/v1/search?q={query}&type={type}"
+    class ENDPOINTS():
+        ITEMS = {
+            "track": "tracks/{id}",
+            "artist": "artists/{id}",
+            "album": "albums/{id}",
+            "episode": "episodes/{id}",
+            "show": "shows/{id}",
+        }
+        SEARCH = "search?q={query}&type={type}"
+
     class SCOPES():
         CONNECT = "user-read-playback-state user-modify-playback-state user-read-currently-playing"
         PLAYLIST = "playlist-modify-private playlist-read-private playlist-modify-public playlist-read-collaborative"
@@ -16,27 +26,37 @@ class SPOTIFY():
         HEADER = "{'Content-Type': 'application/json', 'Authorization': Bearer {token}}"
         class TYPES():
             CODE = "code"
+            AUTH_CODE = "authorization_code"
     class RESPONSE():
         URL = "url"
+        STATUS = "status"
     class MODEL():
         ACCESS_TOKEN = "access_token"
         TOKEN_TYPE = "token_type"
         REFRESH_TOKEN = "refresh_token"
         EXPIRES_IN = "expires_in"
+        
 
-class COMMON():
-    CONTENT = "content"
-    ERROR = "error"
-    ITEM = "item"
-    ITEMS = "items"
-    USER = "user"
-    PASSWORD = "password"
-    QUERY = "query"
-    TYPE = "type"
-    ID = "id"
+    class ERRORS():
+        REQUEST = "Something went wrong with your request"
 
-class FILM():
-    EXTERNAL_ID = "id"
 
-class SERIES():
-    EXTERNAL_ID = "id"
+    class COMMON():
+        CONTENT = "content"
+        ERROR = "error"
+        ITEM = "item"
+        ITEMS = "items"
+        USER = "user"
+        PASSWORD = "password"
+        QUERY = "query"
+        TYPE = "type"
+        ID = "id"
+
+
+    class FILM():
+        EXTERNAL_ID = "id"
+
+    class SERIES():
+        EXTERNAL_ID = "id"
+
+
