@@ -1,8 +1,10 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Navbar from './components/Navbar/Navbar'
-import './App.css'
+
+import Navbar from './Components/Navbar/Navbar'
 import Finder from './Components/Finder/Finder'
+
+import './App.css'
 
 function App() {
   return (
