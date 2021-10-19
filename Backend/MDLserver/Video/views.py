@@ -9,10 +9,15 @@ from . import utils as ut
 
 # Create your views here.
 class GetById(APIView):
+    # source_id; source; opt -> country;
     def get(self, request, format=None):
         """Returns a film/series given the id"""
-        endpoint = gv.VIDEO.ENDPOINTS.BYID.format(id=request.query_params.get(gv.COMMON.ID))
-        response = ut.request_to_api("GET", endpoint)
+        endpoint = gv.VIDEO.ENDPOINTS.BYID
+        query_params = {
+            gv.VIDEO.REQUEST.SRC_ID: request.GET[gv.VIDEO.REQUEST.SRC_ID], 
+            gv.VIDEO.REQUEST.SRC: request.GET[gv.VIDEO.REQUEST.SRC]
+        }
+        response = ut.request_to_api(endpoint, query_params)
         if gv.COMMON.ERROR in response:
             return Response({}, status=status.HTTP_204_NO_CONTENT)
         return Response(response, status=status.HTTP_200_OK)
@@ -20,8 +25,13 @@ class GetById(APIView):
 
 class GetByQuery(APIView):
     def get(self, request, format=None):
-        endpoint = gv.VIDEO.ENDPOINTS.QUERY.format(query=request.query_params.get(gv.COMMON.QUERY))
-        response = ut.request_to_api("GET", endpoint)
+        # term; country;
+        endpoint = gv.VIDEO.ENDPOINTS.QUERY
+        query_params = {
+            gv.VIDEO.REQUEST.TERM: request.GET[gv.VIDEO.REQUEST.TERM], 
+            gv.VIDEO.REQUEST.COUNTRY: request.GET[gv.VIDEO.REQUEST.COUNTRY]
+        }
+        response = ut.request_to_api(endpoint, query_params)
         if gv.COMMON.ERROR in response:
             return Response({}, status=status.HTTP_204_NO_CONTENT)
         return Response(response, status=status.HTTP_200_OK)

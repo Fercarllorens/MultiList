@@ -40,10 +40,15 @@ class SPOTIFY():
 
 class VIDEO():
     class URL():
-        BASE = ""
+        BASE = "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/"
     class ENDPOINTS():
-        BYID = ""
-        QUERY = ""
+        BYID = "idlookup"
+        QUERY = "lookup"
+    class REQUEST():
+        SRC_ID = "source_id"
+        SRC = "source"
+    class ERRORS():
+        REQUEST = "Something went wrong with your request"
 
 class COMMON():
     ERROR = "error"
