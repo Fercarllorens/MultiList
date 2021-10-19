@@ -8,12 +8,13 @@ from Backend.MDLserver import global_variables as gv
 from .. import Film;
 
 # Create your views here.
-class FilmController(APIView):
+class PostFilm(APIView):
     def post(self, request, format=None):
         data = request.POST[gv.COMMON.ID]
         obj = Film.objects.create(external_id = data[gv.FILM.EXTERNAL_ID])
         return Response({obj}, status=status.HTTP_200_OK)
-
+        
+class PutFilm(APIView):
     def put(self, request, format=None):
         obj = Film.objects.get(request.POST[gv.COMMON.CONTENT])
         if obj is None:
@@ -21,6 +22,7 @@ class FilmController(APIView):
         obj.external_id = request.POST[gv.FILM.EXTERNAL_ID]
         return Response({obj}, status=status.HTTP_200_OK)
 
+class GetFilm(APIView):
     def get(self, request, format=None):
         obj = Film.objects.get(id=request.POST[gv.COMMON.ID])
         if obj is None:
