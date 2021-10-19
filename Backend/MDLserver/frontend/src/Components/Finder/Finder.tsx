@@ -12,12 +12,8 @@ const Finder: React.FC = () => {
         <div className="FinderContainer">
             <SearchBar find={find} />
             <Filters set_films={select_films} set_series={select_series} set_songs={select_songs} type_selected={type_selected}/>
-<<<<<<< HEAD:Backend/MDLserver/frontend/src/Components/Finder/Finder.tsx
             {type_selected.songs_selected && <FindSongs songs={songs}/>}
-=======
-            <FindSongs songs={songs}/>
-            <FindFilms films={films}/>
->>>>>>> 29e9372 (Creados componentes para películas y modificado el finder):Backend/MDLserver/frontend/src/components/Finder/Finder.tsx
+            {type_selected.films_selected && <FindFilms films={films}/>}
         </div>
     )
 }

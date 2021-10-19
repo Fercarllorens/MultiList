@@ -1,6 +1,6 @@
 import React from 'react'
 import FilmPreviewLogic from './FilmPreviewLogic'
-import './SongPreview.css'
+import './FilmPreview.css'
 
 interface Film{
     name: string;
