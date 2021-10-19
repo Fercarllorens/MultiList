@@ -3,7 +3,11 @@ node_modules/
 .vscode/
 __pycache__/
 
+.vs*
+
+
 *vs
+
 
 # extensions
 *.zip

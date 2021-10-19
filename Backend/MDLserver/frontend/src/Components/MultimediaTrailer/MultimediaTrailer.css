@@ -1,0 +1,15 @@
+.data-container-trailer{
+    position: absolute;
+    left: 36%;
+    right: 98%;
+    top: 25%;
+    bottom: 55%;
+    height: 30% ;
+    width: 62%;
+    border: 2px 2px black;
+}
+
+.data-container-trailer img{
+    width: 100%;
+    height: 100%;
+}
