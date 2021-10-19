@@ -9,7 +9,7 @@ interface Props{
 const MultimediaTrailer: React.FC<Props> = (props) => {
     const {trailer} = MultimediaTrailerLogic(props)
         return (
-        <div className="data-container">
+        <div className="data-container-trailer">
             <video>
                 <source src={trailer != null ? trailer : 'NoVideo'} type=""></source>
             </video>

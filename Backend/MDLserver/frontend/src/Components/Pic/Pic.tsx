@@ -10,7 +10,7 @@ const Pic: React.FC<Props> = (props) => {
     const {pic} = PicLogic(props)
 
     return (
-        <img src={pic != null ? pic : 'ImageNotFound'} alt="No disponible" />
+        <img className="image" src={pic != null ? pic : 'ImageNotFound'} alt="No disponible" />
     )
 }
 

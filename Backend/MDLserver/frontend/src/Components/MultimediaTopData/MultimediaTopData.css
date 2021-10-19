@@ -1,12 +1,22 @@
-.data-container{
-    width: 300px;
+.data-container-top{
+    width: 40%;
     height: 100px;
     position: absolute;
     top: 20px;
     left: 20px;
 }
 
+.data{
+    margin-top:5px;
+    font-size: 12px;
+}
+
+.label-data-type{
+    background-color: red;
+    border-radius: 5px;
+}
+
 .title-top-data{
-    background-color: black;
+    background-color: transparent;
     margin-bottom: 5px;
 }
