@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ComponentNameLogic = () => {
+const FilmPreviewLogic = () => {
 
     // Shows all film's info
     const show_film = () => {
@@ -9,4 +9,4 @@ const ComponentNameLogic = () => {
 
     return {show_film}
 }
-export default ComponentNameLogic
+export default FilmPreviewLogic

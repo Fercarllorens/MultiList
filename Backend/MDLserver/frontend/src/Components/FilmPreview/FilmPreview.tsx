@@ -21,7 +21,7 @@ const FilmPreview: React.FC<Props> = ({film}) => {
     return (
         <div className="FilmPreviewContainer" onClick={() => {show_film()}}>
             <div className="PictureDiv">
-                <img className="Picture" src={film.img} height="130" width="130"></img>
+                <img className="Picture" src={film.img} height="130" width="130" alt="no disponible"></img>
             </div>
             <div className="FilmInfo">
                 <div className="FilmName">
