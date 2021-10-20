@@ -47,6 +47,18 @@ class USER():
     SPOTIFY_TOKEN = "spotify_token"
     LISTS = "lists"
 
+class VIDEO():
+    class URL():
+        BASE = "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/"
+    class ENDPOINTS():
+        BYID = "idlookup"
+        QUERY = "lookup"
+    class REQUEST():
+        SRC_ID = "source_id"
+        SRC = "source"
+    class ERRORS():
+        REQUEST = "Something went wrong with your request"
+
 class COMMON():
     CONTENT = "content"
     ERROR = "error"
@@ -57,17 +69,6 @@ class COMMON():
     EMAIL = "email"
     SPOTIFY_TOKEN = "spotify_token"
     LISTS = "lists"
-
-    class COMMON():
-        CONTENT = "content"
-        ERROR = "error"
-        ITEM = "item"
-        ITEMS = "items"
-        USER = "user"
-        PASSWORD = "password"
-        QUERY = "query"
-        TYPE = "type"
-        ID = "id"
 
     class FILM():
         EXTERNAL_ID = "id"
