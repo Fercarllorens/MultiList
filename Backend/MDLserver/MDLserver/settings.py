@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'frontend.apps.FrontendConfig',
     'SpotifyAPI.apps.SpotifyapiConfig',
+    'Video.apps.VideoConfig',
 ]
 
 MIDDLEWARE = [
