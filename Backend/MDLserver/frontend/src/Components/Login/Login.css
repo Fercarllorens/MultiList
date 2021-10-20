@@ -1,0 +1,104 @@
+.login-screen{
+    width: 100vw;
+    height: calc(100vh - 80px);
+}
+
+.login-screen__form{
+    position: fixed;
+    display: flexbox;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #8D86C9;
+    padding: 50px;
+    z-index: 1001;
+    box-shadow: -6px 6px 4px 1px rgba(0,0,0,0.25);
+    border-radius: 4px;
+}
+
+.login-screen__form input:focus{
+    outline: none;
+}
+
+.login-screen__title{
+    color: #242038;
+    font-size: 32px;
+    text-shadow: -2px 2px 2px rgba(0,0,0,0.25);
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.error-message{
+    color: red;
+    text-shadow: -2px 2px 2px rgba(0,0,0,0.25);
+    font-size: 16px;
+}
+
+.success-message{
+    color: red;
+    text-shadow: -2px 2px 2px rgba(0,0,0,0.25);
+    font-size: 16px;
+}
+
+.form-group{
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.form-group label{
+    color: #242038;
+    text-shadow: -2px 2px 2px rgba(0,0,0,0.25);
+    font-size: 22px;
+}
+
+.form-group input{
+    border: none;
+    border-radius: 4px;
+    box-shadow: -6px 6px 4px 1px rgba(0,0,0,0.25);
+    background-color: #F7ECE1;
+    color: #242038;
+    padding: 5px;
+}
+
+.form-btn{
+    grid-column: 1;
+    grid-row: 3;
+
+    border-radius: 25px;
+    border-style: none;
+    background-color: #F7ECE1;
+    width: 8rem;
+    height: 3rem;
+    font-size: 1.2rem;
+    box-shadow: -6px 6px 4px 1px rgba(0,0,0,0.25);
+    font-weight: bolder;
+    text-shadow: -2px 2px 2px rgba(0,0,0,0.25);
+    transition: ease-in-out .5s all;
+}
+
+.form-btn:hover{
+    background-color: #242038;
+    color: #F7ECE1;
+    cursor: pointer;
+}
+
+.login-screen__subtext{
+    color: #242038;
+    text-shadow: -2px 2px 2px rgba(0,0,0,0.25);
+    font-size: 16px;
+}
+
+.login-screen__subtext a{
+    text-decoration: none;
+    transition: ease-in-out .2s all;
+    font-weight: bold;
+    color: #242038;
+}
+
+.login-screen__subtext a:hover{
+    color: rgb(211, 151, 245);
+}
+
+
