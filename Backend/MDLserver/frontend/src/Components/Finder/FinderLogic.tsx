@@ -16,6 +16,24 @@ interface Song{
     album: any;
 }
 
+interface Film{
+    name: string;
+    authors: string;
+    date: string;
+    img: string;
+    preview_url: string;
+    genre: any;
+}
+
+interface Series{
+    name: string;
+    authors: string;
+    date: string;
+    img: string;
+    preview_url: string;
+    genre: any;
+}
+
 const FinderLogic = () => {
 
     const [type_selected, set_type_selected] = useState<Type>({
@@ -25,6 +43,28 @@ const FinderLogic = () => {
         songs_selected: false
     
     })
+
+    const [shows, set_shows] = useState([
+        {
+            "name": "Persona 4 The Animation",
+            "authors": "Seiji Kishi",
+            "date": "March 30, 2012s",
+            "img": "https://upload.wikimedia.org/wikipedia/en/5/55/P4A_promo.jpg",
+            "preview_url": "https://www.youtube.com/watch?v=SwwJ00PqqFI",
+            "genre": "Action / Fantasy",
+        }
+    ])
+
+    const [movies, set_movies] = useState([
+        {
+            "name": "Persona 3 The Movie #1: Spring of Birth",
+            "authors": "Noriaki Akitaya",
+            "date": "November 23th, 2013",
+            "img": "https://static.wikia.nocookie.net/megamitensei/images/e/e0/P3TM1-ost.jpg/revision/latest?cb=20160824205251",
+            "preview_url": "https://www.youtube.com/watch?v=r7-M90PNk5E",
+            "genre": "Action / Fantasy",
+        }
+    ])
 
     const [tracks, set_tracks] = useState([
         {
@@ -458,6 +498,10 @@ const FinderLogic = () => {
 
     const [songs, set_songs] = useState<Song[] | undefined>()
 
+    const [films, set_films] = useState<Film[] | undefined>()
+
+    const [series, set_series] = useState<Series[] | undefined>()
+
     // Updates the type_selected state setting all false except films_selected
     const select_films = () =>{
         set_type_selected({films_selected: true, series_selected: false, songs_selected: false})
@@ -482,19 +526,87 @@ const FinderLogic = () => {
         return data
     }
 
+    // Fetch of the films query
+    const fetchFilms = async () => {
+        const res = await fetch('')
+        const data = await res.json()
+
+        console.log(data)
+        return data
+    }
+
+    // Fetch of the series query
+    const fetchSeries = async () => {
+        const res = await fetch('')
+        const data = await res.json()
+
+        console.log(data)
+        return data
+    }
+
     // Catches the enter event of the search bar
     const find = (e: any) => {
         var keycode = (e.keyCode ? e.keyCode : e.which);
         if (keycode == '13') {
             type_selected.songs_selected && find_songs()
+            type_selected.films_selected && find_films()
+            type_selected.series_selected && find_series()
             e.preventDefault();
             return false;
         }
     }
 
-    // Search the songs
+    // Search for songs
     const find_songs = () => {
         build_songs()
+    }
+
+    // Search for films
+    const find_films = () => {
+        build_films()
+    }
+
+    // Search for series
+    const find_series = () => {
+        build_series()
+    }
+
+    const build_series = () => {
+        let show_list: Array<any> = shows
+        let res: Array<any> = []
+        if(typeof show_list === "object" && show_list !== null && show_list !== undefined){
+            show_list.forEach((element) => {
+                const { name, authors, date, img, preview_url, genre} = element
+                res.push({
+                    name: name,
+                    authors: authors,
+                    date: date,
+                    img: img,
+                    preview_url: preview_url,
+                    genre: genre
+                })
+            })
+        }
+        set_series(res)
+    }
+
+    const build_films = () => {
+        let movie_list: Array<any> = movies
+        let res: Array<any> = []
+        if(typeof movie_list === "object" && movie_list !== null && movie_list !== undefined){
+            movie_list.forEach((element) => {
+                const { name, authors, date, img, preview_url, genre} = element
+                res.push({
+                    name: name,
+                    authors: authors,
+                    date: date,
+                    img: img,
+                    preview_url: preview_url,
+                    genre: genre
+                })
+            })
+        }
+        set_films(res)
     }
 
     // Transforms the array of tracks into a array of songs saved on songs
@@ -529,10 +641,9 @@ const FinderLogic = () => {
 
             set_songs(res)
         }
+    }        
+    
 
-        
-    }
-
-    return {songs, find, select_films, select_series, select_songs, type_selected}
+    return {songs, films, series, find, select_films, select_series, select_songs, type_selected}
 }
 export default FinderLogic
