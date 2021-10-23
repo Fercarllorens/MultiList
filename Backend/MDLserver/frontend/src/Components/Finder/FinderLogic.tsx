@@ -16,6 +16,15 @@ interface Song{
     album: any;
 }
 
+interface Film{
+    name: string;
+    authors: string;
+    date: string;
+    img: string;
+    preview_url: string;
+    genre: any;
+}
+
 const FinderLogic = () => {
 
     const [type_selected, set_type_selected] = useState<Type>({
@@ -458,6 +467,8 @@ const FinderLogic = () => {
 
     const [songs, set_songs] = useState<Song[] | undefined>()
 
+    const [films, set_films] = useState<Film[] | undefined>()
+
     // Updates the type_selected state setting all false except films_selected
     const select_films = () =>{
         set_type_selected({films_selected: true, series_selected: false, songs_selected: false})
@@ -533,6 +544,6 @@ const FinderLogic = () => {
         
     }
 
-    return {songs, find, select_films, select_series, select_songs, type_selected}
+    return {songs, films, find, select_films, select_series, select_songs, type_selected}
 }
 export default FinderLogic
