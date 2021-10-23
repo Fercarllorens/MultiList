@@ -25,6 +25,15 @@ interface Film{
     genre: any;
 }
 
+interface Series{
+    name: string;
+    authors: string;
+    date: string;
+    img: string;
+    preview_url: string;
+    genre: any;
+}
+
 const FinderLogic = () => {
 
     const [type_selected, set_type_selected] = useState<Type>({
@@ -34,6 +43,17 @@ const FinderLogic = () => {
         songs_selected: false
     
     })
+
+    const [shows, set_shows] = useState([
+        {
+            "name": "Persona 4 The Animation",
+            "authors": "Seiji Kishi",
+            "date": "March 30, 2012s",
+            "img": "https://upload.wikimedia.org/wikipedia/en/5/55/P4A_promo.jpg",
+            "preview_url": "https://www.youtube.com/watch?v=SwwJ00PqqFI",
+            "genre": "Action / Fantasy",
+        }
+    ])
 
     const [movies, set_movies] = useState([
         {
@@ -480,6 +500,8 @@ const FinderLogic = () => {
 
     const [films, set_films] = useState<Film[] | undefined>()
 
+    const [series, set_series] = useState<Series[] | undefined>()
+
     // Updates the type_selected state setting all false except films_selected
     const select_films = () =>{
         set_type_selected({films_selected: true, series_selected: false, songs_selected: false})
@@ -504,7 +526,17 @@ const FinderLogic = () => {
         return data
     }
 
+    // Fetch of the films query
     const fetchFilms = async () => {
+        const res = await fetch('')
+        const data = await res.json()
+
+        console.log(data)
+        return data
+    }
+
+    // Fetch of the series query
+    const fetchSeries = async () => {
         const res = await fetch('')
         const data = await res.json()
 
@@ -518,6 +550,7 @@ const FinderLogic = () => {
         if (keycode == '13') {
             type_selected.songs_selected && find_songs()
             type_selected.films_selected && find_films()
+            type_selected.series_selected && find_series()
             e.preventDefault();
             return false;
         }
@@ -531,6 +564,30 @@ const FinderLogic = () => {
     // Search for films
     const find_films = () => {
         build_films()
+    }
+
+    // Search for series
+    const find_series = () => {
+        build_series()
+    }
+
+    const build_series = () => {
+        let show_list: Array<any> = shows
+        let res: Array<any> = []
+        if(typeof show_list === "object" && show_list !== null && show_list !== undefined){
+            show_list.forEach((element) => {
+                const { name, authors, date, img, preview_url, genre} = element
+                res.push({
+                    name: name,
+                    authors: authors,
+                    date: date,
+                    img: img,
+                    preview_url: preview_url,
+                    genre: genre
+                })
+            })
+        }
+        set_series(res)
     }
 
     const build_films = () => {
@@ -587,6 +644,6 @@ const FinderLogic = () => {
     }        
     
 
-    return {songs, films, find, select_films, select_series, select_songs, type_selected}
+    return {songs, films, series, find, select_films, select_series, select_songs, type_selected}
 }
 export default FinderLogic
