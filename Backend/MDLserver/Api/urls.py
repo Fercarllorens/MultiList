@@ -4,6 +4,7 @@ app_name = 'Api'
 
 from .views.film_view import GetFilm, PostFilm, PutFilm
 from .views.series_view import GetSeries, PostSeries, PutSeries
+from .views.song_view import GetSong, PostSong, PutSong
 from .views.user_view import GetUser, PostUser, PutUser
 
 app_name = 'Api'
@@ -15,9 +16,9 @@ urlpatterns = [
     path('post-series', PostSeries.as_view()),
     path('put-series', PutSeries.as_view()),
     path('get-series', GetSeries.as_view()),
-    path('post-song', PostSeries.as_view()),
-    path('put-song', PutSeries.as_view()),
-    path('get-song', GetSeries.as_view()),
+    path('post-song', PostSong.as_view()),
+    path('put-song', PutSong.as_view()),
+    path('get-song', GetSong.as_view()),
     path('get-user', GetUser.as_view()),
     path('post-user', PostUser.as_view()),
     path('put-user', PutUser.as_view()),
