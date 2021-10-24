@@ -6,6 +6,7 @@ import MultimediaTopData from '../MultimediaTopData/MultimediaTopData'
 import MultimediaTrailer from '../MultimediaTrailer/MultimediaTrailer'
 import MultimediaBottomData from '../MultimediaBottomData/MultimediaBottomData'
 import Pic from '../Pic/Pic'
+import { Script } from 'vm'
 
 
 interface Props{
@@ -20,7 +21,7 @@ const MultimediaContent: React.FC<Props> = (props) => {
         <div className="multimedia-cont">
             <MultimediaTopData list={listTop} />
             <Pic url={imageUrl} />
-            <MultimediaTrailer trailer={trailerUrl}/>
+            <MultimediaTrailer trailer={trailerUrl}/>                 
             <MultimediaBottomData list={listBottom}/> 
         </div>
     )
