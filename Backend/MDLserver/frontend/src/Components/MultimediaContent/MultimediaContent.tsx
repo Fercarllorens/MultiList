@@ -10,6 +10,7 @@ import Pic from '../Pic/Pic'
 
 interface Props{
     data : JSON | null;
+    type: string | null;
 }
 
 const MultimediaContent: React.FC<Props> = (props) => {
