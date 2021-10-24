@@ -2,8 +2,8 @@ from rest_framework.views import APIView
 from rest_framework import authtoken, status
 from rest_framework.response import Response
 
-from Backend.MDLserver.Api.utils import create_token
 # Local
+from ..utils import create_access_token
 from ..models import User
 import global_variables as gv
 
@@ -24,7 +24,7 @@ class PostUser(APIView):
             username=data[gv.USER.USERNAME],
             password=data[gv.USER.PASSWORD],
             email=data[gv.USER.EMAIL], 
-            auth_token=create_token(
+            auth_token=create_access_token(
                 username=data[gv.USER.USERNAME],
                 password=data[gv.USER.PASSWORD])  
         )

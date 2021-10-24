@@ -1,10 +1,10 @@
 from django.urls import path
-from .views.user_view import GetUser, PostUser, PutUser
 app_name = 'Api'
 
 from .views.film_view import GetFilm, PostFilm, PutFilm
 from .views.series_view import GetSeries, PostSeries, PutSeries
 from .views.user_view import GetUser, PostUser, PutUser
+from .views.auth_view import Login, Register
 
 app_name = 'Api'
 
@@ -21,6 +21,8 @@ urlpatterns = [
     path('get-user', GetUser.as_view()),
     path('post-user', PostUser.as_view()),
     path('put-user', PutUser.as_view()),
+    path('login', Login.as_view()),
+    path('register', Register.as_view()),
 ]
 
 
