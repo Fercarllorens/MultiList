@@ -59,4 +59,10 @@ class SPOTIFY():
     class SERIES():
         EXTERNAL_ID = "id"
 
+    class FILMS():
+        NAME = "name"
+        TYPE = "type"
+        ELEMENTS = "elements"
+        USER_ID = "user_id"
+
 
