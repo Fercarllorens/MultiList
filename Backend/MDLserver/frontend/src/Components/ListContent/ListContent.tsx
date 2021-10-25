@@ -1,7 +1,7 @@
 import React from 'react';
 import './ListContent.css'
 import ListContentLogic from './ListContentLogic';
-
+import SongPreview from '../SongPreview/SongPreview'
 interface Props{
     type: string;
 }
@@ -11,7 +11,15 @@ const ListContent: React.FC<Props> = (props) => {
 
     return (
         <div className="list-content">
-            
+            {/* <>
+            {
+                contents!==undefined ?
+                    contents.map((element) => (
+                        <SongPreview song={element} />
+                    ))
+                : 'No results'
+            }
+            </> */}
         </div>
     )
 }
