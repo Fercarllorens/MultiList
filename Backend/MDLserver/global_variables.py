@@ -72,6 +72,7 @@ class COMMON():
     EMAIL = "email"
     SPOTIFY_TOKEN = "spotify_token"
     LISTS = "lists"
+    QUERY = 'query'
 
 class FILM():
     EXTERNAL_ID = "id"
