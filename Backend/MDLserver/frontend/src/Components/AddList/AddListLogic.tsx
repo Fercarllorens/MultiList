@@ -1,33 +1,21 @@
+import { userInfo } from "os"
 import { useState } from "react"
 
-interface Props{
-    contents: JSON | null;
-    name: string | null;
-}
 
-interface Items{
-    id : string;
-}
 
-interface Data{
-    items: Items[];
-}
-
-const ListContentLogic = (props:Props) => {
-    let data:Data = JSON.parse('{"items":[{"id":"value1"},{"id":"value2"},{"id":"value3"}]}');
+const AddListLogic: any = () => {
+    const [data , setData] = useState<null | JSON>(null)
+    let userId : string | null = localStorage.getItem('user_id')
+    let contentId : string | null = "";
+    let url : string = `http://localhost:8000/api/update-list?id=${userId}&contentId=${contentId}`
     
-    let contentList: string[] = []
-    for( let i = 0, comp; i < data.items.length; i++){
-       comp = data.items[i];
-       contentList.push(comp.id)
-    }
-    console.log(contentList)
-    const [name, setName] = useState<null | string>(props!=null && props.name != null ? props.name : 'Nombre')
-    const [list, setList] = useState<null | string[]>([])
-    return {}
+    fetch(url)
+      .then((res) => res.json())
+      .then((json) => setData(json))
+      .catch((err) => console.error(err))
 }
 
 
 
 
-export default ListContentLogic
+export default AddListLogic

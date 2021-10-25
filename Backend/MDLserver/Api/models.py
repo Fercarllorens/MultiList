@@ -7,7 +7,7 @@ class Film (models.Model):
 class Series (models.Model):
     external_id = models.CharField(max_length=300, unique=True)
     
-class List (models.Models):
+class List (models.Model):
     name = models.CharField(max_length=50)
     type = models.CharField(max_length=50)
     contents = models.CharField(max_length=500)

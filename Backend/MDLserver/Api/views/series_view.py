@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 
-from Backend.MDLserver import global_variables as gv
-from .. import Series;
+import global_variables as gv
+from ..models import Series;
 
 # Create your views here.
 class PostSeries(APIView):

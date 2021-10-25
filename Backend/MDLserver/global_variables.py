@@ -40,29 +40,35 @@ class SPOTIFY():
     class ERRORS():
         REQUEST = "Something went wrong with your request"
 
+class USER():
+    USERNAME = "username"
+    PASSWORD = "password"
+    EMAIL = "email"
+    SPOTIFY_TOKEN = "spotify_token"
+    LISTS = "lists"
 
-    class COMMON():
-        CONTENT = "content"
-        ERROR = "error"
-        ITEM = "item"
-        ITEMS = "items"
-        USER = "user"
-        PASSWORD = "password"
-        QUERY = "query"
-        TYPE = "type"
-        ID = "id"
+class COMMON():
+    CONTENT = "content"
+    ERROR = "error"
+    ITEM = "item"
+    ITEMS = "items"
+    USER = "user"
+    PASSWORD = "password"
+    QUERY = "query"
+    TYPE = "type"
+    ID = "id"
 
 
-    class FILM():
-        EXTERNAL_ID = "id"
+class FILM():
+    EXTERNAL_ID = "id"
 
-    class SERIES():
-        EXTERNAL_ID = "id"
+class SERIES():
+    EXTERNAL_ID = "id"
 
-    class FILMS():
-        NAME = "name"
-        TYPE = "type"
-        ELEMENTS = "elements"
-        USER_ID = "user_id"
+class LIST():
+    NAME = "name"
+    TYPE = "type"
+    CONTENTS = "contents"
+    USER_ID = "user_id"
 
 

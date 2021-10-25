@@ -1,16 +1,17 @@
 import React from 'react';
 import './ListContent.css'
 import AddListLogic from './AddListLogic';
+import { userInfo } from 'os';
 
-interface Props{
-    contents: JSON | null;
-    name: string | null;
-}
+
 
 const  AddList: React.FC = () => {
-    return (
-        <button className="add-button" type="submit">+ Add to list</button>
-    )
+    if (localStorage.getItem('authToken')){
+        return (
+            <button className="add-button" onSubmit={AddListLogic()} type="submit">+ Add to list</button>
+        )
+    }
+    return (<p>Log-in to start managin your own lists</p>)
 }
 
 export default AddList

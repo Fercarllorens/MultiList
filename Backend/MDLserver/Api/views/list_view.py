@@ -5,13 +5,14 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 
-from Backend.MDLserver import global_variables as gv
-from .. import List;
+import global_variables as gv
+from ..models import List;
+import json
 
 class PostList(APIView):
     def post(self, request, format=None):
         data = request.POST[gv.COMMON.ID]
-        obj = List.objects.create(name = data[gv.LIST.NAME], type = data[gv.LIST.TYPE], contents = data[gv.LIST.CONTENTS], user_id = data[gv.LIST.USER_ID]) 
+        obj = List.objects.create(name = data[gv.LIST.NAME], type = data[gv.LIST.TYPE], contents = '{"items":[]}', user_id = data[gv.LIST.USER_ID]) 
         return Response({obj}, status=status.HTTP_200_OK)
         
 class PutList(APIView):
@@ -30,11 +31,16 @@ class GetList(APIView):
         return Response({obj}, status=status.HTTP_200_OK)
 
 class UpdateListContents(APIView):
-    def update(self, request, format=None):
-        obj = List.objets.get(id=request.POST[gv.COMMON.ID])
-        contId = request.POST[content_id]
-        if obj is None | contId is None:
+    def post(self, request, format=None):
+        obj = List.objects.get(id=request.POST[gv.COMMON.ID])
+        contentId = request.POST['contentId']
+        if obj is None:
             return Response({obj}, status=status.HTTP_204_NO_CONTENT)
-        obj.contents = request.POST[gv.LIST.CONTENTS]
-        obj.contents = obj.contents.push(contId)
+        string_json = obj.contents
+        content_json = json.loads(string_json)
+        content_json.items.append(contentId)
+        string_json = json.dumps(content_json)
+        obj = List.objects.update_or_create(id = obj.id, defaults={
+            gv.LISTS.CONTENTS: string_json
+        })
         return Response({obj}, status=status.HTTP_200_OK)

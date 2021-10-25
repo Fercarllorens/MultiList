@@ -4,9 +4,8 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 
-from Backend.MDLserver import global_variables as gv
-from .. import Film;
-
+import global_variables as gv
+from ..models import Film;
 # Create your views here.
 class PostFilm(APIView):
     def post(self, request, format=None):
@@ -29,4 +28,5 @@ class GetFilm(APIView):
             return Response({obj}, status=status.HTTP_204_NO_CONTENT)
         return Response({obj}, status=status.HTTP_200_OK)
 
-    
+
+   
