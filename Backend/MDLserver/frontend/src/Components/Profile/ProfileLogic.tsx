@@ -6,6 +6,7 @@ interface Data {
 }
 
 const ProfileLogic = () => {
+  const [open, setOpen] = useState<boolean>(false)
   const [pic, setPic] = useState<undefined | string>(undefined)
   const [data, setData] = useState<null | Data>(null)
 
@@ -17,6 +18,6 @@ const ProfileLogic = () => {
       .catch((err) => console.error(err))
   }
 
-  return { pic, data, getUserData }
+  return { open, setOpen, pic, data, getUserData }
 }
 export default ProfileLogic

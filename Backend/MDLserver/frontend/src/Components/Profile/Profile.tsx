@@ -3,34 +3,52 @@ import ProfileLogic from './ProfileLogic'
 import './Profile.css'
 
 import Pic from '../Pic/Pic'
+import Modal from '../Modal/Modal'
 
 const Profile = () => {
-  const { pic, data, getUserData } = ProfileLogic()
+  const { open, setOpen, pic, data, getUserData } = ProfileLogic()
+  const uid = localStorage.getItem('user_id')
 
   //TODO: MODIFICAR CUANDO SE AÑADA EL LOGIN
   useEffect(() => {
-    getUserData('id')
+    if (uid !== null) getUserData(uid)
   }, [])
 
   return (
     <div className='profile-container'>
+      <Modal 
+        open={open} 
+        onClose={() => setOpen(false)} 
+        uid={uid} 
+        endpoint={"api/put-user"}
+        method={"POST"}
+        values={[{
+          text: "Username",
+          type: "string",
+          value: "Username",
+          api_value: "username",
+        },
+        {
+          text: "Email",
+          type: "email",
+          value: "email@email.com",
+          api_value: "email",
+        },]}
+      />
       <div className='profile-pic'>
         <img src={pic} alt='Profile Pic' />
       </div>
       <div className='profile-data'>
         <h4>User Info</h4>
         <ul>
-          <p>Info1 {data ? data.name : 'No disponible'}</p>
-          <p>Info2 {data ? data.email : 'No disponible'}</p>
+          <p>User Name {data ? data.name : 'No disponible'}</p>
+          <p>Email {data ? data.email : 'No disponible'}</p>
         </ul>
       </div>
       <div className='profile-settings'>
         <h4>Settings</h4>
         <ul>
-          <p>Setting1</p>
-          <p>Setting2</p>
-          <p>Setting3</p>
-          <p>Setting4</p>
+          <p onClick={() => {setOpen(!open)}}>Update Profile</p>
         </ul>
       </div>
     </div>
