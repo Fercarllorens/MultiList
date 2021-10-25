@@ -9110,15 +9110,7 @@ const FinderLogic = () => {
 
     // Fetch of the songs query
     const fetchSongs = async (content: string) => {
-        let url = 'http://127.0.0.1:8000/spotify/search?query=' + content + '&type=track&user=llivpulki6ty8ysxpng6uw22xinec7d5'
-        console.log(content)
-        
-        // const res = await fetch(url)
-        // const data = await res.json()
-        // console.log(data)
-        // //return data
-        // set_tracks(data)
-
+        let url = 'http://127.0.0.1:8000/spotify/search?query=' + content + '&type=track&user=llivpulki6ty8ysxpng6uw22xinec7d5';
         fetch(url)
             .then((res) => res.json())
             .then((json) => set_tracks(json))
