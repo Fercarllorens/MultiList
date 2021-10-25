@@ -19,6 +19,23 @@ interface Progress {
 
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
+
+    const fetch_post_song = async (id: string) => {
+        let url = 'http://127.0.0.1:8000/api';
+        const body = JSON.stringify({id: id});
+        fetch(url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err))
+    }
+
+    const fetch_get_track = async (id: string) => {
+        let url = `http://127.0.0.1:8000/spotify/get-track?id=${id}&user=jxl18bdljif6xgk8hgrcfdk3mgsxy0eo`
+        fetch(url)
+            .then((res) => res.json())
+            .then((json) => set_json(json))
+            .catch((err) => console.error(err))
+    }
+
     const [json, set_json] = useState();
     let image_url = 'not available';
     let trailer_url = 'not available';
@@ -62,7 +79,8 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     if(props.type == 'song'){
-        let track: any = props.data;
+        fetch_post_song(props.id);
+        let track: any = fetch_get_track(props.id);
         const {name, album, artists, duration_ms, preview_url} = track;
         const {release_date, images} = album;        
         let artists_string = 'No artists found';
