@@ -6,7 +6,9 @@ import MultimediaContentLogic from './MultimediaContentLogic'
 import MultimediaTopData from '../MultimediaTopData/MultimediaTopData'
 import MultimediaTrailer from '../MultimediaTrailer/MultimediaTrailer'
 import MultimediaBottomData from '../MultimediaBottomData/MultimediaBottomData'
+import AddList from '../AddList/AddList'
 import Pic from '../Pic/Pic'
+import AddListLogic from '../AddList/AddListLogic'
 
 
 interface Props{
@@ -19,6 +21,7 @@ const MultimediaContent: React.FC<Props> = (props) => {
   
     return (
         <div className="multimedia-cont">
+            <AddList contentId={""} />
             <MultimediaTopData list={listTop} />
             <Pic url={imageUrl} />
             <MultimediaTrailer trailer={trailerUrl}/>

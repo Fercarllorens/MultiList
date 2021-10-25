@@ -3,12 +3,11 @@ import './ListContent.css'
 import ListContentLogic from './ListContentLogic';
 
 interface Props{
-    contents: JSON | null;
-    name: string | null;
+    type: string;
 }
 
 const ListContent: React.FC<Props> = (props) => {
-    const {} = ListContentLogic(props)
+    const {contents} = ListContentLogic(props)
 
     return (
         <div className="list-content">

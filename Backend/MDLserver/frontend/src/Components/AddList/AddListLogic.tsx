@@ -1,13 +1,17 @@
 import { userInfo } from "os"
 import { useState } from "react"
 
+interface Props{
+    contentId: string;
+    type: string;
+}
 
-
-const AddListLogic: any = () => {
+const AddListLogic: any = (props:Props) => {
     const [data , setData] = useState<null | JSON>(null)
     let userId : string | null = localStorage.getItem('user_id')
-    let contentId : string | null = "";
-    let url : string = `http://localhost:8000/api/update-list?id=${userId}&contentId=${contentId}`
+    let type : string | null = props.type
+    let contentId : string | null = props.contentId;
+    let url : string = `http://localhost:8000/api/update-list?id=${userId}&contentId=${contentId}&type=${type}`
     
     fetch(url)
       .then((res) => res.json())

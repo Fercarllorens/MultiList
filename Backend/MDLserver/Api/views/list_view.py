@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
+from Backend.MDLserver.global_variables import LIST
 
 import global_variables as gv
 from ..models import List;
@@ -25,14 +26,14 @@ class PutList(APIView):
 
 class GetList(APIView):
     def get(self, request, format=None):
-        obj = List.objects.get(id=request.POST[gv.COMMON.ID])
+        obj = List.objects.get(type=request.POST[gv.LIST.TYPE], id=request.POST[gv.LIST.USER_ID])
         if obj is None:
             return Response({obj}, status=status.HTTP_204_NO_CONTENT)
         return Response({obj}, status=status.HTTP_200_OK)
 
 class UpdateListContents(APIView):
     def post(self, request, format=None):
-        obj = List.objects.get(id=request.POST[gv.COMMON.ID])
+        obj = List.objects.get(type=request.POST[gv.LIST.TYPE], id=request.POST[gv.LIST.USER_ID])
         contentId = request.POST['contentId']
         if obj is None:
             return Response({obj}, status=status.HTTP_204_NO_CONTENT)
