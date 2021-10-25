@@ -38,10 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework.authtoken',
-    'Api.apps.ApiConfig',
     'frontend.apps.FrontendConfig',    
     'SpotifyAPI.apps.SpotifyapiConfig',
     'Video.apps.VideoConfig',
+    'Api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +141,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+AUTHENTICATION_BACKENDS = ['Api.authbackend.AuthBackend']
+
+AUTH_USER_MODEL = 'Api.User'
