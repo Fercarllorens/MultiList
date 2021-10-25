@@ -15,6 +15,7 @@ interface Song{
     img: string;
     preview_url: string;
     album: any;
+    id: string;
 }
 
 interface Film{
@@ -195,7 +196,7 @@ const FinderLogic = () => {
         if(typeof track_list === "object" && track_list !== null && track_list !== undefined){
             track_list.forEach((element) => {
 
-                const { album, artists, name, preview_url } = element
+                const { album, artists, name, preview_url, id } = element
                 const { release_date, images } = album
                 var authors_string: string = ""
 
@@ -212,7 +213,8 @@ const FinderLogic = () => {
                     date: release_date,
                     img: img.url,
                     preview_url: preview_url,
-                    album: album
+                    album: album,
+                    id: id,
                 })
                 
             })

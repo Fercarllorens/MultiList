@@ -19,8 +19,10 @@ function App() {
         <Route exact path='/register' component={Register} />
         <PrivateRoute path='/profile' component={Profile} />
         <PrivateRoute path='/MyLists' component={MyLists} />
+        <Route exact path='/Finder' component={Finder} />
+        <Route exact path='/MultimediaContent' component={MultimediaContent} />
         <PrivateRoute path='/' component={Finder} />
-        <Route path="*" component={() => {return <div>404 Not found</div>}} />
+        <Route path="*" component={() => {return <div>404 NOT FOUND</div>}} />
       </Switch>
       <MultimediaContent data={data} type={'song'}/>
     </Router>

@@ -9,6 +9,7 @@ interface Song{
     img: string;
     preview_url: string;
     album: any;
+    id: string;
 }
 
 interface Props{
@@ -19,7 +20,7 @@ const SongPreview: React.FC<Props> = ({song}) => {
     const {show_song} = SongPreviewLogic()
 
     return (
-        <div className="SongPreviewContainer" onClick={() => {show_song()}}>
+        <div className="SongPreviewContainer" onClick={() => {show_song(song.id)}}>
             <div className="PictureDiv">
                 <img className="Picture" src={song.img} height="130" width="130"></img>
             </div>

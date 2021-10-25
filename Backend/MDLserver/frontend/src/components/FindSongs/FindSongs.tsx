@@ -10,6 +10,7 @@ interface Song{
     img: string;
     preview_url: string;
     album: any;
+    id: string;
 }
 
 interface Props{
