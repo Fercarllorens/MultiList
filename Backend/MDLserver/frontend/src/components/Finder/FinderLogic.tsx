@@ -9110,7 +9110,7 @@ const FinderLogic = () => {
 
     // Fetch of the songs query
     const fetchSongs = async (content: string) => {
-        let url = 'http://127.0.0.1:8000/spotify/search?query=Despacito&type=track&user=4zazhmbvo9yasiodeon8eqibipiemgd9'
+        let url = 'http://127.0.0.1:8000/spotify/search?query=' + content + '&type=track&user=llivpulki6ty8ysxpng6uw22xinec7d5'
         console.log(content)
         
         // const res = await fetch(url)
@@ -9123,8 +9123,6 @@ const FinderLogic = () => {
             .then((res) => res.json())
             .then((json) => set_tracks(json))
             .catch((err) => console.error(err))
-
-        
     }
 
     // Fetch of the films query
