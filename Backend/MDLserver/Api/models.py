@@ -10,5 +10,5 @@ class Series (models.Model):
 class List (models.Models):
     name = models.CharField(max_length=50)
     type = models.CharField(max_length=50)
-    elements = models.CharField(max_length=500)
+    contents = models.CharField(max_length=500)
     user_id = models.CharField(max_length=300)
