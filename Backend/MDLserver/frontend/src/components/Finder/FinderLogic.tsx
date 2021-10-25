@@ -518,12 +518,14 @@ const FinderLogic = () => {
     }
 
     // Fetch of the songs query
-    const fetchSongs = async () => {
-        const res = await fetch('')
+    const fetchSongs = async (content: string) => {
+        console.log(content)
+        const res = await fetch('http://127.0.0.1:8000/spotify/search?query=Despacito&type=track&user=jy265r6o7bgtf1d739zo15sf57lrobla')
         const data = await res.json()
 
         console.log(data)
-        return data
+        //return data
+        set_tracks(data)
     }
 
     // Fetch of the films query
@@ -545,10 +547,10 @@ const FinderLogic = () => {
     }
 
     // Catches the enter event of the search bar
-    const find = (e: any) => {
+    const find = (e: any, content: string) => {
         var keycode = (e.keyCode ? e.keyCode : e.which);
         if (keycode == '13') {
-            type_selected.songs_selected && find_songs()
+            type_selected.songs_selected && find_songs(content)
             type_selected.films_selected && find_films()
             type_selected.series_selected && find_series()
             e.preventDefault();
@@ -557,8 +559,8 @@ const FinderLogic = () => {
     }
 
     // Search for songs
-    const find_songs = () => {
-        build_songs()
+    const find_songs = (content: string) => {
+        fetchSongs(content)
     }
 
     // Search for films
@@ -641,7 +643,12 @@ const FinderLogic = () => {
 
             set_songs(res)
         }
-    }        
+    }
+    
+    useEffect(() => {
+        build_songs()
+    },
+    [tracks])
     
 
     return {songs, films, series, find, select_films, select_series, select_songs, type_selected}
