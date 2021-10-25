@@ -22,6 +22,7 @@ function App() {
         <PrivateRoute path='/' component={Finder} />
         <Route path="*" component={() => {return <div>404 Not found</div>}} />
       </Switch>
+      <MultimediaContent data={data} type={'song'}/>
     </Router>
   )
 }
