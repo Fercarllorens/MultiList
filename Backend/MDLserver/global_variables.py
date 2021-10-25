@@ -73,6 +73,8 @@ class COMMON():
     SPOTIFY_TOKEN = "spotify_token"
     LISTS = "lists"
     QUERY = 'query'
+    ID= 'id'
+    TYPE = 'type'
 
 class FILM():
     EXTERNAL_ID = "id"
