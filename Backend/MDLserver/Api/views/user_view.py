@@ -3,7 +3,7 @@ from rest_framework import authtoken, status
 from rest_framework.response import Response
 
 # Local
-from ..utils import create_access_token
+from ..utils import create_token
 from ..models import User
 import global_variables as gv
 
@@ -23,10 +23,7 @@ class PostUser(APIView):
         obj = User.objects.create(
             username=data[gv.USER.USERNAME],
             password=data[gv.USER.PASSWORD],
-            email=data[gv.USER.EMAIL], 
-            auth_token=create_access_token(
-                username=data[gv.USER.USERNAME],
-                password=data[gv.USER.PASSWORD])  
+            email=data[gv.USER.EMAIL],
         )
         return Response({obj}, status=status.HTTP_200_OK)
 

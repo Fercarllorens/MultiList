@@ -5,38 +5,31 @@ from rest_framework.views import APIView
 from rest_framework import authtoken, status
 from rest_framework.response import Response
 
+#Local
 import global_variables as gv
-from ..models import User
-from ..utils import create_token
+from ..serializers import UserSignUpSerializer, UserLoginSerializer, UserModelSerializer
 
 # Create your views here.
 class Login(APIView):
     def post(self, request, format=None):
-        email = request.POST[gv.USER.EMAIL]
-        password = request.POST[gv.USER.PASSWORD]
-
-        if(not email or not password):
-            return Response({"Something went wrong with your request"}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = UserLoginSerializer(data = request.data)
+        serializer.is_valid(raise_exception = True)
+        user, token = serializer.save()
+        data = {
+            'user': UserModelSerializer(user).data,
+            'access_token': token
+        }
         
-        user = authenticate(email=email, password=password)
-        if not user:
-            return Response({"Invalid credentials, please try again"}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            print('b')
-            return Response({self}, status=status.HTTP_200_OK)
+        return Response(data, status=status.HTTP_201_CREATED)
             
     
 
 class Register(APIView):
     def post(self, request, format=None):
-        username = request.POST[gv.USER.USERNAME]
-        password = request.POST[gv.USER.PASSWORD]
-        email = request.POST[gv.USER.EMAIL]
-        obj = User.objects.create(
-            username = username, 
-            password = password, 
-            email = email, 
-            auth_token = create_token(username = username, password = password))
+        serializer = UserSignUpSerializer(data = request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        data = UserModelSerializer(user).data
 
-        return Response({obj}, status=status.HTTP_200_OK)
+        return Response(data, status=status.HTTP_201_CREATED)
 
