@@ -26,15 +26,6 @@ const SeriesPreview: React.FC<Props> = ({series}) => {
                 <div className="SeriesName">
                     {series.name}
                 </div>
-                <div className="SeriesAuthor">
-                    {series.authors}
-                </div>
-                <div className="SeriesDate">
-                    {series.date}
-                </div>
-                <div className="SeriesGenre">
-                    Genre
-                </div>
             </div>
         </div>
     )

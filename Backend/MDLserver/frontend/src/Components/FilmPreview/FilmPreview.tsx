@@ -27,15 +27,6 @@ const FilmPreview: React.FC<Props> = ({film}) => {
                 <div className="FilmName">
                     {film.name}
                 </div>
-                <div className="FilmAuthor">
-                    {film.authors}
-                </div>
-                <div className="FilmDate">
-                    {film.date}
-                </div>
-                <div className="FilmGenre">
-                    Genre
-                </div>
             </div>
         </div>
     )

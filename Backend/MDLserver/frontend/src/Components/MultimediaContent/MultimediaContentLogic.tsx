@@ -15,12 +15,51 @@ interface Progress {
     progress: string
 }
 
+
+
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
+    const [json, set_json] = useState();
     let image_url = 'not available';
     let trailer_url = 'not available';
     let list_top = [];
     let list_bot = [];
+
+    const fetch_post_film = async (id: string) => {
+        //let url = 'http://127.0.0.1:8000/api';
+        let url = ''
+        const body = JSON.stringify({id: id});
+        fetch(url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err))
+    }
+    
+    const fetch_get_film = async (id: string) => {
+        //let url = 'http://127.0.0.1:8000/spotify/get-track?id=${id}&user=jxl18bdljif6xgk8hgrcfdk3mgsxy0eo'
+        let url = ''
+        fetch(url)
+            .then((res) => res.json())
+            .then((json) => set_json(json))
+            .catch((err) => console.error(err))
+    }
+
+    const fetch_post_series = async (id: string) => {
+        //let url = 'http://127.0.0.1:8000/api';
+        let url = ''
+        const body = JSON.stringify({id: id});
+        fetch(url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err))
+    }
+    
+    const fetch_get_series = async (id: string) => {
+        //let url = 'http://127.0.0.1:8000/spotify/get-track?id=${id}&user=jxl18bdljif6xgk8hgrcfdk3mgsxy0eo'
+        let url = ''
+        fetch(url)
+            .then((res) => res.json())
+            .then((json) => set_json(json))
+            .catch((err) => console.error(err))
+    }
 
     if(props.type == 'song'){
         let track: any = props.data;
@@ -50,11 +89,21 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     else if(props.type == 'series'){
+        //fetch_post_series(props.id)
+        let show: any = props.data;
+        const { id, name, picture } = show
 
+        image_url = picture;
+        list_top.push(name);
     }
 
     else if(props.type == 'film'){
-        
+        //fetch_post_film(props.id)
+        let movie: any = props.data;
+        const { id, name, picture } = movie
+
+        image_url = picture;
+        list_top.push(name);
     }
 
     let userId : string | null = localStorage.getItem('user_id') 

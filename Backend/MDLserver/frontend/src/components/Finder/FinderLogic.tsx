@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { resourceLimits } from "worker_threads";
 
 interface Type{
     films_selected: boolean;
@@ -17,21 +18,15 @@ interface Song{
 }
 
 interface Film{
+    id: string
     name: string;
-    authors: string;
-    date: string;
     img: string;
-    preview_url: string;
-    genre: any;
 }
 
 interface Series{
+    id: string
     name: string;
-    authors: string;
-    date: string;
     img: string;
-    preview_url: string;
-    genre: any;
 }
 
 const FinderLogic = () => {
@@ -68,6 +63,10 @@ const FinderLogic = () => {
 
     const [tracks_list, set_tracks_list] = useState<any | undefined>()
 
+    const [shows_list, set_shows_list] = useState<any | undefined>()
+
+    const [movies_list, set_movies_list] = useState<any | undefined>()
+
     const [songs, set_songs] = useState<Song[] | undefined>()
 
     const [films, set_films] = useState<Film[] | undefined>()
@@ -99,21 +98,25 @@ const FinderLogic = () => {
     }
 
     // Fetch of the films query
-    const fetchFilms = async () => {
-        const res = await fetch('')
-        const data = await res.json()
+    const fetchFilms = async (content: string) => {
+        //TODO meter url
+        let url = ''
 
-        console.log(data)
-        return data
+        fetch(url)
+            .then((res) => res.json)
+            .then((json) => set_movies_list(json))
+            .catch((err) => console.error(err))
     }
 
     // Fetch of the series query
-    const fetchSeries = async () => {
-        const res = await fetch('')
-        const data = await res.json()
+    const fetchSeries = async (content: string) => {
+        //TODO meter url
+        let url = ''
 
-        console.log(data)
-        return data
+        fetch(url)
+            .then((res) => res.json)
+            .then((json) => set_shows_list(json))
+            .catch((err) => console.error(err))
     }
 
     // Catches the enter event of the search bar
@@ -121,8 +124,8 @@ const FinderLogic = () => {
         var keycode = (e.keyCode ? e.keyCode : e.which);
         if (keycode == '13') {
             type_selected.songs_selected && find_songs(content)
-            type_selected.films_selected && find_films()
-            type_selected.series_selected && find_series()
+            type_selected.films_selected && find_films(content)
+            type_selected.series_selected && find_series(content)
             e.preventDefault();
             return false;
         }
@@ -134,28 +137,29 @@ const FinderLogic = () => {
     }
 
     // Search for films
-    const find_films = () => {
-        build_films()
+    const find_films = (content: string) => {
+        fetchFilms(content)
     }
 
     // Search for series
-    const find_series = () => {
-        build_series()
+    const find_series = (content: string) => {
+        fetchSeries(content)
     }
 
     const build_series = () => {
-        let show_list: Array<any> = shows
+        const { results } = shows_list
+        let show_list: Array<any> = results.items
         let res: Array<any> = []
+
         if(typeof show_list === "object" && show_list !== null && show_list !== undefined){
+            //TODO comprobar que este bien
             show_list.forEach((element) => {
-                const { name, authors, date, img, preview_url, genre} = element
+                const { id, name, picture } = element
+
                 res.push({
+                    id: id,
                     name: name,
-                    authors: authors,
-                    date: date,
-                    img: img,
-                    preview_url: preview_url,
-                    genre: genre
+                    img: picture
                 })
             })
         }
@@ -163,18 +167,19 @@ const FinderLogic = () => {
     }
 
     const build_films = () => {
-        let movie_list: Array<any> = movies
+        const { results } = shows_list
+        let movie_list: Array<any> = results.items
         let res: Array<any> = []
+
         if(typeof movie_list === "object" && movie_list !== null && movie_list !== undefined){
+            //TODO comprobar que este bien
             movie_list.forEach((element) => {
-                const { name, authors, date, img, preview_url, genre} = element
+                const { id, name, picture } = element
+
                 res.push({
+                    id: id,
                     name: name,
-                    authors: authors,
-                    date: date,
-                    img: img,
-                    preview_url: preview_url,
-                    genre: genre
+                    img: picture
                 })
             })
         }
@@ -220,6 +225,16 @@ const FinderLogic = () => {
         tracks_list != undefined && build_songs()
     },
     [tracks_list])
+
+    useEffect(() => {
+        shows_list != undefined && build_series()
+    },
+    [shows_list])
+
+    useEffect(() => {
+        movies_list != undefined && build_films()
+    },
+    [movies_list])
     
 
     return {songs, films, series, find, select_films, select_series, select_songs, type_selected}
