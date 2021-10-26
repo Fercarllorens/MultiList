@@ -108,12 +108,13 @@ const FinderLogic = () => {
     // Fetch of the films query
     const fetchFilms = async (content: string) => {
         //TODO meter url
-        let url = ''
+        //let url = ''
 
-        fetch(url)
+        /*fetch(url)
             .then((res) => res.json)
             .then((json) => set_movies_list(json))
-            .catch((err) => console.error(err))
+            .catch((err) => console.error(err))*/
+            set_movies_list(require('../../FakeJSONs/FilmSearchJson.json'))
     }
 
     // Fetch of the series query
@@ -180,11 +181,13 @@ const FinderLogic = () => {
     }
 
     const build_films = () => {
-        const { results } = shows_list
-        let movie_list: Array<any> = results.items
         let res: Array<any> = []
+        const {name, id, picture} = movies_list;
+        //const { results } = shows_list
+        //let movie_list: Array<any> = results.items
+        //let res: Array<any> = []
 
-        if(typeof movie_list === "object" && movie_list !== null && movie_list !== undefined){
+        /*if(typeof movie_list === "object" && movie_list !== null && movie_list !== undefined){
             //TODO comprobar que este bien
             movie_list.forEach((element) => {
                 const { id, name, picture } = element
@@ -195,7 +198,12 @@ const FinderLogic = () => {
                     img: picture
                 })
             })
-        }
+        }*/
+        res.push({
+            id: id,
+            name: name,
+            img: picture
+        })
         set_films(res)
     }
 

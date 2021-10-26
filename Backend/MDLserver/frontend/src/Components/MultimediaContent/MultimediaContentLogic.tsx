@@ -136,9 +136,13 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     else if(type_query == 'film'){
-        fetch_post_film(id_query)
-        let movie: any = fetch_get_film(id_query);
-        const { id, name, picture } = movie
+        //fetch_post_film(id_query)
+        //let show: any = fetch_get_film(id_query);
+        let show = require('../../FakeJSONs/FilmViewJson.json')
+        const { collection } = show
+        const { id, name, picture } = collection
+        image_url = picture;
+        //console.log('imagen: ' + image_url)
         list_top.push(name);
     }
 
@@ -146,7 +150,7 @@ const MultimediaContentLogic = (props:Props) => {
     const [ progress, setProgress] = useState<null | Progress>(null)
 
     //fetch_get_progress()
-    const [ imageUrl, setImageUrl] = useState<null | string>('')
+    const [ imageUrl, setImageUrl] = useState<null | string>(image_url)
     const [ trailerUrl , setTrailerUrl] = useState<null | string>(trailer_url)
     const [ listTop , setListTop] = useState<null | string[]>(list_top)
     const [ listBottom , setListBottom] = useState<null | string[]>(list_bot)
