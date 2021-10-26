@@ -11,10 +11,10 @@ import './App.css'
 function App() {
   return (
     <Router>
-      <Navbar />
+      {/* <Navbar /> */}
       <Switch>
         {/*Todo las rutas que haya que meter, se meten aqui como una Route*/}
-        <Route path='/Profile' component={Profile} />
+        {/* <Route path='/Profile' component={Profile} /> */}
       </Switch>
     </Router>
   )
