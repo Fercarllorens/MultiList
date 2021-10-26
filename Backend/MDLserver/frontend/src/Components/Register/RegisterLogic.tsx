@@ -37,17 +37,17 @@ const RegisterLogic = (history: History) => {
             setTimeout(() => {setError('')}, 5000)
             return setError('Passwords do not match')
         }
-        fetch('http://localhost:8000/api/auth/register', {
+        fetch('http://localhost:8000/api/register', {
             method: "POST",
             body: JSON.stringify({username, email, password}),
             headers: {'Content-Type' : 'application/json'}
         })
         .then(res => res.json())
-        .then(json => {localStorage.setItem('user_id', json.user_id); history.push('/')})
+        .then(json => {localStorage.setItem('user_id', json.user_id); window.location.href = '/'})
         .catch(err => {
             setTimeout(() => {setError('')}, 5000)
-            console.log(err)
-            //setError(err.response.error)
+            console.log("err" + err)
+            //setError(err)
         })
     }
 

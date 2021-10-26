@@ -6,6 +6,7 @@ import Login from './Components/Login/Login'
 import Register from './Components/Register/Register'
 import Profile from './Components/Profile/Profile'
 import Finder from './Components/Finder/Finder'
+import MyLists from './Components/MyLists/MyLists'
 import './App.css'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route exact path='/register' component={Register} />
         <PrivateRoute path='/profile' component={Profile} />
         <PrivateRoute path='/' component={Finder} />
+        <PrivateRoute path='/MyLists' component={MyLists} />
         <Route path="*" component={() => {return <div>404 Not found</div>}} />
       </Switch>
     </Router>

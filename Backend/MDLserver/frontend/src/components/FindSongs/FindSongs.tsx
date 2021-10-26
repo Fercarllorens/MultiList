@@ -25,7 +25,7 @@ const FindSongs: React.FC<Props> = ({songs}) => {
             {
                 songs!==undefined ?
                     songs.map((element) => (
-                        <SongPreview song={element} />
+                        <SongPreview song={element} key={element.name}/>
                     ))
                 : 'No results'
             }

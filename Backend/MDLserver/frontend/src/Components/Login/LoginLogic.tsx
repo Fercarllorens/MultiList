@@ -8,16 +8,16 @@ const LoginLogic = (history: History) => {
 
     const loginHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        fetch('http://localhost:8000/api/auth/login', {
+        fetch('http://localhost:8000/api/login', {
             method: "POST", 
             body: JSON.stringify({email, password}), 
             headers: {'Content-Type' : 'application/json'}
         })
         .then(res => res.json())
-        .then(json => {localStorage.setItem('user_id', json.user_id); history.push('/')})
+        .then(json => {localStorage.setItem('user_id', json.user_id); window.location.href = '/'})
         .catch(err => {
             setTimeout(() => {setError('')}, 5000)
-            setError(err.response.error)
+            //setError(err)
         })
     }
 
