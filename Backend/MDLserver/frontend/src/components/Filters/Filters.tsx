@@ -1,5 +1,6 @@
+import FiltersLogic from './FiltersLogic'
 import './Filters.css'
-import React from 'react'
+
 interface Props{
     set_films: () => void;
     set_series: () => void;
@@ -12,7 +13,7 @@ interface Props{
 }
 
 const Filters: React.FC<Props> = ({set_films, set_series, set_songs, type_selected}) => {
-    //const {} = FiltersLogic()
+    const {} = FiltersLogic()
 
     return (
         <div className="FilterContainer">
