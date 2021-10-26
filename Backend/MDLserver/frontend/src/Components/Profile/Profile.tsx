@@ -36,7 +36,7 @@ const Profile = () => {
         },]}
       />
       <div className='profile-pic'>
-        <img className="profile-pic" src="https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg" alt='Profile Pic' />
+        <img className="profile-pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPXKo36JFQDLpzs9giWMBSBEKgmjDNsXd7cA&usqp=CAU" alt='Profile Pic' />
       </div>
       <div className='profile-data'>
         <h4>User Info</h4>
