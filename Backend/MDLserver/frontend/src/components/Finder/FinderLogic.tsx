@@ -95,13 +95,14 @@ const FinderLogic = () => {
 
     // Fetch of the songs query
     const fetchSongs = async (content: string) => {
-        let userId : string | null = localStorage.getItem('user_id')
+        /*let userId : string | null = localStorage.getItem('user_id')
         console.log(userId)
         let url = 'http://127.0.0.1:8000/spotify/search?query=' + content + '&type=track&user=' + userId;
         fetch(url)
             .then((res) => res.json())
             .then((json) => set_tracks_list(json))
-            .catch((err) => console.error(err))
+            .catch((err) => console.error(err))*/
+        set_tracks_list(require('../../FakeJSONs/DespacitoSearchJson.json'))
     }
 
     // Fetch of the films query
@@ -118,12 +119,13 @@ const FinderLogic = () => {
     // Fetch of the series query
     const fetchSeries = async (content: string) => {
         //TODO meter url
-        let url = ''
+        /*let url = ''
 
         fetch(url)
             .then((res) => res.json)
             .then((json) => set_shows_list(json))
-            .catch((err) => console.error(err))
+            .catch((err) => console.error(err))*/
+        set_shows_list(require('../../FakeJSONs/SeriesSearchJson.json'))
     }
 
     // Catches the enter event of the search bar
@@ -154,22 +156,26 @@ const FinderLogic = () => {
     }
 
     const build_series = () => {
-        const { results } = shows_list
-        let show_list: Array<any> = results.items
         let res: Array<any> = []
-
-        if(typeof show_list === "object" && show_list !== null && show_list !== undefined){
+        //const { results } = shows_list
+        const {name, id, picture} = shows_list;
+        //let show_list: Array<any> = results.items  
+        /*if(typeof show_list === "object" && show_list !== null && show_list !== undefined){
             //TODO comprobar que este bien
             show_list.forEach((element) => {
                 const { id, name, picture } = element
-
                 res.push({
                     id: id,
                     name: name,
                     img: picture
                 })
             })
-        }
+        }*/
+        res.push({
+            id: id,
+            name: name,
+            img: picture
+        })
         set_series(res)
     }
 

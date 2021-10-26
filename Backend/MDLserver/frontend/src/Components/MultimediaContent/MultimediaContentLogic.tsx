@@ -24,22 +24,22 @@ const MultimediaContentLogic = (props:Props) => {
     let type_query = query.get('type')
     let id_query = query.get('id')
     let userId : string | null = localStorage.getItem('user_id') 
-    //console.log(type_query, id_query)
 
-    const fetch_post_song = async (id: string | null) => {
+    const fetch_post_song = async (id: string | null, name: string | null) => {
         let url = 'http://127.0.0.1:8000/api/post-song/';
-        const body = JSON.stringify({id: id});
+        const body = JSON.stringify({id: id, name: name});
         fetch(url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
             .then((res) => console.log(res))
             .catch((err) => console.error(err))
     }
 
     const fetch_get_track = async (id: string | null, user_id: string | null) => {
-        let url = `http://127.0.0.1:8000/spotify/get-track?id=${id}&user=${user_id}`
+        /*let url = `http://127.0.0.1:8000/spotify/get-track?id=${id}&user=${user_id}`
         fetch(url)
             .then((res) => res.json())
             .then((json) => set_json(json))
-            .catch((err) => console.error(err))
+            .catch((err) => console.error(err))*/
+        set_json(require('../../FakeJSONs/DespacitoTrackJson.json'))
     }
 
     const fetch_post_film = async (id: string | null) => {
@@ -78,18 +78,27 @@ const MultimediaContentLogic = (props:Props) => {
             .catch((err) => console.error(err))
     }
 
+    const fetch_get_progress = async () => {
+        let url : string = `http://localhost:8000/api/get-progress?user_id=${userId}&content_id=${contentId}`
+        fetch(url)
+            .then((res) => res.json())
+            .then((json) => setProgress(json))
+            .catch((err) => console.error(err))
+    }
+
     const [json, set_json] = useState();
     let image_url = 'not available';
     let trailer_url = 'not available';
     let list_top = [];
     let list_bot = [];
+    let fakeJson = require('../../FakeJSONs/DespacitoTrackJson.json')
 
     if(type_query == 'song'){
-        fetch_post_song(id_query);
-        fetch_get_track(id_query, userId);
-        let track: any = json;
+        let track: any = fakeJson;
         const {name, album, artists, duration_ms, preview_url} = track;
-        const {release_date, images} = album;        
+        const {release_date, images} = album;               
+        //fetch_get_track(id_query, userId);   
+        //fetch_post_song(id_query, name);     
         let artists_string = 'No artists found';
         let genres_string = 'Not genres found';
 
@@ -97,7 +106,9 @@ const MultimediaContentLogic = (props:Props) => {
             index == 0 ? artists_string = artist.name : artists_string += (", " + artist.name)
             const {genres} = artist;
 
-            genres.forEach((element: any, index: number) => index == 0 ? genres_string = element : genres_string += (', ' + element));
+            if(genres != undefined){
+                genres.forEach((element: any, index: number) => index == 0 ? genres_string = element : genres_string += (', ' + element));
+            }            
         });
 
         let year = release_date.substring(0,4);    
@@ -114,11 +125,13 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     else if(type_query == 'series'){
-        fetch_post_series(id_query)
-        let show: any = fetch_get_series(id_query);
-        const { id, name, picture } = show
-
+        //fetch_post_series(id_query)
+        //let show: any = fetch_get_series(id_query);
+        let show = require('../../FakeJSONs/SeriesViewJson.json')
+        const { collection } = show
+        const { id, name, picture } = collection
         image_url = picture;
+        //console.log('imagen: ' + image_url)
         list_top.push(name);
     }
 
@@ -126,27 +139,18 @@ const MultimediaContentLogic = (props:Props) => {
         fetch_post_film(id_query)
         let movie: any = fetch_get_film(id_query);
         const { id, name, picture } = movie
-
-        image_url = picture;
         list_top.push(name);
     }
 
     let contentId : string | null = props.contentId;
     const [ progress, setProgress] = useState<null | Progress>(null)
 
-
-    let url : string = `http://localhost:8000/api/get-progress?user_id=${userId}&content_id=${contentId}`
-    fetch(url)
-      .then((res) => res.json())
-      .then((json) => setProgress(json))
-      .catch((err) => console.error(err))
-
-    const [ imageUrl, setImageUrl] = useState<null | string>(image_url)
+    //fetch_get_progress()
+    const [ imageUrl, setImageUrl] = useState<null | string>('')
     const [ trailerUrl , setTrailerUrl] = useState<null | string>(trailer_url)
     const [ listTop , setListTop] = useState<null | string[]>(list_top)
     const [ listBottom , setListBottom] = useState<null | string[]>(list_bot)
-    
-    
+      
     return {listTop, imageUrl, trailerUrl, listBottom, progress}
 }
 
