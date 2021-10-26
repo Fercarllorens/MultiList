@@ -19,27 +19,21 @@ interface Progress {
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
 
-    // let location = useLocation()
-    // console.log('LOCATION', location) 
     let {search} = useLocation()
     let query = new URLSearchParams(search)
-
     let type_query = query.get('type')
-
     let id_query = query.get('id')
+    //console.log(type_query, id_query)
 
-    console.log(type_query, id_query)
-
-    //const id = props.location.state
-    const fetch_post_song = async (id: string) => {
-        let url = 'http://127.0.0.1:8000/api';
+    const fetch_post_song = async (id: string | null) => {
+        let url = 'http://127.0.0.1:8000/api/post-song/';
         const body = JSON.stringify({id: id});
         fetch(url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
             .then((res) => console.log(res))
             .catch((err) => console.error(err))
     }
 
-    const fetch_get_track = async (id: string) => {
+    const fetch_get_track = async (id: string | null) => {
         let url = `http://127.0.0.1:8000/spotify/get-track?id=${id}&user=jxl18bdljif6xgk8hgrcfdk3mgsxy0eo`
         fetch(url)
             .then((res) => res.json())
@@ -47,7 +41,7 @@ const MultimediaContentLogic = (props:Props) => {
             .catch((err) => console.error(err))
     }
 
-    const fetch_post_film = async (id: string) => {
+    const fetch_post_film = async (id: string | null) => {
         //let url = 'http://127.0.0.1:8000/api';
         let url = ''
         const body = JSON.stringify({id: id});
@@ -56,7 +50,7 @@ const MultimediaContentLogic = (props:Props) => {
             .catch((err) => console.error(err))
     }
     
-    const fetch_get_film = async (id: string) => {
+    const fetch_get_film = async (id: string | null) => {
         //let url = 'http://127.0.0.1:8000/spotify/get-track?id=${id}&user=jxl18bdljif6xgk8hgrcfdk3mgsxy0eo'
         let url = ''
         fetch(url)
@@ -65,7 +59,7 @@ const MultimediaContentLogic = (props:Props) => {
             .catch((err) => console.error(err))
     }
 
-    const fetch_post_series = async (id: string) => {
+    const fetch_post_series = async (id: string | null) => {
         //let url = 'http://127.0.0.1:8000/api';
         let url = ''
         const body = JSON.stringify({id: id});
@@ -74,7 +68,7 @@ const MultimediaContentLogic = (props:Props) => {
             .catch((err) => console.error(err))
     }
     
-    const fetch_get_series = async (id: string) => {
+    const fetch_get_series = async (id: string | null) => {
         //let url = 'http://127.0.0.1:8000/spotify/get-track?id=${id}&user=jxl18bdljif6xgk8hgrcfdk3mgsxy0eo'
         let url = ''
         fetch(url)
@@ -89,9 +83,10 @@ const MultimediaContentLogic = (props:Props) => {
     let list_top = [];
     let list_bot = [];
 
-    if(props.type == 'song'){
-        fetch_post_song(props.id);
-        let track: any = fetch_get_track(props.id);
+    if(type_query == 'song'){
+        fetch_post_song(id_query);
+        fetch_get_track(id_query);
+        let track: any = json;
         const {name, album, artists, duration_ms, preview_url} = track;
         const {release_date, images} = album;        
         let artists_string = 'No artists found';
@@ -117,7 +112,7 @@ const MultimediaContentLogic = (props:Props) => {
         list_bot.push(formated_duration, '', '', artists_string, release_date, album_name);
     }
 
-    else if(props.type == 'series'){
+    else if(type_query == 'series'){
         fetch_post_series(props.id)
         let show: any = fetch_get_series(props.id);
         const { id, name, picture } = show
@@ -126,7 +121,7 @@ const MultimediaContentLogic = (props:Props) => {
         list_top.push(name);
     }
 
-    else if(props.type == 'film'){
+    else if(type_query == 'film'){
         fetch_post_film(props.id)
         let movie: any = fetch_get_film(props.id);
         const { id, name, picture } = movie
