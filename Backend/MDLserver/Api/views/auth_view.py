@@ -8,35 +8,30 @@ from rest_framework.authtoken.models import Token
 import global_variables as gv
 from ..authbackend import AuthBackend
 from ..models import User
+from .list_view import create_default
 
 # Create your views here.
 class Login(APIView):
     def post(self, request, format=None):
-        user = AuthBackend.authenticate(
-            email = request.data['email'],
-            password = request.data['password'])
-
-        if not user:
-            return Response('The given credentials are not valid', status=status.HTTP_400_BAD_REQUEST)
-        
-        token, created = Token.objects.get_or_create(user = user)
-        data = {
-            'user': user,
-            'access_token': token
-        }
-        
-        return Response(data, status=status.HTTP_201_CREATED)
+        user = User.objects.find(email=request.POST[gv.USER.EMAIL])
+        if user.password == request.POST[gv.USER.PASSWORD]:
+            return Response({gv.USER.ID: user.id}, status=status.HTTP_201_CREATED)
+        return Response({gv.COMMON.ERROR: "Login failed"}, status=status.HTTP_401_UNAUTHORIZED)
             
 
 class Register(APIView):
     def post(self, request, format=None):
-        user = User.objects.create_user(
-            request.data['username'],
-            request.data['email'],
-            request.data['password'])
-        data = {
-            'id': user.id
-        }
+        user, created = User.objects.get_or_create( email=request.POST[gv.USER.EMAIL], defaults={
+            gv.USER.USERNAME: request.POST[gv.USER.USERNAME],
+            gv.USER.PASSWORD: request.POST[gv.USER.PASSWORD],
+        })
 
-        return Response(data, status=status.HTTP_201_CREATED)
+        if not created:
+            return Response({gv.COMMON.ERROR: "User already exists"}, status=status.HTTP_409_CONFLICT)
+        
+        lists = create_default(user.id)
+        user.lists = lists
+        user.save()
+
+        return Response({gv.USER.ID: user.id}, status=status.HTTP_201_CREATED)
 

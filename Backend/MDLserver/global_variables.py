@@ -41,6 +41,7 @@ class SPOTIFY():
         REQUEST = "Something went wrong with your request"
 
 class USER():
+    ID = "user_id"
     USERNAME = "username"
     PASSWORD = "password"
     EMAIL = "email"
