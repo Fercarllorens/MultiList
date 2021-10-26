@@ -41,7 +41,7 @@ const Register: React.FC<RouteComponentProps> = ({history}) => {
                     <input type='file'  accept=".jpg, .png, .jpeg" required id='Pic' onChange={updatePic}/>
                 </div>
             
-                <div className='form-group'>
+                <div className='form-group register-form-group'>
                     <input type='submit' className='form-btn' value='Register'/>
                 </div>
                 

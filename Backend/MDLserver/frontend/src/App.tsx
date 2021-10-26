@@ -5,7 +5,7 @@ import Navbar from './Components/Navbar/Navbar'
 import Login from './Components/Login/Login'
 import Register from './Components/Register/Register'
 import Profile from './Components/Profile/Profile'
-import Finder from './Components/Finder/Finder'
+
 
 import './App.css'
 

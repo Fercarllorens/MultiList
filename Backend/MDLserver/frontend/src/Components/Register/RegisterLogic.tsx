@@ -1,6 +1,5 @@
 import {useState} from 'react'
 import { History } from 'history';
-import axios from 'axios'
 
 const RegisterLogic = (history: History) => {
     const [pic, setPic] = useState<undefined | string>(undefined)
@@ -32,28 +31,22 @@ const RegisterLogic = (history: History) => {
     const registerHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        const config: any = {
-            header: {
-                'Content-Type' : 'application/json'
-            }
-        }
-
         if(password !== confirmPassword){
             setPassword('')
             setConfirmPassword('')
             setTimeout(() => {setError('')}, 5000)
             return setError('Passwords do not match')
         }
-
-        try {
-            const { data }: any = await axios.post('/api/auth/register', {username: name, email, password}, config)
-            localStorage.setItem('authToken', data.token)
-            localStorage.setItem('user_id', data.user._id)
-            history.push('/')
-        } catch (err: any) {
-            setTimeout(() => {setError('')}, 5000)
-            setError(err.response.data.error)
-        }
+        fetch('/api/auth/register', {
+            method: "POST",
+            body: JSON.stringify({username: name, email, password}),
+            headers: {'Content-Type' : 'application/json'}
+        })
+        .then(res => res.json())
+        .then(json => localStorage.setItem('user_id', json.user_id))
+        .catch(err => {setError(err); setTimeout(() => {setError('')}, 5000)})
+    
+        history.push('/')
     }
 
     return {pic, name, email, password, confirmPassword, error, setName, setEmail, setPassword, setConfirmPassword, registerHandler, updatePic}
