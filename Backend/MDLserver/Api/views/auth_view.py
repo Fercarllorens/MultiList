@@ -13,17 +13,17 @@ from .list_view import create_default
 # Create your views here.
 class Login(APIView):
     def post(self, request, format=None):
-        user = User.objects.find(email=request.POST[gv.USER.EMAIL])
-        if user.password == request.POST[gv.USER.PASSWORD]:
+        user = User.objects.find(email=request.data[gv.USER.EMAIL])
+        if user.password == request.data[gv.USER.PASSWORD]:
             return Response({gv.USER.ID: user.id}, status=status.HTTP_201_CREATED)
         return Response({gv.COMMON.ERROR: "Login failed"}, status=status.HTTP_401_UNAUTHORIZED)
             
 
 class Register(APIView):
     def post(self, request, format=None):
-        user, created = User.objects.get_or_create(email=request.POST[gv.USER.EMAIL], defaults={
-            gv.USER.USERNAME: request.POST[gv.USER.USERNAME],
-            gv.USER.PASSWORD: request.POST[gv.USER.PASSWORD],
+        user, created = User.objects.get_or_create(email=request.data[gv.USER.EMAIL], defaults={
+            gv.USER.USERNAME: request.data[gv.USER.USERNAME],
+            gv.USER.PASSWORD: request.data[gv.USER.PASSWORD],
         })
 
         if not created:
