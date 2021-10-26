@@ -3,7 +3,7 @@ import { History } from 'history';
 
 const RegisterLogic = (history: History) => {
     const [pic, setPic] = useState<undefined | string>(undefined)
-    const [name, setName] = useState('' )
+    const [username, setUsername] = useState('' )
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -39,7 +39,7 @@ const RegisterLogic = (history: History) => {
         }
         fetch('http://localhost:8000/api/auth/register', {
             method: "POST",
-            body: JSON.stringify({username: name, email, password}),
+            body: JSON.stringify({username, email, password}),
             headers: {'Content-Type' : 'application/json'}
         })
         .then(res => res.json())
@@ -51,7 +51,7 @@ const RegisterLogic = (history: History) => {
         })
     }
 
-    return {pic, name, email, password, confirmPassword, error, setName, setEmail, setPassword, setConfirmPassword, registerHandler, updatePic}
+    return {pic, username, email, password, confirmPassword, error, setUsername, setEmail, setPassword, setConfirmPassword, registerHandler, updatePic}
 }
 
 export default RegisterLogic

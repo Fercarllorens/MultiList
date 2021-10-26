@@ -4,7 +4,7 @@ import RegisterLogic from './RegisterLogic'
 import './Register.css'
 
 const Register: React.FC<RouteComponentProps> = ({history}) => {
-    const {pic, name, email, password, confirmPassword, error, setName, setEmail, setPassword, setConfirmPassword, registerHandler, updatePic} = RegisterLogic(history)
+    const {pic, username, email, password, confirmPassword, error, setUsername, setEmail, setPassword, setConfirmPassword, registerHandler, updatePic} = RegisterLogic(history)
 
     useEffect(() => {
         if(localStorage.getItem('authToken')) history.push('/')
@@ -17,7 +17,7 @@ const Register: React.FC<RouteComponentProps> = ({history}) => {
                 {error&& <span className='error-message'>{error}</span>}
                 <div className='form-group'>
                     <label htmlFor='name'>Username: </label>
-                    <input type='text' required id='name' placeholder='username' value={name} onChange={(e) => {setName(e.target.value)}}/>
+                    <input type='text' required id='name' placeholder='username' value={username} onChange={(e) => {setUsername(e.target.value)}}/>
                 </div>
 
                 <div className='form-group'>
