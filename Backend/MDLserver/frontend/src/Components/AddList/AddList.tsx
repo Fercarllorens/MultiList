@@ -13,7 +13,7 @@ const  AddList: React.FC<Props> = (props) => {
             <button className="add-button" onSubmit={AddListLogic(props.contentId)} type="submit">+ Add to list</button>
         )
     }
-    return (<p>Log-in to start managin your own lists</p>)
+    return (<p className="placeholder-button">Log-in to start managin your own lists</p>)
 }
 
 export default AddList
