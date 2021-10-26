@@ -18,10 +18,10 @@ class PostProgress(APIView):
 
 class PutProgress(APIView):
     def put(self, request, format=None):
-        obj = Progress.objects.get(user_id = request.POST[gv.PROGRESS.USER_ID], content_id = request.POST[gv.PROGRESS.CONTENT_ID])
+        obj = Progress.objects.get(user_id = request.data[gv.PROGRESS.USER_ID], content_id = request.data[gv.PROGRESS.CONTENT_ID])
         if obj is None:
             return Response({obj}, status=status.HTTP_204_NO_CONTENT)
-        obj.contents = request.PUT[gv.LIST.CONTENTS]
+        obj.contents = request.data[gv.LIST.CONTENTS]
         return Response({obj}, status=status.HTTP_200_OK)
 
 class GetProgress(APIView):
@@ -33,9 +33,9 @@ class GetProgress(APIView):
 
 class UpdateProgress(APIView):
     def post(self, request, format=None):
-        obj = Progress.objects.get(user_id=request.GET[gv.PROGRESS.USER_ID], content_id=request.GET[gv.PROGRESS.CONTENT_ID])
-        state = request.POST['state']
-        progress = request.POST['progress']
+        obj = Progress.objects.get(user_id=request.data[gv.PROGRESS.USER_ID], content_id=request.data[gv.PROGRESS.CONTENT_ID])
+        state = request.data['state']
+        progress = request.data['progress']
         if obj is None:
             return Response({obj}, status=status.HTTP_204_NO_CONTENT)
         obj.state = state
