@@ -17,7 +17,7 @@ urlpatterns = [
     path('post-list', PostList.as_view()),
     path('get-list', GetList.as_view()),
     path('put-list', PutList.as_view()),
-    path('update-list', UpdateListContents.as_view())
+    path('update-list', UpdateListContents.as_view()),
     path('post-song', PostSong.as_view()),
     path('put-song', PutSong.as_view()),
     path('get-song', GetSong.as_view()),
