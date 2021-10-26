@@ -21,8 +21,8 @@ class AuthURL(APIView):
                 gv.SPOTIFY.REQUEST.REDIRECT_URI:    REDIRECT_URI,
                 gv.SPOTIFY.REQUEST.CLIENT_ID:       CLIENT_ID,
             }).prepare().url
-            return redirect(url)
-            #return Response({gv.SPOTIFY.RESPONSE.URL: url}, status=status.HTTP_200_OK)
+            #return redirect(url)
+            return Response({gv.SPOTIFY.RESPONSE.URL: url}, status=status.HTTP_200_OK)
 
 def spotify_callback(request, format=None) -> redirect:
     """callback sent to the spotify api, to save the user data and redirect to the main frontend page"""

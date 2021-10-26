@@ -5,7 +5,7 @@ import Navbar from './Components/Navbar/Navbar'
 import Login from './Components/Login/Login'
 import Register from './Components/Register/Register'
 import Profile from './Components/Profile/Profile'
-
+import Finder from './Components/Finder/Finder'
 import './App.css'
 
 function App() {
@@ -17,6 +17,8 @@ function App() {
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
         <PrivateRoute path='/profile' component={Profile} />
+        <PrivateRoute path='/' component={Finder} />
+        <Route path="*" component={() => {return <div>404 Not found</div>}} />
       </Switch>
     </Router>
   )

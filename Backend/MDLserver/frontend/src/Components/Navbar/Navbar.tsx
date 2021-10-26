@@ -18,11 +18,11 @@ const Navbar = () => {
       </Link>
       {logged ? (
         <div className='navbar__menu'>
-          <Link className='navbar__link' to='/'>
-            Link2
+          <Link className='navbar__link' to='/MyList'>
+            My Lists
           </Link>
-          <Link className='navbar__link' to='/'>
-            Link1
+          <Link className='navbar__link' to='/Profile'>
+            Profile
           </Link>
           <Link className='navbar__link' to='/' onClick={handleLogout}>
             Logout

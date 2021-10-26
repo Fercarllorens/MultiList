@@ -6,7 +6,7 @@ interface Props {
 }
 
 const PrivateRoute: React.FC<Props> = (props) => {
-  return localStorage.getItem('authToken') ? (
+  return localStorage.getItem('user_id') ? (
     //TODO: Send a request to the server to check if the authToken is valid for the selected user
     <Route exact path={props.path} component={props.component} />
   ) : (

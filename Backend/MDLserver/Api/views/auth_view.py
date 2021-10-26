@@ -21,7 +21,7 @@ class Login(APIView):
 
 class Register(APIView):
     def post(self, request, format=None):
-        user, created = User.objects.get_or_create( email=request.POST[gv.USER.EMAIL], defaults={
+        user, created = User.objects.get_or_create(email=request.POST[gv.USER.EMAIL], defaults={
             gv.USER.USERNAME: request.POST[gv.USER.USERNAME],
             gv.USER.PASSWORD: request.POST[gv.USER.PASSWORD],
         })
@@ -30,7 +30,7 @@ class Register(APIView):
             return Response({gv.COMMON.ERROR: "User already exists"}, status=status.HTTP_409_CONFLICT)
         
         lists = create_default(user.id)
-        user.lists = lists
+        user.lists = str(lists)
         user.save()
 
         return Response({gv.USER.ID: user.id}, status=status.HTTP_201_CREATED)
