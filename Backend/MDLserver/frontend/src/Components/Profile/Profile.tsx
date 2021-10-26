@@ -41,7 +41,7 @@ const Profile = () => {
       <div className='profile-data'>
         <h4>User Info</h4>
         <ul>
-          <p>User Name {data ? data.name : 'No disponible'}</p>
+          <p>User Name {data ? data.username : 'No disponible'}</p>
           <p>Email {data ? data.email : 'No disponible'}</p>
         </ul>
       </div>
