@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'Api.apps.ApiConfig',
     'frontend.apps.FrontendConfig',    
     'SpotifyAPI.apps.SpotifyapiConfig',
+    'Video.apps.VideoConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,9 +1,9 @@
 from django.urls import path
-
 from .views.list_view import GetList, PostList, PutList, UpdateListContents, UpdateListContents
-
 from .views.film_view import GetFilm, PostFilm, PutFilm
 from .views.series_view import GetSeries, PostSeries, PutSeries
+from .views.song_view import GetSong, PostSong, PutSong
+from .views.user_view import GetUser, PostUser, PutUser
 
 app_name = 'Api'
 
@@ -18,6 +18,12 @@ urlpatterns = [
     path('get-list', GetList.as_view()),
     path('put-list', PutList.as_view()),
     path('update-list', UpdateListContents.as_view())
+    path('post-song', PostSong.as_view()),
+    path('put-song', PutSong.as_view()),
+    path('get-song', GetSong.as_view()),
+    path('get-user', GetUser.as_view()),
+    path('post-user', PostUser.as_view()),
+    path('put-user', PutUser.as_view()),
 ]
 
 

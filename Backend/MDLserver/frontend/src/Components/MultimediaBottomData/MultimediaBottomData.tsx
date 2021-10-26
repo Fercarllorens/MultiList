@@ -7,7 +7,7 @@ interface Props{
 }
 
 const MultimediaBottomData: React.FC<Props> = (props) => {
-    const {duration, episodes, seasons, artists, date} = MultimediaBottomDataLogic(props)
+    const {duration, episodes, seasons, artists, date, album} = MultimediaBottomDataLogic(props)
     return (
         <div className="data-container-bottom">
             <h4 className="bottom-title">MÁS INFORMACIÓN</h4>
@@ -16,6 +16,7 @@ const MultimediaBottomData: React.FC<Props> = (props) => {
             <p className="data">{seasons}</p>
             <p className="data">{artists}</p>
             <p className="data">{date}</p>
+            <p className="data">{album}</p>
         </div>
     )
 }

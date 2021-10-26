@@ -1,0 +1,17 @@
+.FindFilmsContainer{
+    margin-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 550px;
+    width: 950px;
+    overflow: auto;
+}
+
+.FindFilmsContainer::-webkit-scrollbar {
+	width: 7px;
+}
+
+.FindFilmsContainer::-webkit-scrollbar-thumb {
+	background: white;
+	border-radius: 5px;
+}

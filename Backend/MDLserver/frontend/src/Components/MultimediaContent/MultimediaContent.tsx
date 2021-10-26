@@ -1,5 +1,4 @@
 import React from 'react'
-//import MultmediaContentLogic from './MultimediaContentLogic'
 import './MultimediaContent.css'
 import MultimediaContentLogic from './MultimediaContentLogic'
 //componentes
@@ -9,6 +8,7 @@ import MultimediaBottomData from '../MultimediaBottomData/MultimediaBottomData'
 import AddList from '../AddList/AddList'
 import Pic from '../Pic/Pic'
 import AddListLogic from '../AddList/AddListLogic'
+import { Script } from 'vm'
 
 
 interface Props{

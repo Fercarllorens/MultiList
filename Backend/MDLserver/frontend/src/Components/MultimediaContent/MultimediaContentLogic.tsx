@@ -33,10 +33,12 @@ const MultimediaContentLogic = (props:Props) => {
         image_url = img.url;
         let duration = (duration_ms / 60000).toString();
         let formated_duration = duration.split('.')[0] + '.' + duration.split('.')[1].substring(0,2);
+
+        let album_name = GetAlbumName(album);
         trailer_url = preview_url;
 
         list_top.push(name, props.type, year, genres_string, 'green');
-        list_bot.push(formated_duration, '', '', artists_string, release_date);
+        list_bot.push(formated_duration, '', '', artists_string, release_date, album_name);
     }
 
     else if(props.type == 'series'){
@@ -54,6 +56,12 @@ const MultimediaContentLogic = (props:Props) => {
     
     
     return {listTop, imageUrl, trailerUrl, listBottom}
+}
+
+const GetAlbumName = (album:any) => {
+    const {name} = album;
+
+    return name;
 }
 
 export default MultimediaContentLogic

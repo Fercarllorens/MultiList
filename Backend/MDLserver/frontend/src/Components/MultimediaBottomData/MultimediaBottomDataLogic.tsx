@@ -11,7 +11,8 @@ const MultimediaBottomDataLogic = (props:Props) => {
     const [seasons, setSeasons] = useState<null | string>(props != null && props.list != null ? props.list[2]: 'no disponible')
     const [artists, setArtists] = useState<null | string>(props != null && props.list != null ? props.list[3]: 'no disponible')
     const [date, setDate] = useState<null | string>(props != null && props.list != null ? props.list[4]: 'no disponible')
-    return { duration, episodes, seasons, artists, date}
+    const [album, setAlbum] = useState<null | string>(props != null && props.list != null ? props.list[5]: 'no disponible')
+    return { duration, episodes, seasons, artists, date, album}
 }
 
 export default MultimediaBottomDataLogic

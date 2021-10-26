@@ -6,6 +6,7 @@ from rest_framework.response import Response
 
 import global_variables as gv
 from ..models import Film;
+
 # Create your views here.
 class PostFilm(APIView):
     def post(self, request, format=None):
@@ -30,3 +31,4 @@ class GetFilm(APIView):
 
 
    
+    
