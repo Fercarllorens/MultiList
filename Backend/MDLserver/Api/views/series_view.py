@@ -12,19 +12,19 @@ class PostSeries(APIView):
     def post(self, request, format=None):
         data = request.data[gv.COMMON.ID]
         obj = Series.objects.create(external_id = data[gv.SERIES.EXTERNAL_ID])
-        return Response({obj}, status=status.HTTP_200_OK)
+        return Response(model_to_dict(obj), status=status.HTTP_200_OK)
         
 class PutSeries(APIView):
     def put(self, request, format=None):
         obj = Series.objects.get(request.data[gv.COMMON.CONTENT])
         if obj is None:
-            return Response({obj}, status=status.HTTP_204_NO_CONTENT)
+            return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
         obj.external_id = request.data[gv.SERIES.EXTERNAL_ID]
-        return Response({obj}, status=status.HTTP_200_OK)
+        return Response(model_to_dict(obj), status=status.HTTP_200_OK)
 
 class GetSeries(APIView):
     def get(self, request, format=None):
         obj = Series.objects.get(id=request.data[gv.COMMON.ID])
         if obj is None:
-            return Response({obj}, status=status.HTTP_204_NO_CONTENT)
-        return Response({obj}, status=status.HTTP_200_OK)
+            return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
+        return Response(model_to_dict(obj), status=status.HTTP_200_OK)

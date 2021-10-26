@@ -12,7 +12,7 @@ interface User{
 const MyListsLogic = () => {
     const [data , setData] = useState<null | User>(null)
     let userId : string | null = localStorage.getItem('user_id')
-    let url : string = `http://localhost:8000/api/get-user?id=${userId}`
+    let url : string = `http://localhost:8000/api/get-user?user_id=${userId}`
     function getData ()
     {
         fetch(url)
