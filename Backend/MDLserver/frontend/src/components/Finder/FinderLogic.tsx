@@ -19,15 +19,21 @@ interface Song{
 }
 
 interface Film{
-    id: string
     name: string;
+    authors: string;
+    date: string;
     img: string;
+    preview_url: string;
+    genre: any;
 }
 
 interface Series{
-    id: string
     name: string;
+    authors: string;
+    date: string;
     img: string;
+    preview_url: string;
+    genre: any;
 }
 
 const FinderLogic = () => {
