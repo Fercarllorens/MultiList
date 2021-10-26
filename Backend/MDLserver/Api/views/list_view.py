@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
-from Backend.MDLserver.global_variables import LIST
+
 
 import global_variables as gv
 from ..models import List;
