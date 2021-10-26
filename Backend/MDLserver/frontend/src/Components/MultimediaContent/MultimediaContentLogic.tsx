@@ -155,7 +155,7 @@ const MultimediaContentLogic = (props:Props) => {
     const [ listTop , setListTop] = useState<null | string[]>(list_top)
     const [ listBottom , setListBottom] = useState<null | string[]>(list_bot)
       
-    return {listTop, imageUrl, trailerUrl, listBottom, progress}
+    return {listTop, imageUrl, trailerUrl, listBottom, progress, type_query, id_query}
 }
 
 const GetAlbumName = (album:any) => {

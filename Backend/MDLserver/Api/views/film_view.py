@@ -11,16 +11,16 @@ from ..models import Film;
 # Create your views here.
 class PostFilm(APIView):
     def post(self, request, format=None):
-        data = request.data
+        data = request.query_params
         obj = Film.objects.create(external_id = data[gv.FILM.EXTERNAL_ID], name = data[gv.FILM.EXTERNAL_ID])
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
         
 class PutFilm(APIView):
     def put(self, request, format=None):
-        obj = Film.objects.get(request.data[gv.COMMON.CONTENT])
+        obj = Film.objects.get(request.query_params[gv.COMMON.CONTENT])
         if obj is None:
             return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
-        obj.external_id = request.data[gv.FILM.EXTERNAL_ID]
+        obj.external_id = request.query_params[gv.FILM.EXTERNAL_ID]
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
 
 class GetFilm(APIView):

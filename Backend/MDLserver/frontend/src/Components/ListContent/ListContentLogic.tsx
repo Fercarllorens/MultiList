@@ -28,11 +28,11 @@ const ListContentLogic = (props:Props) => {
     
     let url : string = `http://localhost:8000/api/get-list?id=${id}`
     
-    fetch(url)
-      .then((res) => res.json())
-      .then((json) => setData(json))
-      .catch((err) => console.error(err))
-    const [contents , setContents] = useState<string[]>(data !=null ? data.contents : [""])
+    // fetch(url)
+    //   .then((res) => res.json())
+    //   .then((json) => setData(json))
+    //   .catch((err) => console.error(err))
+     const [contents , setContents] = useState<string[]>(data !=null ? data.contents : [""])
 
    
     return {contents}

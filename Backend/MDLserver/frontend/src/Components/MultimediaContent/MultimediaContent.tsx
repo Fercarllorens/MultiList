@@ -7,7 +7,7 @@ import MultimediaTrailer from '../MultimediaTrailer/MultimediaTrailer'
 import MultimediaBottomData from '../MultimediaBottomData/MultimediaBottomData'
 import AddList from '../AddList/AddList'
 import Pic from '../Pic/Pic'
-import AddListLogic from '../AddList/AddListLogic'
+//import AddListLogic from '../AddList/AddListLogic'
 import { Script } from 'vm'
 
 
@@ -20,11 +20,11 @@ interface Props{
 let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", "Finished"]
 
 const MultimediaContent: React.FC<Props> = (props) => {
-    const {listTop, imageUrl, trailerUrl, listBottom, progress} = MultimediaContentLogic(props)
+    const {listTop, imageUrl, trailerUrl, listBottom, progress, type_query, id_query} = MultimediaContentLogic(props)
   
     return (
         <div className="multimedia-cont">
-            <div className="progress-cont">
+            {/* <div className="progress-cont">
                 <select className="state">
                     {
                         options.map(element => {
@@ -40,8 +40,8 @@ const MultimediaContent: React.FC<Props> = (props) => {
                     <></>                    
                 }
                 <button className="submit-progress">Update</button>
-            </div>
-            <AddList contentId={""} />
+            </div> */}
+            {/*<AddList contentId={id_query!= null? id_query: ""} type={type_query!= null? type_query: ""} />*/}
             <MultimediaTopData list={listTop} />
             <Pic url={imageUrl} />
             <MultimediaTrailer trailer={trailerUrl}/>

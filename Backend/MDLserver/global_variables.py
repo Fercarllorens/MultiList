@@ -62,7 +62,6 @@ class VIDEO():
         REQUEST = "Something went wrong with your request"
 
 class COMMON():
-    ID = "id"
     CONTENT = "content"
     ERROR = "error"
     ITEM = "item"

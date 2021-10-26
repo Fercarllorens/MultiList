@@ -12,15 +12,9 @@ const ListContent: React.FC<Props> = (props) => {
 
     return (
         <div className="list-content"> 
-            {/*
+            {
                 
-                    contents!==null ?
-                        contents.map((element) => (
-                            <SongPreview song={element} />
-                        ))
-                    : ""
-                
-                        */}      
+            }      
         </div>
     )
 }
