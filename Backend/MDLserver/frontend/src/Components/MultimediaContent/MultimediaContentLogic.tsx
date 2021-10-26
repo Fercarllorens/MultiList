@@ -23,6 +23,7 @@ const MultimediaContentLogic = (props:Props) => {
     let query = new URLSearchParams(search)
     let type_query = query.get('type')
     let id_query = query.get('id')
+    let userId : string | null = localStorage.getItem('user_id') 
     //console.log(type_query, id_query)
 
     const fetch_post_song = async (id: string | null) => {
@@ -33,8 +34,8 @@ const MultimediaContentLogic = (props:Props) => {
             .catch((err) => console.error(err))
     }
 
-    const fetch_get_track = async (id: string | null) => {
-        let url = `http://127.0.0.1:8000/spotify/get-track?id=${id}&user=jxl18bdljif6xgk8hgrcfdk3mgsxy0eo`
+    const fetch_get_track = async (id: string | null, user_id: string | null) => {
+        let url = `http://127.0.0.1:8000/spotify/get-track?id=${id}&user=${user_id}`
         fetch(url)
             .then((res) => res.json())
             .then((json) => set_json(json))
@@ -85,7 +86,7 @@ const MultimediaContentLogic = (props:Props) => {
 
     if(type_query == 'song'){
         fetch_post_song(id_query);
-        fetch_get_track(id_query);
+        fetch_get_track(id_query, userId);
         let track: any = json;
         const {name, album, artists, duration_ms, preview_url} = track;
         const {release_date, images} = album;        
@@ -113,8 +114,8 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     else if(type_query == 'series'){
-        fetch_post_series(props.id)
-        let show: any = fetch_get_series(props.id);
+        fetch_post_series(id_query)
+        let show: any = fetch_get_series(id_query);
         const { id, name, picture } = show
 
         image_url = picture;
@@ -122,15 +123,14 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     else if(type_query == 'film'){
-        fetch_post_film(props.id)
-        let movie: any = fetch_get_film(props.id);
+        fetch_post_film(id_query)
+        let movie: any = fetch_get_film(id_query);
         const { id, name, picture } = movie
 
         image_url = picture;
         list_top.push(name);
     }
 
-    let userId : string | null = localStorage.getItem('user_id') 
     let contentId : string | null = props.contentId;
     const [ progress, setProgress] = useState<null | Progress>(null)
 
@@ -156,7 +156,7 @@ const GetAlbumName = (album:any) => {
     return name;
 }
 
-const submitProgress = (progress:string, state:string, contentId:string) => {
+const SubmitProgress = (progress:string, state:string, contentId:string) => {
     let userId : string | null = localStorage.getItem('user_id') 
     let url : string = `http://localhost:8000/api/get-progress?user_id=${userId}&content_id=${contentId}&state=${state}&progress=${progress}`
     const [data , setData] = useState<null | JSON>(null)

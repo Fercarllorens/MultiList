@@ -16,7 +16,7 @@ const FilmPreview: React.FC<Props> = ({film}) => {
     const {show_film} = FilmPreviewLogic()
 
     return (
-        <div className="FilmPreviewContainer" onClick={() => {show_film()}}>
+        <div className="FilmPreviewContainer" onClick={() => {show_film(film.id)}}>
             <div className="PictureDiv">
                 <img className="Picture" src={film.img} height="130" width="130" alt="no disponible"></img>
             </div>

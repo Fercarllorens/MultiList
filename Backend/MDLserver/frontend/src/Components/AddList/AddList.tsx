@@ -1,5 +1,5 @@
 import React from 'react';
-import './ListContent.css'
+import '../ListContent/ListContent.css'
 import AddListLogic from './AddListLogic';
 import { userInfo } from 'os';
 

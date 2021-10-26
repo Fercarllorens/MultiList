@@ -32,6 +32,8 @@ interface Series{
 
 const FinderLogic = () => {
 
+    let userId : string | null = localStorage.getItem('user_id') 
+
     const [type_selected, set_type_selected] = useState<Type>({
         
         films_selected: false,
@@ -91,7 +93,7 @@ const FinderLogic = () => {
 
     // Fetch of the songs query
     const fetchSongs = async (content: string) => {
-        let url = 'http://127.0.0.1:8000/spotify/search?query=' + content + '&type=track&user=llivpulki6ty8ysxpng6uw22xinec7d5';
+        let url = 'http://127.0.0.1:8000/spotify/search?query=' + content + '&type=track&user=' + userId;
         fetch(url)
             .then((res) => res.json())
             .then((json) => set_tracks_list(json))

@@ -7,6 +7,7 @@ import Register from './Components/Register/Register'
 import Profile from './Components/Profile/Profile'
 import Finder from './Components/Finder/Finder'
 import MyLists from './Components/MyLists/MyLists'
+import MultimediaContent from './Components/MultimediaContent/MultimediaContent'
 import './App.css'
 
 function App() {
@@ -24,7 +25,6 @@ function App() {
         <PrivateRoute path='/' component={Finder} />
         <Route path="*" component={() => {return <div>404 NOT FOUND</div>}} />
       </Switch>
-      <MultimediaContent data={data} type={'song'}/>
     </Router>
   )
 }
