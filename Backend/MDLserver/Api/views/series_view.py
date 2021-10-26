@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
+from django.forms.models import model_to_dict
 
 import global_variables as gv
 from ..models import Series;
