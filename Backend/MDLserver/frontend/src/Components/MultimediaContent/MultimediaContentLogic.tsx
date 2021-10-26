@@ -1,6 +1,7 @@
 import { type } from 'os';
 import { stringify } from 'querystring';
 import React, { useState } from 'react'
+import { useLocation } from 'react-router';
 
 interface Props {
     data : JSON | null;
@@ -17,7 +18,19 @@ interface Progress {
 
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
-    const id = props.location.state
+
+    // let location = useLocation()
+    // console.log('LOCATION', location) 
+    let {search} = useLocation()
+    let query = new URLSearchParams(search)
+
+    let type_query = query.get('type')
+
+    let id_query = query.get('id')
+
+    console.log(type_query, id_query)
+
+    //const id = props.location.state
     const fetch_post_song = async (id: string) => {
         let url = 'http://127.0.0.1:8000/api';
         const body = JSON.stringify({id: id});
