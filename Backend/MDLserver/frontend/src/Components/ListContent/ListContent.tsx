@@ -4,22 +4,23 @@ import ListContentLogic from './ListContentLogic';
 import SongPreview from '../SongPreview/SongPreview'
 interface Props{
     id: string;
+    type: string;
 }
 
 const ListContent: React.FC<Props> = (props) => {
     const {contents} = ListContentLogic(props)
 
     return (
-        <div className="list-content">
-            {/* <>
-            {
-                contents!==undefined ?
-                    contents.map((element) => (
-                        <SongPreview song={element} />
-                    ))
-                : 'No results'
-            }
-            </> */}
+        <div className="list-content"> 
+            {/*
+                
+                    contents!==null ?
+                        contents.map((element) => (
+                            <SongPreview song={element} />
+                        ))
+                    : ""
+                
+                        */}      
         </div>
     )
 }

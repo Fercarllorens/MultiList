@@ -19,10 +19,10 @@ class PostList(APIView):
 
 class PutList(APIView):
     def put(self, request, format=None):
-        obj = List.objects.get(request.PUT[gv.LIST.ID])
+        obj = List.objects.get(request.POST[gv.LIST.ID])
         if obj is None:
             return Response({obj}, status=status.HTTP_204_NO_CONTENT)
-        obj.contents = request.PUT[gv.LIST.CONTENTS]
+        obj.contents = request.POST[gv.LIST.CONTENTS]
         return Response({obj}, status=status.HTTP_200_OK)
 
 class GetListByUser(APIView):

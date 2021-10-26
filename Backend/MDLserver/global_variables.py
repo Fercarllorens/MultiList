@@ -86,3 +86,9 @@ class LIST():
     TYPE = "type"
     CONTENTS = "contents"
     USER_ID = "user_id"
+
+class PROGRESS():
+    USER_ID = "user_id"
+    CONTENT_ID = "content_id"
+    STATE = "state"
+    PROGRESS = "progress"

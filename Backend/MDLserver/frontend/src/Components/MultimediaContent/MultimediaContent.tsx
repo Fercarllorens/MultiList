@@ -14,13 +14,33 @@ import { Script } from 'vm'
 interface Props{
     data : JSON | null;
     type: string | null;
+    contentId: string;
 }
 
+let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", "Finished"]
+
 const MultimediaContent: React.FC<Props> = (props) => {
-    const {listTop, imageUrl, trailerUrl, listBottom} = MultimediaContentLogic(props)
+    const {listTop, imageUrl, trailerUrl, listBottom, progress} = MultimediaContentLogic(props)
   
     return (
         <div className="multimedia-cont">
+            <div className="progress-cont">
+                <select className="state">
+                    {
+                        options.map(element => {
+                            progress?.state == element? 
+                                <option selected>{element}</option> :
+                                <option>{element}</option>
+                        })
+                    }
+                </select>
+                {
+                    progress?.state == "Watching"?
+                    <input type="text" value={progress?.progress != null? progress.progress : ""} className="progress"></input> :
+                    <></>                    
+                }
+                <button className="submit-progress">Update</button>
+            </div>
             <AddList contentId={""} />
             <MultimediaTopData list={listTop} />
             <Pic url={imageUrl} />

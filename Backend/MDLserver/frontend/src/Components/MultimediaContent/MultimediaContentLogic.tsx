@@ -5,6 +5,14 @@ import React, { useState } from 'react'
 interface Props {
     data : JSON | null;
     type : string | null;
+    contentId: string
+}
+
+interface Progress {
+    user_id: string
+    content_id: string
+    state: string
+    progress: string
 }
 
 // trailer es string, pasamos la url para usarla como source
@@ -49,19 +57,40 @@ const MultimediaContentLogic = (props:Props) => {
         
     }
 
+    let userId : string | null = localStorage.getItem('user_id') 
+    let contentId : string | null = props.contentId;
+    const [ progress, setProgress] = useState<null | Progress>(null)
+
+
+    let url : string = `http://localhost:8000/api/get-progress?user_id=${userId}&content_id=${contentId}`
+    fetch(url)
+      .then((res) => res.json())
+      .then((json) => setProgress(json))
+      .catch((err) => console.error(err))
+
     const [ imageUrl, setImageUrl] = useState<null | string>(image_url)
     const [ trailerUrl , setTrailerUrl] = useState<null | string>(trailer_url)
     const [ listTop , setListTop] = useState<null | string[]>(list_top)
     const [ listBottom , setListBottom] = useState<null | string[]>(list_bot)
     
     
-    return {listTop, imageUrl, trailerUrl, listBottom}
+    return {listTop, imageUrl, trailerUrl, listBottom, progress}
 }
 
 const GetAlbumName = (album:any) => {
     const {name} = album;
 
     return name;
+}
+
+const submitProgress = (progress:string, state:string, contentId:string) => {
+    let userId : string | null = localStorage.getItem('user_id') 
+    let url : string = `http://localhost:8000/api/get-progress?user_id=${userId}&content_id=${contentId}&state=${state}&progress=${progress}`
+    const [data , setData] = useState<null | JSON>(null)
+    fetch(url)
+      .then((res) => res.json())
+      .then((json) => setData(json))
+      .catch((err) => console.error(err))
 }
 
 export default MultimediaContentLogic

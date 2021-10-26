@@ -23,3 +23,9 @@ class List (models.Model):
 
 class Song (models.Model):
     external_id = models.CharField(max_length=300, unique=True)
+
+class Progress(models.Model):
+    user_id = models.CharField(max_length=300)
+    content_id = models.CharField(max_length=300)
+    state = models.CharField(max_length=300)
+    progress = models.CharField(max_length=300)
