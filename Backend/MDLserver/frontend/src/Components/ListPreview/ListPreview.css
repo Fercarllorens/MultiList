@@ -1,12 +1,17 @@
 .list{
     position:relative;
     margin-top:20px;
-    width:80%;
+    width:40%;
+    margin-left: auto;
+    margin-right: auto;
     height:100px;
+    background-color: white;
+    box-shadow: rgba(0,0,0,.4) -5px 5px;
 }
 
 .title{
     position: absolute;
-    top:50%;
+    top:20%;
     text-align: center;
+    width: 100%;
 }

@@ -18,8 +18,8 @@ function App() {
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
         <PrivateRoute path='/profile' component={Profile} />
-        <PrivateRoute path='/' component={Finder} />
         <PrivateRoute path='/MyLists' component={MyLists} />
+        <PrivateRoute path='/' component={Finder} />
         <Route path="*" component={() => {return <div>404 Not found</div>}} />
       </Switch>
     </Router>

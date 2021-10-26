@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './ListPreview.css'
 import ListPreviewLogic from "./ListPreviewLogic";
 
@@ -14,7 +14,10 @@ interface List{
 }
 
 const ListPreview: React.FC<Props> = (props) => {
-    const {list} = ListPreviewLogic(props)
+    const {list, getData} = ListPreviewLogic(props)
+    useEffect(() => {
+        getData()
+     }, [])
     return(
         <div className="list">
             <h4 className="title">{list != null? list.name : ""}</h4>

@@ -16,12 +16,15 @@ const ListPreviewLogic = (props:Props) => {
     let id : string | null = props.id
     let url : string = `http://localhost:8000/api/get-list?id=${id}`
 
-    fetch(url)
-    .then((res) => res.json())
-    .then((json) => setData(json))
-    .catch((err) => console.error(err))
+    function getData ()
+    {
+        fetch(url)
+        .then((res) => { return res? res.json() : res})
+        .then((json) => { if(json) setData(json)})
+        .catch((err) => console.error(err))
+    }
     let list = data != null ? data: null;
-    return{list}
+    return{list, getData}
 }
 
 export default ListPreviewLogic

@@ -19,7 +19,7 @@ const ProfileLogic = () => {
   }
 
   function getUserData(uid: string){
-    let url = `http://localhost:8000/api/get-user?id=${uid}`
+    let url = `http://localhost:8000/api/get-user?user_id=${uid}`
     fetch(url)
       .then((res) => res.json())
       .then((json) => setData(json))
