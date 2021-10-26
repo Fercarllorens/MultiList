@@ -43,3 +43,10 @@
 .profile-linked-accounts h4 {
   text-align: center;
 }
+
+.update-profile{
+  text-decoration: underline;
+  background-color: white;
+  text-align: center;
+  box-shadow: rgba(0,0,0,.4) -2px 2px;
+}

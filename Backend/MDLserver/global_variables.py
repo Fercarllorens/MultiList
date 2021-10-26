@@ -75,12 +75,15 @@ class COMMON():
 
 class FILM():
     EXTERNAL_ID = "id"
+    NAME = "name"
 
 class SERIES():
     EXTERNAL_ID = "id"
+    NAME = "name"
 
 class SONG():
     EXTERNAL_ID = "id"
+    NAME = "name"
 
 class LIST():
     ID = "id"

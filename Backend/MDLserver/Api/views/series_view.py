@@ -10,8 +10,8 @@ from ..models import Series;
 # Create your views here.
 class PostSeries(APIView):
     def post(self, request, format=None):
-        data = request.data[gv.COMMON.ID]
-        obj = Series.objects.create(external_id = data[gv.SERIES.EXTERNAL_ID])
+        data = request.data
+        obj = Series.objects.create(external_id = data[gv.SERIES.EXTERNAL_ID], name = data[gv.SERIES.NAME])
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
         
 class PutSeries(APIView):

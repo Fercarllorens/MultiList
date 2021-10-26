@@ -36,7 +36,7 @@ const Profile = () => {
         },]}
       />
       <div className='profile-pic'>
-        <img src={pic} alt='Profile Pic' />
+        <img className="profile-pic" src="https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg" alt='Profile Pic' />
       </div>
       <div className='profile-data'>
         <h4>User Info</h4>
@@ -48,7 +48,7 @@ const Profile = () => {
       <div className='profile-settings'>
         <h4>Settings</h4>
         <ul>
-          <p onClick={() => {setOpen(!open)}}>Update Profile</p>
+          <p className="update-profile" onClick={() => {setOpen(!open)}}>Update Profile</p>
         </ul>
       </div>
       <div className='profile-linked-accounts'>
