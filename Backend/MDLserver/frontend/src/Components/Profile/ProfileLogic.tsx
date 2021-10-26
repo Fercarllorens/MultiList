@@ -2,7 +2,7 @@ import { request } from 'http'
 import React, { useState } from 'react'
 
 interface Data {
-  name: string
+  username: string
   email: string
 }
 
