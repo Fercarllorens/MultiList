@@ -4,13 +4,11 @@ import FilmPreview from '../FilmPreview/FilmPreview'
 import './FindFilms.css'
 
 interface Film{
+    id: string
     name: string;
-    authors: string;
-    date: string;
     img: string;
-    preview_url: string;
-    genre: any;
 }
+
 
 interface Props{
     films: Film[] | undefined

@@ -3,11 +3,9 @@ import SeriesPreviewLogic from './SeriesPreviewLogic'
 import './SeriesPreview.css'
 
 interface Series{
+    id: string
     name: string;
-    authors: string;
-    date: string;
     img: string;
-    preview_url: string;
 }
 
 interface Props{

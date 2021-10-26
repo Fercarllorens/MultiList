@@ -15,11 +15,9 @@ interface Progress {
     progress: string
 }
 
-
-
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
-
+    const id = props.location.state
     const fetch_post_song = async (id: string) => {
         let url = 'http://127.0.0.1:8000/api';
         const body = JSON.stringify({id: id});
@@ -35,12 +33,6 @@ const MultimediaContentLogic = (props:Props) => {
             .then((json) => set_json(json))
             .catch((err) => console.error(err))
     }
-
-    const [json, set_json] = useState();
-    let image_url = 'not available';
-    let trailer_url = 'not available';
-    let list_top = [];
-    let list_bot = [];
 
     const fetch_post_film = async (id: string) => {
         //let url = 'http://127.0.0.1:8000/api';
@@ -78,6 +70,12 @@ const MultimediaContentLogic = (props:Props) => {
             .catch((err) => console.error(err))
     }
 
+    const [json, set_json] = useState();
+    let image_url = 'not available';
+    let trailer_url = 'not available';
+    let list_top = [];
+    let list_bot = [];
+
     if(props.type == 'song'){
         fetch_post_song(props.id);
         let track: any = fetch_get_track(props.id);
@@ -107,8 +105,8 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     else if(props.type == 'series'){
-        //fetch_post_series(props.id)
-        let show: any = props.data;
+        fetch_post_series(props.id)
+        let show: any = fetch_get_series(props.id);
         const { id, name, picture } = show
 
         image_url = picture;
@@ -116,8 +114,8 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     else if(props.type == 'film'){
-        //fetch_post_film(props.id)
-        let movie: any = props.data;
+        fetch_post_film(props.id)
+        let movie: any = fetch_get_film(props.id);
         const { id, name, picture } = movie
 
         image_url = picture;

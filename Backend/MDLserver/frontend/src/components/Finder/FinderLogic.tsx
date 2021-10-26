@@ -20,20 +20,14 @@ interface Song{
 
 interface Film{
     name: string;
-    authors: string;
-    date: string;
     img: string;
-    preview_url: string;
-    genre: any;
+    id: string;
 }
 
 interface Series{
     name: string;
-    authors: string;
-    date: string;
     img: string;
-    preview_url: string;
-    genre: any;
+    id: string;
 }
 
 const FinderLogic = () => {

@@ -4,12 +4,9 @@ import SeriesPreview from '../SeriesPreview/SeriesPreview'
 import './FindSeries.css'
 
 interface Series{
+    id: string
     name: string;
-    authors: string;
-    date: string;
     img: string;
-    preview_url: string;
-    genre: any;
 }
 
 interface Props{
