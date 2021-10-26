@@ -3,7 +3,7 @@ import React from 'react'
 const FilmPreviewLogic = () => {
 
     // Shows all film's info
-    const show_film = () => {
+    const show_film = (id: string) => {
         console.log("Film clicked")
     }
 
