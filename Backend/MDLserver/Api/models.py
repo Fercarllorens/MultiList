@@ -11,11 +11,11 @@ class User(models.Model):
 
 class Film (models.Model):
     external_id = models.CharField(max_length=300, unique=True)
-    name = models.CharField(max_length=300)
+    name = models.CharField(max_length=300, null=True)
 
 class Series (models.Model):
     external_id = models.CharField(max_length=300, unique=True)
-    name = models.CharField(max_length=300)
+    name = models.CharField(max_length=300, null=True)
     
 class List (models.Model):
     name = models.CharField(max_length=50)
@@ -25,7 +25,7 @@ class List (models.Model):
 
 class Song (models.Model):
     external_id = models.CharField(max_length=300, unique=True)
-    name = models.CharField(max_length=300)
+    name = models.CharField(max_length=300, null=True)
 
 class Progress(models.Model):
     user_id = models.CharField(max_length=300)
