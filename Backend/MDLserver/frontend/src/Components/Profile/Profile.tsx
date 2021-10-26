@@ -6,7 +6,7 @@ import Pic from '../Pic/Pic'
 import Modal from '../Modal/Modal'
 
 const Profile = () => {
-  const { open, setOpen, pic, data, getUserData } = ProfileLogic()
+  const { open, setOpen, pic, data, getUserData, handleSpotifyClick } = ProfileLogic()
   const uid = localStorage.getItem('user_id')
 
   //TODO: MODIFICAR CUANDO SE AÑADA EL LOGIN
@@ -50,6 +50,10 @@ const Profile = () => {
         <ul>
           <p onClick={() => {setOpen(!open)}}>Update Profile</p>
         </ul>
+      </div>
+      <div className='profile-linked-accounts'>
+        <h4>Link Accounts</h4>
+        <button onClick={() => {if (uid !== null) handleSpotifyClick(uid)}} >Spotify</button>
       </div>
     </div>
   )

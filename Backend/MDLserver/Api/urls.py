@@ -5,6 +5,7 @@ from .views.series_view import GetSeries, PostSeries, PutSeries
 from .views.song_view import GetSong, PostSong, PutSong
 from .views.user_view import GetUser, PostUser, PutUser
 from .views.progress_view import GetProgress, PostProgress, UpdateProgress
+from .views.auth_view import Login, Register
 
 app_name = 'Api'
 
@@ -12,7 +13,7 @@ urlpatterns = [
     path('post-film', PostFilm.as_view()),
     path('put-film', PutFilm.as_view()),
     path('get-film', GetFilm.as_view()),
-
+    
     path('post-series', PostSeries.as_view()),
     path('put-series', PutSeries.as_view()),
     path('get-series', GetSeries.as_view()),
@@ -33,7 +34,10 @@ urlpatterns = [
 
     path('get-progress', GetProgress.as_view()),
     path('post-progress', PostProgress.as_view()),
-    path('update-progress', UpdateProgress.as_view())
+    path('update-progress', UpdateProgress.as_view()),
+    
+    path('login', Login.as_view()),
+    path('register', Register.as_view()),
 ]
 
 

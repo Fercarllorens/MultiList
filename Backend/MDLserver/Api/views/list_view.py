@@ -12,7 +12,7 @@ import json
 
 class PostList(APIView):
     def post(self, request, format=None):
-        data = request.POST[gv.COMMON.ID]
+        data = request.POST
         obj = List.objects.create(name = data[gv.LIST.NAME], type = data[gv.LIST.TYPE], contents = '{"items":[]}', user_id = data[gv.LIST.USER_ID]) 
         return Response({obj}, status=status.HTTP_200_OK)
         

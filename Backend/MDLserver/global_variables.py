@@ -45,6 +45,7 @@ class USER():
     USERNAME = "username"
     PASSWORD = "password"
     EMAIL = "email"
+    AUTHENTICATION_TOKEN = "auth_token"
     SPOTIFY_TOKEN = "spotify_token"
     LISTS = "lists"
 

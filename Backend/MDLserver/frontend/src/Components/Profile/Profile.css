@@ -31,7 +31,15 @@
   position: absolute;
 }
 
+.profile-linked-accounts{
+  bottom: 3rem;
+  right: 40px;
+  width: 18rem;
+  position: absolute;
+}
+
 .profile-data h4,
-.profile-settings h4 {
+.profile-settings h4,
+.profile-linked-accounts h4 {
   text-align: center;
 }
