@@ -32,7 +32,9 @@ interface Series{
 
 const FinderLogic = () => {
 
-    let userId : string | null = localStorage.getItem('user_id') 
+    
+    //console.log(userId)
+    //console.log('hola')
 
     const [type_selected, set_type_selected] = useState<Type>({
         
@@ -93,6 +95,8 @@ const FinderLogic = () => {
 
     // Fetch of the songs query
     const fetchSongs = async (content: string) => {
+        let userId : string | null = localStorage.getItem('user_id')
+        console.log(userId)
         let url = 'http://127.0.0.1:8000/spotify/search?query=' + content + '&type=track&user=' + userId;
         fetch(url)
             .then((res) => res.json())
