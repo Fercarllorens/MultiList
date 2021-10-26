@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 interface Props{
-    type: string;
+    id: string;
 }
 
 interface List{
@@ -14,10 +14,9 @@ interface List{
 
 const ListContentLogic = (props:Props) => {
     const [data , setData] = useState<null | List>(null)
-    let userId : string | null = localStorage.getItem('user_id')
-    let type : string | null = props.type
+    let id : string | null = props.id
     
-    let url : string = `http://localhost:8000/api/get-list?id=${userId}&type=${type}`
+    let url : string = `http://localhost:8000/api/get-list?id=${id}`
     
     fetch(url)
       .then((res) => res.json())

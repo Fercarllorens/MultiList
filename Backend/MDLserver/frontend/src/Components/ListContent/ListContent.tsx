@@ -3,7 +3,7 @@ import './ListContent.css'
 import ListContentLogic from './ListContentLogic';
 import SongPreview from '../SongPreview/SongPreview'
 interface Props{
-    type: string;
+    id: string;
 }
 
 const ListContent: React.FC<Props> = (props) => {

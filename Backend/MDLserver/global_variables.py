@@ -81,6 +81,7 @@ class SONG():
     EXTERNAL_ID = "id"
 
 class LIST():
+    ID = "id"
     NAME = "name"
     TYPE = "type"
     CONTENTS = "contents"

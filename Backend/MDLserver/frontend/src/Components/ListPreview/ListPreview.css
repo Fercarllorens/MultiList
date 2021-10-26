@@ -1,0 +1,12 @@
+.list{
+    position:relative;
+    margin-top:20px;
+    width:80%;
+    height:100px;
+}
+
+.title{
+    position: absolute;
+    top:50%;
+    text-align: center;
+}
