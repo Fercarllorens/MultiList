@@ -8,7 +8,7 @@ def request_to_api(endpoint: str, query_params: str) -> dict:
         'x-rapidapi-host': API_HOST,
         'x-rapidapi-key': API_KEY,
     } 
-    try:
-        return  requests.request("GET", gv.VIDEO.URL, headers=headers, params=query_params).json()
+    try:       
+        return  requests.request("GET", gv.VIDEO.URL.BASE + endpoint, headers=headers, params=query_params).json()
     except:
         return {gv.COMMON.ERROR: gv.VIDEO.ERRORS.REQUEST}
