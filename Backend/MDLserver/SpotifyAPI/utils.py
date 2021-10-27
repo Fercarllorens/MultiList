@@ -9,34 +9,44 @@ import global_variables as gv
 
 from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI #TODO MOVE THIS TO ENV VARIABLES
 
-# user_id = user_id 
-
 def get_user_tokens(user_id: str) -> SpotifyToken or None:
     """Returns the user tokens or None if no tokens were found"""
-    user_tokens = SpotifyToken.objects.filter(user=user_id)
-    if user_tokens.exists():
+    user_object = api_models.User.objects.get(id=user_id)
+    user_token = SpotifyToken.objects.get(id=user_object.spotify_token) 
+    if user_token.exists():
         # Every user will have only one SpotifyToken linked to it
-        return user_tokens[0]
+        return user_token
     return None
 
-def update_user_tokens(user_id: str, access_token: str, token_type: str, refresh_token: str, expires_in: int) -> tuple:
+def update_user_tokens(access_token: str, token_type: str, refresh_token: str, expires_in: int, user_id: str=None) -> tuple:
     """
         Updates or Creates a new SpotifyToken with the given data and returns the object, 
         and a bool determining whether the object was created or not
     """
     # Get the actual time the token will expire
     expires_in = timezone.now() + timedelta(seconds=expires_in)
-    obj, created = SpotifyToken.objects.update_or_create(user=user_id, defaults={
-        gv.SPOTIFY.MODEL.ACCESS_TOKEN: access_token,
-        gv.SPOTIFY.MODEL.REFRESH_TOKEN: refresh_token,
-        gv.SPOTIFY.MODEL.EXPIRES_IN: expires_in,
-        gv.SPOTIFY.MODEL.TOKEN_TYPE: token_type,
-    })
+    if user_id:
+        user_token = get_user_tokens(user_id)
+        user_token.access_token = access_token
+        user_token.refresh_token = refresh_token
+        user_token.expires_in = expires_in
+        user_token.token_type = token_type
+        user_token.save()
+        return user_token
 
-    api_models.User.update(id=user_id, defaults={
-        gv.USER.SPOTIFY_TOKEN: obj.id
-    })
-    return obj, created
+    obj = SpotifyToken.objects.create(
+        access_token=access_token,
+        refresh_token=refresh_token,
+        expires_in=expires_in,
+        token_type=token_type,
+    )
+    return obj
+
+def link_user(user_id: str, sptk: str):
+    user_object = api_models.User.objects.get(id=user_id)
+    if user_object:
+        user_object.spotify_token = sptk
+        user_object.save()
 
 def is_spotify_authenticated(user_id: str) -> bool:
     """Returns wether the user is auth or not, and updates the user token given the user_id"""

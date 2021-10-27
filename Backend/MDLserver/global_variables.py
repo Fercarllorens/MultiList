@@ -1,4 +1,5 @@
 class SPOTIFY():
+    ID = "sptk"
     class URL():
         BASE = "https://api.spotify.com/v1/"
         AUTH = "https://accounts.spotify.com/authorize"
