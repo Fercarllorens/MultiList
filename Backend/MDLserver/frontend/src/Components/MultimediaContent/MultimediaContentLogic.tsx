@@ -32,7 +32,7 @@ const MultimediaContentLogic = (props:Props) => {
     let userId : string | null = localStorage.getItem('user_id') 
 
     const fetchPostSong = async (id: string | null, name: string | null) => {
-        let url = 'http://127.0.0.1:8000/api/post-song/';
+        let url = 'http://127.0.0.1:8000/api/post-song';
         const body = JSON.stringify({id: id, name: name});
         fetch(url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
             .then((res) => console.log(res))
@@ -44,8 +44,8 @@ const MultimediaContentLogic = (props:Props) => {
         fetch(url)
             .then((res) => res.json())
             .then((json) => set_result_json(json))
+            .then((json) => console.log(json))
             .catch((err) => console.error(err))
-        //set_result_json(require('../../FakeJSONs/DespacitoTrackJson.json'))
     }
 
     const fetchPostFilm = async (id: string | null) => {
@@ -94,10 +94,8 @@ const MultimediaContentLogic = (props:Props) => {
 
     if(type_query == 'song'){
         fetchGetTrack(id_query, userId)
-        const { track } = result_json != null ?  result_json : ''
-        let track_aux: Array<any | null> = track != null ? track : []
-        const {name, album, artists, duration_ms, preview_url} = track_aux != null ? track_aux : '';
-        fetchPostSong(id_query, name); 
+        const track: any = result_json != null ?  result_json : ''
+        const {name, album, artists, duration_ms, preview_url} = track != null ? track : '';
         const {release_date, images} = album != null ? album : '';               
             
         let artists_string = 'No artists found';
