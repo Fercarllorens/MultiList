@@ -13,7 +13,7 @@ def get_user_tokens(user_id: str) -> SpotifyToken or None:
     """Returns the user tokens or None if no tokens were found"""
     user_object = api_models.User.objects.get(id=user_id)
     user_token = SpotifyToken.objects.get(id=user_object.spotify_token) 
-    if user_token.exists():
+    if user_token:
         # Every user will have only one SpotifyToken linked to it
         return user_token
     return None
