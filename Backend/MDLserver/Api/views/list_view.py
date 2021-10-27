@@ -54,8 +54,8 @@ class UpdateListContents(APIView):
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
 
 def create_default(user):   
-    songList = List.objects.create(name = "songs", type = "songs", contents = '{"items":[]}', user_id = user)
-    filmList = List.objects.create(name = "films", type = "films", contents = '{"items":[]}', user_id = user)
-    seriesList = List.objects.create(name = "series", type = "series", contents = '{"items":[]}', user_id = user)
+    songList = List.objects.create(name = "songs", type = "songs", contents = '{"items":[1]}', user_id = user)
+    filmList = List.objects.create(name = "films", type = "films", contents = '{"items":[1]}', user_id = user)
+    seriesList = List.objects.create(name = "series", type = "series", contents = '{"items":[1]}', user_id = user)
     obj = [songList.id, filmList.id, seriesList.id]
     return obj

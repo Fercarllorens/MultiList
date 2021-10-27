@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import './ListPreview.css'
 import ListPreviewLogic from "./ListPreviewLogic";
-
+import { Link } from 'react-router-dom'
 interface Props{
     id: string;
 }
@@ -20,7 +20,7 @@ const ListPreview: React.FC<Props> = (props) => {
      }, [])
     return(
         <div className="list">
-            <h4 className="title">{list != null? list.name : ""}</h4>
+            <Link className="title" to='/List'> {list != null? list.name : ""} </Link>
         </div>
     )
 }

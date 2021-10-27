@@ -22,20 +22,44 @@ interface Song{
     album: any;
 }
 
-const ListContentLogic = (props:Props) => {
-    const [data , setData] = useState<null | List>(null)
-    let id : string | null = props.id
+const ListContentLogic = () => {
+    const [data , setData] = useState<null | JSON[]>(null)
     
-    let url : string = `http://localhost:8000/api/get-list?id=${id}`
+    let url : string = `http://localhost:8000/api/get-list?id=1`
     
-    // fetch(url)
-    //   .then((res) => res.json())
-    //   .then((json) => setData(json))
-    //   .catch((err) => console.error(err))
-     const [contents , setContents] = useState<string[]>(data !=null ? data.contents : [""])
+    function getData ()
+    {
+        let base_url = "http://localhost:8000/api/"
+        fetch(url)
+        .then((res) => { return res? res.json() : res})
+        .then((json) => { if(json){
+            let item_list = [1]
+            let item_contents: JSON[] = []
+            if (json.type == "song") {
+                item_contents = getItemsByList(item_list, base_url+"get-song?id=")
+            }
+            if (json.type == "film"){
+                item_contents = getItemsByList(item_list, base_url+"get-film?id=")
+            }
+            if (json.type == "serie"){
+                item_contents = getItemsByList(item_list, base_url+"get-serie?id=")
+            }
+            setData(item_contents)
+        }})
+        .catch((err) => console.error(err))
+    }
 
+    function getItemsByList(item_list: number[], url: string){
+        let item_contents: JSON[] = []
+        item_list.forEach(item => {
+            fetch(url+item.toString())
+                .then((res) => { return res? res.json() : res})
+                .then((json) => {item_contents.push(json)})
+        })
+        return item_contents
+    }
    
-    return {contents}
+    return {data, setData, getData}
 }
 
 

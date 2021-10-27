@@ -11,11 +11,11 @@ const ProfileLogic = () => {
   const [pic, setPic] = useState<undefined | string>(undefined)
   const [data, setData] = useState<null | Data>(null)
 
-  function handleSpotifyClick(uid: string){
+  function handleSpotifyClick(uid: string){ 
     let url = `http://localhost:8000/spotify/get-auth-url?user_id=${uid}`
     fetch(url)
       .then(res=>res.json())
-      .then(json=>window.location.href= json.url)
+      .then(json=>window.location.href = json.url)
   }
 
   function getUserData(uid: string){

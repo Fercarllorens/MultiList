@@ -8,6 +8,7 @@ import Profile from './Components/Profile/Profile'
 import Finder from './Components/Finder/Finder'
 import MyLists from './Components/MyLists/MyLists'
 import MultimediaContent from './Components/MultimediaContent/MultimediaContent'
+import ListContent from './Components/ListContent/ListContent'
 import './App.css'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route exact path='/register' component={Register} />
         <PrivateRoute path='/profile' component={Profile} />
         <PrivateRoute path='/MyLists' component={MyLists} />
+        <PrivateRoute path='/List' component={ListContent} />
         <Route exact path='/Finder' component={Finder} />
         <Route exact path='/MultimediaContent' component={MultimediaContent} />
         <PrivateRoute path='/' component={Finder} />

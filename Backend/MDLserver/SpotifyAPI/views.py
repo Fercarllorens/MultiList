@@ -15,6 +15,7 @@ class AuthURL(APIView):
         """Returns a url generated for the frontend to authenticate the user on our spotify app"""
         if request.GET.get(gv.USER.ID, False):
             request.session[gv.USER.ID] = request.GET[gv.USER.ID]
+            print("FIRST", request.session)
             url = req.Request("GET", gv.SPOTIFY.URL.AUTH, params={
                 gv.SPOTIFY.REQUEST.SCOPE:           gv.SPOTIFY.SCOPES.PLAYLIST,
                 gv.SPOTIFY.REQUEST.RESPONSE_TYPE:   gv.SPOTIFY.REQUEST.TYPES.CODE,
@@ -39,6 +40,8 @@ def spotify_callback(request, format=None) -> redirect:
     
     if error := response.get(gv.COMMON.ERROR, None) is not None:
         return Response({gv.COMMON.ERROR: error}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    print("SECOND", request.session)
 
     ut.update_user_tokens(
         request.session.get('user_id'),
