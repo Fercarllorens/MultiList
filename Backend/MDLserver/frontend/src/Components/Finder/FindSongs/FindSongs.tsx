@@ -1,6 +1,6 @@
 import React from 'react'
 import FindSongsLogic from './FindSongsLogic'
-import SongPreview from '../SongPreview/SongPreview'
+import SongPreview from '../../ItemPreview/SongPreview/SongPreview'
 import './FindSongs.css'
 
 interface Song{

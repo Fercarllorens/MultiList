@@ -1,7 +1,7 @@
 import React from 'react';
 import './ListContent.css'
 import ListContentLogic from './ListContentLogic';
-import SongPreview from '../SongPreview/SongPreview'
+import SongPreview from '../ItemPreview/SongPreview/SongPreview'
 
 
 const ListContent = () => {

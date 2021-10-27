@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
-import './MyLists.css'
 import MyListsLogic from "./MyListsLogic";
 import ListPreview from "../ListPreview/ListPreview";
+import './MyLists.css'
 
 const MyLists: React.FC = () => {
     const {data, setData, getData, getList} = MyListsLogic()
@@ -9,18 +9,11 @@ const MyLists: React.FC = () => {
     useEffect(() => {
        getData()
     }, [])
-
-    
     
     return(
-        
-
-        <div className="list-content">
+        <div className="mylist-content">
             {   
-                
-
                 data != null && data.lists? (
-                    
                     getList().map((element) => {
 
                         return (<ListPreview id={element.toString()} />)

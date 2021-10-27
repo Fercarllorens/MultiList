@@ -1,6 +1,6 @@
 import React from 'react'
 import FindSeriesLogic from './FindSeriesLogic'
-import SeriesPreview from '../SeriesPreview/SeriesPreview'
+import SeriesPreview from '../../ItemPreview/SeriesPreview/SeriesPreview'
 import './FindSeries.css'
 
 interface Series{

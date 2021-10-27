@@ -19,7 +19,7 @@ const Spotify: React.FC = () => {
             .then(res=> {return res? res.json() : res})
             .then(json=> {
                 console.log(json)
-                if (json.error==undefined) { window.location.href = 'http://localhost:3000/Profile'}
+                if (json.error===undefined) { window.location.href = 'http://localhost:3000/Profile'}
                 else { alert(json.error) }
             })
             .catch(err=> {console.error(err)})

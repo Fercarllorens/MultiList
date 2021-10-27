@@ -2,13 +2,11 @@ import React from 'react'
 import './MultimediaContent.css'
 import MultimediaContentLogic from './MultimediaContentLogic'
 //componentes
-import MultimediaTopData from '../MultimediaTopData/MultimediaTopData'
-import MultimediaTrailer from '../MultimediaTrailer/MultimediaTrailer'
-import MultimediaBottomData from '../MultimediaBottomData/MultimediaBottomData'
-import AddList from '../AddList/AddList'
+import MultimediaTopData from './MultimediaTopData/MultimediaTopData'
+import MultimediaTrailer from './MultimediaTrailer/MultimediaTrailer'
+import MultimediaBottomData from './MultimediaBottomData/MultimediaBottomData'
+import AddList from './AddList/AddList'
 import Pic from '../Pic/Pic'
-//import AddListLogic from '../AddList/AddListLogic'
-import { Script } from 'vm'
 
 
 interface Props{

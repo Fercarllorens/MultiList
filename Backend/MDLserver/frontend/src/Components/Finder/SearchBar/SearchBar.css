@@ -11,3 +11,7 @@
     height: 30px;
     box-shadow: -4px 4px 5px #4c4848;
 }
+
+.SearchBar:focus{
+    outline: none;
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 import FindFilmsLogic from './FindFilmsLogic'
-import FilmPreview from '../FilmPreview/FilmPreview'
+import FilmPreview from '../../ItemPreview/FilmPreview/FilmPreview'
 import './FindFilms.css'
 
 interface Film{
