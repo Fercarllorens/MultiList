@@ -19,13 +19,19 @@ interface Progress {
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
 
+    const [result_json, set_result_json] = useState<any | undefined>()
+    let image_url = 'not available';
+    let trailer_url = 'not available';
+    let list_top = [];
+    let list_bot = [];
+    //let fakeJson = require('../../FakeJSONs/DespacitoTrackJson.json')
     let {search} = useLocation()
     let query = new URLSearchParams(search)
     let type_query = query.get('type')
     let id_query = query.get('id')
     let userId : string | null = localStorage.getItem('user_id') 
 
-    const fetch_post_song = async (id: string | null, name: string | null) => {
+    const fetchPostSong = async (id: string | null, name: string | null) => {
         let url = 'http://127.0.0.1:8000/api/post-song/';
         const body = JSON.stringify({id: id, name: name});
         fetch(url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
@@ -33,16 +39,16 @@ const MultimediaContentLogic = (props:Props) => {
             .catch((err) => console.error(err))
     }
 
-    const fetch_get_track = async (id: string | null, user_id: string | null) => {
-        /*let url = `http://127.0.0.1:8000/spotify/get-track?id=${id}&user=${user_id}`
+    const fetchGetTrack = async (id: string | null, user_id: string | null) => {
+        let url= 'http://127.0.0.1:8000/spotify/get-track?id=' + id + '&user=' + user_id;
         fetch(url)
             .then((res) => res.json())
-            .then((json) => set_json(json))
-            .catch((err) => console.error(err))*/
-        set_json(require('../../FakeJSONs/DespacitoTrackJson.json'))
+            .then((json) => set_result_json(json))
+            .catch((err) => console.error(err))
+        //set_result_json(require('../../FakeJSONs/DespacitoTrackJson.json'))
     }
 
-    const fetch_post_film = async (id: string | null) => {
+    const fetchPostFilm = async (id: string | null) => {
         //let url = 'http://127.0.0.1:8000/api';
         let url = ''
         const body = JSON.stringify({id: id});
@@ -51,17 +57,17 @@ const MultimediaContentLogic = (props:Props) => {
             .catch((err) => console.error(err))
     }
     
-    const fetch_get_film = async (id: string | null) => {
+    const fetchGetFilm = async (id: string | null) => {
         //let url = 'http://127.0.0.1:8000/spotify/get-track?id=${id}&user=jxl18bdljif6xgk8hgrcfdk3mgsxy0eo'
         let url = ''
         fetch(url)
             .then((res) => res.json())
-            .then((json) => set_json(json))
+            .then((json) => set_result_json(json))
             .catch((err) => console.error(err))
     }
 
-    const fetch_post_series = async (id: string | null) => {
-        //let url = 'http://127.0.0.1:8000/api';
+    const fetchPostSeries = async (id: string | null) => {
+        //let url = 'http://127.0.0.1:8000/api/post-tipo';
         let url = ''
         const body = JSON.stringify({id: id});
         fetch(url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
@@ -69,16 +75,16 @@ const MultimediaContentLogic = (props:Props) => {
             .catch((err) => console.error(err))
     }
     
-    const fetch_get_series = async (id: string | null) => {
+    const fetchGetSeries = async (id: string | null) => {
         //let url = 'http://127.0.0.1:8000/spotify/get-track?id=${id}&user=jxl18bdljif6xgk8hgrcfdk3mgsxy0eo'
         let url = ''
         fetch(url)
             .then((res) => res.json())
-            .then((json) => set_json(json))
+            .then((json) => set_result_json(json))
             .catch((err) => console.error(err))
     }
 
-    const fetch_get_progress = async () => {
+    const fetchGetProgress = async () => {
         let url : string = `http://localhost:8000/api/get-progress?user_id=${userId}&content_id=${contentId}`
         fetch(url)
             .then((res) => res.json())
@@ -86,19 +92,14 @@ const MultimediaContentLogic = (props:Props) => {
             .catch((err) => console.error(err))
     }
 
-    const [json, set_json] = useState();
-    let image_url = 'not available';
-    let trailer_url = 'not available';
-    let list_top = [];
-    let list_bot = [];
-    let fakeJson = require('../../FakeJSONs/DespacitoTrackJson.json')
-
     if(type_query == 'song'){
-        let track: any = fakeJson;
-        const {name, album, artists, duration_ms, preview_url} = track;
-        const {release_date, images} = album;               
-        //fetch_get_track(id_query, userId);   
-        //fetch_post_song(id_query, name);     
+        fetchGetTrack(id_query, userId)
+        const { track } = result_json != null ?  result_json : ''
+        let track_aux: Array<any | null> = track != null ? track : []
+        const {name, album, artists, duration_ms, preview_url} = track_aux != null ? track_aux : '';
+        fetchPostSong(id_query, name); 
+        const {release_date, images} = album != null ? album : '';               
+            
         let artists_string = 'No artists found';
         let genres_string = 'Not genres found';
 
@@ -125,8 +126,8 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     else if(type_query == 'series'){
-        //fetch_post_series(id_query)
-        //let show: any = fetch_get_series(id_query);
+        //fetchPostSeries(id_query)
+        //let show: any = fetchGetSeries(id_query);
         let show = require('../../FakeJSONs/SeriesViewJson.json')
         const { collection } = show
         const { id, name, picture } = collection
@@ -136,8 +137,8 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     else if(type_query == 'film'){
-        //fetch_post_film(id_query)
-        //let show: any = fetch_get_film(id_query);
+        //fetchPostFilm(id_query)
+        //let show: any = fetchGetFilm(id_query);
         let show = require('../../FakeJSONs/FilmViewJson.json')
         const { collection } = show
         const { id, name, picture } = collection
@@ -149,7 +150,7 @@ const MultimediaContentLogic = (props:Props) => {
     let contentId : string | null = props.contentId;
     const [ progress, setProgress] = useState<null | Progress>(null)
 
-    //fetch_get_progress()
+    //fetchGetProgress()
     const [ imageUrl, setImageUrl] = useState<null | string>(image_url)
     const [ trailerUrl , setTrailerUrl] = useState<null | string>(trailer_url)
     const [ listTop , setListTop] = useState<null | string[]>(list_top)

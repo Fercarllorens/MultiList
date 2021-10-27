@@ -12,7 +12,7 @@ from ..models import Film;
 class PostFilm(APIView):
     def post(self, request, format=None):
         data = request.query_params
-        obj = Film.objects.create(external_id = data[gv.FILM.EXTERNAL_ID], name = data[gv.FILM.EXTERNAL_ID])
+        obj = Film.objects.update_or_create(external_id = data[gv.FILM.EXTERNAL_ID], name = data[gv.FILM.EXTERNAL_ID])
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
         
 class PutFilm(APIView):

@@ -12,7 +12,7 @@ class PostSeries(APIView):
     def post(self, request, format=None):
         data = request.query_params
         print("Data", request.query_params)
-        obj = Series.objects.create(external_id = data[gv.SERIES.EXTERNAL_ID], name = data[gv.SERIES.NAME])
+        obj = Series.objects.update_or_create(external_id = data[gv.SERIES.EXTERNAL_ID], name = data[gv.SERIES.NAME])
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
         
 class PutSeries(APIView):

@@ -11,6 +11,7 @@ interface Song{
     preview_url: string;
     album: any;
     id: string;
+    genres: string;
 }
 
 interface Props{

@@ -11,7 +11,7 @@ from ..models import Song;
 class PostSong(APIView):
     def post(self, request, format=None):
         data = request.query_params
-        obj = Song.objects.create(external_id = data[gv.SONG.EXTERNAL_ID], name = data[gv.SONG.NAME])
+        obj = Song.objects.update_or_create(external_id = data[gv.SONG.EXTERNAL_ID], name = data[gv.SONG.NAME])
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
         
 class PutSong(APIView):

@@ -10,6 +10,7 @@ interface Song{
     preview_url: string;
     album: any;
     id: string;
+    genres: string
 }
 
 interface Props{
@@ -35,7 +36,7 @@ const SongPreview: React.FC<Props> = ({song}) => {
                     {song.date}
                 </div>
                 <div className="SongGenre">
-                    Genre
+                    {song.genres}
                 </div>
             </div>
         </div>

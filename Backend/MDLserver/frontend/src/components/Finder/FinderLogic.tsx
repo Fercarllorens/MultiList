@@ -16,6 +16,7 @@ interface Song{
     preview_url: string;
     album: any;
     id: string;
+    genres: string;
 }
 
 interface Film{
@@ -31,10 +32,6 @@ interface Series{
 }
 
 const FinderLogic = () => {
-
-    
-    //console.log(userId)
-    //console.log('hola')
 
     const [type_selected, set_type_selected] = useState<Type>({
         
@@ -95,14 +92,12 @@ const FinderLogic = () => {
 
     // Fetch of the songs query
     const fetchSongs = async (content: string) => {
-        /*let userId : string | null = localStorage.getItem('user_id')
-        console.log(userId)
+        let userId : string | null = localStorage.getItem('user_id')
         let url = 'http://127.0.0.1:8000/spotify/search?query=' + content + '&type=track&user=' + userId;
         fetch(url)
             .then((res) => res.json())
             .then((json) => set_tracks_list(json))
-            .catch((err) => console.error(err))*/
-        set_tracks_list(require('../../FakeJSONs/DespacitoSearchJson.json'))
+            .catch((err) => console.error(err))
     }
 
     // Fetch of the films query
@@ -133,30 +128,30 @@ const FinderLogic = () => {
     const find = (e: any, content: string) => {
         var keycode = (e.keyCode ? e.keyCode : e.which);
         if (keycode == '13') {
-            type_selected.songs_selected && find_songs(content)
-            type_selected.films_selected && find_films(content)
-            type_selected.series_selected && find_series(content)
+            type_selected.songs_selected && findSongs(content)
+            type_selected.films_selected && findFilms(content)
+            type_selected.series_selected && findSeries(content)
             e.preventDefault();
             return false;
         }
     }
 
     // Search for songs
-    const find_songs = (content: string) => {
+    const findSongs = (content: string) => {
         fetchSongs(content)
     }
 
     // Search for films
-    const find_films = (content: string) => {
+    const findFilms = (content: string) => {
         fetchFilms(content)
     }
 
     // Search for series
-    const find_series = (content: string) => {
+    const findSeries = (content: string) => {
         fetchSeries(content)
     }
 
-    const build_series = () => {
+    const buildSeries = () => {
         let res: Array<any> = []
         //const { results } = shows_list
         const {name, id, picture} = shows_list;
@@ -208,9 +203,10 @@ const FinderLogic = () => {
     }
 
     // Transforms the array of tracks into a array of songs saved on songs
-    const build_songs = () => {
-        const { tracks } = tracks_list
-        let track_list: Array<any> = tracks.items
+    const buildSongs = () => {
+        set_songs(undefined)
+        const { tracks } = tracks_list != null ?  tracks_list : ''
+        let track_list: Array<any> = tracks.items != null ? tracks.items : []
         let res: Array<any> = []
 
         if(typeof track_list === "object" && track_list !== null && track_list !== undefined){
@@ -218,11 +214,17 @@ const FinderLogic = () => {
 
                 const { album, artists, name, preview_url, id } = element
                 const { release_date, images } = album
-                var authors_string: string = ""
+                let authors_string: string = ""
+                let genres_string: string = 'Not genres found'
 
-                artists.forEach((artist: { name: string; }, index: number) => {
+                artists.forEach((artist: { name: string; genres: string[]; }, index: number) => {
                     index == 0 ? authors_string = artist.name
                     : authors_string += ", " + artist.name
+                    const {genres} = artist;
+
+                    if(genres != undefined){
+                        genres.forEach((element: any, index: number) => index == 0 ? genres_string = element : genres_string += (', ' + element));
+                    } 
                 })
                 
                 let img = images.find((element: { height: number; }) => element.height === 300)
@@ -235,6 +237,7 @@ const FinderLogic = () => {
                     preview_url: preview_url,
                     album: album,
                     id: id,
+                    genres: genres_string
                 })
                 
             })
@@ -244,21 +247,12 @@ const FinderLogic = () => {
     }
     
     useEffect(() => {
-        tracks_list != undefined && build_songs()
-    },
-    [tracks_list])
-
-    useEffect(() => {
-        shows_list != undefined && build_series()
-    },
-    [shows_list])
-
-    useEffect(() => {
+        tracks_list != undefined && buildSongs()
+        shows_list != undefined && buildSeries()
         movies_list != undefined && build_films()
     },
-    [movies_list])
+    [tracks_list, shows_list, movies_list])
     
-
     return {songs, films, series, find, select_films, select_series, select_songs, type_selected}
 }
 export default FinderLogic

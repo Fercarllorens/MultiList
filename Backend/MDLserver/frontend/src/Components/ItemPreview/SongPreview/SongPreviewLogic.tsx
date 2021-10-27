@@ -6,9 +6,7 @@ const ComponentNameLogic = () => {
     let history = useHistory()
 
     // Shows all song's info
-    const show_song = (id: string) => {
-        console.log("Song clicked")
-        
+    const show_song = (id: string) => {  
         history.push({
             pathname:'/MultimediaContent',
             search: `?type=song&id=${id}`
