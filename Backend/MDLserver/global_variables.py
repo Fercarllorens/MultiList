@@ -59,6 +59,8 @@ class VIDEO():
     class REQUEST():
         SRC_ID = "source_id"
         SRC = "source"
+        TERM = "term"
+        COUNTRY = "country"
     class ERRORS():
         REQUEST = "Something went wrong with your request"
 
