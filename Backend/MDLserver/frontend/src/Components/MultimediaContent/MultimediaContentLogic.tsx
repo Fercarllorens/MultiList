@@ -18,23 +18,24 @@ interface Progress {
 
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
+    const [ imageUrl, setImageUrl] =        useState<null | string>(null)
+    const [ trailerUrl , setTrailerUrl] =   useState<null | string>(null)
+    const [ listTop , setListTop] =         useState<null | string[]>(null)
+    const [ listBottom , setListBottom] =   useState<null | string[]>(null)
+    const [ progress, setProgress] =        useState<null | Progress>(null)
+    
+    
+    const contentId : string | null = props.contentId;
+    const {search} = useLocation()
+    const query = new URLSearchParams(search)
+    const type_query: any = query.get('type')
+    const id_query: any = query.get('id')
+    const user_id : string | null = localStorage.getItem('user_id') 
+    const base_url = 'http://127.0.0.1:8000/'
 
-    const [result_json, set_result_json] = useState<any | undefined>()
-    let image_url = 'not available';
-    let trailer_url = 'not available';
-    let list_top = [];
-    let list_bot = [];
-    //let fakeJson = require('../../FakeJSONs/DespacitoTrackJson.json')
-    let {search} = useLocation()
-    let query = new URLSearchParams(search)
-    let type_query = query.get('type')
-    let id_query = query.get('id')
-    let user_id : string | null = localStorage.getItem('user_id') 
-
-    const fetchRequest = async(id: string | null, type_string: string | null, method: string | null, 
-        endpoint: string | null, specific_parameters: any = {}) => {
-        const base_url = 'http://127.0.0.1:8000/' + endpoint + '/';
-
+    async function fetchRequest(id: string, item_type: string, method: "get" | "post" | "put", 
+        endpoint: string , args: any | null){
+        const url = base_url + endpoint + '/';
         const req_type: any = {
             get_song: "get-track",
             post_song: "post-song",
@@ -44,39 +45,58 @@ const MultimediaContentLogic = (props:Props) => {
             post_film: "post-film",
         }
 
-        let endpoint_index: string= method + '_' + type_string;
-        let fetch_url = base_url + req_type[endpoint_index];
-        let request_body;
+        let endpoint_index: string= method + '_' + item_type;
+        let fetch_url = url + req_type[endpoint_index];
 
-        switch (method){
-            case "get":
-                request_body = '?' + specific_parameters.id_parameter_name + '=' + id + '&' 
-                + specific_parameters.second_get_parameter_name + '=' 
-                + specific_parameters.second_get_parameter;
-                fetch_url += request_body
-                fetch(fetch_url)
-                    .then((res) => res.json())
-                    .then((json) => set_result_json(json))
-                    .then((json) => console.log(json))
-                    .catch((err) => console.error(err))
-                break
-            case "post":
-                request_body = JSON.stringify({id: id, name: specific_parameters.element_name});
-                fetch(fetch_url, {method: 'POST', body: request_body, headers: {'Content-Type': 'application/json'}})
-                    .then((res) => console.log(res))
-                    .catch((err) => console.error(err))
-                break
-            default:
-                break
+        if (method=="get"){
+            //TODO: could make this iterable, no time to waste now
+            let req_query = `?${args.id}=${id}&${args.param1_name}=${args.param1}`;
+            fetch(fetch_url+req_query)
+                .then((res) => res.json())
+                .then((json) => {
+                    switch(item_type){
+                        case "song":
+                            processSong(json); break;
+                        case "series":
+                            processSeries(json); break;
+                        case "film":
+                            processFilm(json); break;
+                    }
+                })
+                .catch((err) => console.error(err))
+        }else{
+            let body = JSON.stringify({id: id, name: args.element_name});
+            fetch(fetch_url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
+                .then((res) => console.log(res))
+                .catch((err) => console.error(err))
         }
     }
 
-    if(type_query == 'song'){
-        fetchRequest(id_query, 'song', 'get', 'spotify', {user_id: user_id, id_parameter_name: 'id', second_get_parameter_name: 'user', second_get_parameter: user_id});
-        const track: any = result_json != null ?  result_json : '';
+
+    function getData(){
+        switch(type_query){
+            case "song":
+                fetchRequest(id_query, 'song', 'get', 'spotify', {
+                        user_id: user_id, 
+                        id: 'id', 
+                        param1_name: 'user', 
+                        param1: user_id
+                    }); break;
+            case "series":
+                //fetchRequest(); break;
+            case "film":
+                //fetchRequest(); break;
+        }
+
+    }
+
+    function processSong(json: any){
+        const track: any = json;
         const {name, album, artists, duration_ms, preview_url} = track != null ? track : '';
+        const {release_date, images} = album != null ? album : '';    
+        
+        // Post our item to our api
         fetchRequest(id_query, 'song', 'post', 'api', {name: name});
-        const {release_date, images} = album != null ? album : '';               
             
         let artists_string = 'No artists found';
         let genres_string = 'Not genres found';
@@ -92,49 +112,39 @@ const MultimediaContentLogic = (props:Props) => {
 
         let year = release_date.substring(0,4);    
         let img = images.find((element: { height: number; }) => element.height === 300)
-        image_url = img.url;
         let duration = (duration_ms / 60000).toString();
         let formated_duration = duration.split('.')[0] + '.' + duration.split('.')[1].substring(0,2);
-
         let album_name = GetAlbumName(album);
-        trailer_url = preview_url;
-
-        list_top.push(name, props.type, year, genres_string, 'green');
-        list_bot.push(formated_duration, '', '', artists_string, release_date, album_name);
+        
+        setImageUrl(img.url);
+        setTrailerUrl(preview_url);
+        setListTop([name, props.type, year, genres_string, 'green']);
+        setListBottom([formated_duration, '', '', artists_string, release_date, album_name]);
     }
 
-    else if(type_query == 'series'){
-        //fetchPostSeries(id_query)
-        //let show: any = fetchGetSeries(id_query);
-        let show = require('../../FakeJSONs/SeriesViewJson.json')
-        const { collection } = show
-        const { id, name, picture } = collection
-        image_url = picture;
-        //console.log('imagen: ' + image_url)
-        list_top.push(name);
+    function processFilm(json: any){
+        // //fetchPostFilm(id_query)
+        // //let show: any = fetchGetFilm(id_query);
+        // let show = require('../../FakeJSONs/FilmViewJson.json')
+        // const { collection } = show
+        // const { id, name, picture } = collection
+        // image_url = picture;
+        // //console.log('imagen: ' + image_url)
+        // list_top.push(name);
     }
 
-    else if(type_query == 'film'){
-        //fetchPostFilm(id_query)
-        //let show: any = fetchGetFilm(id_query);
-        let show = require('../../FakeJSONs/FilmViewJson.json')
-        const { collection } = show
-        const { id, name, picture } = collection
-        image_url = picture;
-        //console.log('imagen: ' + image_url)
-        list_top.push(name);
+    function processSeries(json: any){
+        // //fetchPostSeries(id_query)
+        // //let show: any = fetchGetSeries(id_query);
+        // let show = require('../../FakeJSONs/SeriesViewJson.json')
+        // const { collection } = show
+        // const { id, name, picture } = collection
+        // image_url = picture;
+        // //console.log('imagen: ' + image_url)
+        // list_top.push(name);
     }
-
-    let contentId : string | null = props.contentId;
-    const [ progress, setProgress] = useState<null | Progress>(null)
-
-    //fetchGetProgress()
-    const [ imageUrl, setImageUrl] = useState<null | string>(image_url)
-    const [ trailerUrl , setTrailerUrl] = useState<null | string>(trailer_url)
-    const [ listTop , setListTop] = useState<null | string[]>(list_top)
-    const [ listBottom , setListBottom] = useState<null | string[]>(list_bot)
       
-    return {listTop, imageUrl, trailerUrl, listBottom, progress, type_query, id_query}
+    return {listTop, imageUrl, trailerUrl, listBottom, progress, type_query, id_query, getData}
 }
 
 const GetAlbumName = (album:any) => {

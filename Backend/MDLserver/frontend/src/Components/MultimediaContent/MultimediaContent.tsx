@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './MultimediaContent.css'
 import MultimediaContentLogic from './MultimediaContentLogic'
 //componentes
@@ -18,7 +18,11 @@ interface Props{
 let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", "Finished"]
 
 const MultimediaContent: React.FC<Props> = (props) => {
-    const {listTop, imageUrl, trailerUrl, listBottom, progress, type_query, id_query} = MultimediaContentLogic(props)
+    const {listTop, imageUrl, trailerUrl, listBottom, progress, type_query, id_query, getData} = MultimediaContentLogic(props)
+
+    useEffect(() => {
+        getData()
+    }, [])
   
     return (
         <div className="multimedia-cont">
