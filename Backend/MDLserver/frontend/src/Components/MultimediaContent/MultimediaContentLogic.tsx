@@ -29,73 +29,53 @@ const MultimediaContentLogic = (props:Props) => {
     let query = new URLSearchParams(search)
     let type_query = query.get('type')
     let id_query = query.get('id')
-    let userId : string | null = localStorage.getItem('user_id') 
+    let user_id : string | null = localStorage.getItem('user_id') 
 
-    const fetchPostSong = async (id: string | null, name: string | null) => {
-        let url = 'http://127.0.0.1:8000/api/post-song';
-        const body = JSON.stringify({id: id, name: name});
-        fetch(url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
-            .then((res) => console.log(res))
-            .catch((err) => console.error(err))
-    }
+    const fetchRequest = async(id: string | null, type_string: string | null, method: string | null, 
+        endpoint: string | null, specific_parameters: any = {}) => {
+        const base_url = 'http://127.0.0.1:8000/' + endpoint + '/';
 
-    const fetchGetTrack = async (id: string | null, user_id: string | null) => {
-        let url= 'http://127.0.0.1:8000/spotify/get-track?id=' + id + '&user=' + user_id;
-        fetch(url)
-            .then((res) => res.json())
-            .then((json) => set_result_json(json))
-            .then((json) => console.log(json))
-            .catch((err) => console.error(err))
-    }
+        const req_type: any = {
+            get_song: "get-track",
+            post_song: "post-song",
+            get_series: "get-by-id",
+            get_film: "get-by-id",
+            post_series: "post-series",
+            post_film: "post-film",
+        }
 
-    const fetchPostFilm = async (id: string | null) => {
-        //let url = 'http://127.0.0.1:8000/api';
-        let url = ''
-        const body = JSON.stringify({id: id});
-        fetch(url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
-            .then((res) => console.log(res))
-            .catch((err) => console.error(err))
-    }
-    
-    const fetchGetFilm = async (id: string | null) => {
-        //let url = 'http://127.0.0.1:8000/spotify/get-track?id=${id}&user=jxl18bdljif6xgk8hgrcfdk3mgsxy0eo'
-        let url = ''
-        fetch(url)
-            .then((res) => res.json())
-            .then((json) => set_result_json(json))
-            .catch((err) => console.error(err))
-    }
+        let endpoint_index: string= method + '_' + type_string;
+        let fetch_url = base_url + req_type[endpoint_index];
+        let request_body;
 
-    const fetchPostSeries = async (id: string | null) => {
-        //let url = 'http://127.0.0.1:8000/api/post-tipo';
-        let url = ''
-        const body = JSON.stringify({id: id});
-        fetch(url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
-            .then((res) => console.log(res))
-            .catch((err) => console.error(err))
-    }
-    
-    const fetchGetSeries = async (id: string | null) => {
-        //let url = 'http://127.0.0.1:8000/spotify/get-track?id=${id}&user=jxl18bdljif6xgk8hgrcfdk3mgsxy0eo'
-        let url = ''
-        fetch(url)
-            .then((res) => res.json())
-            .then((json) => set_result_json(json))
-            .catch((err) => console.error(err))
-    }
-
-    const fetchGetProgress = async () => {
-        let url : string = `http://localhost:8000/api/get-progress?user_id=${userId}&content_id=${contentId}`
-        fetch(url)
-            .then((res) => res.json())
-            .then((json) => setProgress(json))
-            .catch((err) => console.error(err))
+        switch (method){
+            case "get":
+                request_body = '?' + specific_parameters.id_parameter_name + '=' + id + '&' 
+                + specific_parameters.second_get_parameter_name + '=' 
+                + specific_parameters.second_get_parameter;
+                fetch_url += request_body
+                fetch(fetch_url)
+                    .then((res) => res.json())
+                    .then((json) => set_result_json(json))
+                    .then((json) => console.log(json))
+                    .catch((err) => console.error(err))
+                break
+            case "post":
+                request_body = JSON.stringify({id: id, name: specific_parameters.element_name});
+                fetch(fetch_url, {method: 'POST', body: request_body, headers: {'Content-Type': 'application/json'}})
+                    .then((res) => console.log(res))
+                    .catch((err) => console.error(err))
+                break
+            default:
+                break
+        }
     }
 
     if(type_query == 'song'){
-        fetchGetTrack(id_query, userId)
-        const track: any = result_json != null ?  result_json : ''
+        fetchRequest(id_query, 'song', 'get', 'spotify', {user_id: user_id, id_parameter_name: 'id', second_get_parameter_name: 'user', second_get_parameter: user_id});
+        const track: any = result_json != null ?  result_json : '';
         const {name, album, artists, duration_ms, preview_url} = track != null ? track : '';
+        fetchRequest(id_query, 'song', 'post', 'api', {name: name});
         const {release_date, images} = album != null ? album : '';               
             
         let artists_string = 'No artists found';
@@ -164,8 +144,8 @@ const GetAlbumName = (album:any) => {
 }
 
 const SubmitProgress = (progress:string, state:string, contentId:string) => {
-    let userId : string | null = localStorage.getItem('user_id') 
-    let url : string = `http://localhost:8000/api/get-progress?user_id=${userId}&content_id=${contentId}&state=${state}&progress=${progress}`
+    let user_id : string | null = localStorage.getItem('user_id') 
+    let url : string = `http://localhost:8000/api/get-progress?user_id=${user_id}&content_id=${contentId}&state=${state}&progress=${progress}`
     const [data , setData] = useState<null | JSON>(null)
     fetch(url)
       .then((res) => res.json())
