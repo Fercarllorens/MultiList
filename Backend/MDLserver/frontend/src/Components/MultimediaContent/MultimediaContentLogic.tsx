@@ -89,11 +89,21 @@ const MultimediaContentLogic = (props:Props) => {
                         id: 'id', 
                         param1_name: 'user', 
                         param1: user_id
-                    }); break;
+                }); break;
             case "series":
-                //fetchRequest(); break;
+                fetchRequest(id_query, 'series', 'get', 'video', {
+                    user_id: user_id, 
+                    id: 'id', 
+                    param1_name: 'user', 
+                    param1: user_id
+                }); break;
             case "film":
-                //fetchRequest(); break;
+                fetchRequest(id_query, 'film', 'get', 'video', {
+                    user_id: user_id, 
+                    id: 'id', 
+                    param1_name: 'user', 
+                    param1: user_id
+                }); break;
         }
 
     }
@@ -137,25 +147,25 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     function processFilm(json: any){
-        // //fetchPostFilm(id_query)
-        // //let show: any = fetchGetFilm(id_query);
-        // let show = require('../../FakeJSONs/FilmViewJson.json')
-        // const { collection } = show
-        // const { id, name, picture } = collection
-        // image_url = picture;
-        // //console.log('imagen: ' + image_url)
-        // list_top.push(name);
+        const film: any = json;
+        const {collection} = film != null ? film : '';
+        const {name, picture} = collection != null ? collection : '';
+
+        fetchRequest(id_query, 'film', 'post', 'api', {element_name: name});
+
+        setImageUrl(picture.url);
+        setListTop([name, props.type, 'red']);
     }
 
     function processSeries(json: any){
-        // //fetchPostSeries(id_query)
-        // //let show: any = fetchGetSeries(id_query);
-        // let show = require('../../FakeJSONs/SeriesViewJson.json')
-        // const { collection } = show
-        // const { id, name, picture } = collection
-        // image_url = picture;
-        // //console.log('imagen: ' + image_url)
-        // list_top.push(name);
+        const film: any = json;
+        const {collection} = film != null ? film : '';
+        const {name, picture} = collection != null ? collection : '';
+
+        fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});
+
+        setImageUrl(picture.url);
+        setListTop([name, props.type, 'blue']);
     }
       
     function handleAddContent(){
