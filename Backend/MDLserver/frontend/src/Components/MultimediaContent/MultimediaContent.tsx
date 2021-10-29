@@ -18,7 +18,8 @@ interface Props{
 let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", "Finished"]
 
 const MultimediaContent: React.FC<Props> = (props) => {
-    const {listTop, imageUrl, trailerUrl, listBottom, progress, type_query, id_query, getData} = MultimediaContentLogic(props)
+    const {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching,
+        type_query, id_query, getData, handleAddContent, handleUpdateProgress, register, handleSubmit} = MultimediaContentLogic(props)
 
     useEffect(() => {
         getData()
@@ -47,7 +48,17 @@ const MultimediaContent: React.FC<Props> = (props) => {
             <MultimediaTopData list={listTop} />
             <Pic url={imageUrl} />
             <MultimediaTrailer trailer={trailerUrl}/>
-            <MultimediaBottomData list={listBottom}/> 
+            <MultimediaBottomData list={listBottom}/>
+            <button className="add-content-btn" onClick={handleAddContent}><i className="fas fa-arrow-up"></i></button>
+            <form onSubmit={handleSubmit(handleUpdateProgress)}>
+                <select value={watching} onChange={(e) => {setWatching(e.target.value); register("watching_state")}}>
+                    <option value="Whatever"></option>
+                </select>
+                { watching==="watching" && (
+                    <input type="text" {...register("watching_progress")}/>
+                )}
+                <input type="submit" value="Submit"/>
+            </form>
         </div>
     )
 }
