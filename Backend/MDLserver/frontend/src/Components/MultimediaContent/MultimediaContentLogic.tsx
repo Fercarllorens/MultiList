@@ -1,5 +1,6 @@
 import { type } from 'os';
 import { stringify } from 'querystring';
+import {useForm} from 'react-hook-form';
 import React, { useState } from 'react'
 import { useLocation } from 'react-router';
 
@@ -23,7 +24,9 @@ const MultimediaContentLogic = (props:Props) => {
     const [ listTop , setListTop] =         useState<string[]>([])
     const [ listBottom , setListBottom] =   useState<string[]>([])
     const [ progress, setProgress] =        useState<null | Progress>(null)
-    
+    const [ added, setAdded ] =             useState<boolean>(isContentAdded())
+    const [ watching, setWatching ] =       useState<string>("TEXTO POR DEFECTO") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
+    const { register, handleSubmit } = useForm();
     
     const contentId : string | null = props.contentId;
     const {search} = useLocation()
@@ -32,6 +35,11 @@ const MultimediaContentLogic = (props:Props) => {
     const id_query: any = query.get('id')
     const user_id : string | null = localStorage.getItem('user_id') 
     const base_url = 'http://127.0.0.1:8000/'
+
+    function isContentAdded() :boolean{
+        //TODO: This function has to fetch the actual state of the content, check if it is added
+        return false
+    }
 
     async function fetchRequest(id: string, item_type: string, method: "get" | "post" | "put", 
         endpoint: string , args: any | null){
@@ -91,6 +99,12 @@ const MultimediaContentLogic = (props:Props) => {
 
     }
 
+    const GetAlbumName = (album:any) => {
+        const {name} = album;
+
+        return name;
+    }
+
     function processSong(json: any){
         const track: any = json;
         const {name, album, artists, duration_ms, preview_url} = track != null ? track : '';
@@ -145,23 +159,32 @@ const MultimediaContentLogic = (props:Props) => {
         // list_top.push(name);
     }
       
-    return {listTop, imageUrl, trailerUrl, listBottom, progress, type_query, id_query, getData}
-}
+    function handleAddContent(){
+        //user id, content id y content_type
+        const body = JSON.stringify({
+            user_id: user_id,
+            content_id: id_query,
+            content_type: type_query
+        })
 
-const GetAlbumName = (album:any) => {
-    const {name} = album;
+        //TODO if request goes ok, update icon of the button
+        fetch(base_url+'/api/update-list', {method:"POST", body: body, headers:{'Content-Type': 'application/json'}})
+        .then(res => res.json())
+        .then(json => console.log(json))
+        .catch(err => console.error(err))
+    }
 
-    return name;
-}
+    function handleUpdateProgress(data: any){
+        const body = JSON.stringify({
+            value_in_api: data.watching_state
+            value_in_api: data.watching_progress
+        })
 
-const SubmitProgress = (progress:string, state:string, contentId:string) => {
-    let user_id : string | null = localStorage.getItem('user_id') 
-    let url : string = `http://localhost:8000/api/get-progress?user_id=${user_id}&content_id=${contentId}&state=${state}&progress=${progress}`
-    const [data , setData] = useState<null | JSON>(null)
-    fetch(url)
-      .then((res) => res.json())
-      .then((json) => setData(json))
-      .catch((err) => console.error(err))
+        fetch(....)
+    }
+
+    return {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching,
+        type_query, id_query, getData, handleAddContent, handleUpdateProgress, register, handleSubmit}
 }
 
 export default MultimediaContentLogic
