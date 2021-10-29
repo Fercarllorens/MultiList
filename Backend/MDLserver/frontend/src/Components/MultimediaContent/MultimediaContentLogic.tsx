@@ -70,7 +70,6 @@ const MultimediaContentLogic = (props:Props) => {
                         case "film":
                             processFilm(json); break;
                     }
-                    console.log(json)
                 })
                 .catch((err) => console.error(err))
         }else{
@@ -111,7 +110,7 @@ const MultimediaContentLogic = (props:Props) => {
         const {release_date, images} = album != null ? album : '';    
         
         // Post our item to our api
-        fetchRequest(id_query, 'song', 'post', 'api', {name: name});
+        fetchRequest(id_query, 'song', 'post', 'api', {element_name: name});
             
         let artists_string = 'No artists found';
         let genres_string = 'Not genres found';
@@ -169,9 +168,9 @@ const MultimediaContentLogic = (props:Props) => {
 
         //TODO if request goes ok, update icon of the button
         fetch(base_url+'/api/update-list', {method:"POST", body: body, headers:{'Content-Type': 'application/json'}})
-        .then(res => res.json())
-        .then(json => console.log(json))
-        .catch(err => console.error(err))
+            .then(res => res.json())
+            .then(json => console.log(json))
+            .catch(err => console.error(err))
     }
 
     function handleUpdateProgress(data: any){
