@@ -20,6 +20,8 @@ let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", 
 const MultimediaContent: React.FC<Props> = (props) => {
     const {listTop, imageUrl, trailerUrl, listBottom, progress, type_query, id_query, getData} = MultimediaContentLogic(props)
 
+    console.log('se han establecido')
+
     useEffect(() => {
         getData()
     }, [])
@@ -44,10 +46,18 @@ const MultimediaContent: React.FC<Props> = (props) => {
                 <button className="submit-progress">Update</button>
             </div> */}
             {/*<AddList contentId={id_query!= null? id_query: ""} type={type_query!= null? type_query: ""} />*/}
-            <MultimediaTopData list={listTop} />
+            <div className="data-container-top">
+                <h3 className="title-top-data">{listTop[0]}</h3>
+                <p className="data"><span className="label-data-type" style={{ backgroundColor: listTop[4] != null ? listTop[4] : 'transparent', borderRadius:20}}>{listTop[1]}</span> - {listTop[2]} - {listTop[3]}</p>
+            </div>
             <Pic url={imageUrl} />
             <MultimediaTrailer trailer={trailerUrl}/>
-            <MultimediaBottomData list={listBottom}/> 
+            <div className="data-container-bottom">
+            <h4 className="bottom-title">MÁS INFORMACIÓN</h4>
+            {listBottom.map((item) => {
+                return (item != '' && item != null)? <p className="data">{item}</p> : <></>;
+            })}
+        </div>
         </div>
     )
 }

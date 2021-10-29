@@ -20,8 +20,8 @@ interface Progress {
 const MultimediaContentLogic = (props:Props) => {
     const [ imageUrl, setImageUrl] =        useState<null | string>(null)
     const [ trailerUrl , setTrailerUrl] =   useState<null | string>(null)
-    const [ listTop , setListTop] =         useState<null | string[]>(null)
-    const [ listBottom , setListBottom] =   useState<null | string[]>(null)
+    const [ listTop , setListTop] =         useState<string[]>([])
+    const [ listBottom , setListBottom] =   useState<string[]>([])
     const [ progress, setProgress] =        useState<null | Progress>(null)
     
     
@@ -62,6 +62,7 @@ const MultimediaContentLogic = (props:Props) => {
                         case "film":
                             processFilm(json); break;
                     }
+                    console.log(json)
                 })
                 .catch((err) => console.error(err))
         }else{
