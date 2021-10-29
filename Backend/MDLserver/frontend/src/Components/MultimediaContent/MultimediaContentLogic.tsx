@@ -175,12 +175,12 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     function handleUpdateProgress(data: any){
-        const body = JSON.stringify({
-            value_in_api: data.watching_state
-            value_in_api: data.watching_progress
-        })
+        // const body = JSON.stringify({
+        //     value_in_api: data.watching_state
+        //     value_in_api: data.watching_progress
+        // })
 
-        fetch(....)
+        // fetch(....)
     }
 
     return {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching,
