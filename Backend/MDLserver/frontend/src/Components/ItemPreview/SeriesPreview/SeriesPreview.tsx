@@ -3,8 +3,8 @@ import SeriesPreviewLogic from './SeriesPreviewLogic'
 import './SeriesPreview.css'
 
 interface Series{
-    id: string
     name: string;
+    id: string
     img: string;
 }
 

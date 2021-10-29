@@ -102,24 +102,22 @@ const FinderLogic = () => {
 
     // Fetch of the films query
     const fetchFilms = async (content: string) => {
-        //TODO meter url
-        //let url = ''
+        /*let url = 'http://127.0.0.1:8000/video/search?term=' + content + '&country=uk';
 
-        /*fetch(url)
-            .then((res) => res.json)
-            .then((json) => set_movies_list(json))
+        fetch(url)
+            .then((res) => res.json())
+            .then((json) => set_tracks_list(json))
             .catch((err) => console.error(err))*/
-            set_movies_list(require('../../FakeJSONs/FilmSearchJson.json'))
     }
 
     // Fetch of the series query
     const fetchSeries = async (content: string) => {
-        //TODO meter url
-        /*let url = ''
+        let url = 'http://127.0.0.1:8000/video/search?term=' + content + '&country=uk';
+        //let url = '';
 
-        fetch(url)
-            .then((res) => res.json)
-            .then((json) => set_shows_list(json))
+        /*fetch(url)
+            .then((res) => res.json())
+            .then((json) => set_tracks_list(json))
             .catch((err) => console.error(err))*/
         set_shows_list(require('../../FakeJSONs/SeriesSearchJson.json'))
     }
@@ -152,39 +150,35 @@ const FinderLogic = () => {
     }
 
     const buildSeries = () => {
+        set_series(undefined);
+        const { results } = shows_list != null ? shows_list : ''
+        let series_list: Array<any> = results != null ? results : []
         let res: Array<any> = []
-        //const { results } = shows_list
-        const {name, id, picture} = shows_list;
-        //let show_list: Array<any> = results.items  
-        /*if(typeof show_list === "object" && show_list !== null && show_list !== undefined){
+
+        if(typeof series_list === "object" && series_list !== null && series_list !== undefined){
             //TODO comprobar que este bien
-            show_list.forEach((element) => {
+            series_list.forEach((element) => {
                 const { id, name, picture } = element
+
                 res.push({
                     id: id,
                     name: name,
                     img: picture
                 })
             })
-        }*/
-        res.push({
-            id: id,
-            name: name,
-            img: picture
-        })
+        }
         set_series(res)
     }
 
     const build_films = () => {
+        set_films(undefined);
+        const { results } = movies_list != null ? movies_list : ''
+        let films_list: Array<any> = results != null ? results : []
         let res: Array<any> = []
-        const {name, id, picture} = movies_list;
-        //const { results } = shows_list
-        //let movie_list: Array<any> = results.items
-        //let res: Array<any> = []
 
-        /*if(typeof movie_list === "object" && movie_list !== null && movie_list !== undefined){
+        if(typeof films_list === "object" && films_list !== null && films_list !== undefined){
             //TODO comprobar que este bien
-            movie_list.forEach((element) => {
+            films_list.forEach((element) => {
                 const { id, name, picture } = element
 
                 res.push({
@@ -193,12 +187,7 @@ const FinderLogic = () => {
                     img: picture
                 })
             })
-        }*/
-        res.push({
-            id: id,
-            name: name,
-            img: picture
-        })
+        }
         set_films(res)
     }
 
@@ -247,9 +236,12 @@ const FinderLogic = () => {
     }
     
     useEffect(() => {
-        tracks_list != undefined && buildSongs()
-        shows_list != undefined && buildSeries()
-        movies_list != undefined && build_films()
+        //TODO mejorar estos ifs feos :(
+        if (type_selected.songs_selected) tracks_list != undefined && buildSongs()
+        else if (type_selected.films_selected) movies_list != undefined && build_films()
+        else {
+            shows_list != undefined && buildSeries()
+        }
     },
     [tracks_list, shows_list, movies_list])
     
