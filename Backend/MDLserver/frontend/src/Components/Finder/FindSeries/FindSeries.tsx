@@ -22,7 +22,7 @@ const FindSeries: React.FC<Props> = ({series}) => {
             {
                 series!==undefined ?
                     series.map((element) => (
-                        <SeriesPreview series={element} />
+                        <SeriesPreview series={element} key={element.name}/>
                     ))
                 : 'No results'
             }
