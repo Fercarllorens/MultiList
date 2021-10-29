@@ -33,15 +33,14 @@ interface Series{
 
 const FinderLogic = () => {
 
-    const [type_selected, set_type_selected] = useState<Type>({
+    const [type_selected, setTypeSelected] = useState<Type>({
         
         films_selected: false,
         series_selected: false,
         songs_selected: false
     
     })
-
-    const [shows, set_shows] = useState([
+    const [shows, setShows] = useState([
         {
             "name": "Persona 4 The Animation",
             "authors": "Seiji Kishi",
@@ -51,8 +50,7 @@ const FinderLogic = () => {
             "genre": "Action / Fantasy",
         }
     ])
-
-    const [movies, set_movies] = useState([
+    const [movies, setMovies] = useState([
         {
             "name": "Persona 3 The Movie #1: Spring of Birth",
             "authors": "Noriaki Akitaya",
@@ -62,32 +60,18 @@ const FinderLogic = () => {
             "genre": "Action / Fantasy",
         }
     ])
+    const [tracks_list, setTracksList] = useState<any | undefined>()
+    const [shows_list, setShowsList] = useState<any | undefined>()
+    const [movies_list, setMoviesList] = useState<any | undefined>()
+    const [songs, setSongs] = useState<Song[] | undefined>()
+    const [films, setFilms] = useState<Film[] | undefined>()
+    const [series, setSeries] = useState<Series[] | undefined>()
 
-    const [tracks_list, set_tracks_list] = useState<any | undefined>()
-
-    const [shows_list, set_shows_list] = useState<any | undefined>()
-
-    const [movies_list, set_movies_list] = useState<any | undefined>()
-
-    const [songs, set_songs] = useState<Song[] | undefined>()
-
-    const [films, set_films] = useState<Film[] | undefined>()
-
-    const [series, set_series] = useState<Series[] | undefined>()
-
-    // Updates the type_selected state setting all false except films_selected
-    const select_films = () =>{
-        set_type_selected({films_selected: true, series_selected: false, songs_selected: false})
-    }
-
-    // Updates the type_selected state setting all false except series_selected
-    const select_series = () => {
-        set_type_selected({films_selected: false, series_selected: true, songs_selected: false})
-    }
-
-    // Updates the type_selected state setting all false except songs_selected
-    const select_songs = () => {
-        set_type_selected({films_selected: false, series_selected: false, songs_selected: true})
+    // Updates the type_selected state setting all false except the type passed to the function
+    const selectType = (type: "films" | "series" | "songs") => {
+        if (type == "films") setTypeSelected({films_selected: true, series_selected: false, songs_selected: false})
+        else if (type == "series") setTypeSelected({films_selected: false, series_selected: true, songs_selected: false})
+        else setTypeSelected({films_selected: false, series_selected: false, songs_selected: true})
     }
 
     // Fetch of the songs query
@@ -96,7 +80,7 @@ const FinderLogic = () => {
         let url = 'http://127.0.0.1:8000/spotify/search?query=' + content + '&type=track&user=' + userId;
         fetch(url)
             .then((res) => res.json())
-            .then((json) => set_tracks_list(json))
+            .then((json) => setTracksList(json))
             .catch((err) => console.error(err))
     }
 
@@ -119,38 +103,30 @@ const FinderLogic = () => {
             .then((res) => res.json())
             .then((json) => set_tracks_list(json))
             .catch((err) => console.error(err))*/
-        set_shows_list(require('../../FakeJSONs/SeriesSearchJson.json'))
+        setShowsList(require('../../FakeJSONs/SeriesSearchJson.json'))
     }
 
     // Catches the enter event of the search bar
     const find = (e: any, content: string) => {
         var keycode = (e.keyCode ? e.keyCode : e.which);
         if (keycode == '13') {
-            type_selected.songs_selected && findSongs(content)
-            type_selected.films_selected && findFilms(content)
-            type_selected.series_selected && findSeries(content)
+            type_selected.songs_selected && findType("songs", content)
+            type_selected.films_selected && findType("films", content)
+            type_selected.series_selected && findType("series", content)
             e.preventDefault();
             return false;
         }
     }
 
-    // Search for songs
-    const findSongs = (content: string) => {
-        fetchSongs(content)
-    }
-
-    // Search for films
-    const findFilms = (content: string) => {
-        fetchFilms(content)
-    }
-
-    // Search for series
-    const findSeries = (content: string) => {
-        fetchSeries(content)
+    // Search the content of the parameter as the type indicated as "type" parameter
+    const findType = (type: "films" | "series" | "songs", content: string) => {
+        if (type == "films") fetchSongs(content)
+        else if (type == "series") fetchFilms(content)
+        else fetchSeries(content)
     }
 
     const buildSeries = () => {
-        set_series(undefined);
+        setSeries(undefined);
         const { results } = shows_list != null ? shows_list : ''
         let series_list: Array<any> = results != null ? results : []
         let res: Array<any> = []
@@ -167,11 +143,11 @@ const FinderLogic = () => {
                 })
             })
         }
-        set_series(res)
+        setSeries(res)
     }
 
-    const build_films = () => {
-        set_films(undefined);
+    const buildFilms = () => {
+        setFilms(undefined);
         const { results } = movies_list != null ? movies_list : ''
         let films_list: Array<any> = results != null ? results : []
         let res: Array<any> = []
@@ -188,12 +164,12 @@ const FinderLogic = () => {
                 })
             })
         }
-        set_films(res)
+        setFilms(res)
     }
 
     // Transforms the array of tracks into a array of songs saved on songs
     const buildSongs = () => {
-        set_songs(undefined)
+        setSongs(undefined)
         const { tracks } = tracks_list != null ?  tracks_list : ''
         let track_list: Array<any> = tracks.items != null ? tracks.items : []
         let res: Array<any> = []
@@ -231,20 +207,20 @@ const FinderLogic = () => {
                 
             })
 
-            set_songs(res)
+            setSongs(res)
         }
     }
     
     useEffect(() => {
         //TODO mejorar estos ifs feos :(
         if (type_selected.songs_selected) tracks_list != undefined && buildSongs()
-        else if (type_selected.films_selected) movies_list != undefined && build_films()
+        else if (type_selected.films_selected) movies_list != undefined && buildFilms()
         else {
             shows_list != undefined && buildSeries()
         }
     },
     [tracks_list, shows_list, movies_list])
     
-    return {songs, films, series, find, select_films, select_series, select_songs, type_selected}
+    return {songs, films, series, find, selectType, type_selected}
 }
 export default FinderLogic

@@ -7,14 +7,14 @@ import FindFilms from './FindFilms/FindFilms';
 import FindSeries from './FindSeries/FindSeries';
 
 const Finder: React.FC = () => {
-    const {find, songs, films, series, select_films, select_series, select_songs, type_selected} = FinderLogic()
+    const {find, songs, films, series, selectType, type_selected} = FinderLogic()
 
     return (
         <div className="FinderContainer">
             <div className="searchbar-container">
                 <SearchBar find={find} />
             </div>
-            <Filters set_films={select_films} set_series={select_series} set_songs={select_songs} type_selected={type_selected}/>
+            <Filters selectType={selectType} type_selected={type_selected}/>
             {type_selected.songs_selected && <FindSongs songs={songs}/>}
             {type_selected.films_selected && <FindFilms films={films}/>}
             {type_selected.series_selected && <FindSeries series={series}/>}
