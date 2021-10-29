@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import ProfileLogic from './ProfileLogic'
 import './Profile.css'
 
-import Pic from '../Pic/Pic'
 import Modal from '../Modal/Modal'
 
 const Profile = () => {
