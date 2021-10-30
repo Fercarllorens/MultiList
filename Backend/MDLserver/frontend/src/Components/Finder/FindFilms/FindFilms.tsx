@@ -23,7 +23,7 @@ const FindFilms: React.FC<Props> = ({films}) => {
             {
                 films!==undefined ?
                     films.map((element) => (
-                        <FilmPreview film={element} />
+                        <FilmPreview film={element} key={element.name}/>
                     ))
                 : 'No results'
             }

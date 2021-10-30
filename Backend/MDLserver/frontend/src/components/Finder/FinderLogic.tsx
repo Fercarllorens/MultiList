@@ -86,24 +86,22 @@ const FinderLogic = () => {
 
     // Fetch of the films query
     const fetchFilms = async (content: string) => {
-        /*let url = 'http://127.0.0.1:8000/video/search?term=' + content + '&country=uk';
+        let url = 'http://127.0.0.1:8000/video/search?term=' + content + '&country=uk';
 
         fetch(url)
             .then((res) => res.json())
-            .then((json) => set_tracks_list(json))
-            .catch((err) => console.error(err))*/
+            .then((json) => setMoviesList(json))
+            .catch((err) => console.error(err))
     }
 
     // Fetch of the series query
     const fetchSeries = async (content: string) => {
         let url = 'http://127.0.0.1:8000/video/search?term=' + content + '&country=uk';
-        //let url = '';
 
-        /*fetch(url)
+        fetch(url)
             .then((res) => res.json())
-            .then((json) => set_tracks_list(json))
-            .catch((err) => console.error(err))*/
-        setShowsList(require('../../FakeJSONs/SeriesSearchJson.json'))
+            .then((json) => setShowsList(json))
+            .catch((err) => console.error(err))
     }
 
     // Catches the enter event of the search bar
@@ -120,9 +118,9 @@ const FinderLogic = () => {
 
     // Search the content of the parameter as the type indicated as "type" parameter
     const findType = (type: "films" | "series" | "songs", content: string) => {
-        if (type == "films") fetchSongs(content)
-        else if (type == "series") fetchFilms(content)
-        else fetchSeries(content)
+        if (type == "films") fetchFilms(content)
+        else if (type == "series") fetchSeries(content)
+        else fetchSongs(content)
     }
 
     const buildSeries = () => {
