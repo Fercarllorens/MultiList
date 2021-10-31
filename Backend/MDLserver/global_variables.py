@@ -90,6 +90,22 @@ class SONG():
     EXTERNAL_ID = "id"
     NAME = "name"
 
+class MULTIMEDIA_CONTENT():
+    EXTERNAL_ID = "external_id"
+    NAME = "name"
+    TYPE = "type"
+    TOTAL_RATING = "total_rating"
+    COMMENTS = "comments"
+
+class COMMENT():
+    USER_ID = "user_id"
+    CONTENT_ID = "content_id"
+    COMMENT = "comment"
+    RATING = "rating"
+    LIKES = "likes"
+    DISLIKES = "dislikes"
+
+
 class LIST():
     ID = "id"
     NAME = "name"

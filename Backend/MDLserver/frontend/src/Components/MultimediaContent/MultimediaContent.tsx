@@ -3,6 +3,7 @@ import './MultimediaContent.css'
 import MultimediaContentLogic from './MultimediaContentLogic'
 //componentes
 import AddList from './AddList/AddList'
+import Comment from '../Comment/Comment'
 
 
 interface Props{
@@ -14,7 +15,7 @@ interface Props{
 let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", "Finished"]
 
 const MultimediaContent: React.FC<Props> = (props) => {
-    const {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching,
+    const {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching, rating, comments,
         type_query, id_query, getData, handleAddContent, handleUpdateProgress, register, handleSubmit} = MultimediaContentLogic(props)
 
     console.log('se han establecido')
@@ -62,6 +63,15 @@ const MultimediaContent: React.FC<Props> = (props) => {
                 <h4 className="bottom-title">MÁS INFORMACIÓN</h4>
                 {listBottom.map((item) => {
                     return (item != '' && item != null)? <p className="data">{item}</p> : <></>;
+                })}
+            </div>
+            <div className="rating-container">
+                <p>{rating}</p>
+            </div>
+            <div className="comment-holder">
+                {/*TODO: Convert this into a component*/}
+                {comments && comments.map((comment) => {
+                    return <Comment comment_id={comment} />
                 })}
             </div>
             <button className="add-content-btn" onClick={handleAddContent}><i className="fas fa-arrow-up"></i></button>

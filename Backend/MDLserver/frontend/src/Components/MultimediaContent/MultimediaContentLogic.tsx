@@ -1,8 +1,7 @@
-import { type } from 'os';
-import { stringify } from 'querystring';
-import {useForm} from 'react-hook-form';
 import React, { useState } from 'react'
+import {useForm} from 'react-hook-form';
 import { useLocation } from 'react-router';
+import { fetchHandler, fetchHandlerCb } from '../fetchHandler'
 
 interface Props {
     data : JSON | null;
@@ -26,9 +25,10 @@ const MultimediaContentLogic = (props:Props) => {
     const [ progress, setProgress] =        useState<null | Progress>(null)
     const [ added, setAdded ] =             useState<boolean>(isContentAdded())
     const [ watching, setWatching ] =       useState<string>("TEXTO POR DEFECTO") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
+    const [ rating, setRating] =            useState<null | number>(null) 
+    const [ comments, setComments] =        useState<null | number[]>(null)
     const { register, handleSubmit } = useForm();
     
-    const contentId : string | null = props.contentId;
     const {search} = useLocation()
     const query = new URLSearchParams(search)
     const type_query: any = query.get('type')
@@ -41,73 +41,17 @@ const MultimediaContentLogic = (props:Props) => {
         return false
     }
 
-    async function fetchRequest(id: string, item_type: string, method: "get" | "post" | "put", 
-        endpoint: string , args: any | null){
-        const url = base_url + endpoint + '/';
-        const req_type: any = {
-            get_song: "get-track",
-            post_song: "post-song",
-            get_series: "get-by-id",
-            get_film: "get-by-id",
-            post_series: "post-series",
-            post_film: "post-film",
-        }
-
-        let endpoint_index: string= method + '_' + item_type;
-        let fetch_url = url + req_type[endpoint_index];
-
-        if (method=="get"){
-            //TODO: could make this iterable, no time to waste now
-            let req_query = `?${args.id}=${id}&${args.param1_name}=${args.param1}`;
-            fetch(fetch_url+req_query)
-                .then((res) => res.json())
-                .then((json) => {
-                    switch(item_type){
-                        case "song":
-                            processSong(json); break;
-                        case "series":
-                            processSeries(json); break;
-                        case "film":
-                            processFilm(json); break;
-                    }
-                })
-                .catch((err) => console.error(err))
-        }else{
-            let body = JSON.stringify({id: id, name: args.element_name});
-            fetch(fetch_url, {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
-                .then((res) => console.log(res))
-                .catch((err) => console.error(err))
-        }
-    }
-
-
     function getData(){
         switch(type_query){
             case "song":
-                fetchRequest(id_query, 'song', 'get', 'spotify', {
-                        user_id: user_id, 
-                        id: 'id', 
-                        param1_name: 'user', 
-                        param1: user_id
-                }); break;
+                fetchHandlerCb(`spotify/get-track?id=${id_query}&user=${user_id}`, 'GET', null, processSong); break;
             case "series":
-                fetchRequest(id_query, 'series', 'get', 'video', {
-                    user_id: user_id, 
-                    id: 'id', 
-                    param1_name: 'user', 
-                    param1: user_id
-                }); break;
+                fetchHandlerCb(`video/get-by-id?id=${id_query}&user=${user_id}`, 'GET', null, processSeries); break;
             case "film":
-                fetchRequest(id_query, 'film', 'get', 'video', {
-                    user_id: user_id, 
-                    id: 'id', 
-                    param1_name: 'user', 
-                    param1: user_id
-                }); break;
-        }
-
+                fetchHandlerCb(`video/get-by-id?id=${id_query}&user=${user_id}`, 'GET', null, processFilm); break;
+        }        
     }
-
+    
     const GetAlbumName = (album:any) => {
         const {name} = album;
 
@@ -117,10 +61,11 @@ const MultimediaContentLogic = (props:Props) => {
     function processSong(json: any){
         const track: any = json;
         const {name, album, artists, duration_ms, preview_url} = track != null ? track : '';
-        const {release_date, images} = album != null ? album : '';    
+        const {release_date, images} = album != null ? album : ''; 
         
-        // Post our item to our api
-        fetchRequest(id_query, 'song', 'post', 'api', {element_name: name});
+        // New way to use fetchHandler
+        //TODO: save output -> itll be the obj retrieved, need to get the comments if exists and the rating.
+        const obj = fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'song', 'external_id': id_query});
             
         let artists_string = 'No artists found';
         let genres_string = 'Not genres found';
@@ -134,11 +79,11 @@ const MultimediaContentLogic = (props:Props) => {
             }            
         });
 
-        let year = release_date.substring(0,4);    
-        let img = images.find((element: { height: number; }) => element.height === 300)
-        let duration = (duration_ms / 60000).toString();
-        let formated_duration = duration.split('.')[0] + '.' + duration.split('.')[1].substring(0,2);
-        let album_name = GetAlbumName(album);
+        const year = release_date.substring(0,4);    
+        const img = images.find((element: { height: number; }) => element.height === 300)
+        const duration = (duration_ms / 60000).toString();
+        const formated_duration = duration.split('.')[0] + '.' + duration.split('.')[1].substring(0,2);
+        const album_name = album.name;
         
         setImageUrl(img.url);
         setTrailerUrl(preview_url);
@@ -151,7 +96,9 @@ const MultimediaContentLogic = (props:Props) => {
         const {collection} = film != null ? film : '';
         const {name, picture} = collection != null ? collection : '';
 
-        fetchRequest(id_query, 'film', 'post', 'api', {element_name: name});
+        //fetchRequest(id_query, 'film', 'post', 'api', {element_name: name});
+        // New way to use fetchHandler
+        fetchHandler('/api/post-content', 'POST', {'name': name, 'type': 'film'});
 
         setImageUrl(picture.url);
         setListTop([name, props.type, 'red']);
@@ -162,7 +109,9 @@ const MultimediaContentLogic = (props:Props) => {
         const {collection} = film != null ? film : '';
         const {name, picture} = collection != null ? collection : '';
 
-        fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});
+        //fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});
+        // New way to use fetchHandler
+        fetchHandler('/api/post-content', 'POST', {'name': name, 'type': 'series'});
 
         setImageUrl(picture.url);
         setListTop([name, props.type, 'blue']);
@@ -192,7 +141,7 @@ const MultimediaContentLogic = (props:Props) => {
         // fetch(....)
     }
 
-    return {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching,
+    return {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching, rating, comments,
         type_query, id_query, getData, handleAddContent, handleUpdateProgress, register, handleSubmit}
 }
 
