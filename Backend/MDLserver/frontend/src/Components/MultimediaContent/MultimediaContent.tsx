@@ -1,14 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './MultimediaContent.css'
 import MultimediaContentLogic from './MultimediaContentLogic'
 //componentes
-import MultimediaTopData from '../MultimediaTopData/MultimediaTopData'
-import MultimediaTrailer from '../MultimediaTrailer/MultimediaTrailer'
-import MultimediaBottomData from '../MultimediaBottomData/MultimediaBottomData'
-import AddList from '../AddList/AddList'
-import Pic from '../Pic/Pic'
-import AddListLogic from '../AddList/AddListLogic'
-import { Script } from 'vm'
+import AddList from './AddList/AddList'
+import Comment from '../Comment/Comment'
 
 
 interface Props{
@@ -20,11 +15,18 @@ interface Props{
 let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", "Finished"]
 
 const MultimediaContent: React.FC<Props> = (props) => {
-    const {listTop, imageUrl, trailerUrl, listBottom, progress} = MultimediaContentLogic(props)
+    const {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching, rating, comments,
+        type_query, id_query, getData, handleAddContent, handleUpdateProgress, register, handleSubmit} = MultimediaContentLogic(props)
+
+    console.log('se han establecido')
+
+    useEffect(() => {
+        getData()
+    }, [])
   
     return (
         <div className="multimedia-cont">
-            <div className="progress-cont">
+            {/* <div className="progress-cont">
                 <select className="state">
                     {
                         options.map(element => {
@@ -40,12 +42,48 @@ const MultimediaContent: React.FC<Props> = (props) => {
                     <></>                    
                 }
                 <button className="submit-progress">Update</button>
+            </div> */}
+            {/*<AddList contentId={id_query!= null? id_query: ""} type={type_query!= null? type_query: ""} />*/}
+            <div className="data-container-top">
+                <h3 className="title-top-data">{listTop[0]}</h3>
+                <p className="data"><span className="label-data-type" style={{ backgroundColor: listTop[4] != null ? listTop[4] : 'transparent', borderRadius:20}}>{listTop[1]}</span> - {listTop[2]} - {listTop[3]}</p>
             </div>
-            <AddList contentId={""} />
-            <MultimediaTopData list={listTop} />
-            <Pic url={imageUrl} />
-            <MultimediaTrailer trailer={trailerUrl}/>
-            <MultimediaBottomData list={listBottom}/> 
+            <div className="image">
+                <img src={imageUrl != null ? imageUrl : 'https://us.123rf.com/450wm/seetwo/seetwo1907/seetwo190700208/126635447-ning%C3%BAn-signo-vac%C3%ADo-c%C3%ADrculo-tachado-rojo-signo-no-permitido-aislar-sobre-fondo-blanco-ilustraci%C3%B3n-vec.jpg?ver=6'} alt="No disponible" />
+            </div>
+            <div className="data-container-trailer">
+            {/*<iframe width="560" height="315" src="https://www.youtube.com/embed/IbJFERe9F9w" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+            <video>
+                <source src={'https://www.youtube.com/watch?v=d6z5fsEnIx8&ab_channel=YO%2CINTERNETO'} type=""></source>
+            </video>
+            <img src={'https://us.123rf.com/450wm/seetwo/seetwo1907/seetwo190700208/126635447-ning%C3%BAn-signo-vac%C3%ADo-c%C3%ADrculo-tachado-rojo-signo-no-permitido-aislar-sobre-fondo-blanco-ilustraci%C3%B3n-vec.jpg?ver=6'} alt="No disponible" />
+            */}
+            </div>
+            <div className="data-container-bottom">
+                <h4 className="bottom-title">MÁS INFORMACIÓN</h4>
+                {listBottom.map((item) => {
+                    return (item != '' && item != null)? <p className="data">{item}</p> : <></>;
+                })}
+            </div>
+            <div className="rating-container">
+                <p>{rating}</p>
+            </div>
+            <div className="comment-holder">
+                {/*TODO: Convert this into a component*/}
+                {comments && comments.map((comment) => {
+                    return <Comment comment_id={comment} />
+                })}
+            </div>
+            <button className="add-content-btn" onClick={handleAddContent}><i className="fas fa-arrow-up"></i></button>
+            <form onSubmit={handleSubmit(handleUpdateProgress)}>
+                <select value={watching} onChange={(e) => {setWatching(e.target.value); register("watching_state")}}>
+                    <option value="Whatever"></option>
+                </select>
+                { watching==="watching" && (
+                    <input type="text" {...register("watching_progress")}/>
+                )}
+                <input type="submit" value="Submit"/>
+            </form>
         </div>
     )
 }

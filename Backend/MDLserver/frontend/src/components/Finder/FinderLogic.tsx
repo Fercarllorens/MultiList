@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { resourceLimits } from "worker_threads";
 
 interface Type{
     films_selected: boolean;
@@ -14,37 +15,32 @@ interface Song{
     img: string;
     preview_url: string;
     album: any;
+    id: string;
+    genres: string;
 }
 
 interface Film{
     name: string;
-    authors: string;
-    date: string;
     img: string;
-    preview_url: string;
-    genre: any;
+    id: string;
 }
 
 interface Series{
     name: string;
-    authors: string;
-    date: string;
     img: string;
-    preview_url: string;
-    genre: any;
+    id: string;
 }
 
 const FinderLogic = () => {
 
-    const [type_selected, set_type_selected] = useState<Type>({
+    const [type_selected, setTypeSelected] = useState<Type>({
         
         films_selected: false,
         series_selected: false,
         songs_selected: false
     
     })
-
-    const [shows, set_shows] = useState([
+    const [shows, setShows] = useState([
         {
             "name": "Persona 4 The Animation",
             "authors": "Seiji Kishi",
@@ -54,8 +50,7 @@ const FinderLogic = () => {
             "genre": "Action / Fantasy",
         }
     ])
-
-    const [movies, set_movies] = useState([
+    const [movies, setMovies] = useState([
         {
             "name": "Persona 3 The Movie #1: Spring of Birth",
             "authors": "Noriaki Akitaya",
@@ -65,565 +60,134 @@ const FinderLogic = () => {
             "genre": "Action / Fantasy",
         }
     ])
+    const [tracks_list, setTracksList] = useState<any | undefined>()
+    const [shows_list, setShowsList] = useState<any | undefined>()
+    const [movies_list, setMoviesList] = useState<any | undefined>()
+    const [songs, setSongs] = useState<Song[] | undefined>()
+    const [films, setFilms] = useState<Film[] | undefined>()
+    const [series, setSeries] = useState<Series[] | undefined>()
 
-    const [tracks, set_tracks] = useState([
-        {
-            "album": {
-                "album_type": "single",
-                "artists": [
-                    {
-                        "external_urls": {
-                            "spotify": "https://open.spotify.com/artist/6sFIWsNpZYqfjUpaCgueju"
-                        },
-                        "href": "https://api.spotify.com/v1/artists/6sFIWsNpZYqfjUpaCgueju",
-                        "id": "6sFIWsNpZYqfjUpaCgueju",
-                        "name": "Carly Rae Jepsen",
-                        "type": "artist",
-                        "uri": "spotify:artist:6sFIWsNpZYqfjUpaCgueju"
-                    }
-                ],
-                "available_markets": [
-                    "AD",
-                    "AR",
-                    "AT",
-                    "AU",
-                    "BE",
-                    "BG",
-                    "BO",
-                    "BR",
-                    "CA",
-                    "CH",
-                    "CL",
-                    "CO",
-                    "CR",
-                    "CY",
-                    "CZ",
-                    "DE",
-                    "DK",
-                    "DO",
-                    "EC",
-                    "EE",
-                    "ES",
-                    "FI",
-                    "FR",
-                    "GB",
-                    "GR",
-                    "GT",
-                    "HK",
-                    "HN",
-                    "HU",
-                    "ID",
-                    "IE",
-                    "IL",
-                    "IS",
-                    "IT",
-                    "JP",
-                    "LI",
-                    "LT",
-                    "LU",
-                    "LV",
-                    "MC",
-                    "MT",
-                    "MX",
-                    "MY",
-                    "NI",
-                    "NL",
-                    "NO",
-                    "NZ",
-                    "PA",
-                    "PE",
-                    "PH",
-                    "PL",
-                    "PT",
-                    "PY",
-                    "RO",
-                    "SE",
-                    "SG",
-                    "SK",
-                    "SV",
-                    "TH",
-                    "TR",
-                    "TW",
-                    "US",
-                    "UY",
-                    "VN",
-                    "ZA"
-                ],
-                "external_urls": {
-                    "spotify": "https://open.spotify.com/album/0tGPJ0bkWOUmH7MEOR77qc"
-                },
-                "href": "https://api.spotify.com/v1/albums/0tGPJ0bkWOUmH7MEOR77qc",
-                "id": "0tGPJ0bkWOUmH7MEOR77qc",
-                "images": [
-                    {
-                        "height": 640,
-                        "url": "https://i.scdn.co/image/966ade7a8c43b72faa53822b74a899c675aaafee",
-                        "width": 640
-                    },
-                    {
-                        "height": 300,
-                        "url": "https://i.scdn.co/image/107819f5dc557d5d0a4b216781c6ec1b2f3c5ab2",
-                        "width": 300
-                    },
-                    {
-                        "height": 64,
-                        "url": "https://i.scdn.co/image/5a73a056d0af707b4119a883d87285feda543fbb",
-                        "width": 64
-                    }
-                ],
-                "name": "Cut To The Feeling",
-                "release_date": "2017-05-26",
-                "release_date_precision": "day",
-                "type": "album",
-                "uri": "spotify:album:0tGPJ0bkWOUmH7MEOR77qc"
-            },
-            "artists": [
-                {
-                    "external_urls": {
-                        "spotify": "https://open.spotify.com/artist/6sFIWsNpZYqfjUpaCgueju"
-                    },
-                    "href": "https://api.spotify.com/v1/artists/6sFIWsNpZYqfjUpaCgueju",
-                    "id": "6sFIWsNpZYqfjUpaCgueju",
-                    "name": "Carly Rae Jepsen",
-                    "type": "artist",
-                    "uri": "spotify:artist:6sFIWsNpZYqfjUpaCgueju"
-                }
-            ],
-            "available_markets": [
-                "AD",
-                "AR",
-                "AT",
-                "AU",
-                "BE",
-                "BG",
-                "BO",
-                "BR",
-                "CA",
-                "CH",
-                "CL",
-                "CO",
-                "CR",
-                "CY",
-                "CZ",
-                "DE",
-                "DK",
-                "DO",
-                "EC",
-                "EE",
-                "ES",
-                "FI",
-                "FR",
-                "GB",
-                "GR",
-                "GT",
-                "HK",
-                "HN",
-                "HU",
-                "ID",
-                "IE",
-                "IL",
-                "IS",
-                "IT",
-                "JP",
-                "LI",
-                "LT",
-                "LU",
-                "LV",
-                "MC",
-                "MT",
-                "MX",
-                "MY",
-                "NI",
-                "NL",
-                "NO",
-                "NZ",
-                "PA",
-                "PE",
-                "PH",
-                "PL",
-                "PT",
-                "PY",
-                "RO",
-                "SE",
-                "SG",
-                "SK",
-                "SV",
-                "TH",
-                "TR",
-                "TW",
-                "US",
-                "UY",
-                "VN",
-                "ZA"
-            ],
-            "disc_number": 1,
-            "duration_ms": 207959,
-            "explicit": false,
-            "external_ids": {
-                "isrc": "USUM71703861"
-            },
-            "external_urls": {
-                "spotify": "https://open.spotify.com/track/11dFghVXANMlKmJXsNCbNl"
-            },
-            "href": "https://api.spotify.com/v1/tracks/11dFghVXANMlKmJXsNCbNl",
-            "id": "11dFghVXANMlKmJXsNCbNl",
-            "is_local": false,
-            "name": "Cut To The Feeling",
-            "popularity": 63,
-            "preview_url": "https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86",
-            "track_number": 1,
-            "type": "track",
-            "uri": "spotify:track:11dFghVXANMlKmJXsNCbNl"
-        },
-
-        {
-            "album": {
-                "album_type": "single",
-                "artists": [
-                    {
-                        "external_urls": {
-                            "spotify": "https://open.spotify.com/artist/6sFIWsNpZYqfjUpaCgueju"
-                        },
-                        "href": "https://api.spotify.com/v1/artists/6sFIWsNpZYqfjUpaCgueju",
-                        "id": "6sFIWsNpZYqfjUpaCgueju",
-                        "name": "Hasbullah",
-                        "type": "artist",
-                        "uri": "spotify:artist:6sFIWsNpZYqfjUpaCgueju"
-                    },
-                    {
-                        "external_urls": {
-                            "spotify": "https://open.spotify.com/artist/6sFIWsNpZYqfjUpaCgueju"
-                        },
-                        "href": "https://api.spotify.com/v1/artists/6sFIWsNpZYqfjUpaCgueju",
-                        "id": "6sFIWsNpZYqfjUpaCgueju",
-                        "name": "Abdu Rozik",
-                        "type": "artist",
-                        "uri": "spotify:artist:6sFIWsNpZYqfjUpaCgueju"
-                    }
-                ],
-                "available_markets": [
-                    "AD",
-                    "AR",
-                    "AT",
-                    "AU",
-                    "BE",
-                    "BG",
-                    "BO",
-                    "BR",
-                    "CA",
-                    "CH",
-                    "CL",
-                    "CO",
-                    "CR",
-                    "CY",
-                    "CZ",
-                    "DE",
-                    "DK",
-                    "DO",
-                    "EC",
-                    "EE",
-                    "ES",
-                    "FI",
-                    "FR",
-                    "GB",
-                    "GR",
-                    "GT",
-                    "HK",
-                    "HN",
-                    "HU",
-                    "ID",
-                    "IE",
-                    "IL",
-                    "IS",
-                    "IT",
-                    "JP",
-                    "LI",
-                    "LT",
-                    "LU",
-                    "LV",
-                    "MC",
-                    "MT",
-                    "MX",
-                    "MY",
-                    "NI",
-                    "NL",
-                    "NO",
-                    "NZ",
-                    "PA",
-                    "PE",
-                    "PH",
-                    "PL",
-                    "PT",
-                    "PY",
-                    "RO",
-                    "SE",
-                    "SG",
-                    "SK",
-                    "SV",
-                    "TH",
-                    "TR",
-                    "TW",
-                    "US",
-                    "UY",
-                    "VN",
-                    "ZA"
-                ],
-                "external_urls": {
-                    "spotify": "https://open.spotify.com/album/0tGPJ0bkWOUmH7MEOR77qc"
-                },
-                "href": "https://api.spotify.com/v1/albums/0tGPJ0bkWOUmH7MEOR77qc",
-                "id": "0tGPJ0bkWOUmH7MEOR77qc",
-                "images": [
-                    {
-                        "height": 640,
-                        "url": "https://i.scdn.co/image/966ade7a8c43b72faa53822b74a899c675aaafee",
-                        "width": 640
-                    },
-                    {
-                        "height": 300,
-                        "url": "https://i.ytimg.com/vi/_Zila5rLu74/hqdefault.jpg",
-                        "width": 300
-                    },
-                    {
-                        "height": 64,
-                        "url": "https://i.scdn.co/image/5a73a056d0af707b4119a883d87285feda543fbb",
-                        "width": 64
-                    }
-                ],
-                "name": "Cut To The Feeling",
-                "release_date": "2003",
-                "release_date_precision": "year",
-                "type": "album",
-                "uri": "spotify:album:0tGPJ0bkWOUmH7MEOR77qc"
-            },
-            "artists": [
-                {
-                    "external_urls": {
-                        "spotify": "https://open.spotify.com/artist/6sFIWsNpZYqfjUpaCgueju"
-                    },
-                    "href": "https://api.spotify.com/v1/artists/6sFIWsNpZYqfjUpaCgueju",
-                    "id": "6sFIWsNpZYqfjUpaCgueju",
-                    "name": "Don Omar",
-                    "type": "artist",
-                    "uri": "spotify:artist:6sFIWsNpZYqfjUpaCgueju"
-                }
-            ],
-            "available_markets": [
-                "AD",
-                "AR",
-                "AT",
-                "AU",
-                "BE",
-                "BG",
-                "BO",
-                "BR",
-                "CA",
-                "CH",
-                "CL",
-                "CO",
-                "CR",
-                "CY",
-                "CZ",
-                "DE",
-                "DK",
-                "DO",
-                "EC",
-                "EE",
-                "ES",
-                "FI",
-                "FR",
-                "GB",
-                "GR",
-                "GT",
-                "HK",
-                "HN",
-                "HU",
-                "ID",
-                "IE",
-                "IL",
-                "IS",
-                "IT",
-                "JP",
-                "LI",
-                "LT",
-                "LU",
-                "LV",
-                "MC",
-                "MT",
-                "MX",
-                "MY",
-                "NI",
-                "NL",
-                "NO",
-                "NZ",
-                "PA",
-                "PE",
-                "PH",
-                "PL",
-                "PT",
-                "PY",
-                "RO",
-                "SE",
-                "SG",
-                "SK",
-                "SV",
-                "TH",
-                "TR",
-                "TW",
-                "US",
-                "UY",
-                "VN",
-                "ZA"
-            ],
-            "disc_number": 1,
-            "duration_ms": 207959,
-            "explicit": false,
-            "external_ids": {
-                "isrc": "USUM71703861"
-            },
-            "external_urls": {
-                "spotify": "https://open.spotify.com/track/11dFghVXANMlKmJXsNCbNl"
-            },
-            "href": "https://api.spotify.com/v1/tracks/11dFghVXANMlKmJXsNCbNl",
-            "id": "11dFghVXANMlKmJXsNCbNl",
-            "is_local": false,
-            "name": "Pobre Diabla",
-            "popularity": 63,
-            "preview_url": "https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86",
-            "track_number": 1,
-            "type": "track",
-            "uri": "spotify:track:11dFghVXANMlKmJXsNCbNl"
-        }
-    ])
-
-    const [songs, set_songs] = useState<Song[] | undefined>()
-
-    const [films, set_films] = useState<Film[] | undefined>()
-
-    const [series, set_series] = useState<Series[] | undefined>()
-
-    // Updates the type_selected state setting all false except films_selected
-    const select_films = () =>{
-        set_type_selected({films_selected: true, series_selected: false, songs_selected: false})
-    }
-
-    // Updates the type_selected state setting all false except series_selected
-    const select_series = () => {
-        set_type_selected({films_selected: false, series_selected: true, songs_selected: false})
-    }
-
-    // Updates the type_selected state setting all false except songs_selected
-    const select_songs = () => {
-        set_type_selected({films_selected: false, series_selected: false, songs_selected: true})
+    // Updates the type_selected state setting all false except the type passed to the function
+    const selectType = (type: "films" | "series" | "songs") => {
+        if (type == "films") setTypeSelected({films_selected: true, series_selected: false, songs_selected: false})
+        else if (type == "series") setTypeSelected({films_selected: false, series_selected: true, songs_selected: false})
+        else setTypeSelected({films_selected: false, series_selected: false, songs_selected: true})
     }
 
     // Fetch of the songs query
-    const fetchSongs = async () => {
-        const res = await fetch('')
-        const data = await res.json()
-
-        console.log(data)
-        return data
+    const fetchSongs = async (content: string) => {
+        let userId : string | null = localStorage.getItem('user_id')
+        let url = 'http://127.0.0.1:8000/spotify/search?query=' + content + '&type=track&user=' + userId;
+        fetch(url)
+            .then((res) => res.json())
+            .then((json) => setTracksList(json))
+            .catch((err) => console.error(err))
     }
 
     // Fetch of the films query
-    const fetchFilms = async () => {
-        const res = await fetch('')
-        const data = await res.json()
+    const fetchFilms = async (content: string) => {
+        let url = 'http://127.0.0.1:8000/video/search?term=' + content + '&country=uk';
 
-        console.log(data)
-        return data
+        fetch(url)
+            .then((res) => res.json())
+            .then((json) => setMoviesList(json))
+            .catch((err) => console.error(err))
     }
 
     // Fetch of the series query
-    const fetchSeries = async () => {
-        const res = await fetch('')
-        const data = await res.json()
+    const fetchSeries = async (content: string) => {
+        let url = 'http://127.0.0.1:8000/video/search?term=' + content + '&country=uk';
 
-        console.log(data)
-        return data
+        fetch(url)
+            .then((res) => res.json())
+            .then((json) => setShowsList(json))
+            .catch((err) => console.error(err))
     }
 
     // Catches the enter event of the search bar
-    const find = (e: any) => {
+    const find = (e: any, content: string) => {
         var keycode = (e.keyCode ? e.keyCode : e.which);
         if (keycode == '13') {
-            type_selected.songs_selected && find_songs()
-            type_selected.films_selected && find_films()
-            type_selected.series_selected && find_series()
+            type_selected.songs_selected && findType("songs", content)
+            type_selected.films_selected && findType("films", content)
+            type_selected.series_selected && findType("series", content)
             e.preventDefault();
             return false;
         }
     }
 
-    // Search for songs
-    const find_songs = () => {
-        build_songs()
+    // Search the content of the parameter as the type indicated as "type" parameter
+    const findType = (type: "films" | "series" | "songs", content: string) => {
+        if (type == "films") fetchFilms(content)
+        else if (type == "series") fetchSeries(content)
+        else fetchSongs(content)
     }
 
-    // Search for films
-    const find_films = () => {
-        build_films()
-    }
-
-    // Search for series
-    const find_series = () => {
-        build_series()
-    }
-
-    const build_series = () => {
-        let show_list: Array<any> = shows
+    const buildSeries = () => {
+        setSeries(undefined);
+        const { results } = shows_list != null ? shows_list : ''
+        let series_list: Array<any> = results != null ? results : []
         let res: Array<any> = []
-        if(typeof show_list === "object" && show_list !== null && show_list !== undefined){
-            show_list.forEach((element) => {
-                const { name, authors, date, img, preview_url, genre} = element
+
+        if(typeof series_list === "object" && series_list !== null && series_list !== undefined){
+            //TODO comprobar que este bien
+            series_list.forEach((element) => {
+                const { id, name, picture } = element
+
                 res.push({
+                    id: id,
                     name: name,
-                    authors: authors,
-                    date: date,
-                    img: img,
-                    preview_url: preview_url,
-                    genre: genre
+                    img: picture
                 })
             })
         }
-        set_series(res)
+        setSeries(res)
     }
 
-    const build_films = () => {
-        let movie_list: Array<any> = movies
+    const buildFilms = () => {
+        setFilms(undefined);
+        const { results } = movies_list != null ? movies_list : ''
+        let films_list: Array<any> = results != null ? results : []
         let res: Array<any> = []
-        if(typeof movie_list === "object" && movie_list !== null && movie_list !== undefined){
-            movie_list.forEach((element) => {
-                const { name, authors, date, img, preview_url, genre} = element
+
+        if(typeof films_list === "object" && films_list !== null && films_list !== undefined){
+            //TODO comprobar que este bien
+            films_list.forEach((element) => {
+                const { id, name, picture } = element
+
                 res.push({
+                    id: id,
                     name: name,
-                    authors: authors,
-                    date: date,
-                    img: img,
-                    preview_url: preview_url,
-                    genre: genre
+                    img: picture
                 })
             })
         }
-        set_films(res)
+        setFilms(res)
     }
 
     // Transforms the array of tracks into a array of songs saved on songs
-    const build_songs = () => {
-        let track_list: Array<any> = tracks
+    const buildSongs = () => {
+        setSongs(undefined)
+        const { tracks } = tracks_list != null ?  tracks_list : ''
+        let track_list: Array<any> = tracks.items != null ? tracks.items : []
         let res: Array<any> = []
 
         if(typeof track_list === "object" && track_list !== null && track_list !== undefined){
             track_list.forEach((element) => {
 
-                const { album, artists, name, preview_url } = element
+                const { album, artists, name, preview_url, id } = element
                 const { release_date, images } = album
-                var authors_string: string = ""
+                let authors_string: string = ""
+                let genres_string: string = 'Not genres found'
 
-                artists.forEach((artist: { name: string; }, index: number) => {
+                artists.forEach((artist: { name: string; genres: string[]; }, index: number) => {
                     index == 0 ? authors_string = artist.name
                     : authors_string += ", " + artist.name
+                    const {genres} = artist;
+
+                    if(genres != undefined){
+                        genres.forEach((element: any, index: number) => index == 0 ? genres_string = element : genres_string += (', ' + element));
+                    } 
                 })
                 
                 let img = images.find((element: { height: number; }) => element.height === 300)
@@ -634,16 +198,27 @@ const FinderLogic = () => {
                     date: release_date,
                     img: img.url,
                     preview_url: preview_url,
-                    album: album
+                    album: album,
+                    id: id,
+                    genres: genres_string
                 })
                 
             })
 
-            set_songs(res)
+            setSongs(res)
         }
-    }        
+    }
     
-
-    return {songs, films, series, find, select_films, select_series, select_songs, type_selected}
+    useEffect(() => {
+        //TODO mejorar estos ifs feos :(
+        if (type_selected.songs_selected) tracks_list != undefined && buildSongs()
+        else if (type_selected.films_selected) movies_list != undefined && buildFilms()
+        else {
+            shows_list != undefined && buildSeries()
+        }
+    },
+    [tracks_list, shows_list, movies_list])
+    
+    return {songs, films, series, find, selectType, type_selected}
 }
 export default FinderLogic

@@ -1,4 +1,5 @@
 class SPOTIFY():
+    ID = "sptk"
     class URL():
         BASE = "https://api.spotify.com/v1/"
         AUTH = "https://accounts.spotify.com/authorize"
@@ -58,11 +59,12 @@ class VIDEO():
     class REQUEST():
         SRC_ID = "source_id"
         SRC = "source"
+        TERM = "term"
+        COUNTRY = "country"
     class ERRORS():
         REQUEST = "Something went wrong with your request"
 
 class COMMON():
-    ID = "id"
     CONTENT = "content"
     ERROR = "error"
     ITEM = "item"
@@ -72,6 +74,9 @@ class COMMON():
     EMAIL = "email"
     SPOTIFY_TOKEN = "spotify_token"
     LISTS = "lists"
+    QUERY = 'query'
+    ID= 'id'
+    TYPE = 'type'
 
 class FILM():
     EXTERNAL_ID = "id"
@@ -84,6 +89,22 @@ class SERIES():
 class SONG():
     EXTERNAL_ID = "id"
     NAME = "name"
+
+class MULTIMEDIA_CONTENT():
+    EXTERNAL_ID = "external_id"
+    NAME = "name"
+    TYPE = "type"
+    TOTAL_RATING = "total_rating"
+    COMMENTS = "comments"
+
+class COMMENT():
+    USER_ID = "user_id"
+    CONTENT_ID = "content_id"
+    COMMENT = "comment"
+    RATING = "rating"
+    LIKES = "likes"
+    DISLIKES = "dislikes"
+
 
 class LIST():
     ID = "id"

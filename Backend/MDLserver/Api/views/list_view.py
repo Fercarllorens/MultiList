@@ -11,17 +11,17 @@ import json
 
 class PostList(APIView):
     def post(self, request, format=None):
-        data = request.data
+        data = request.query_params
         obj = List.objects.create(name = data[gv.LIST.NAME], type = data[gv.LIST.TYPE], contents = '{"items":[]}', user_id = data[gv.LIST.USER_ID]) 
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
         
 
 class PutList(APIView):
     def put(self, request, format=None):
-        obj = List.objects.get(request.data[gv.LIST.ID])
+        obj = List.objects.get(request.query_params[gv.LIST.ID])
         if obj is None:
             return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
-        obj.contents = request.data[gv.LIST.CONTENTS]
+        obj.contents = request.query_params[gv.LIST.CONTENTS]
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
 
 class GetListByUser(APIView):
@@ -40,8 +40,8 @@ class GetList(APIView):
 
 class UpdateListContents(APIView):
     def post(self, request, format=None):
-        obj = List.objects.get(type=request.data[gv.LIST.TYPE], id=request.data[gv.LIST.USER_ID])
-        contentId = request.data['contentId']
+        obj = List.objects.get(type=request.query_params[gv.LIST.TYPE], id=request.query_params[gv.LIST.USER_ID])
+        contentId = request.query_params['contentId']
         if obj is None:
             return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
         string_json = obj.contents
@@ -54,8 +54,8 @@ class UpdateListContents(APIView):
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
 
 def create_default(user):   
-    songList = List.objects.create(name = "songs", type = "songs", contents = '{"items":[]}', user_id = user)
-    filmList = List.objects.create(name = "films", type = "films", contents = '{"items":[]}', user_id = user)
-    seriesList = List.objects.create(name = "series", type = "series", contents = '{"items":[]}', user_id = user)
+    songList = List.objects.create(name = "songs", type = "songs", contents = '{"items":[1]}', user_id = user)
+    filmList = List.objects.create(name = "films", type = "films", contents = '{"items":[1]}', user_id = user)
+    seriesList = List.objects.create(name = "series", type = "series", contents = '{"items":[1]}', user_id = user)
     obj = [songList.id, filmList.id, seriesList.id]
     return obj

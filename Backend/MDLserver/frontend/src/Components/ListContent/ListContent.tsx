@@ -1,26 +1,21 @@
 import React from 'react';
 import './ListContent.css'
 import ListContentLogic from './ListContentLogic';
-import SongPreview from '../SongPreview/SongPreview'
-interface Props{
-    id: string;
-    type: string;
-}
+import SongPreview from '../ItemPreview/SongPreview/SongPreview'
 
-const ListContent: React.FC<Props> = (props) => {
-    const {contents} = ListContentLogic(props)
+
+const ListContent = () => {
+    const {data, setData, getData} = ListContentLogic()
 
     return (
         <div className="list-content"> 
-            {/*
-                
-                    contents!==null ?
-                        contents.map((element) => (
-                            <SongPreview song={element} />
-                        ))
-                    : ""
-                
-                        */}      
+            {
+                data && (
+                    data.map(item => {
+                        return (<div><p>item.name</p></div>)
+                    })
+                )
+            }      
         </div>
     )
 }

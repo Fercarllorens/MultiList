@@ -1,0 +1,46 @@
+.FilterContainer{
+    width: 90%;
+    font-size: 18px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin-left: 2rem;
+    margin-top: 30px;
+    border-bottom: 1px solid black;
+}
+
+.Type{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 18px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.FilmsSelected{
+    box-shadow: -4px 4px 5px #4c4848;
+    padding: 5px 10px 5px 10px;
+    background-color: #1d55c4;
+    color: #f7ece1;
+    border-radius: 8px;
+    transition: ease-in-out 0.5s all;
+}
+
+.SeriesSelected{
+    box-shadow: -4px 4px 5px #4c4848;
+    padding: 5px 10px 5px 10px;
+    background-color: rgb(185, 50, 50);
+    color: #f7ece1;
+    border-radius: 8px;
+    transition: ease-in-out 0.5s all;
+}
+
+.SongsSelected{
+    box-shadow: -4px 4px 5px #4c4848;
+    padding: 5px 10px 5px 10px;
+    background-color: rgb(41, 177, 41);
+    color: #f7ece1;
+    border-radius: 8px;
+    transition: ease-in-out 0.5s all;
+}

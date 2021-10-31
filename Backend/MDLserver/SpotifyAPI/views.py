@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 # Local
 import global_variables as gv
 from .credentials import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI #TODO MOVE THIS TO ENV VARIABLES
@@ -40,15 +42,14 @@ def spotify_callback(request, format=None) -> redirect:
     if error := response.get(gv.COMMON.ERROR, None) is not None:
         return Response({gv.COMMON.ERROR: error}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    ut.update_user_tokens(
-        request.session.get('user_id'),
+    obj = ut.update_user_tokens(
         response.get(gv.SPOTIFY.MODEL.ACCESS_TOKEN), 
         response.get(gv.SPOTIFY.MODEL.TOKEN_TYPE), 
         response.get(gv.SPOTIFY.MODEL.REFRESH_TOKEN), 
         response.get(gv.SPOTIFY.MODEL.EXPIRES_IN),
     )
-    # Returns a redirect to the main page of the frontend, frontend should manage the redirect inside
-    return redirect('frontend:')
+
+    return HttpResponseRedirect(redirect_to='http://localhost:3000/Spotify?sptk={}'.format(obj.id))
 
 class IsAuth(APIView):
     def get(self, request, format=None):
@@ -56,6 +57,16 @@ class IsAuth(APIView):
         is_auth = ut.is_spotify_authenticated(request.session.session_key)
         return Response({gv.SPOTIFY.RESPONSE.STATUS: is_auth}, status=status.HTTP_200_OK)
 
+class LinkUser(APIView):
+    def post(self, request, format=None):
+        """Links the user with the spotify token given both ids"""
+        try:
+            if not request.data[gv.USER.ID] or not request.data[gv.SPOTIFY.ID]:
+                return Response({"error": "Provide needed arguments"}, status=status.HTTP_400_BAD_REQUEST)
+            ut.link_user(request.data[gv.USER.ID], request.data[gv.SPOTIFY.ID])
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"User linked successfully"}, status=status.HTTP_200_OK) 
 
 class Search(APIView):
     def get(self, request, format=None):
@@ -65,7 +76,6 @@ class Search(APIView):
         response = ut.request_spotify_api("GET", request.query_params.get(gv.COMMON.USER), endpoint)
         if gv.COMMON.ERROR in response:
             return Response({}, status=status.HTTP_204_NO_CONTENT)
-
         return Response(response, status=status.HTTP_200_OK)
 
 class GetTrack(APIView):

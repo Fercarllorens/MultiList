@@ -1,6 +1,7 @@
-import { type } from 'os';
-import { stringify } from 'querystring';
 import React, { useState } from 'react'
+import {useForm} from 'react-hook-form';
+import { useLocation } from 'react-router';
+import { fetchHandler, fetchHandlerCb } from '../fetchHandler'
 
 interface Props {
     data : JSON | null;
@@ -17,15 +18,55 @@ interface Progress {
 
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
-    let image_url = 'not available';
-    let trailer_url = 'not available';
-    let list_top = [];
-    let list_bot = [];
+    const [ imageUrl, setImageUrl] =        useState<null | string>(null)
+    const [ trailerUrl , setTrailerUrl] =   useState<null | string>(null)
+    const [ listTop , setListTop] =         useState<string[]>([])
+    const [ listBottom , setListBottom] =   useState<string[]>([])
+    const [ progress, setProgress] =        useState<null | Progress>(null)
+    const [ added, setAdded ] =             useState<boolean>(isContentAdded())
+    const [ watching, setWatching ] =       useState<string>("TEXTO POR DEFECTO") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
+    const [ rating, setRating] =            useState<null | number>(null) 
+    const [ comments, setComments] =        useState<null | number[]>(null)
+    const { register, handleSubmit } = useForm();
+    
+    const {search} = useLocation()
+    const query = new URLSearchParams(search)
+    const type_query: any = query.get('type')
+    const id_query: any = query.get('id')
+    const user_id : string | null = localStorage.getItem('user_id') 
+    const base_url = 'http://127.0.0.1:8000/'
 
-    if(props.type == 'song'){
-        let track: any = props.data;
-        const {name, album, artists, duration_ms, preview_url} = track;
-        const {release_date, images} = album;        
+    function isContentAdded() :boolean{
+        //TODO: This function has to fetch the actual state of the content, check if it is added
+        return false
+    }
+
+    function getData(){
+        switch(type_query){
+            case "song":
+                fetchHandlerCb(`spotify/get-track?id=${id_query}&user=${user_id}`, 'GET', null, processSong); break;
+            case "series":
+                fetchHandlerCb(`video/get-by-id?id=${id_query}&user=${user_id}`, 'GET', null, processSeries); break;
+            case "film":
+                fetchHandlerCb(`video/get-by-id?id=${id_query}&user=${user_id}`, 'GET', null, processFilm); break;
+        }        
+    }
+    
+    const GetAlbumName = (album:any) => {
+        const {name} = album;
+
+        return name;
+    }
+
+    function processSong(json: any){
+        const track: any = json;
+        const {name, album, artists, duration_ms, preview_url} = track != null ? track : '';
+        const {release_date, images} = album != null ? album : ''; 
+        
+        // New way to use fetchHandler
+        //TODO: save output -> itll be the obj retrieved, need to get the comments if exists and the rating.
+        const obj = fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'song', 'external_id': id_query});
+            
         let artists_string = 'No artists found';
         let genres_string = 'Not genres found';
 
@@ -33,64 +74,75 @@ const MultimediaContentLogic = (props:Props) => {
             index == 0 ? artists_string = artist.name : artists_string += (", " + artist.name)
             const {genres} = artist;
 
-            genres.forEach((element: any, index: number) => index == 0 ? genres_string = element : genres_string += (', ' + element));
+            if(genres != undefined){
+                genres.forEach((element: any, index: number) => index == 0 ? genres_string = element : genres_string += (', ' + element));
+            }            
         });
 
-        let year = release_date.substring(0,4);    
-        let img = images.find((element: { height: number; }) => element.height === 300)
-        image_url = img.url;
-        let duration = (duration_ms / 60000).toString();
-        let formated_duration = duration.split('.')[0] + '.' + duration.split('.')[1].substring(0,2);
-
-        let album_name = GetAlbumName(album);
-        trailer_url = preview_url;
-
-        list_top.push(name, props.type, year, genres_string, 'green');
-        list_bot.push(formated_duration, '', '', artists_string, release_date, album_name);
-    }
-
-    else if(props.type == 'series'){
-
-    }
-
-    else if(props.type == 'film'){
+        const year = release_date.substring(0,4);    
+        const img = images.find((element: { height: number; }) => element.height === 300)
+        const duration = (duration_ms / 60000).toString();
+        const formated_duration = duration.split('.')[0] + '.' + duration.split('.')[1].substring(0,2);
+        const album_name = album.name;
         
+        setImageUrl(img.url);
+        setTrailerUrl(preview_url);
+        setListTop([name, props.type, year, genres_string, 'green']);
+        setListBottom([formated_duration, '', '', artists_string, release_date, album_name]);
     }
 
-    let userId : string | null = localStorage.getItem('user_id') 
-    let contentId : string | null = props.contentId;
-    const [ progress, setProgress] = useState<null | Progress>(null)
+    function processFilm(json: any){
+        const film: any = json;
+        const {collection} = film != null ? film : '';
+        const {name, picture} = collection != null ? collection : '';
 
+        //fetchRequest(id_query, 'film', 'post', 'api', {element_name: name});
+        // New way to use fetchHandler
+        fetchHandler('/api/post-content', 'POST', {'name': name, 'type': 'film'});
 
-    let url : string = `http://localhost:8000/api/get-progress?user_id=${userId}&content_id=${contentId}`
-    fetch(url)
-      .then((res) => res.json())
-      .then((json) => setProgress(json))
-      .catch((err) => console.error(err))
+        setImageUrl(picture.url);
+        setListTop([name, props.type, 'red']);
+    }
 
-    const [ imageUrl, setImageUrl] = useState<null | string>(image_url)
-    const [ trailerUrl , setTrailerUrl] = useState<null | string>(trailer_url)
-    const [ listTop , setListTop] = useState<null | string[]>(list_top)
-    const [ listBottom , setListBottom] = useState<null | string[]>(list_bot)
-    
-    
-    return {listTop, imageUrl, trailerUrl, listBottom, progress}
-}
+    function processSeries(json: any){
+        const film: any = json;
+        const {collection} = film != null ? film : '';
+        const {name, picture} = collection != null ? collection : '';
 
-const GetAlbumName = (album:any) => {
-    const {name} = album;
+        //fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});
+        // New way to use fetchHandler
+        fetchHandler('/api/post-content', 'POST', {'name': name, 'type': 'series'});
 
-    return name;
-}
+        setImageUrl(picture.url);
+        setListTop([name, props.type, 'blue']);
+    }
+      
+    function handleAddContent(){
+        //user id, content id y content_type
+        const body = JSON.stringify({
+            user_id: user_id,
+            content_id: id_query,
+            content_type: type_query
+        })
 
-const submitProgress = (progress:string, state:string, contentId:string) => {
-    let userId : string | null = localStorage.getItem('user_id') 
-    let url : string = `http://localhost:8000/api/get-progress?user_id=${userId}&content_id=${contentId}&state=${state}&progress=${progress}`
-    const [data , setData] = useState<null | JSON>(null)
-    fetch(url)
-      .then((res) => res.json())
-      .then((json) => setData(json))
-      .catch((err) => console.error(err))
+        //TODO if request goes ok, update icon of the button
+        fetch(base_url+'/api/update-list', {method:"POST", body: body, headers:{'Content-Type': 'application/json'}})
+            .then(res => res.json())
+            .then(json => console.log(json))
+            .catch(err => console.error(err))
+    }
+
+    function handleUpdateProgress(data: any){
+        // const body = JSON.stringify({
+        //     value_in_api: data.watching_state
+        //     value_in_api: data.watching_progress
+        // })
+
+        // fetch(....)
+    }
+
+    return {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching, rating, comments,
+        type_query, id_query, getData, handleAddContent, handleUpdateProgress, register, handleSubmit}
 }
 
 export default MultimediaContentLogic

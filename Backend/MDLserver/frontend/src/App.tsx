@@ -7,6 +7,9 @@ import Register from './Components/Register/Register'
 import Profile from './Components/Profile/Profile'
 import Finder from './Components/Finder/Finder'
 import MyLists from './Components/MyLists/MyLists'
+import MultimediaContent from './Components/MultimediaContent/MultimediaContent'
+import ListContent from './Components/ListContent/ListContent'
+import Spotify from './Components/Spotify/Spotify'
 import './App.css'
 
 function App() {
@@ -17,10 +20,13 @@ function App() {
         {/*Todo las rutas que haya que meter, se meten aqui como una Route*/}
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
+        <PrivateRoute path='/Spotify' component={Spotify} />
+        <Route path='/MultimediaContent' component={MultimediaContent} />
         <PrivateRoute path='/profile' component={Profile} />
         <PrivateRoute path='/MyLists' component={MyLists} />
+        <PrivateRoute path='/List' component={ListContent} />
         <PrivateRoute path='/' component={Finder} />
-        <Route path="*" component={() => {return <div>404 Not found</div>}} />
+        <Route path="*" component={() => {return <div>404 NOT FOUND</div>}} />
       </Switch>
     </Router>
   )
