@@ -58,9 +58,9 @@ const MultimediaContentLogic = (props:Props) => {
             case "song":
                 fetchHandlerCb(`spotify/get-track?id=${id_query}&user=${user_id}`, 'GET', null, processSong); break;
             case "series":
-                fetchHandlerCb(`video/get-by-id?id=${id_query}&user=${user_id}`, 'GET', null, processSeries); break;
+                fetchHandlerCb(`video/get-by-id?source_id=${id_query}&source=imdb`, 'GET', null, processSeries); break;
             case "film":
-                fetchHandlerCb(`video/get-by-id?id=${id_query}&user=${user_id}`, 'GET', null, processFilm); break;
+                fetchHandlerCb(`video/get-by-id?source_id=${id_query}&source=imdb`, 'GET', null, processFilm); break;
         }        
     }
     
@@ -112,7 +112,7 @@ const MultimediaContentLogic = (props:Props) => {
         // New way to use fetchHandler
         fetchHandler('/api/post-content', 'POST', {'name': name, 'type': 'film'});
 
-        setImageUrl(picture.url);
+        setImageUrl(picture);
         setListTop([name, props.type, 'red']);
     }
 
@@ -125,7 +125,7 @@ const MultimediaContentLogic = (props:Props) => {
         // New way to use fetchHandler
         fetchHandler('/api/post-content', 'POST', {'name': name, 'type': 'series'});
 
-        setImageUrl(picture.url);
+        setImageUrl(picture);
         setListTop([name, props.type, 'blue']);
     }
       
