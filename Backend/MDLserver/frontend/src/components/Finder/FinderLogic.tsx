@@ -130,12 +130,12 @@ const FinderLogic = () => {
         let res: Array<any> = []
 
         if(typeof series_list === "object" && series_list !== null && series_list !== undefined){
-            //TODO comprobar que este bien
             series_list.forEach((element) => {
-                const { id, name, picture } = element
+                const { name, picture, external_ids } = element
+                const { imdb } = external_ids
 
                 res.push({
-                    id: id,
+                    id: imdb.id,
                     name: name,
                     img: picture
                 })
@@ -151,14 +151,14 @@ const FinderLogic = () => {
         let res: Array<any> = []
 
         if(typeof films_list === "object" && films_list !== null && films_list !== undefined){
-            //TODO comprobar que este bien
             films_list.forEach((element) => {
-                const { id, name, picture } = element
+                const { name, picture, external_ids } = element
+                const { imdb } = external_ids
 
                 res.push({
-                    id: id,
+                    id: imdb.id,
                     name: name,
-                    img: picture
+                    img: picture,
                 })
             })
         }
