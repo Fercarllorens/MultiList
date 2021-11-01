@@ -1,0 +1,21 @@
+.comment-container{
+    background: #F7ECE1;
+    width: 30rem;
+    height: 6rem;
+}
+
+.comment-user{
+    position: relative;
+    top: 1%;
+    left: 1%;
+}
+
+.comment-text{
+    position: relative;
+    top: 12%;
+    left: 1%;
+}
+
+.comment-buttons{
+    position: relative;
+}

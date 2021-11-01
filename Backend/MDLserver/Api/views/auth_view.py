@@ -27,12 +27,10 @@ class Register(APIView):
             gv.USER.PASSWORD: request.data[gv.USER.PASSWORD],
         })
 
-        if not created:
-            return Response({gv.COMMON.ERROR: "User already exists"}, status=status.HTTP_409_CONFLICT)
-        
-        lists = create_default(user.id)
-        user.lists = str(lists)
-        user.save()
-
-        return Response({gv.USER.ID: user.id}, status=status.HTTP_201_CREATED)
+        if created:
+            lists = create_default(user.id)
+            user.lists = str(lists)
+            user.save()
+            return Response({gv.USER.ID: user.id}, status=status.HTTP_201_CREATED)
+        return Response({gv.COMMON.ERROR: "User already exists"}, status=status.HTTP_409_CONFLICT)
 

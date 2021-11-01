@@ -5,12 +5,11 @@ import './Profile.css'
 import Modal from '../Modal/Modal'
 
 const Profile = () => {
-  const { open, setOpen, pic, data, getUserData, handleSpotifyClick } = ProfileLogic()
-  const uid = localStorage.getItem('user_id')
+  const { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick } = ProfileLogic()
 
   //TODO: MODIFICAR CUANDO SE AÑADA EL LOGIN
   useEffect(() => {
-    if (uid !== null) getUserData(uid)
+    getUserData()
   }, [])
 
   return (
@@ -52,7 +51,10 @@ const Profile = () => {
       </div>
       <div className='profile-linked-accounts'>
         <h4>Link Accounts</h4>
-        <button onClick={() => {if (uid !== null) handleSpotifyClick(uid)}} >Spotify</button>
+        {spotifyAuth
+          ? <p className='profile-linked-spotify'>Spotify - Linked</p>
+          : <button onClick={handleSpotifyClick} className="profile-linked-spotify">Spotify</button>
+        }
       </div>
     </div>
   )

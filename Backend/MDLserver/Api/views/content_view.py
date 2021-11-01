@@ -12,9 +12,10 @@ from ..models import MultimediaContent;
 class PostContent(APIView):
     def post(self, request, format=None):
         data = request.data
-        obj, created = MultimediaContent.objects.update_or_create(external_id = data[gv.MULTIMEDIA_CONTENT.EXTERNAL_ID], defaults={
+        obj, created = MultimediaContent.objects.get_or_create(external_id = data[gv.MULTIMEDIA_CONTENT.EXTERNAL_ID], defaults={
             gv.MULTIMEDIA_CONTENT.NAME: data[gv.MULTIMEDIA_CONTENT.NAME],
             gv.MULTIMEDIA_CONTENT.TYPE: data[gv.MULTIMEDIA_CONTENT.TYPE],
+            gv.MULTIMEDIA_CONTENT.TOTAL_RATING: 0,
         })
         if created:
             return Response(model_to_dict(obj), status=status.HTTP_201_CREATED)

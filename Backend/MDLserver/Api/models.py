@@ -14,7 +14,7 @@ class MultimediaContent (models.Model):
     name = models.CharField(max_length=300, null=True)
     type = models.CharField(max_length=50)
     external_id = models.CharField(max_length=300, unique=True)
-    total_rating = models.IntegerField(null=True)
+    total_rating = models.FloatField(null=True)
     comments = models.TextField(null=True)
 
 
@@ -25,7 +25,7 @@ class Comment (models.Model):
     rating = models.IntegerField(null=True)
     likes = models.TextField(null=True) #Array of user_ids that have liked this post
     dislikes = models.TextField(null=True) #Array of user_ids that have disliked this post
-
+    # Posibly add comments to comments
 
 class List (models.Model):
     name = models.CharField(max_length=50)

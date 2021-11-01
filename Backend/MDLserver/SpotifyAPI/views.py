@@ -54,7 +54,7 @@ def spotify_callback(request, format=None) -> redirect:
 class IsAuth(APIView):
     def get(self, request, format=None):
         """Returns wether the user is authenticated or not"""
-        is_auth = ut.is_spotify_authenticated(request.session.session_key)
+        is_auth = ut.is_spotify_authenticated(request.GET[gv.USER.ID])
         return Response({gv.SPOTIFY.RESPONSE.STATUS: is_auth}, status=status.HTTP_200_OK)
 
 class LinkUser(APIView):

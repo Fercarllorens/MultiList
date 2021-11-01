@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+import json
 
 from rest_framework.views import APIView
 from rest_framework import status
@@ -6,24 +7,25 @@ from rest_framework.response import Response
 from django.forms.models import model_to_dict
 
 import global_variables as gv
-from ..models import Comment;
+from ..models import Comment, MultimediaContent
 
 # Create your views here.
 class PostComment(APIView):
     def post(self, request, format=None):
         data = request.data
-        try:
-            obj = Comment.objects.create(
+        obj, created = Comment.objects.get_or_create(
                     user_id = data.get(gv.COMMENT.USER_ID),
-                    content_id = data.get(gv.COMMENT.CONTENT_ID),
-                    comment = data.get(gv.COMMENT.COMMENT),
-                    rating = data.get(gv.COMMENT.RATING),
-                    likes = 0,
-                    dislikes = 0,
-            )   
+                    content_id = data.get(gv.COMMENT.CONTENT_ID), defaults={
+                        gv.COMMENT.COMMENT: data.get(gv.COMMENT.COMMENT),
+                        gv.COMMENT.RATING: data.get(gv.COMMENT.RATING),
+                        gv.COMMENT.LIKES: '[]',
+                        gv.COMMENT.DISLIKES: '[]',
+                    }
+            )
+        if created:
+            calculate_total_rating(data.get(gv.COMMENT.CONTENT_ID))
             return Response(model_to_dict(obj), status=status.HTTP_201_CREATED)
-        except Exception as e:
-            return Response({gv.COMMON.ERROR: "Error with your request"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({gv.COMMON.ERROR: "User already comented this post"}, status=status.HTTP_400_BAD_REQUEST)
         
         
 #All components of the item are required to update it!!
@@ -63,8 +65,17 @@ class GetAllContentComments(APIView):
     def get(self, request, format=None):
         try:
             objs = Comment.objects.filter(content_id=request.GET[gv.COMMON.ID])
-            return Response(model_to_dict(objs), status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response({gv.COMMON.ERROR: "Item not found"}, status=status.HTTP_204_NO_CONTENT)
+            return Response(json.dumps([model_to_dict(i) for i in objs]), status=status.HTTP_200_OK)
+        except:
+            return Response({gv.COMMON.ERROR: "Error ocurred"}, status=status.HTTP_204_NO_CONTENT)
    
     
+def calculate_total_rating(content_id: str):
+    item = MultimediaContent.objects.get(external_id=content_id)
+    item_comments = Comment.objects.filter(content_id=content_id)
+    ratings = [rat.rating for rat in item_comments]
+    print(ratings)
+    new_rating = (sum(ratings)/len(ratings))*20
+    print(new_rating)
+    item.total_rating = new_rating
+    item.save()

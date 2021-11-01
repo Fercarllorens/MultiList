@@ -26,9 +26,8 @@ const Spotify: React.FC = () => {
     }, [search])
 
     return (
-        <div>
-            <h1>AAAAAA</h1>
-        </div>
+        <>
+        </>
     )
 }
 

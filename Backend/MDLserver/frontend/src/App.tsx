@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute'
 import Navbar from './Components/Navbar/Navbar'
@@ -11,8 +11,15 @@ import MultimediaContent from './Components/MultimediaContent/MultimediaContent'
 import ListContent from './Components/ListContent/ListContent'
 import Spotify from './Components/Spotify/Spotify'
 import './App.css'
+import { fetchHandler } from './Components/fetchHandler'
 
 function App() {
+  
+  useEffect(() => {
+    const user_id: string | null = localStorage.getItem('user_id')
+    if(user_id) fetchHandler(`spotify/is-auth?user_id=${user_id}`, 'GET', null)  
+  }, [])
+
   return (
     <Router>
       <Navbar />

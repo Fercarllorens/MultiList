@@ -89,3 +89,18 @@
     width: 100%;
     height: 100%;
 }
+
+.rating-container{
+    position: absolute;
+    right: 10%;
+    top: 25%;
+}
+
+.comment-holder{
+    position: absolute;
+    bottom: -10%;
+    left: 40%;
+    width: 90%;
+    height: 30%;
+    overflow: hidden;
+}
