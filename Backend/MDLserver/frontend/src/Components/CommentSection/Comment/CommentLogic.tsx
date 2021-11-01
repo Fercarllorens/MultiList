@@ -23,7 +23,7 @@ const CommentLogic = (props:Props) => {
     const user_id: any = localStorage.getItem('user_id')
 
     function getData(){
-        fetchHandlerCb(`api/get-user?user_id=${user_id}`, "GET", null, (obj) => setUser(obj))
+        fetchHandlerCb(`api/get-user?user_id=${props.user_id}`, "GET", null, (obj) => setUser(obj))
     }
 
     function processComment(){
