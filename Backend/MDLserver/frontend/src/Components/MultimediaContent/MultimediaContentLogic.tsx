@@ -22,11 +22,13 @@ const MultimediaContentLogic = (props:Props) => {
     const [ trailerUrl , setTrailerUrl] =   useState<null | string>(null)
     const [ listTop , setListTop] =         useState<string[]>([])
     const [ listBottom , setListBottom] =   useState<string[]>([])
+
     const [ progress, setProgress] =        useState<null | Progress>(null)
     const [ added, setAdded ] =             useState<boolean>(isContentAdded())
+
     const [ watching, setWatching ] =       useState<string>("TEXTO POR DEFECTO") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
     const [ rating, setRating] =            useState<null | number>(null) 
-    const [ comments, setComments] =        useState<null | number[]>(null)
+
     const { register, handleSubmit } = useForm();
     
     const {search} = useLocation()
@@ -51,12 +53,6 @@ const MultimediaContentLogic = (props:Props) => {
                 fetchHandlerCb(`video/get-by-id?id=${id_query}&user=${user_id}`, 'GET', null, processFilm); break;
         }        
     }
-    
-    const GetAlbumName = (album:any) => {
-        const {name} = album;
-
-        return name;
-    }
 
     function processSong(json: any){
         const track: any = json;
@@ -65,8 +61,9 @@ const MultimediaContentLogic = (props:Props) => {
         
         // New way to use fetchHandler
         //TODO: save output -> itll be the obj retrieved, need to get the comments if exists and the rating.
-        const obj = fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'song', 'external_id': id_query});
-            
+        fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'song', 'external_id': id_query})
+            .then((obj:any) => {setRating(obj.total_rating)})
+
         let artists_string = 'No artists found';
         let genres_string = 'Not genres found';
 
@@ -141,7 +138,7 @@ const MultimediaContentLogic = (props:Props) => {
         // fetch(....)
     }
 
-    return {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching, rating, comments,
+    return {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching, rating,
         type_query, id_query, getData, handleAddContent, handleUpdateProgress, register, handleSubmit}
 }
 
