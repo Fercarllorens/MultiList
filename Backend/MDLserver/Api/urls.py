@@ -1,10 +1,10 @@
 from django.urls import path
-from .views.list_view import GetList, PostList, PutList, UpdateListContents, UpdateListContents, GetListByUser
+from .views.list_view import GetList, PostList, PutList, UpdateListContents, UpdateListContents, GetListByUser, DeleteListContents
 from .views.film_view import GetFilm, PostFilm, PutFilm
 from .views.series_view import GetSeries, PostSeries, PutSeries
 from .views.song_view import GetSong, PostSong, PutSong
 from .views.user_view import GetUser, PostUser, PutUser
-from .views.content_view import GetContent, PostContent, PutContent
+from .views.content_view import GetContent, PostContent, PutContent, GetContentArray
 from .views.progress_view import GetProgress, PostProgress, UpdateProgress
 from .views.comment_view import GetComment, PostComment, PutComment, GetAllUserComments, GetAllContentComments
 from .views.auth_view import Login, Register
@@ -29,6 +29,7 @@ urlpatterns = [
     path('post-content', PostContent.as_view()),
     path('put-content', PutContent.as_view()),
     path('get-content', GetContent.as_view()),
+    path('get-content-array', GetContentArray.as_view()),
 
     path('post-comment', PostComment.as_view()),
     path('put-comment', PutComment.as_view()),
@@ -39,6 +40,7 @@ urlpatterns = [
     path('post-list', PostList.as_view()),
     path('get-list', GetList.as_view()),
     path('get-list-user', GetListByUser.as_view()),
+    path('delete-list', DeleteListContents.as_view()),
     path('put-list', PutList.as_view()),
     path('update-list', UpdateListContents.as_view()),
 

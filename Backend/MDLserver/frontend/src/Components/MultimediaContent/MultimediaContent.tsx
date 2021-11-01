@@ -15,13 +15,14 @@ interface Props{
 let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", "Finished"]
 
 const MultimediaContent: React.FC<Props> = (props) => {
-    const {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching, rating, comments,
-        type_query, id_query, getData, handleAddContent, handleUpdateProgress, register, handleSubmit} = MultimediaContentLogic(props)
+    const {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, rating, comments,
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added} = MultimediaContentLogic(props)
 
-    console.log('se han establecido')
+
 
     useEffect(() => {
         getData()
+        getProgress()
     }, [])
   
     return (
@@ -69,18 +70,28 @@ const MultimediaContent: React.FC<Props> = (props) => {
                 <p>{rating}</p>
             </div>
             <div className="comment-holder">
-                {/*TODO: Convert this into a component*/}
-                {comments && comments.map((comment) => {
-                    return <Comment comment_id={comment} />
-                })}
+                
             </div>
-            <button className="add-content-btn" onClick={handleAddContent}><i className="fas fa-arrow-up"></i></button>
-            <form onSubmit={handleSubmit(handleUpdateProgress)}>
-                <select value={watching} onChange={(e) => {setWatching(e.target.value); register("watching_state")}}>
-                    <option value="Whatever"></option>
+            {
+            added ? 
+            <button className="add-content-btn" onClick={handleDeleteContent}>Delete from list</button>:
+            <button className="add-content-btn" onClick={handleAddContent}>Add to list</button>
+            }
+            <form className="state-form" onSubmit={handleSubmit(handleUpdateProgress)}>
+                <select value={watching} onChange={(e) => {setWatching(e.target.value);}}>
+                {/* <select defaultValue={watching} {...register("watching_state")}> */}
+                    {
+                    options.map((element, index) => {
+                        return(
+                            
+                            <option key={index} value={element}>{element}</option>
+                            
+                        )
+                    })                   
+                    }
                 </select>
-                { watching==="watching" && (
-                    <input type="text" {...register("watching_progress")}/>
+                { watching==="Watching" && (
+                    <input type="text" defaultValue={progress != null? progress : "Sin registrar"} {...register("watching_progress")}/>
                 )}
                 <input type="submit" value="Submit"/>
             </form>

@@ -109,7 +109,7 @@ class COMMENT():
 class LIST():
     ID = "id"
     NAME = "name"
-    TYPE = "type"
+    TYPE = "content_type"
     CONTENTS = "contents"
     USER_ID = "user_id"
 

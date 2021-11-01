@@ -22,23 +22,35 @@ const MultimediaContentLogic = (props:Props) => {
     const [ trailerUrl , setTrailerUrl] =   useState<null | string>(null)
     const [ listTop , setListTop] =         useState<string[]>([])
     const [ listBottom , setListBottom] =   useState<string[]>([])
-    const [ progress, setProgress] =        useState<null | Progress>(null)
-    const [ added, setAdded ] =             useState<boolean>(isContentAdded())
-    const [ watching, setWatching ] =       useState<string>("TEXTO POR DEFECTO") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
+    const [ progress, setProgress] =        useState<null | string>("")
+    const [ watching, setWatching ] =       useState<string>("Select...") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
     const [ rating, setRating] =            useState<null | number>(null) 
     const [ comments, setComments] =        useState<null | number[]>(null)
+    const [ contentCheck, addContentCheck]= useState<boolean>(false)
     const { register, handleSubmit } = useForm();
-    
+
     const {search} = useLocation()
     const query = new URLSearchParams(search)
     const type_query: any = query.get('type')
     const id_query: any = query.get('id')
     const user_id : string | null = localStorage.getItem('user_id') 
     const base_url = 'http://127.0.0.1:8000/'
+    const [added , setAdded] =  useState<null | boolean>(isContentAdded())
 
     function isContentAdded() :boolean{
-        //TODO: This function has to fetch the actual state of the content, check if it is added
-        return false
+        //TODO: refactorize fetch
+        
+        let url = base_url + `api/get-list-user?user_id=${user_id}&content_type=${type_query}`
+        let obj = fetch(url)
+            .then(res => res ? res.json() : res)
+            .then(json => {
+                 if(json) if(JSON.parse(json.contents).items.includes(id_query))
+                {
+                     addContentCheck(true)
+                }
+            })
+            .catch(err => console.error(err))
+        return contentCheck
     }
 
     function getData(){
@@ -126,23 +138,64 @@ const MultimediaContentLogic = (props:Props) => {
         })
 
         //TODO if request goes ok, update icon of the button
-        fetch(base_url+'/api/update-list', {method:"POST", body: body, headers:{'Content-Type': 'application/json'}})
+        console.log(added)
+        if (!added){
+        fetch(base_url+'api/update-list', {method:"POST", body: body, headers:{'Content-Type': 'application/json'}})
             .then(res => res.json())
             .then(json => console.log(json))
             .catch(err => console.error(err))
+        }
+        setAdded(!added)
     }
 
-    function handleUpdateProgress(data: any){
-        // const body = JSON.stringify({
-        //     value_in_api: data.watching_state
-        //     value_in_api: data.watching_progress
-        // })
+    function handleDeleteContent(){
+        //user id, content id y content_type
+        const body = JSON.stringify({
+            user_id: user_id,
+            content_id: id_query,
+            content_type: type_query
+        })
 
-        // fetch(....)
+        //TODO if request goes ok, update icon of the button
+        if (added){
+        fetch(base_url+'api/delete-list', {method:"POST", body: body, headers:{'Content-Type': 'application/json'}})
+            .then(res => res.json())
+            .then(json => console.log(json))
+            .catch(err => console.error(err))
+        }
+        setAdded(!added)
     }
 
-    return {listTop, imageUrl, trailerUrl, listBottom, progress, watching, setWatching, rating, comments,
-        type_query, id_query, getData, handleAddContent, handleUpdateProgress, register, handleSubmit}
+    function getProgress() {
+        fetch(base_url + `api/get-progress?user_id=${user_id}&content_id=${id_query}`)
+          .then(res => res.json())
+          .then(json => {
+              console.log(json)
+              if (json != null){
+                setProgress(json.progress)
+                setWatching(json.state)
+              }
+          })
+    }
+
+    function handleUpdateProgress(data: any){ 
+        console.log(data)
+        console.log(typeof(data))
+        const body = JSON.stringify({
+            user_id: user_id,
+            content_id: id_query,
+            state: watching,
+            progress: data.watching_progress ? data.watching_progress : "Sin registrar" 
+        })
+
+        fetch(base_url + `api/update-progress` , {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
+          .then(res => res.json())
+          .then(json => console.log(json))
+          .catch(err => console.error(err))
+    }
+
+    return {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, rating, comments,
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added}
 }
 
 export default MultimediaContentLogic

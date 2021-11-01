@@ -7,7 +7,7 @@ from django.forms.models import model_to_dict
 
 import global_variables as gv
 from ..models import MultimediaContent;
-
+import json
 # Create your views here.
 class PostContent(APIView):
     def post(self, request, format=None):
@@ -42,5 +42,13 @@ class GetContent(APIView):
             return Response({gv.COMMON.ERROR: "Item does not exists"}, status=status.HTTP_204_NO_CONTENT)
 
 
-   
+class GetContentArray(APIView):
+    def post(self, request, format=None):
+        obj = request.data["list"]
+        print("ITEM", obj)
+        content_list = [MultimediaContent.objects.get(external_id=i) for i in obj]
+        
+        return Response(json.dumps([model_to_dict(item) for item in content_list]))
+
+
     

@@ -89,3 +89,15 @@
     width: 100%;
     height: 100%;
 }
+
+.add-content-btn{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+}
+
+.state-form{
+    position: absolute;
+    top: 10%;
+    right: 5%;
+}
