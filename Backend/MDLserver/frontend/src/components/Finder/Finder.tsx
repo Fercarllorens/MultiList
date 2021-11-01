@@ -5,20 +5,9 @@ import './Finder.css'
 import FindSongs from './FindSongs/FindSongs';
 import FindFilms from './FindFilms/FindFilms';
 import FindSeries from './FindSeries/FindSeries';
-import { useEffect } from 'react';
 
 const Finder: React.FC = () => {
-    const {find, songs, films, series, selectType, type_selected, tracks_list, movies_list, shows_list, buildSongs, buildFilms, buildSeries} = FinderLogic()
-
-    useEffect(() => {
-        //TODO mejorar estos ifs feos :(
-        if (type_selected.songs_selected) tracks_list != undefined && buildSongs()
-        else if (type_selected.films_selected) movies_list != undefined && buildFilms()
-        else {
-            shows_list != undefined && buildSeries()
-        }
-    },
-    [tracks_list, shows_list, movies_list])
+    const {find, songs, films, series, selectType, type_selected} = FinderLogic()
 
     return (
         <div className="FinderContainer">

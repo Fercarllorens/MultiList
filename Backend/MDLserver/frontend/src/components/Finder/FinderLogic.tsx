@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import { resourceLimits } from "worker_threads";
-import { fetchHandler } from '../fetchHandler';
 
 interface Type{
     films_selected: boolean;
@@ -74,25 +74,34 @@ const FinderLogic = () => {
         else setTypeSelected({films_selected: false, series_selected: false, songs_selected: true})
     }
 
-    const fetchContent = async (type: "songs" | "films" | "series", content: string) => {
-        let url: string
+    // Fetch of the songs query
+    const fetchSongs = async (content: string) => {
+        let userId : string | null = localStorage.getItem('user_id')
+        let url = 'http://127.0.0.1:8000/spotify/search?query=' + content + '&type=track&user=' + userId;
+        fetch(url)
+            .then((res) => res.json())
+            .then((json) => setTracksList(json))
+            .catch((err) => console.error(err))
+    }
 
-        if (type == "songs") {
-            let userId : string | null = localStorage.getItem('user_id')
-            url = 'spotify/search?query=' + content + '&type=track&user=' + userId;
-            let json = fetchHandler(url, 'GET', {})
-            setTracksList(json)
-        }
-        else if (type == "films"){
-            url = '/video/search?term=' + content + '&country=uk';
-            let json = fetchHandler(url, 'GET', {})
-            setMoviesList(json)
-        }
-        else {
-            url = 'http://127.0.0.1:8000/video/search?term=' + content + '&country=uk';
-            let json = fetchHandler(url, 'GET', {})
-            setShowsList(json)
-        }
+    // Fetch of the films query
+    const fetchFilms = async (content: string) => {
+        let url = 'http://127.0.0.1:8000/video/search?term=' + content + '&country=uk';
+
+        fetch(url)
+            .then((res) => res.json())
+            .then((json) => setMoviesList(json))
+            .catch((err) => console.error(err))
+    }
+
+    // Fetch of the series query
+    const fetchSeries = async (content: string) => {
+        let url = 'http://127.0.0.1:8000/video/search?term=' + content + '&country=uk';
+
+        fetch(url)
+            .then((res) => res.json())
+            .then((json) => setShowsList(json))
+            .catch((err) => console.error(err))
     }
 
     // Catches the enter event of the search bar
@@ -109,9 +118,9 @@ const FinderLogic = () => {
 
     // Search the content of the parameter as the type indicated as "type" parameter
     const findType = (type: "films" | "series" | "songs", content: string) => {
-        if (type == "films") fetchContent("films", content)
-        else if (type == "series") fetchContent("series", content)
-        else fetchContent("songs", content)
+        if (type == "films") fetchFilms(content)
+        else if (type == "series") fetchSeries(content)
+        else fetchSongs(content)
     }
 
     const buildSeries = () => {
@@ -200,6 +209,16 @@ const FinderLogic = () => {
         }
     }
     
-    return {songs, films, series, find, selectType, type_selected, tracks_list, movies_list, shows_list, buildSongs, buildFilms, buildSeries}
+    useEffect(() => {
+        //TODO mejorar estos ifs feos :(
+        if (type_selected.songs_selected) tracks_list != undefined && buildSongs()
+        else if (type_selected.films_selected) movies_list != undefined && buildFilms()
+        else {
+            shows_list != undefined && buildSeries()
+        }
+    },
+    [tracks_list, shows_list, movies_list])
+    
+    return {songs, films, series, find, selectType, type_selected}
 }
 export default FinderLogic
