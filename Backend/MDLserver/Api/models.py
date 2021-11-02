@@ -9,6 +9,7 @@ class User(models.Model):
     spotify_token = models.CharField(max_length=300, unique=True, null=True)
     lists = models.TextField(null=True)
     following = models.TextField(null= True)
+    premium = models.BooleanField(null=True, default=False)
 
 
 class MultimediaContent (models.Model):
@@ -33,6 +34,7 @@ class List (models.Model):
     type = models.CharField(max_length=50)
     contents = models.CharField(max_length=500)
     user_id = models.CharField(max_length=300)
+    custom = models.BooleanField(null=True, default=False)
 
 
 class Progress(models.Model):

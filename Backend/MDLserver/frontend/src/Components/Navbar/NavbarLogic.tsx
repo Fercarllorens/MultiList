@@ -1,7 +1,15 @@
 import { useState } from 'react'
+import { fetchHandler, fetchHandlerCb } from '../fetchHandler'
+
+interface User{
+  username: string;
+  premium: boolean;
+}
 
 const NavbarLogic = () => {
   const [logged, setLogged] = useState(false)
+  const [user, setUser] =   useState<null | User>(null)
+  const [openCustomListModal, setOpenCustomListModal] = useState<boolean>(false)
 
   const checkLoggedIn = () => {
     // function to check if the user is logged in, then display different functionalities
@@ -14,6 +22,14 @@ const NavbarLogic = () => {
     setLogged(false)
   }
 
-  return { logged, setLogged, checkLoggedIn, handleLogout }
+  const getUser = () => {
+    return fetchHandlerCb(`api/get-user?user_id=${localStorage.getItem('user_id')}`, 'GET', {}, processUser)
+  }
+
+  function processUser(json: any){
+    setUser(json)
+}
+
+  return { logged, user, openCustomListModal, setLogged, checkLoggedIn, handleLogout, getUser, setOpenCustomListModal }
 }
 export default NavbarLogic
