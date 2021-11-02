@@ -1,23 +1,7 @@
 import React from 'react'
-import ModalLogic from './ModalLogic'
+import ModalLogic, {Props} from './ModalLogic'
 import './Modal.css'
 import { request } from 'http'
-
-interface item{
-    text: string,
-    type: string,
-    value: string
-    api_value: string,
-}
-
-interface Props{
-    open: boolean;
-    onClose: React.MouseEventHandler<HTMLButtonElement>;
-    uid: string | null;
-    endpoint: string;
-    method: string;
-    values: item[];
-}
 
 // Expected values
 // [

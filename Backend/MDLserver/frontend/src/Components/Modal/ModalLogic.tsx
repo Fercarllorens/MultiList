@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
+import { fetchHandler } from '../fetchHandler';
 
 interface item{
     text: string,
@@ -8,13 +9,19 @@ interface item{
     api_value: string,
 }
 
-interface Props{
+interface opt_item{
+    value: string;
+    api_value: string;
+}
+
+export interface Props{
     open: boolean;
     onClose: React.MouseEventHandler<HTMLButtonElement>;
     uid: string | null;
     endpoint: string;
-    method: string;
+    method: "GET" | "POST" | "PUT" | "DELETE";
     values: item[];
+    opt_values?: opt_item[]
 }
 
 const ModalLogic = (props: Props) => {
@@ -22,15 +29,16 @@ const ModalLogic = (props: Props) => {
     //TODO: Usable for more things? maybe import the request func instead???
     //TODO: Make fields required
     function onSubmit(data: any){
-        let temp_body: any = {}
+        let body: any = {}
         props.values.forEach((value: any) => {
-            temp_body[value.api_value] = data[value.api_value]
+            body[value.api_value] = data[value.api_value]
         })
-        const body = JSON.stringify(temp_body)
+        props.opt_values && props.opt_values.forEach((value:any) => {
+            body[value.api_value] = value.value
+        });
         //TODO: Modify to treat the response
-        fetch("localhost:8000/"+props.endpoint, {method: props.method, body: body, headers: {'Content-Type': 'application/json'}})
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+        fetchHandler(props.endpoint, props.method, body)
+            .catch((err:any) => console.log(err))
     }
 
     return {register, handleSubmit, onSubmit}
