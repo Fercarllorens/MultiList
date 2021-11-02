@@ -110,7 +110,7 @@ const MultimediaContentLogic = (props:Props) => {
 
         //fetchRequest(id_query, 'film', 'post', 'api', {element_name: name});
         // New way to use fetchHandler
-        fetchHandler('/api/post-content', 'POST', {'name': name, 'type': 'film'});
+        fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'film', 'external_id': id_query});
 
         setImageUrl(picture);
         setListTop([name, props.type, 'red']);
@@ -123,7 +123,7 @@ const MultimediaContentLogic = (props:Props) => {
 
         //fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});
         // New way to use fetchHandler
-        fetchHandler('/api/post-content', 'POST', {'name': name, 'type': 'series'});
+        fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'series', 'external_id': id_query});
 
         setImageUrl(picture);
         setListTop([name, props.type, 'blue']);

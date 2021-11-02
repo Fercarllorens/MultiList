@@ -43,7 +43,7 @@ const Modal: React.FC<Props> = (props) => {
                         <input 
                             type={value.type} 
                             id={value.api_value} 
-                            value={value.value? value.value : ''} 
+                            defaultValue={value.value? value.value : ''} 
                             {...register(value.api_value)}
                         />
                     </div>)

@@ -53,9 +53,11 @@ const ListContentLogic = () => {
             fetch(baseurl + `get-content-array` , {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
               .then((res) => {return res? res.json() : res})
               .then((json) => {
-                console.log(JSON.parse(json)[0].name)
+                if(json != "[]"){
+                    console.log(JSON.parse(json)[0].name)
 
-                setData(JSON.parse(json))
+                 setData(JSON.parse(json))
+                }
               })
               
         }})

@@ -85,10 +85,7 @@
     border: 2px 2px black;
 }
 
-.data-container-trailer img{
-    width: 100%;
-    height: 100%;
-}
+
 
 .add-content-btn{
     position: absolute;
@@ -100,4 +97,9 @@
     position: absolute;
     top: 10%;
     right: 5%;
+}
+
+.trailer{
+    width: 80%;
+    height: 100%;
 }

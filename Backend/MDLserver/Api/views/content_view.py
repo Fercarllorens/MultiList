@@ -47,7 +47,7 @@ class GetContentArray(APIView):
         obj = request.data["list"]
         print("ITEM", obj)
         content_list = [MultimediaContent.objects.get(external_id=i) for i in obj]
-        
+        print("LIST", content_list)
         return Response(json.dumps([model_to_dict(item) for item in content_list]))
 
 
