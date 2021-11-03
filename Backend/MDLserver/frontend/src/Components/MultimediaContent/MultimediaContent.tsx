@@ -16,11 +16,12 @@ let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", 
 
 const MultimediaContent: React.FC<Props> = (props) => {
     const {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, rating, comments,
-        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added} = MultimediaContentLogic(props)
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded} = MultimediaContentLogic(props)
 
 
 
     useEffect(() => {
+        isContentAdded()
         getData()
         getProgress()
     }, [])

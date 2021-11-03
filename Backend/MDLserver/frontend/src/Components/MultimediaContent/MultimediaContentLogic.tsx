@@ -35,9 +35,9 @@ const MultimediaContentLogic = (props:Props) => {
     const id_query: any = query.get('id')
     const user_id : string | null = localStorage.getItem('user_id') 
     const base_url = 'http://127.0.0.1:8000/'
-    const [added , setAdded] =  useState<null | boolean>(isContentAdded())
+    const [added , setAdded] =  useState<null | boolean>(null)
 
-    function isContentAdded() :boolean{
+    function isContentAdded() {
         //TODO: refactorize fetch
         
         let url = base_url + `api/get-list-user?user_id=${user_id}&content_type=${type_query}`
@@ -50,7 +50,7 @@ const MultimediaContentLogic = (props:Props) => {
                 }
             })
             .catch(err => console.error(err))
-        return contentCheck
+         setAdded(contentCheck)
     }
 
     function getData(){
@@ -195,7 +195,7 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     return {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, rating, comments,
-        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added}
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded}
 }
 
 export default MultimediaContentLogic

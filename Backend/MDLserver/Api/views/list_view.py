@@ -46,9 +46,11 @@ class UpdateListContents(APIView):
             return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
         string_json = obj.contents
         content_json = json.loads(string_json)
+        print("DATA ANTES", content_json["items"])
         if contentId not in content_json["items"] :
             content_json["items"].append(contentId)
         string_json = json.dumps(content_json)
+        print("DATA DESPUES", string_json)
         List.objects.update_or_create(id = obj.id, defaults={
             gv.LIST.CONTENTS: string_json
         })
