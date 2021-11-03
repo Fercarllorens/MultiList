@@ -37,8 +37,8 @@ class List (models.Model):
 class Progress(models.Model):
     user_id = models.CharField(max_length=300)
     content_id = models.CharField(max_length=300)
-    state = models.CharField(max_length=300)
-    progress = models.CharField(max_length=300)
+    state = models.CharField(max_length=300, null=True)
+    progress = models.CharField(max_length=300, null=True)
 
 
 class Film (models.Model):

@@ -43,7 +43,11 @@ const RegisterLogic = (history: History) => {
             headers: {'Content-Type' : 'application/json'}
         })
         .then(res => res.json())
-        .then(json => {localStorage.setItem('user_id', json.user_id); window.location.href = '/'})
+        .then(json => {
+            if(json.user_id){
+            localStorage.setItem('user_id', json.user_id); window.location.href = '/'
+        }else {setError('Something went wrong'); setTimeout(() => {setError('')}, 5000)}
+        })
         .catch(err => {
             setTimeout(() => {setError('')}, 5000)
             console.log("err" + err)

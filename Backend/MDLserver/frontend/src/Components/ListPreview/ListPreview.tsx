@@ -14,13 +14,13 @@ interface List{
 }
 
 const ListPreview: React.FC<Props> = (props) => {
-    const {list, getData} = ListPreviewLogic(props)
+    const {list, getData, show_list} = ListPreviewLogic(props)
     useEffect(() => {
         getData()
      }, [])
     return(
-        <div className="list">
-            <Link className="title" to='/List'> {list != null? list.name : ""} </Link>
+        <div className="list" onClick={() => {show_list(list? list.type: "")}}>
+            <h4 className="title"> {list != null? list.name : ""} </h4>
         </div>
     )
 }

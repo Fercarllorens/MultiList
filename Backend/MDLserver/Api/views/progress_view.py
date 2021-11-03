@@ -33,16 +33,16 @@ class GetProgress(APIView):
 
 class UpdateProgress(APIView):
     def post(self, request, format=None):
-        obj = Progress.objects.get(user_id=request.data[gv.PROGRESS.USER_ID], content_id=request.data[gv.PROGRESS.CONTENT_ID])
+        user_id = request.data[gv.PROGRESS.USER_ID]
+        content_id = request.data[gv.PROGRESS.CONTENT_ID]
         state = request.data['state']
         progress = request.data['progress']
+        
+        obj, created = Progress.objects.update_or_create(user_id = user_id, content_id = content_id, defaults={
+            'state': state,
+            'progress': progress
+        })
         if obj is None:
             return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
-        obj.state = state
-        obj.progress = progress
-        obj = Progress.objects.update_or_create(id = obj.id, defaults={
-            gv.PROGRESS.STATE: state,
-            gv.PROGRESS.PROGRESS: progress
-        })
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
         

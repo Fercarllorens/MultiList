@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useLocation } from 'react-router';
 
 interface Props{
     id: string;
@@ -13,6 +14,14 @@ interface List{
     user_id : string; 
 }
 
+interface Content{
+    name: string
+    external_id : string
+    total_rating: number
+    comments: any
+    type: string
+}
+
 interface Song{
     name: string;
     authors: string;
@@ -23,43 +32,55 @@ interface Song{
 }
 
 const ListContentLogic = () => {
-    const [data , setData] = useState<null | JSON[]>(null)
+    const baseurl : string = `http://localhost:8000/api/`
+    const user_id : string | null = localStorage.getItem('user_id')
+    const {search} = useLocation()
+    const query = new URLSearchParams(search)
+    const type_query: any = query.get('type')
+    const [list, setList] = useState<null |string[]>(null)
+    const [data, setData]  = useState<null |Content[]>(null)
     
-    let url : string = `http://localhost:8000/api/get-list?id=1`
     
     function getData ()
     {
-        let base_url = "http://localhost:8000/api/"
+        let url = baseurl + `get-list-user?content_type=${type_query}&user_id=${user_id}`
         fetch(url)
         .then((res) => { return res? res.json() : res})
         .then((json) => { if(json){
-            let item_list = [1]
-            let item_contents: JSON[] = []
-            if (json.type == "song") {
-                item_contents = getItemsByList(item_list, base_url+"get-song?id=")
-            }
-            if (json.type == "film"){
-                item_contents = getItemsByList(item_list, base_url+"get-film?id=")
-            }
-            if (json.type == "serie"){
-                item_contents = getItemsByList(item_list, base_url+"get-serie?id=")
-            }
-            setData(item_contents)
+            console.log(JSON.parse(json.contents)["items"])
+            let item_contents: string[] = JSON.parse(json.contents)["items"]
+            const body = JSON.stringify({list: item_contents})
+            fetch(baseurl + `get-content-array` , {method: 'POST', body: body, headers: {'Content-Type': 'application/json'}})
+              .then((res) => {return res? res.json() : res})
+              .then((json) => {
+                if(json != "[]"){
+                    console.log(JSON.parse(json)[0].name)
+
+                 setData(JSON.parse(json))
+                }
+              })
+              
         }})
         .catch((err) => console.error(err))
     }
 
-    function getItemsByList(item_list: number[], url: string){
-        let item_contents: JSON[] = []
-        item_list.forEach(item => {
-            fetch(url+item.toString())
-                .then((res) => { return res? res.json() : res})
-                .then((json) => {item_contents.push(json)})
-        })
-        return item_contents
-    }
+    // function getItemsByList(item_list: string[]){
+    //     let url = baseurl + `get-content?id=`
+    //     let item_contents: Content[] = []
+    //     let item_names : string[] = []
+    //     item_list.forEach(item => {
+    //         fetch(url+item.toString())
+    //             .then((res) => { return res? res.json() : res})
+    //             .then((json) => {
+    //                 console.log(json)
+    //                 item_names.push(json.name)
+    //             })
+    //     })
+    //     console.log (item_names)
+    //     return item_names
+    // }
    
-    return {data, setData, getData}
+    return {data, list, getData}
 }
 
 

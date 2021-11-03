@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './ListContent.css'
 import ListContentLogic from './ListContentLogic';
 import SongPreview from '../ItemPreview/SongPreview/SongPreview'
 
 
 const ListContent = () => {
-    const {data, setData, getData} = ListContentLogic()
-
+    const {data, getData, list} = ListContentLogic()
+    useEffect(() => {
+        getData()
+    }, [])
+    console.log(data)
     return (
         <div className="list-content"> 
             {
-                data && (
-                    data.map(item => {
-                        return (<div><p>item.name</p></div>)
-                    })
-                )
+                data !== null ? (
+                    data.map((item) => {
+                        return (
+                        <div className="div-item"><h4>{item.name}</h4></div>
+                        )
+                    })):
+                 <p>nothing</p>
             }      
         </div>
     )

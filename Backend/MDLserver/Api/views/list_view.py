@@ -26,7 +26,7 @@ class PutList(APIView):
 
 class GetListByUser(APIView):
     def get(self, request, format=None):
-        obj = List.objects.get(type=request.GET[gv.LIST.TYPE], id=request.GET[gv.LIST.USER_ID])
+        obj = List.objects.get(type=request.GET[gv.LIST.TYPE], user_id=request.GET[gv.LIST.USER_ID])
         if obj is None:
             return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
@@ -40,22 +40,44 @@ class GetList(APIView):
 
 class UpdateListContents(APIView):
     def post(self, request, format=None):
-        obj = List.objects.get(type=request.query_params[gv.LIST.TYPE], id=request.query_params[gv.LIST.USER_ID])
-        contentId = request.query_params['contentId']
+        obj = List.objects.get(type=request.data[gv.LIST.TYPE], user_id=request.data[gv.LIST.USER_ID])
+        contentId = request.data['content_id']
         if obj is None:
             return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
         string_json = obj.contents
         content_json = json.loads(string_json)
-        content_json.items.append(contentId)
+        print("DATA ANTES", content_json["items"])
+        if contentId not in content_json["items"] :
+            content_json["items"].append(contentId)
         string_json = json.dumps(content_json)
-        obj = List.objects.update_or_create(id = obj.id, defaults={
-            gv.LISTS.CONTENTS: string_json
+        print("DATA DESPUES", string_json)
+        List.objects.update_or_create(id = obj.id, defaults={
+            gv.LIST.CONTENTS: string_json
         })
+        obj = List.objects.get(type=request.data[gv.LIST.TYPE], user_id=request.data[gv.LIST.USER_ID])
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
 
+class DeleteListContents(APIView):
+    def post(self, request, format=None):
+        obj = List.objects.get(type=request.data[gv.LIST.TYPE], user_id=request.data[gv.LIST.USER_ID])
+        contentId = request.data['content_id']
+        if obj is None:
+            return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
+        string_json = obj.contents
+        content_json = json.loads(string_json)
+        if contentId in content_json["items"] :
+            content_json["items"].remove(contentId)
+        string_json = json.dumps(content_json)
+        obj = List.objects.update_or_create(id = obj.id, defaults={
+            gv.LIST.CONTENTS: string_json
+        })
+        obj = List.objects.get(type=request.data[gv.LIST.TYPE], user_id=request.data[gv.LIST.USER_ID])
+        return Response(model_to_dict(obj), status=status.HTTP_200_OK)
+
+
 def create_default(user):   
-    songList = List.objects.create(name = "songs", type = "songs", contents = '{"items":[1]}', user_id = user)
-    filmList = List.objects.create(name = "films", type = "films", contents = '{"items":[1]}', user_id = user)
-    seriesList = List.objects.create(name = "series", type = "series", contents = '{"items":[1]}', user_id = user)
+    songList = List.objects.create(name = "songs", type = "song", contents = '{"items":[]}', user_id = user)
+    filmList = List.objects.create(name = "films", type = "film", contents = '{"items":[]}', user_id = user)
+    seriesList = List.objects.create(name = "series", type = "series", contents = '{"items":[]}', user_id = user)
     obj = [songList.id, filmList.id, seriesList.id]
     return obj
