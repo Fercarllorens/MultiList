@@ -12,6 +12,7 @@ import ListContent from './Components/ListContent/ListContent'
 import Spotify from './Components/Spotify/Spotify'
 import './App.css'
 import { fetchHandler } from './Components/fetchHandler'
+import Artist from './Components/Artist/Artist'
 
 function App() {
   
@@ -32,6 +33,7 @@ function App() {
         <PrivateRoute path='/profile' component={Profile} />
         <PrivateRoute path='/MyLists' component={MyLists} />
         <PrivateRoute path='/List' component={ListContent} />
+        <Route path='/Artist' component={Artist} />
         <PrivateRoute path='/' component={Finder} />
         <Route path="*" component={() => {return <div>404 NOT FOUND</div>}} />
       </Switch>
