@@ -1,4 +1,4 @@
-.ArtistContainer{
+.artist-container{
     position: fixed;
     margin: 50px;
     width: 80vw;
@@ -7,4 +7,21 @@
     box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
     -webkit-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
     -moz-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.picture{
+    height: 300px;
+    width: 300px;
+}
+
+.picture-div{
+    float: left;
+}
+
+.info-div{
+    float: left;
+}
+
+.discography{
+    clear:left;
 }
