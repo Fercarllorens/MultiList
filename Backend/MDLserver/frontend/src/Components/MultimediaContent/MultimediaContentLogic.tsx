@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {useForm} from 'react-hook-form';
 import { useLocation } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { fetchHandler, fetchHandlerCb } from '../fetchHandler'
 
 interface Props {
@@ -16,6 +17,11 @@ interface Progress {
     progress: string
 }
 
+interface Artist {
+    name: string
+    id: string
+}
+
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
     const [ imageUrl, setImageUrl] =        useState<null | string>(null)
@@ -26,9 +32,11 @@ const MultimediaContentLogic = (props:Props) => {
     const [ watching, setWatching ] =       useState<string>("Select...") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
     const [ rating, setRating] =            useState<null | number>(null) 
     const [ contentCheck, addContentCheck]= useState<boolean>(false)
+    const [ artists, setArtists]= useState<Artist[]>([])
     const { register, handleSubmit } = useForm();
 
     const {search} = useLocation()
+    const history = useHistory()
     const query = new URLSearchParams(search)
     const type_query: any = query.get('type')
     const id_query: any = query.get('id')
@@ -73,11 +81,16 @@ const MultimediaContentLogic = (props:Props) => {
         fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'song', 'external_id': id_query})
             .then((obj:any) => {setRating(obj.total_rating)})
 
-        let artists_string = 'No artists found';
+        // let artists_string = 'No artists found';
+        let artists_array: Artist[] = []
         let genres_string = 'Not genres found';
 
-        artists.forEach((artist: { name: string; genres: string[]; }, index: number) => {
-            index == 0 ? artists_string = artist.name : artists_string += (", " + artist.name)
+        artists.forEach((artist: { name: string; genres: string[]; id: string }, index: number) => {
+            // index == 0 ? artists_string = artist.name : artists_string += (", " + artist.name)
+            artists_array.push({
+                name: artist.name,
+                id: artist.id
+            })
             const {genres} = artist;
 
             if(genres != undefined){
@@ -91,10 +104,11 @@ const MultimediaContentLogic = (props:Props) => {
         const formated_duration = duration.split('.')[0] + '.' + duration.split('.')[1].substring(0,2);
         const album_name = album.name;
         
+        setArtists(artists_array)
         setImageUrl(img.url);
         setTrailerUrl(preview_url);
         setListTop([name, props.type, year, genres_string, 'green']);
-        setListBottom([formated_duration, '', '', artists_string, release_date, album_name]);
+        setListBottom([formated_duration, '', '', release_date, album_name]);
     }
 
     function processFilm(json: any){
@@ -188,8 +202,17 @@ const MultimediaContentLogic = (props:Props) => {
           .catch(err => console.error(err))
     }
 
+    const showArtist = (id: string) => {  
+        
+        history.push({
+            pathname:'/Artist',
+            search: `?id=${id}`
+         })
+
+    }
+
     return {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, rating,
-        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded}
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded,artists, showArtist}
 }
 
 export default MultimediaContentLogic
