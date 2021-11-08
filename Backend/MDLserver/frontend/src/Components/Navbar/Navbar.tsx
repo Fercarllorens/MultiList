@@ -26,17 +26,26 @@ const Navbar = () => {
         endpoint={"api/post-list"}
         method={"POST"}
         values={[{
-          text: "List name",
+          text: "Name",
           type: "string",
-          value: "name",
+          value: "",
           api_value: "name",
         },
         {
           text: "Type",
           type: "string",
-          value: "type",
-          api_value: "type",
+          value: "",
+          api_value: "content_type",
         },]}
+        opt_values={[{
+          value : uid != null ? uid : "",
+          api_value : "user_id",
+        },
+        {
+          value : "1",
+          api_value : "custom",
+        }
+        ]}
       />
       <button onClick={() => {setOpenCustomListModal(!openCustomListModal)}} >Create new Custom List </button>
       {logged ? (

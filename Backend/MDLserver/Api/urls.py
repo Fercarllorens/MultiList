@@ -3,7 +3,7 @@ from .views.list_view import GetList, PostList, PutList, UpdateListContents, Upd
 from .views.film_view import GetFilm, PostFilm, PutFilm
 from .views.series_view import GetSeries, PostSeries, PutSeries
 from .views.song_view import GetSong, PostSong, PutSong
-from .views.user_view import GetUser, PostUser, PutUser, GetUsersByName, UpdateFollows, DeleteFollows, GetUserArray
+from .views.user_view import GetUser, PostUser, PutUser, GetUsersByName, UpdateFollows, DeleteFollows, GetUserArray, UpdateUserLists
 from .views.content_view import GetContent, PostContent, PutContent, GetContentArray
 from .views.progress_view import GetProgress, PostProgress, UpdateProgress
 from .views.comment_view import GetComment, PostComment, PutComment, GetAllUserComments, GetAllContentComments
@@ -51,6 +51,7 @@ urlpatterns = [
     path('update-follow', UpdateFollows.as_view()),
     path('delete-follow', DeleteFollows.as_view()),
     path('get-user-array', GetUserArray.as_view()),
+    path('update-user-lists', UpdateUserLists.as_view()),
 
     path('get-progress', GetProgress.as_view()),
     path('post-progress', PostProgress.as_view()),
