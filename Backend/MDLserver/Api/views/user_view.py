@@ -6,7 +6,7 @@ from django.forms.models import model_to_dict
 from ..utils import create_token
 from ..models import User
 import global_variables as gv
-
+import json
 
 class GetUser(APIView):
     def get(self, request, format=None):
@@ -15,7 +15,17 @@ class GetUser(APIView):
         if obj is None:
             return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
-        
+
+class GetUsersByName(APIView):
+    def get(self, request, format=None):
+        obj = request.data["list"]
+        if obj is None:
+            return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
+        print("ITEM", obj)
+        content_list = [User.objects.get(name=i) for i in obj]
+        print("LIST", content_list)
+        return Response(json.dumps([model_to_dict(item) for item in content_list]))
+
 class PostUser(APIView):
     def post(self, request, format=None):
         """Creates and return a User Model"""
