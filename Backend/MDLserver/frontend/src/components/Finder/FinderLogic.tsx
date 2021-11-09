@@ -23,12 +23,14 @@ interface Film{
     name: string;
     img: string;
     id: string;
+    preview_url: string;
 }
 
 interface Series{
     name: string;
     img: string;
     id: string;
+    preview_url: string;
 }
 
 const FinderLogic = () => {
@@ -131,13 +133,19 @@ const FinderLogic = () => {
 
         if(typeof series_list === "object" && series_list !== null && series_list !== undefined){
             series_list.forEach((element) => {
-                const { name, picture, external_ids } = element
+                const { name, picture, external_ids, locations } = element
                 const { imdb } = external_ids
+                let preview_url = ""
+
+                locations.forEach((link: { icon: string; url: string; }) => {
+                    link.url == "Netflix" ? preview_url = link.url : preview_url = ""
+                })
 
                 res.push({
                     id: imdb.id,
                     name: name,
-                    img: picture
+                    img: picture,
+                    preview_url: preview_url,
                 })
             })
         }
@@ -152,13 +160,19 @@ const FinderLogic = () => {
 
         if(typeof films_list === "object" && films_list !== null && films_list !== undefined){
             films_list.forEach((element) => {
-                const { name, picture, external_ids } = element
+                const { name, picture, external_ids, locations } = element
                 const { imdb } = external_ids
+                let preview_url = ""
+
+                locations.forEach((link: { icon: string; url: string; }) => {
+                    link.url == "Netflix" ? preview_url = link.url : preview_url = ""
+                })
 
                 res.push({
                     id: imdb.id,
                     name: name,
                     img: picture,
+                    preview_url: preview_url,
                 })
             })
         }

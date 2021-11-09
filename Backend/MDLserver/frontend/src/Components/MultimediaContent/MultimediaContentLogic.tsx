@@ -100,27 +100,37 @@ const MultimediaContentLogic = (props:Props) => {
     function processFilm(json: any){
         const film: any = json;
         const {collection} = film != null ? film : '';
-        const {name, picture} = collection != null ? collection : '';
+        const {name, picture, locations} = collection != null ? collection : '';
+        let preview_url = "";
+
+        locations.forEach((link: { icon: string; url: string; }) => {
+            link.url == "Netflix" ? preview_url = link.url : preview_url = ""
+        })
 
         //fetchRequest(id_query, 'film', 'post', 'api', {element_name: name});
         // New way to use fetchHandler
         fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'film', 'external_id': id_query});
 
         setImageUrl(picture);
-        setListTop([name, props.type, 'red']);
+        setListTop([name, props.type, preview_url, 'red']);
     }
 
     function processSeries(json: any){
         const film: any = json;
         const {collection} = film != null ? film : '';
-        const {name, picture} = collection != null ? collection : '';
+        const {name, picture, locations} = collection != null ? collection : '';
+        let preview_url = "";
+
+        locations.forEach((link: { icon: string; url: string; }) => {
+            link.url == "Netflix" ? preview_url = link.url : preview_url = ""
+        })
 
         //fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});
         // New way to use fetchHandler
         fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'series', 'external_id': id_query});
 
         setImageUrl(picture);
-        setListTop([name, props.type, 'blue']);
+        setListTop([name, props.type, preview_url, 'blue']);
     }
       
     function handleAddContent(){
