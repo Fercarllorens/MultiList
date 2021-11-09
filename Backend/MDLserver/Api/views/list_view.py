@@ -11,8 +11,8 @@ import json
 
 class PostList(APIView):
     def post(self, request, format=None):
-        data = request.query_params
-        obj = List.objects.create(NAME = data[gv.LIST.NAME], type = data[gv.LIST.TYPE], contents = '{"items":[]}', user_id = data[gv.LIST.USER_ID], custom = data[gv.LIST.CUSTOM]) 
+        data = request.data
+        obj = List.objects.create(name = data[gv.LIST.NAME], type = data[gv.LIST.TYPE], contents = '{"items":[]}', user_id = data[gv.LIST.USER_ID], custom = data[gv.LIST.CUSTOM]) 
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
         
 class PutList(APIView):
