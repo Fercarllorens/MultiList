@@ -67,6 +67,8 @@ const MultimediaContentLogic = (props:Props) => {
         const track: any = json;
         const {name, album, artists, duration_ms, preview_url} = track != null ? track : '';
         const {release_date, images} = album != null ? album : ''; 
+        const {external_urls} = artists
+        const {spotify} = external_urls
         
         // New way to use fetchHandler
         //TODO: save output -> itll be the obj retrieved, need to get the comments if exists and the rating.
@@ -76,13 +78,13 @@ const MultimediaContentLogic = (props:Props) => {
         let artists_string = 'No artists found';
         let genres_string = 'Not genres found';
 
-        artists.forEach((artist: { name: string; genres: string[]; }, index: number) => {
+        artists.forEach((artist: { name: string; genres: string[]; external_urls: string }, index: number) => {
             index == 0 ? artists_string = artist.name : artists_string += (", " + artist.name)
-            const {genres} = artist;
+            const {genres, external_urls} = artist;
 
             if(genres != undefined){
                 genres.forEach((element: any, index: number) => index == 0 ? genres_string = element : genres_string += (', ' + element));
-            }            
+            }         
         });
 
         const year = release_date.substring(0,4);    
@@ -90,11 +92,12 @@ const MultimediaContentLogic = (props:Props) => {
         const duration = (duration_ms / 60000).toString();
         const formated_duration = duration.split('.')[0] + '.' + duration.split('.')[1].substring(0,2);
         const album_name = album.name;
+        const url = spotify;
         
         setImageUrl(img.url);
         setTrailerUrl(preview_url);
         setListTop([name, props.type, year, genres_string, 'green']);
-        setListBottom([formated_duration, '', '', artists_string, release_date, album_name]);
+        setListBottom([formated_duration, '', '', artists_string, release_date, album_name, url]);
     }
 
     function processFilm(json: any){
@@ -103,8 +106,9 @@ const MultimediaContentLogic = (props:Props) => {
         const {name, picture, locations} = collection != null ? collection : '';
         let preview_url = "";
 
-        locations.forEach((link: { icon: string; url: string; }) => {
-            link.url == "Netflix" ? preview_url = link.url : preview_url = ""
+        locations.forEach((link: { icon: string; url: string; }, index: number) => {
+            if (index == 0) preview_url = link.url
+            else if (locations.includes("Netflix")) preview_url = "Netflix"
         })
 
         //fetchRequest(id_query, 'film', 'post', 'api', {element_name: name});
@@ -112,7 +116,8 @@ const MultimediaContentLogic = (props:Props) => {
         fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'film', 'external_id': id_query});
 
         setImageUrl(picture);
-        setListTop([name, props.type, preview_url, 'red']);
+        setListTop([name, props.type, 'red']);
+        setListBottom([preview_url]);
     }
 
     function processSeries(json: any){
@@ -121,8 +126,9 @@ const MultimediaContentLogic = (props:Props) => {
         const {name, picture, locations} = collection != null ? collection : '';
         let preview_url = "";
 
-        locations.forEach((link: { icon: string; url: string; }) => {
-            link.url == "Netflix" ? preview_url = link.url : preview_url = ""
+        locations.forEach((link: { icon: string; url: string; }, index: number) => {
+            if (index == 0) preview_url = link.url
+            else if (locations.includes("Netflix")) preview_url = "Netflix"
         })
 
         //fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});
@@ -130,7 +136,8 @@ const MultimediaContentLogic = (props:Props) => {
         fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'series', 'external_id': id_query});
 
         setImageUrl(picture);
-        setListTop([name, props.type, preview_url, 'blue']);
+        setListTop([name, props.type, 'blue']);
+        setListBottom([preview_url]);
     }
       
     function handleAddContent(){
