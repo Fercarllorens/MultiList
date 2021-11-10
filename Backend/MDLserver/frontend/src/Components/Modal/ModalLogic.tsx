@@ -3,10 +3,16 @@ import { useForm } from "react-hook-form";
 import { fetchHandler } from '../fetchHandler';
 
 interface item{
-    text: string,
-    type: string,
-    value: string
-    api_value: string,
+    text: string;
+    type: string;
+    value: string;
+    api_value: string;
+    select_opts?: option[]
+}
+
+interface option{
+    value: string;
+    text: string;
 }
 
 interface opt_item{

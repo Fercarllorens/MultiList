@@ -33,9 +33,10 @@ const Navbar = () => {
         },
         {
           text: "Type",
-          type: "string",
-          value: "",
+          type: "Select",
+          value: "Select",
           api_value: "content_type",
+          select_opts: [{value: "song", text: "Song"}, {value: "film", text: "Film"}, {value: "series", text: "Series"}]
         },]}
         opt_values={[{
           value : uid != null ? uid : "",
