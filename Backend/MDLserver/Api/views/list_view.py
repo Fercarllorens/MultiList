@@ -7,12 +7,22 @@ from django.forms.models import model_to_dict
 
 import global_variables as gv
 from ..models import List;
+from ..models import User;
 import json
 
 class PostList(APIView):
     def post(self, request, format=None):
         data = request.data
-        obj = List.objects.create(name = data[gv.LIST.NAME], type = data[gv.LIST.TYPE], contents = '{"items":[]}', user_id = data[gv.LIST.USER_ID], custom = data[gv.LIST.CUSTOM]) 
+        obj = List.objects.create(name = data[gv.LIST.NAME], type = data[gv.LIST.TYPE], 
+            contents = '{"items":[]}', user_id = data[gv.LIST.USER_ID], custom = data[gv.LIST.CUSTOM]) 
+        usr = User.objects.get(id=request.data[gv.USER.ID])
+        string_json = usr.lists
+        content_json = json.loads(string_json)
+        content_json.append(model_to_dict(obj)['id'])
+        string_json = json.dumps(content_json)
+        User.objects.update_or_create(id = usr.id, defaults={
+            gv.USER.LISTS: string_json
+        })
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
         
 class PutList(APIView):
