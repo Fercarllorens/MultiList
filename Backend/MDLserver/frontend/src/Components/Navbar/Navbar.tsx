@@ -6,7 +6,7 @@ import './Navbar.css'
 import Modal from '../Modal/Modal'
 
 const Navbar = () => {
-  const { logged, user, openCustomListModal, setLogged, checkLoggedIn, handleLogout, getUser, setOpenCustomListModal } = NavbarLogic()
+  const { logged, user, premium, openCustomListModal, setLogged, setPremium, checkLoggedIn, checkPremium, handleLogout, getUser, setOpenCustomListModal } = NavbarLogic()
   const uid = localStorage.getItem('user_id')
 
   useEffect(() => {
@@ -48,12 +48,18 @@ const Navbar = () => {
         }
         ]}
       />
-      <button onClick={() => {setOpenCustomListModal(!openCustomListModal)}} >Create new Custom List </button>
       {logged ? (
         <div className='navbar__menu'>
           <Link className='navbar__link' to='/SearchUsers'>
             Search Users
           </Link>
+          {premium ? (
+            <Link className='navbar__link' to='/Modal' onClick={() => {setOpenCustomListModal(!openCustomListModal)}}>
+              New Custom List
+            </Link>
+          ) : 
+            (<></>)
+          }
           <Link className='navbar__link' to='/MyLists'>
             My Lists
           </Link>

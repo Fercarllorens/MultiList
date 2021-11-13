@@ -33,12 +33,13 @@ class PutList(APIView):
         obj.contents = request.query_params[gv.LIST.CONTENTS]
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
 
-class GetListByUser(APIView):
+class GetListsByUser(APIView):
     def get(self, request, format=None):
-        obj = List.objects.get(type=request.GET[gv.LIST.TYPE], user_id=request.GET[gv.LIST.USER_ID])
-        if obj is None:
-            return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
-        return Response(model_to_dict(obj), status=status.HTTP_200_OK)
+        try:
+            objs = List.objects.filter(type=request.GET[gv.LIST.TYPE], user_id=request.GET[gv.LIST.USER_ID])
+            return Response(json.dumps([model_to_dict(i) for i in objs]), status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({gv.COMMON.ERROR: "Item not found"}, status=status.HTTP_204_NO_CONTENT)
 
 class GetList(APIView):
     def get(self, request, format=None):

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views.list_view import GetList, PostList, PutList, UpdateListContents, UpdateListContents, GetListByUser, DeleteListContents
+from .views.list_view import GetList, GetListsByUser, PostList, PutList, UpdateListContents, UpdateListContents, DeleteListContents
 from .views.film_view import GetFilm, PostFilm, PutFilm
 from .views.series_view import GetSeries, PostSeries, PutSeries
 from .views.song_view import GetSong, PostSong, PutSong
@@ -39,7 +39,7 @@ urlpatterns = [
 
     path('post-list', PostList.as_view()),
     path('get-list', GetList.as_view()),
-    path('get-list-user', GetListByUser.as_view()),
+    path('get-lists-user', GetListsByUser.as_view()),
     path('delete-list', DeleteListContents.as_view()),
     path('put-list', PutList.as_view()),
     path('update-list', UpdateListContents.as_view()),
