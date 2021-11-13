@@ -42,26 +42,6 @@ const FinderLogic = () => {
         songs_selected: false
     
     })
-    const [shows, setShows] = useState([
-        {
-            "name": "Persona 4 The Animation",
-            "authors": "Seiji Kishi",
-            "date": "March 30, 2012s",
-            "img": "https://upload.wikimedia.org/wikipedia/en/5/55/P4A_promo.jpg",
-            "preview_url": "https://www.youtube.com/watch?v=SwwJ00PqqFI",
-            "genre": "Action / Fantasy",
-        }
-    ])
-    const [movies, setMovies] = useState([
-        {
-            "name": "Persona 3 The Movie #1: Spring of Birth",
-            "authors": "Noriaki Akitaya",
-            "date": "November 23th, 2013",
-            "img": "https://static.wikia.nocookie.net/megamitensei/images/e/e0/P3TM1-ost.jpg/revision/latest?cb=20160824205251",
-            "preview_url": "https://www.youtube.com/watch?v=r7-M90PNk5E",
-            "genre": "Action / Fantasy",
-        }
-    ])
     const [tracks_list, setTracksList] = useState<any | undefined>()
     const [shows_list, setShowsList] = useState<any | undefined>()
     const [movies_list, setMoviesList] = useState<any | undefined>()
@@ -218,7 +198,6 @@ const FinderLogic = () => {
                 })
                 
             })
-
             setSongs(res)
         }
     }

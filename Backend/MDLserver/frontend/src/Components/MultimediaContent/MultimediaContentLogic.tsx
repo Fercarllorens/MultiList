@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {useForm} from 'react-hook-form';
-import { useLocation } from 'react-router';
+import { Redirect, useLocation } from 'react-router';
+import { textChangeRangeIsUnchanged } from 'typescript';
 import { fetchHandler, fetchHandlerCb } from '../fetchHandler'
 
 interface Props {
@@ -128,7 +129,7 @@ const MultimediaContentLogic = (props:Props) => {
 
         locations.forEach((link: { icon: string; url: string; }, index: number) => {
             if (index == 0) preview_url = link.url
-            else if (locations.includes("Netflix")) preview_url = "Netflix"
+            if (locations.includes("Netflix")) preview_url = "Netflix"
         })
 
         //fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});

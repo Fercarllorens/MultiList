@@ -65,9 +65,11 @@ const MultimediaContent: React.FC<Props> = (props) => {
             </div>
             <div className="data-container-bottom">
                 <h4 className="bottom-title">MÁS INFORMACIÓN</h4>
-                {listBottom.map((item) => {
-                    return (item != '' && item != null)? <p className="data">{item}</p> : <></>;
-                })}
+                {type_query == "song" ? listBottom.map((item) => {
+                    return (item != '' && item != null) ? item == listBottom[6] ? <a href={item}>Content Link</a> : <p className="data">{item}</p> : <></>;
+                }) : listBottom.map((item) => {
+                    return (item != '' && item != null) ? <a href={item}>Content Link</a> : <></>;
+                })} 
             </div>
             <div className="rating-container">
                 <p>Rating</p>
