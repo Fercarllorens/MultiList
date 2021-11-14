@@ -67,9 +67,10 @@ const MultimediaContentLogic = (props:Props) => {
     function processSong(json: any){
         const track: any = json;
         const {name, album, artists, duration_ms, preview_url} = track != null ? track : '';
+        let external_url = track.external_urls;
         const {release_date, images} = album != null ? album : ''; 
         const {external_urls} = artists
-        const {spotify} = external_urls
+        const {spotify} = external_url
         
         // New way to use fetchHandler
         //TODO: save output -> itll be the obj retrieved, need to get the comments if exists and the rating.
@@ -81,7 +82,7 @@ const MultimediaContentLogic = (props:Props) => {
 
         artists.forEach((artist: { name: string; genres: string[]; external_urls: string }, index: number) => {
             index == 0 ? artists_string = artist.name : artists_string += (", " + artist.name)
-            const {genres, external_urls} = artist;
+            const {genres} = artist;
 
             if(genres != undefined){
                 genres.forEach((element: any, index: number) => index == 0 ? genres_string = element : genres_string += (', ' + element));
@@ -94,7 +95,7 @@ const MultimediaContentLogic = (props:Props) => {
         const formated_duration = duration.split('.')[0] + '.' + duration.split('.')[1].substring(0,2);
         const album_name = album.name;
         const url = spotify;
-        
+
         setImageUrl(img.url);
         setTrailerUrl(preview_url);
         setListTop([name, props.type, year, genres_string, 'green']);
