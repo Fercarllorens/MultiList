@@ -22,6 +22,15 @@ interface Artist {
     id: string
 }
 
+interface List {
+    id: number,
+    name: string,
+    type: string,
+    contents: string,
+    user_id: string,
+    custom: boolean,
+}
+
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
     const [ imageUrl, setImageUrl] =        useState<null | string>(null)
@@ -35,6 +44,7 @@ const MultimediaContentLogic = (props:Props) => {
     const [ artists, setArtists]= useState<Artist[]>([])
     const [ nombreTMDB, setNombreTMDB]= useState<string>("")
     const [ idTMDB, setidTMDB]= useState<string>("")
+    const [ lists, setLists] =              useState<null | List[]>(null)
     const { register, handleSubmit } = useForm();
 
     const {search} = useLocation()
@@ -61,6 +71,29 @@ const MultimediaContentLogic = (props:Props) => {
             })
             .catch(err => console.error(err))
          setAdded(contentCheck)
+    }
+
+    function getUserLists(){
+        return fetchHandlerCb(`api/get-lists-user?content_type=${type_query}&user_id=${user_id}`, 'GET', null, processLists);
+    }
+
+    function processLists(json: any){
+        let lists: Array<any> = json != null ? JSON.parse(json) : []
+        let res: Array<any> = []
+        lists.forEach((element) => {
+            const { id, name, type, contents, user_id, custom } = element
+            res.push({
+                id: id,
+                name: name,
+                type: type,
+                contents: contents,
+                user_id: user_id,
+                custom: custom,
+            })
+        })
+
+        console.log(res)
+        setLists(res);
     }
 
     function getData(){
@@ -236,7 +269,7 @@ const MultimediaContentLogic = (props:Props) => {
 
 
     return {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, rating,
-        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded,
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded, lists, getUserLists,
         getIdTMDB, artists, showArtist}
 }
 

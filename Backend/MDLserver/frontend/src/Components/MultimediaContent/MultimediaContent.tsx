@@ -16,7 +16,8 @@ let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", 
 
 const MultimediaContent: React.FC<Props> = (props) => {
     const {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, rating, 
-        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded,
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, 
+        handleUpdateProgress, register, handleSubmit, added, isContentAdded, lists, getUserLists,
         getIdTMDB, artists, showArtist} = MultimediaContentLogic(props)
 
 
@@ -25,7 +26,7 @@ const MultimediaContent: React.FC<Props> = (props) => {
         isContentAdded()
         getData()
         getProgress()
-        
+        getUserLists()
     }, [])
   
     return (
@@ -91,8 +92,10 @@ const MultimediaContent: React.FC<Props> = (props) => {
             </div>
             {
             added ? 
-            <button className="add-content-btn" onClick={handleDeleteContent}>Delete from list</button>:
-            <button className="add-content-btn" onClick={handleAddContent}>Add to list</button>
+                <button className="add-content-btn" onClick={handleDeleteContent}>Delete from list</button> :
+                    lists?.length == 1 ? 
+                        <button className="add-content-btn" onClick={handleAddContent}>Add to list</button> :
+                        <></>
             }
             <form className="state-form" onSubmit={handleSubmit(handleUpdateProgress)}>
                 <select value={watching} onChange={(e) => {setWatching(e.target.value);}}>
