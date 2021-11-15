@@ -38,7 +38,9 @@ const Artist: React.FC<Props> = (props) => {
             </div>
             <div className="discography">
                <h2>Discography</h2>
-               <FindSongs songs={songs}/>
+               <div className="component-find-songs-container">
+                    <FindSongs songs={songs}/>
+               </div>
             </div>
         </div>
     )

@@ -1,7 +1,8 @@
 .SongPreviewContainer{
     background: white;
     height: 180px;
-    width: 430px;
+    /* width: 430px; */
+    width: 45.26%;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
     box-shadow: -4px 6px 5px #4c4848;
@@ -27,13 +28,15 @@
 .SongInfo{
     margin-top: 10px;
     float: left;
+    width: 52.72%;
 }
 
 .SongName{
     color: rgb(127 118 220);
     font-weight: bold;
     border-bottom: 3px solid black;
-    width: 225px;
+    /* width: 225px; */
+    width: 100%;
     font-size: 20px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -43,9 +46,11 @@
 .SongAuthor{
     color: rgb(127 118 220);
     border-bottom: 1px solid black;
-    width: 150px;
+    /* width: 150px; */
+    width: 66.67%;
     margin-top: 20px;
-    margin-left: 15px;
+    /* margin-left: 15px; */
+    margin-left: 6.67%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -54,9 +59,11 @@
 .SongDate{
     color: rgb(127 118 220);
     border-bottom: 1px solid black;
-    width: 100px;
+    /* width: 100px; */
+    width: 44.44%;
     margin-top: 10px;
-    margin-left: 125px;
+    /* margin-left: 125px; */
+    margin-left: 55.56%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -65,9 +72,11 @@
 .SongGenre{
     color: rgb(127 118 220);
     border-bottom: 1px solid black;
-    width: 100px;
+    /* width: 100px; */
+    width: 44.44%;
     margin-top: 10px;
-    margin-left: 30px;
+    /* margin-left: 30px; */
+    margin-left: 13.33%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;

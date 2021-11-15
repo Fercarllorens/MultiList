@@ -2,8 +2,10 @@
     margin-top: 30px;
     padding-left: 20px;
     padding-right: 20px;
-    height: 550px;
-    width: 950px;
+    /* height: 550px; */
+    height: 100%;
+    /* width: 950px; */
+    width: 100%;
     overflow: auto;
 }
 
