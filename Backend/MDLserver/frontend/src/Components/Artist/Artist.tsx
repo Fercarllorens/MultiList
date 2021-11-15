@@ -25,6 +25,7 @@ const Artist: React.FC<Props> = (props) => {
                 </div>
                 <div className="info-div">
                     <h2>Genres</h2>
+                    <ul className="genres">
                     {
                     genres != null && genres.map((element, index) => {
                         return(
@@ -34,6 +35,7 @@ const Artist: React.FC<Props> = (props) => {
                         )
                     })                   
                     }
+                    </ul>
                 </div>
             </div>
             <div className="discography">
