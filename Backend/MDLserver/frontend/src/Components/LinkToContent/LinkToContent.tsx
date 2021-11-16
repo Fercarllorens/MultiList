@@ -3,14 +3,15 @@ import LinkToContentLogic, {Props} from './LinkToContentLogic'
 import './LinkToContent.css'
 
 const LinkToContent: React.FC<Props> = (props) => {
-    const {clicked, setClicked, textArea, handleClick} = LinkToContentLogic(props)
+    const {clicked, setClicked, textArea, copyUrl, openWebsite} = LinkToContentLogic(props)
 
     return (
         <>
-            <img src={props.icon} onClick={() => setClicked(!clicked)} alt={props.alt}/>
+            <img className="contentlink-img" src={props.icon} onClick={() => setClicked(!clicked)} alt={props.alt? props.alt : ''}/>
             {clicked &&
-            <form> 
-                <button onClick={handleClick}>Copy to clipboard</button>
+            <form className="contentlink-form"> 
+                <button onClick={copyUrl}>Copy to clipboard</button>
+                <button onClick={openWebsite}>Go to Website</button>
                 <textarea ref={textArea} value={window.location.href}/>
             </form>
             }

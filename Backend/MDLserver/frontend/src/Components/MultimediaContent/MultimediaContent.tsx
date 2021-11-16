@@ -4,6 +4,7 @@ import MultimediaContentLogic from './MultimediaContentLogic'
 //componentes
 import AddList from './AddList/AddList'
 import CommentSection from '../CommentSection/CommentSection'
+import LinkToContent from '../LinkToContent/LinkToContent'
 
 interface Props{
     data : JSON | null;
@@ -99,6 +100,9 @@ const MultimediaContent: React.FC<Props> = (props) => {
                 )}
                 <input type="submit" value="Submit"/>
             </form>
+            <div className="contentlinks">
+                    <LinkToContent icon="https://img.icons8.com/color/48/000000/twitter--v1.png" website="https://twitter.com" alt="Share on twitter"/>
+            </div>
         </div>
     )
 }

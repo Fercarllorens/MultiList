@@ -22,6 +22,12 @@
     margin-top: 50px;
 }
 
+.contentlinks{
+    position: absolute;
+    left: 50%;
+    top: 3%;
+}
+
 .data-container-top{
     width: 40%;
     height: 100px;

@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react'
 export interface Props{
     icon: string;
-    alt: string;
+    alt?: string;
     website: string;
 }
 
@@ -11,13 +11,15 @@ const LinkToContentLogic = (props: Props) => {
 
     //TYPE THIS SHIT
     function copyUrl(e: any){
+        e.preventDefault()
         if(textArea.current==null) return   
         textArea.current.select();
         document.execCommand('copy');
         e.target.focus();
     }
 
-    function openWebsite(){
+    function openWebsite(e: any){
+        e.preventDefault();
         window.open(props.website)
     }
 
