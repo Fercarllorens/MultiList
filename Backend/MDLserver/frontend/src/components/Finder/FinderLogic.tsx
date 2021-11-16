@@ -111,7 +111,7 @@ const FinderLogic = () => {
         let series_list: Array<any> = results != null ? results : []
         let res: Array<any> = []
 
-        if(typeof series_list === "object" && series_list !== null && series_list !== undefined){
+        if(typeof series_list === "object" && series_list !== null && series_list !== undefined && series_list.length !== undefined){
             series_list.forEach((element) => {
                 const { name, picture, external_ids, locations } = element
                 const { imdb } = external_ids
@@ -138,7 +138,7 @@ const FinderLogic = () => {
         let films_list: Array<any> = results != null ? results : []
         let res: Array<any> = []
 
-        if(typeof films_list === "object" && films_list !== null && films_list !== undefined){
+        if(typeof films_list === "object" && films_list !== null && films_list !== undefined && films_list.length !== undefined){
             films_list.forEach((element) => {
                 const { name, picture, external_ids, locations } = element
                 const { imdb } = external_ids
@@ -166,7 +166,7 @@ const FinderLogic = () => {
         let track_list: Array<any> = tracks.items != null ? tracks.items : []
         let res: Array<any> = []
 
-        if(typeof track_list === "object" && track_list !== null && track_list !== undefined){
+        if(typeof track_list === "object" && track_list !== null && track_list !== undefined && track_list.length !== undefined){
             track_list.forEach((element) => {
 
                 const { album, artists, name, preview_url, id } = element
