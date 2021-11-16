@@ -15,10 +15,9 @@ interface Props{
 let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", "Finished"]
 
 const MultimediaContent: React.FC<Props> = (props) => {
-    const {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, rating, 
+    const {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating, 
         type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, 
-        handleUpdateProgress, register, handleSubmit, added, isContentAdded, lists, getUserLists,
-        getIdTMDB, artists, showArtist} = MultimediaContentLogic(props)
+        handleUpdateProgress, handleAddToListPremium, register, handleSubmit, added, isContentAdded, lists, getUserLists} = MultimediaContentLogic(props)
 
 
 
@@ -95,7 +94,20 @@ const MultimediaContent: React.FC<Props> = (props) => {
                 <button className="add-content-btn" onClick={handleDeleteContent}>Delete from list</button> :
                     lists?.length == 1 ? 
                         <button className="add-content-btn" onClick={handleAddContent}>Add to list</button> :
-                        <></>
+                        <form className="state-form" onSubmit={handleSubmit(handleAddToListPremium)}>
+                            <select value={addToListPremium} onChange={(e) => {setAddToListPremium(e.target.name);}}>
+                                {
+                                lists?.map((element, index) => {
+                                    return(
+                                        
+                                        <option key={index} value={element.name}>{element.name}</option>
+                                        
+                                    )
+                                })                   
+                                }
+                            </select>
+                            <input type="submit" value="Submit"/>
+                        </form>
             }
             <form className="state-form" onSubmit={handleSubmit(handleUpdateProgress)}>
                 <select value={watching} onChange={(e) => {setWatching(e.target.value);}}>

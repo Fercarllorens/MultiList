@@ -39,6 +39,7 @@ const MultimediaContentLogic = (props:Props) => {
     const [ listBottom , setListBottom] =   useState<string[]>([])
     const [ progress, setProgress] =        useState<null | string>("")
     const [ watching, setWatching ] =       useState<string>("Select...") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
+    const [ addToListPremium, setAddToListPremium ] =       useState<string>("Select...") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
     const [ rating, setRating] =            useState<null | number>(null) 
     const [ contentCheck, addContentCheck]= useState<boolean>(false)
     const [ artists, setArtists]= useState<Artist[]>([])
@@ -267,10 +268,13 @@ const MultimediaContentLogic = (props:Props) => {
          })
     }
 
+    function handleAddToListPremium(data: any){ 
+    }
 
-    return {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, rating,
-        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded, lists, getUserLists,
-        getIdTMDB, artists, showArtist}
+
+    return {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating, 
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, 
+        handleUpdateProgress, handleAddToListPremium, register, handleSubmit, added, isContentAdded, lists, getUserLists}
 }
 
 export default MultimediaContentLogic
