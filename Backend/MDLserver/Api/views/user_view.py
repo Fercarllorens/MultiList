@@ -18,11 +18,11 @@ class GetUser(APIView):
 
 class GetUsersByName(APIView):
     def get(self, request, format=None):
-        obj = request.data["list"]
+        obj = User.objects.filter(username__icontains=request.GET[gv.USER.USERNAME])
         if obj is None:
             return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
         print("ITEM", obj)
-        content_list = [User.objects.get(name=i) for i in obj]
+        content_list = [User.objects.get(id=i.id) for i in obj]
         print("LIST", content_list)
         return Response(json.dumps([model_to_dict(item) for item in content_list]))
 

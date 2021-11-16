@@ -71,7 +71,7 @@ const MultimediaContentLogic = (props:Props) => {
         // New way to use fetchHandler
         //TODO: save output -> itll be the obj retrieved, need to get the comments if exists and the rating.
         fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'song', 'external_id': id_query})
-            .then((obj:any) => {setRating(obj.total_rating)})
+            //.then((obj:any) => {setRating(obj.total_rating)})
 
         let artists_string = 'No artists found';
         let genres_string = 'Not genres found';
