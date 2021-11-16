@@ -1,0 +1,27 @@
+.user-container{
+    position: fixed;
+    margin: 50px;
+    width: 80vw;
+    height: 80vh;
+    background: #8d86c9;
+    box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.userMyFollows{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.unfollow-btn{
+    position: absolute;
+    background-color: red;
+    right: 5%;
+    bottom: 5%;
+}
+
+.title-myFollows{
+    text-align: center;
+}

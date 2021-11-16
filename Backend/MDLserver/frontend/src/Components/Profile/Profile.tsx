@@ -3,10 +3,10 @@ import ProfileLogic from './ProfileLogic'
 import './Profile.css'
 
 import Modal from '../Modal/Modal'
+import { Link } from 'react-router-dom'
 
 const Profile = () => {
-  const { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick } = ProfileLogic()
-
+  const { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query, follow_user, unfollow_user, followed, show_myFollows } = ProfileLogic()
   //TODO: MODIFICAR CUANDO SE AÑADA EL LOGIN
   useEffect(() => {
     getUserData()
@@ -43,19 +43,36 @@ const Profile = () => {
           <p>Email {data ? data.email : 'No disponible'}</p>
         </ul>
       </div>
-      <div className='profile-settings'>
-        <h4>Settings</h4>
-        <ul>
-          <p className="update-profile" onClick={() => {setOpen(!open)}}>Update Profile</p>
-        </ul>
-      </div>
-      <div className='profile-linked-accounts'>
-        <h4>Link Accounts</h4>
-        {spotifyAuth
-          ? <p className='profile-linked-spotify'>Spotify - Linked</p>
-          : <button onClick={handleSpotifyClick} className="profile-linked-spotify">Spotify</button>
-        }
-      </div>
+    { 
+      uid == localStorage.getItem('user_id') ? 
+        <>
+            <div className='profile-settings'>
+                  <h4>Settings</h4>
+                  <ul>
+                    <p className="update-profile" onClick={() => { setOpen(!open) } }>Update Profile</p>
+                  </ul>
+            </div>
+            <div className='profile-linked-accounts'>
+                <h4>Link Accounts</h4>
+                {spotifyAuth
+                  ? <p className='profile-linked-spotify'>Spotify - Linked</p>
+                  : <button onClick={handleSpotifyClick} className="profile-linked-spotify">Spotify</button>}
+            </div>
+            <Link className="my-follows-btn" to="/MyFollows">My Follows</Link>
+        </> : 
+        <>
+          {
+            !followed ?
+            <button className="follow-btn" onClick={() => follow_user()}>
+                follow
+            </button>:
+            <button className="follow-btn" onClick={() => unfollow_user()}>
+                unfollow
+            </button>
+          }
+        </>
+    }
+    
     </div>
   )
 }

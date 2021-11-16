@@ -10,8 +10,11 @@ import MyLists from './Components/MyLists/MyLists'
 import MultimediaContent from './Components/MultimediaContent/MultimediaContent'
 import ListContent from './Components/ListContent/ListContent'
 import Spotify from './Components/Spotify/Spotify'
+import UserFinder from './Components/UserFinder/UserFinder'
+import MyFollows from './Components/MyFollows/MyFollows'
 import './App.css'
 import { fetchHandler } from './Components/fetchHandler'
+import MyFollowsLogic from './Components/MyFollows/MyFollowsLogic'
 
 function App() {
   
@@ -30,8 +33,10 @@ function App() {
         <PrivateRoute path='/Spotify' component={Spotify} />
         <Route path='/MultimediaContent' component={MultimediaContent} />
         <PrivateRoute path='/profile' component={Profile} />
+        <PrivateRoute path='/MyFollows' component={MyFollows} />
         <PrivateRoute path='/MyLists' component={MyLists} />
         <PrivateRoute path='/List' component={ListContent} />
+        <PrivateRoute path='/SearchUsers' component={UserFinder} />
         <PrivateRoute path='/' component={Finder} />
         <Route path="*" component={() => {return <div>404 NOT FOUND</div>}} />
       </Switch>

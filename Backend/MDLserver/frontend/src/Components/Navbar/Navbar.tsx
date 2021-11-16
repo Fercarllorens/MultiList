@@ -18,6 +18,9 @@ const Navbar = () => {
       </Link>
       {logged ? (
         <div className='navbar__menu'>
+          <Link className='navbar__link' to='/SearchUsers'>
+            Search Users
+          </Link>
           <Link className='navbar__link' to='/MyLists'>
             My Lists
           </Link>
