@@ -75,6 +75,23 @@ const ProfileLogic = () => {
 
 }
 
-  return { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query, follow_user, unfollow_user, followed, show_myFollows}
+  function checkFollowed(){
+    fetchHandlerCb(`api/get-user?user_id=${my_user}`, "GET", null , setFollow)
+  }
+
+  function setFollow(json: any){
+    if (json.following != null){
+      console.log(json.following)
+      let follows = JSON.parse(json.following)
+      if (follows.users.includes(uid)){
+        setFollowed(true)
+      } else {
+        setFollowed(false)
+      }
+    }
+    
+  }
+
+  return { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query, follow_user, unfollow_user, followed, show_myFollows, checkFollowed}
 }
 export default ProfileLogic

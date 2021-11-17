@@ -6,9 +6,12 @@ import Modal from '../Modal/Modal'
 import { Link } from 'react-router-dom'
 
 const Profile = () => {
-  const { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query, follow_user, unfollow_user, followed, show_myFollows } = ProfileLogic()
+  const { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query, follow_user, unfollow_user, followed, show_myFollows, checkFollowed } = ProfileLogic()
   //TODO: MODIFICAR CUANDO SE AÑADA EL LOGIN
   useEffect(() => {
+    if( uid != localStorage.getItem('user_id')){
+      checkFollowed()
+    }
     getUserData()
   }, [])
 
