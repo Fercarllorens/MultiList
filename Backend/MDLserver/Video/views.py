@@ -35,3 +35,48 @@ class GetByQuery(APIView):
         if gv.COMMON.ERROR in response:
             return Response({}, status=status.HTTP_204_NO_CONTENT)
         return Response(response, status=status.HTTP_200_OK)
+
+
+class GetMovie(APIView):
+    def get(self, request, format=None):
+        endpoint = "search/movie"
+        query_params = {
+            "query": request.GET['query'],
+            "page": request.GET.get('page', 100)
+        }
+        res = ut.request_tmdb_api(endpoint, query_params)
+        return Response(res, status=status.HTTP_200_OK)
+
+class GetPeople(APIView):
+    def get(self, request, format=None):
+        endpoint = "search/person"
+        query_params = {
+            "query": request.GET['query'],
+            "page": request.GET.get('page', 100)
+        }
+        res = ut.request_tmdb_api(endpoint, query_params)
+        return Response(res, status=status.HTTP_200_OK)
+
+class GetShow(APIView):
+    def get(self, request, format=None):
+        endpoint = "search/tv"
+        query_params = {
+            "query": request.GET['query'],
+            "page": request.GET.get('page', 100)
+        }
+        res = ut.request_tmdb_api(endpoint, query_params)    
+        return Response(res, status=status.HTTP_200_OK)
+
+
+class GetMovieCredits(APIView):
+    def get(self, request, format=None):
+        endpoint = f"movie/{request.GET['id']}/credits"
+        res = ut.request_tmdb_api(endpoint, {})
+        return Response(res, status=status.HTTP_200_OK)
+
+
+class GetShowCredits(APIView):
+    def get(self, request, format=None):
+        endpoint = f"tv/{request.GET['id']}/credits"
+        res = ut.request_tmdb_api(endpoint, {})
+        return Response(res, status=status.HTTP_200_OK)
