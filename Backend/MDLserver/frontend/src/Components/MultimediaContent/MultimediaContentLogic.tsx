@@ -40,6 +40,7 @@ const MultimediaContentLogic = (props:Props) => {
     const [ progress, setProgress] =        useState<null | string>("")
     const [ watching, setWatching ] =       useState<string>("Select...") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
     const [ addToListPremium, setAddToListPremium ] =       useState<string>("Select...") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
+    const [ selectedListName, setSelectedListName ] =       useState<string>("")
     const [ rating, setRating] =            useState<null | number>(null) 
     const [ contentCheck, addContentCheck]= useState<boolean>(false)
     const [ artists, setArtists]= useState<Artist[]>([])
@@ -176,14 +177,16 @@ const MultimediaContentLogic = (props:Props) => {
       
     function handleAddContent(){
         //user id, content id y content_type
+
+        let listName = getBasicListName(type_query);
         const body = JSON.stringify({
             user_id: user_id,
             content_id: id_query,
-            content_type: type_query
+            content_type: type_query,
+            name : listName,
         })
 
         //TODO if request goes ok, update icon of the button
-        console.log(added)
         if (!added){
         fetch(base_url+'api/update-list', {method:"POST", body: body, headers:{'Content-Type': 'application/json'}})
             .then(res => res.json())
@@ -267,14 +270,31 @@ const MultimediaContentLogic = (props:Props) => {
             search: `?name=${listTop[0]}&id=${json.results[0].id}&type=${type_query}&img=${imageUrl}}`
          })
     }
+    
+    function handleAddToListPremium(){ 
+        const body = JSON.stringify({
+            user_id: user_id,
+            content_id: id_query,
+            content_type: type_query,
+            name : selectedListName,
+        })
 
-    function handleAddToListPremium(data: any){ 
+        //TODO if request goes ok, update icon of the button
+        if (!added){
+        fetch(base_url+'api/update-list', {method:"POST", body: body, headers:{'Content-Type': 'application/json'}})
+            .then(res => res.json())
+            .then(json => console.log(json))
+            .catch(err => console.error(err))
+        }
     }
 
+    function getBasicListName(type: string){
+        return type == 'series' ? type : type + 's'
+    }
 
-    return {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating, 
-        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, 
-        handleUpdateProgress, handleAddToListPremium, register, handleSubmit, added, isContentAdded, lists, getUserLists}
+    return {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating,
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, handleAddToListPremium, 
+        register, handleSubmit, added, isContentAdded, lists, getUserLists, selectedListName, setSelectedListName}
 }
 
 export default MultimediaContentLogic

@@ -17,7 +17,8 @@ let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", 
 const MultimediaContent: React.FC<Props> = (props) => {
     const {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating, 
         type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, 
-        handleUpdateProgress, handleAddToListPremium, register, handleSubmit, added, isContentAdded, lists, getUserLists} = MultimediaContentLogic(props)
+        handleUpdateProgress, handleAddToListPremium, register, handleSubmit, added, isContentAdded,
+         lists, getUserLists, selectedListName, setSelectedListName} = MultimediaContentLogic(props)
 
 
 
@@ -92,10 +93,10 @@ const MultimediaContent: React.FC<Props> = (props) => {
             {
             added ? 
                 <button className="add-content-btn" onClick={handleDeleteContent}>Delete from list</button> :
-                    lists?.length == 1 ? 
+                    lists?.length == 1  || lists?.length == 0? 
                         <button className="add-content-btn" onClick={handleAddContent}>Add to list</button> :
-                        <form className="state-form" onSubmit={handleSubmit(handleAddToListPremium)}>
-                            <select value={addToListPremium} onChange={(e) => {setAddToListPremium(e.target.name);}}>
+                        <form className="state-form-add-to-custom-list" onSubmit={handleSubmit(handleAddToListPremium)}>
+                            <select value={addToListPremium} onChange={(e) => {setAddToListPremium(e.target.value); setSelectedListName(e.target.value); console.log(e.target.value)} }>
                                 {
                                 lists?.map((element, index) => {
                                     return(
@@ -109,7 +110,7 @@ const MultimediaContent: React.FC<Props> = (props) => {
                             <input type="submit" value="Submit"/>
                         </form>
             }
-            <form className="state-form" onSubmit={handleSubmit(handleUpdateProgress)}>
+            <form className="state-form-add-content" onSubmit={handleSubmit(handleUpdateProgress)}>
                 <select value={watching} onChange={(e) => {setWatching(e.target.value);}}>
                 {/* <select defaultValue={watching} {...register("watching_state")}> */}
                     {

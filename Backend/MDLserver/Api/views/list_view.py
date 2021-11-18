@@ -50,7 +50,9 @@ class GetList(APIView):
 
 class UpdateListContents(APIView):
     def post(self, request, format=None):
-        obj = List.objects.get(type=request.data[gv.LIST.TYPE], user_id=request.data[gv.LIST.USER_ID])
+        print(request.data)
+        obj = List.objects.get(type=request.data[gv.LIST.TYPE], user_id=request.data[gv.LIST.USER_ID], name=request.data[gv.LIST.NAME])
+        print(obj)
         contentId = request.data['content_id']
         if obj is None:
             return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
