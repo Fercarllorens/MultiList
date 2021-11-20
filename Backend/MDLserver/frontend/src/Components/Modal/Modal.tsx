@@ -28,7 +28,6 @@ const Modal: React.FC<Props> = (props) => {
                         {value.type === 'Select'?
                         (
                             <select 
-                                value={value.value}
                                 {...register(value.api_value)}
                             >
                                 {value.select_opts&& value.select_opts.map((opt, index) => {
