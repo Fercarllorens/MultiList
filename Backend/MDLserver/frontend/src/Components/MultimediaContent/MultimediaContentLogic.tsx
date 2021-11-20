@@ -84,6 +84,7 @@ const MultimediaContentLogic = (props:Props) => {
         let res: Array<any> = []
         lists.forEach((element) => {
             const { id, name, type, contents, user_id, custom } = element
+            !contents.includes(id_query) ?
             res.push({
                 id: id,
                 name: name,
@@ -92,9 +93,8 @@ const MultimediaContentLogic = (props:Props) => {
                 user_id: user_id,
                 custom: custom,
             })
+            : console.log(name + ' already contains that content');
         })
-
-        console.log(res)
         setLists(res);
     }
 
@@ -286,6 +286,11 @@ const MultimediaContentLogic = (props:Props) => {
             .then(json => console.log(json))
             .catch(err => console.error(err))
         }
+
+        let listsAux = lists;
+        let listToSplice: any = listsAux?.filter(list => list.name === selectedListName).shift();
+        listsAux?.splice(listsAux?.indexOf(listToSplice), 1);
+        setLists(listsAux);
     }
 
     function getBasicListName(type: string){
