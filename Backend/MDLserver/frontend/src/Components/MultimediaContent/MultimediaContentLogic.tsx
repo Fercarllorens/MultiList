@@ -291,6 +291,7 @@ const MultimediaContentLogic = (props:Props) => {
         let listToSplice: any = listsAux?.filter(list => list.name === selectedListName).shift();
         listsAux?.splice(listsAux?.indexOf(listToSplice), 1);
         setLists(listsAux);
+        setSelectedListName("Select...");
     }
 
     function getBasicListName(type: string){
