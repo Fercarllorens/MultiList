@@ -15,7 +15,7 @@ let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", 
 
 const MultimediaContent: React.FC<Props> = (props) => {
     const {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, rating, 
-        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded} = MultimediaContentLogic(props)
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded,artists, showArtist} = MultimediaContentLogic(props)
 
 
 
@@ -65,6 +65,12 @@ const MultimediaContent: React.FC<Props> = (props) => {
             </div>
             <div className="data-container-bottom">
                 <h4 className="bottom-title">MÁS INFORMACIÓN</h4>
+                <p className="data">
+                    {artists.map((item, index) => {
+                        if (index == 0) return (item != undefined && item != null)? <a className='artist-link' onClick={() => showArtist(item.id)}>{item.name}</a> : <></>;
+                        else return (item != undefined && item != null)? <a className='artist-link' onClick={() => showArtist(item.id)}>, {item.name}</a> : <></>;
+                    })}
+                </p>
                 {listBottom.map((item) => {
                     return (item != '' && item != null)? <p className="data">{item}</p> : <></>;
                 })}

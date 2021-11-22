@@ -118,3 +118,7 @@
     height: 30%;
     overflow: hidden;
 }
+
+.artist-link{
+    cursor: pointer;
+}

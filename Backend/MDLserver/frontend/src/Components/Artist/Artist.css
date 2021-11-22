@@ -1,0 +1,40 @@
+.artist-container{
+    position: fixed;
+    margin: 50px;
+    padding-left: 20px;
+    width: 80vw;
+    height: 80vh;
+    background: #8d86c9;
+    box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.pic-info-div{
+    height: 33%;
+}
+
+.picture{
+    height: 300px;
+    width: 300px;
+}
+
+.picture-div{
+    float: left;
+    margin-right: 20px;
+}
+
+.info-div{
+    float: left;
+}
+
+.discography{
+    clear:left;
+    height: 40%;
+    padding-top: 5px;
+}
+
+.component-find-songs-container{
+    height: 85%;
+    width: 950px;
+}
