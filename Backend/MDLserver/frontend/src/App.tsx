@@ -10,6 +10,7 @@ import MyLists from './Components/MyLists/MyLists'
 import MultimediaContent from './Components/MultimediaContent/MultimediaContent'
 import ListContent from './Components/ListContent/ListContent'
 import Spotify from './Components/Spotify/Spotify'
+import Casting from './Components/Casting/Casting'
 import './App.css'
 import { fetchHandler } from './Components/fetchHandler'
 
@@ -32,6 +33,7 @@ function App() {
         <PrivateRoute path='/profile' component={Profile} />
         <PrivateRoute path='/MyLists' component={MyLists} />
         <PrivateRoute path='/List' component={ListContent} />
+        <PrivateRoute path='/Cast' component={Casting} />
         <PrivateRoute path='/' component={Finder} />
         <Route path="*" component={() => {return <div>404 NOT FOUND</div>}} />
       </Switch>
