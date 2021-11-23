@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import {useForm} from 'react-hook-form';
+import { useLocation } from 'react-router';
 import { useHistory } from 'react-router-dom';
-import { Redirect, useLocation } from 'react-router';
-import { textChangeRangeIsUnchanged } from 'typescript';
 import { fetchHandler, fetchHandlerCb } from '../fetchHandler'
 
 interface Props {
@@ -75,10 +74,7 @@ const MultimediaContentLogic = (props:Props) => {
     function processSong(json: any){
         const track: any = json;
         const {name, album, artists, duration_ms, preview_url} = track != null ? track : '';
-        let external_url = track.external_urls;
         const {release_date, images} = album != null ? album : ''; 
-        const {external_urls} = artists
-        const {spotify} = external_url
         
         // New way to use fetchHandler
         //TODO: save output -> itll be the obj retrieved, need to get the comments if exists and the rating.
@@ -99,7 +95,7 @@ const MultimediaContentLogic = (props:Props) => {
 
             if(genres != undefined){
                 genres.forEach((element: any, index: number) => index == 0 ? genres_string = element : genres_string += (', ' + element));
-            }         
+            }            
         });
 
         const year = release_date.substring(0,4);    
@@ -112,20 +108,13 @@ const MultimediaContentLogic = (props:Props) => {
         setImageUrl(img.url);
         setTrailerUrl(preview_url);
         setListTop([name, props.type, year, genres_string, 'green']);
-        //setListBottom([formated_duration, '', '', release_date, album_name]);
-        setListBottom([formated_duration, '', '', release_date, album_name, url]);
+        setListBottom([formated_duration, '', '', release_date, album_name]);
     }
 
     function processFilm(json: any){
         const film: any = json;
         const {collection} = film != null ? film : '';
-        const {name, picture, locations} = collection != null ? collection : '';
-        let preview_url = "";
-
-        locations.forEach((link: { icon: string; url: string; }, index: number) => {
-            if (index == 0) preview_url = link.url
-            else if (locations.includes("Netflix")) preview_url = "Netflix"
-        })
+        const {name, picture} = collection != null ? collection : '';
 
         //fetchRequest(id_query, 'film', 'post', 'api', {element_name: name});
         // New way to use fetchHandler
@@ -133,19 +122,12 @@ const MultimediaContentLogic = (props:Props) => {
 
         setImageUrl(picture);
         setListTop([name, props.type, 'red']);
-        setListBottom([preview_url]);
     }
 
     function processSeries(json: any){
         const film: any = json;
         const {collection} = film != null ? film : '';
-        const {name, picture, locations} = collection != null ? collection : '';
-        let preview_url = "";
-
-        locations.forEach((link: { icon: string; url: string; }, index: number) => {
-            if (index == 0) preview_url = link.url
-            if (locations.includes("Netflix")) preview_url = "Netflix"
-        })
+        const {name, picture} = collection != null ? collection : '';
 
         //fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});
         // New way to use fetchHandler
@@ -153,7 +135,6 @@ const MultimediaContentLogic = (props:Props) => {
 
         setImageUrl(picture);
         setListTop([name, props.type, 'blue']);
-        setListBottom([preview_url]);
     }
       
     function handleAddContent(){

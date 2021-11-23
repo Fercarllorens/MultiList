@@ -7,7 +7,6 @@ interface Film{
     id: string
     name: string;
     img: string;
-    preview_url: string;
 }
 
 

@@ -23,14 +23,12 @@ interface Film{
     name: string;
     img: string;
     id: string;
-    preview_url: string;
 }
 
 interface Series{
     name: string;
     img: string;
     id: string;
-    preview_url: string;
 }
 
 const FinderLogic = () => {
@@ -42,6 +40,26 @@ const FinderLogic = () => {
         songs_selected: false
     
     })
+    const [shows, setShows] = useState([
+        {
+            "name": "Persona 4 The Animation",
+            "authors": "Seiji Kishi",
+            "date": "March 30, 2012s",
+            "img": "https://upload.wikimedia.org/wikipedia/en/5/55/P4A_promo.jpg",
+            "preview_url": "https://www.youtube.com/watch?v=SwwJ00PqqFI",
+            "genre": "Action / Fantasy",
+        }
+    ])
+    const [movies, setMovies] = useState([
+        {
+            "name": "Persona 3 The Movie #1: Spring of Birth",
+            "authors": "Noriaki Akitaya",
+            "date": "November 23th, 2013",
+            "img": "https://static.wikia.nocookie.net/megamitensei/images/e/e0/P3TM1-ost.jpg/revision/latest?cb=20160824205251",
+            "preview_url": "https://www.youtube.com/watch?v=r7-M90PNk5E",
+            "genre": "Action / Fantasy",
+        }
+    ])
     const [tracks_list, setTracksList] = useState<any | undefined>()
     const [shows_list, setShowsList] = useState<any | undefined>()
     const [movies_list, setMoviesList] = useState<any | undefined>()
@@ -111,21 +129,15 @@ const FinderLogic = () => {
         let series_list: Array<any> = results != null ? results : []
         let res: Array<any> = []
 
-        if(typeof series_list === "object" && series_list !== null && series_list !== undefined && series_list.length !== undefined){
+        if(typeof series_list === "object" && series_list !== null && series_list !== undefined){
             series_list.forEach((element) => {
-                const { name, picture, external_ids, locations } = element
+                const { name, picture, external_ids } = element
                 const { imdb } = external_ids
-                let preview_url = ""
-
-                locations.forEach((link: { icon: string; url: string; }) => {
-                    link.url == "Netflix" ? preview_url = link.url : preview_url = ""
-                })
 
                 res.push({
                     id: imdb.id,
                     name: name,
-                    img: picture,
-                    preview_url: preview_url,
+                    img: picture
                 })
             })
         }
@@ -138,21 +150,15 @@ const FinderLogic = () => {
         let films_list: Array<any> = results != null ? results : []
         let res: Array<any> = []
 
-        if(typeof films_list === "object" && films_list !== null && films_list !== undefined && films_list.length !== undefined){
+        if(typeof films_list === "object" && films_list !== null && films_list !== undefined){
             films_list.forEach((element) => {
-                const { name, picture, external_ids, locations } = element
+                const { name, picture, external_ids } = element
                 const { imdb } = external_ids
-                let preview_url = ""
-
-                locations.forEach((link: { icon: string; url: string; }) => {
-                    link.url == "Netflix" ? preview_url = link.url : preview_url = ""
-                })
 
                 res.push({
                     id: imdb.id,
                     name: name,
                     img: picture,
-                    preview_url: preview_url,
                 })
             })
         }
@@ -166,7 +172,7 @@ const FinderLogic = () => {
         let track_list: Array<any> = tracks.items != null ? tracks.items : []
         let res: Array<any> = []
 
-        if(typeof track_list === "object" && track_list !== null && track_list !== undefined && track_list.length !== undefined){
+        if(typeof track_list === "object" && track_list !== null && track_list !== undefined){
             track_list.forEach((element) => {
 
                 const { album, artists, name, preview_url, id } = element
@@ -198,6 +204,7 @@ const FinderLogic = () => {
                 })
                 
             })
+
             setSongs(res)
         }
     }

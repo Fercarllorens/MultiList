@@ -7,7 +7,6 @@ interface Series{
     id: string
     name: string;
     img: string;
-    preview_url: string;
 }
 
 interface Props{
