@@ -83,9 +83,6 @@ const MultimediaContent: React.FC<Props> = (props) => {
                 <h4 className="casting-label" onClick={() => {getIdTMDB()}}>Casting</h4> 
                 : 
                 <></>}
-                {listBottom.map((item) => {
-                    return (item != '' && item != null)? <p className="data">{item}</p> : <></>;
-                })}
             </div>
             <div className="rating-container">
                 <p>Rating</p>
