@@ -18,7 +18,7 @@ const MultimediaContent: React.FC<Props> = (props) => {
     const {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating, 
         type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, 
         handleUpdateProgress, handleAddToListPremium, register, handleSubmit, added, isContentAdded,
-         lists, getUserLists, selectedListName, setSelectedListName} = MultimediaContentLogic(props)
+         lists, getUserLists, selectedListName, setSelectedListName, getIdTMDB, artists, showArtist} = MultimediaContentLogic(props)
 
 
 
