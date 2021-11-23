@@ -6,6 +6,7 @@ interface Props{
 }
 
 interface List{
+    id: number
     name: string
     type: string
     contents: string[]
@@ -26,12 +27,11 @@ const ListPreviewLogic = (props:Props) => {
         .catch((err) => console.error(err))
     }
     let list = data != null ? data: null;
-
-   
-    const show_list = (type: string) => {  
+    console.log(list)
+    const show_list = (id: number) => {  
         history.push({
             pathname:'/List',
-            search: `?type=${type}`
+            search: `?id=${id}`
          })
 
     }

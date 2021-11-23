@@ -7,6 +7,7 @@ interface Props{
 }
 
 interface List{
+    id: number
     name: string
     type: string
     contents: string[]
@@ -19,7 +20,7 @@ const ListPreview: React.FC<Props> = (props) => {
         getData()
      }, [])
     return(
-        <div className="list" onClick={() => {show_list(list? list.type: "")}}>
+        <div className="list" onClick={() => {show_list(list? list.id: 100000000000000)}}>
             <h4 className="title"> {list != null? list.name : ""} </h4>
         </div>
     )

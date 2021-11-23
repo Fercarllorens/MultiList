@@ -36,14 +36,14 @@ const ListContentLogic = () => {
     const user_id : string | null = localStorage.getItem('user_id')
     const {search} = useLocation()
     const query = new URLSearchParams(search)
-    const type_query: any = query.get('type')
+    const id_query: any = query.get('id')
     const [list, setList] = useState<null |string[]>(null)
     const [data, setData]  = useState<null |Content[]>(null)
     
     
     function getData ()
     {
-        let url = baseurl + `get-list-user?content_type=${type_query}&user_id=${user_id}`
+        let url = baseurl + `get-list?id=${id_query}`
         fetch(url)
         .then((res) => { return res? res.json() : res})
         .then((json) => { if(json){
