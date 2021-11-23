@@ -40,13 +40,13 @@ const MultimediaContentLogic = (props:Props) => {
     const [ progress, setProgress] =        useState<null | string>("")
     const [ watching, setWatching ] =       useState<string>("Select...") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
     const [ addToListPremium, setAddToListPremium ] =       useState<string>("Select...") //PONER AQUI EL TEXTO QUE QUIERES QUE SALGA POR DEFECTO
-    const [ selectedListName, setSelectedListName ] =       useState<string>("")
+    const [ lists, setLists] =              useState<null | List[]>(null)
+    const [ selectedListName, setSelectedListName ] =       useState<string>("Select...")
     const [ rating, setRating] =            useState<null | number>(null) 
     const [ contentCheck, addContentCheck]= useState<boolean>(false)
     const [ artists, setArtists]= useState<Artist[]>([])
     const [ nombreTMDB, setNombreTMDB]= useState<string>("")
     const [ idTMDB, setidTMDB]= useState<string>("")
-    const [ lists, setLists] =              useState<null | List[]>(null)
     const { register, handleSubmit } = useForm();
 
     const {search} = useLocation()
@@ -80,9 +80,9 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     function processLists(json: any){
-        let lists: Array<any> = json != null ? JSON.parse(json) : []
+        let listsAux: Array<any> = json != null ? JSON.parse(json) : []
         let res: Array<any> = []
-        lists.forEach((element) => {
+        listsAux.forEach((element) => {
             const { id, name, type, contents, user_id, custom } = element
             !contents.includes(id_query) ?
             res.push({
@@ -96,6 +96,7 @@ const MultimediaContentLogic = (props:Props) => {
             : console.log(name + ' already contains that content');
         })
         setLists(res);
+        setSelectedListName(res[0].name);
     }
 
     function getData(){
@@ -291,7 +292,7 @@ const MultimediaContentLogic = (props:Props) => {
         let listToSplice: any = listsAux?.filter(list => list.name === selectedListName).shift();
         listsAux?.splice(listsAux?.indexOf(listToSplice), 1);
         setLists(listsAux);
-        setSelectedListName("Select...");
+        setSelectedListName(lists != null ? lists[0].name : "Not found");
     }
 
     function getBasicListName(type: string){

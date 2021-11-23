@@ -66,7 +66,6 @@ class UpdateListContents(APIView):
         List.objects.update_or_create(id = obj.id, defaults={
             gv.LIST.CONTENTS: string_json
         })
-        obj = List.objects.get(type=request.data[gv.LIST.TYPE], user_id=request.data[gv.LIST.USER_ID])
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
 
 class DeleteListContents(APIView):
