@@ -1,3 +1,6 @@
 #TODO: move to env variables
 API_HOST = "utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com"
 API_KEY = "e13e6c536bmsh590e1c11441590ap197e0ajsn53c86163c77f"
+
+TMDB_API_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwYTllNTY4MzZlOGQ3NWM1MmU2MzlhYWVjOWM3MDM1MiIsInN1YiI6IjYxOTRiZmM2ZjkwYjE5MDA0MzNjNTAxZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.OFz_cQZ0BFMNOEL3KAhf_avfRDraKZGyOU_A5QL6I4o"
+TMDB_API_KEY = "0a9e56836e8d75c52e639aaec9c70352"

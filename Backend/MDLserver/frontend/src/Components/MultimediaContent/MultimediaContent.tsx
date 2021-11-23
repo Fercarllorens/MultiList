@@ -4,6 +4,7 @@ import MultimediaContentLogic from './MultimediaContentLogic'
 //componentes
 import AddList from './AddList/AddList'
 import CommentSection from '../CommentSection/CommentSection'
+import { Link } from 'react-router-dom'
 
 interface Props{
     data : JSON | null;
@@ -15,7 +16,8 @@ let options: string[] = ["Select...", "Planning to view", "Droped", "Watching", 
 
 const MultimediaContent: React.FC<Props> = (props) => {
     const {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, rating, 
-        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded,artists, showArtist} = MultimediaContentLogic(props)
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded,
+        getIdTMDB, artists, showArtist} = MultimediaContentLogic(props)
 
 
 
@@ -23,6 +25,7 @@ const MultimediaContent: React.FC<Props> = (props) => {
         isContentAdded()
         getData()
         getProgress()
+        
     }, [])
   
     return (
@@ -76,6 +79,13 @@ const MultimediaContent: React.FC<Props> = (props) => {
                         else return (item != undefined && item != null)? <a className='artist-link' onClick={() => showArtist(item.id)}>, {item.name}</a> : <></>;
                     })}
                 </p>
+                {type_query == 'film' || type_query == 'series' ? 
+                <h4 className="casting-label" onClick={() => {getIdTMDB()}}>Casting</h4> 
+                : 
+                <></>}
+                {listBottom.map((item) => {
+                    return (item != '' && item != null)? <p className="data">{item}</p> : <></>;
+                })}
             </div>
             <div className="rating-container">
                 <p>Rating</p>

@@ -54,6 +54,7 @@ class USER():
 class VIDEO():
     class URL():
         BASE = "https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/"
+        TMDB = "https://api.themoviedb.org/3/"
     class ENDPOINTS():
         BYID = "idlookup"
         QUERY = "lookup"
