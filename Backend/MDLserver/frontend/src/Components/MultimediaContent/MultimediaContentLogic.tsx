@@ -33,6 +33,8 @@ const MultimediaContentLogic = (props:Props) => {
     const [ rating, setRating] =            useState<null | number>(null) 
     const [ contentCheck, addContentCheck]= useState<boolean>(false)
     const [ artists, setArtists]= useState<Artist[]>([])
+    const [ nombreTMDB, setNombreTMDB]= useState<string>("")
+    const [ idTMDB, setidTMDB]= useState<string>("")
     const { register, handleSubmit } = useForm();
 
     const {search} = useLocation()
@@ -43,6 +45,7 @@ const MultimediaContentLogic = (props:Props) => {
     const user_id : string | null = localStorage.getItem('user_id') 
     const base_url = 'http://127.0.0.1:8000/'
     const [added , setAdded] =  useState<null | boolean>(null)
+
 
     function isContentAdded() {
         //TODO: refactorize fetch
@@ -211,8 +214,30 @@ const MultimediaContentLogic = (props:Props) => {
 
     }
 
+    function getIdTMDB(){
+        console.log(listTop[0])
+        if(type_query == 'series'){
+            fetchHandlerCb(`video/get-show?query=${listTop[0]}&page={1}`, 'GET', null, setIdTMDB)
+        } else if (type_query == 'film'){
+            fetchHandlerCb(`video/get-film?query=${listTop[0]}&page={1}`, 'GET', null, setIdTMDB)
+        }
+        
+    }
+
+    function setIdTMDB(json:any){
+        setNombreTMDB(listTop[0])
+        setidTMDB(json.results[0].id)
+        console.log(json.results[0].id)
+        history.push({
+            pathname:'/Cast',
+            search: `?name=${listTop[0]}&id=${json.results[0].id}&type=${type_query}&img=${imageUrl}}`
+         })
+    }
+
+
     return {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, rating,
-        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded,artists, showArtist}
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, handleUpdateProgress, register, handleSubmit, added, isContentAdded,
+        getIdTMDB, artists, showArtist}
 }
 
 export default MultimediaContentLogic
