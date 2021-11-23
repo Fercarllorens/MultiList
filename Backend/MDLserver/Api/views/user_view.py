@@ -5,7 +5,7 @@ from django.forms.models import model_to_dict
 
 # Local
 from ..utils import create_token
-from ..models import User
+from ..models import MultimediaContent, Progress, User
 import global_variables as gv
 
 import json
@@ -103,6 +103,7 @@ class GetUserArray(APIView):
         content_list = [User.objects.get(id=i) for i in obj]
         print("LIST", content_list)
         return Response(json.dumps([model_to_dict(item) for item in content_list]))
+
 class UpdateUserLists(APIView):
     def post(self, request, format=None):
         obj = User.objects.get(id=request.GET[gv.USER.ID])
@@ -120,3 +121,13 @@ class UpdateUserLists(APIView):
         })
         obj = User.objects.get(id=request.GET[gv.USER.ID])
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
+
+class GetStatisticsFromUser(APIView):
+    def get(self, request, format=None):
+        """Returns a list of tuples in format {type_of_content, state} for frontend processing"""
+        progress_list = Progress.objects.filter(user_id=request.GET[gv.USER.ID])
+        returned_array = [
+            (prog.state,
+             MultimediaContent.objects.get(external_id=prog.content_id).type)
+             for prog in progress_list]
+        return Response(json.dumps(returned_array), status=status.HTTP_200_OK)               
