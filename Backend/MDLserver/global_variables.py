@@ -50,6 +50,7 @@ class USER():
     SPOTIFY_TOKEN = "spotify_token"
     LISTS = "lists"
     FOLLOWING = "following"
+    PREMIUM = "premium"
 
 class VIDEO():
     class URL():
@@ -114,6 +115,7 @@ class LIST():
     TYPE = "content_type"
     CONTENTS = "contents"
     USER_ID = "user_id"
+    CUSTOM = "custom"
 
 class PROGRESS():
     USER_ID = "user_id"

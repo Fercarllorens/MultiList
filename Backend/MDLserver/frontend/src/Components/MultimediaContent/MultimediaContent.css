@@ -93,9 +93,15 @@
     right: 5%;
 }
 
-.state-form{
+.state-form-add-content{
     position: absolute;
     top: 10%;
+    right: 5%;
+}
+
+.state-form-add-to-custom-list{
+    position: absolute;
+    top: 5%;
     right: 5%;
 }
 

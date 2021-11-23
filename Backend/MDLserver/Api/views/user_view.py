@@ -7,7 +7,9 @@ from django.forms.models import model_to_dict
 from ..utils import create_token
 from ..models import User
 import global_variables as gv
+
 import json
+
 
 class GetUser(APIView):
     def get(self, request, format=None):
@@ -101,3 +103,20 @@ class GetUserArray(APIView):
         content_list = [User.objects.get(id=i) for i in obj]
         print("LIST", content_list)
         return Response(json.dumps([model_to_dict(item) for item in content_list]))
+class UpdateUserLists(APIView):
+    def post(self, request, format=None):
+        obj = User.objects.get(id=request.GET[gv.USER.ID])
+        listId = request.GET['list_id']
+        listIdInt = int(listId)
+        if obj is None:
+            return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
+        string_json = obj.lists
+        content_json = json.loads(string_json)
+        if listIdInt not in content_json :
+            content_json.append(listIdInt)
+        string_json = json.dumps(content_json)
+        User.objects.update_or_create(id = obj.id, defaults={
+            gv.USER.LISTS: string_json
+        })
+        obj = User.objects.get(id=request.GET[gv.USER.ID])
+        return Response(model_to_dict(obj), status=status.HTTP_200_OK)
