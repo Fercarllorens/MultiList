@@ -5,7 +5,7 @@ import './Finder.css'
 import FindSongs from './FindSongs/FindSongs';
 import FindFilms from './FindFilms/FindFilms';
 import FindSeries from './FindSeries/FindSeries';
-
+//walebicho
 const Finder: React.FC = () => {
     const {find, songs, films, series, selectType, type_selected} = FinderLogic()
 

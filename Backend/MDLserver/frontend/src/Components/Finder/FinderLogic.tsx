@@ -8,7 +8,9 @@ interface Type{
     songs_selected: boolean;
 }
 
-interface Song{
+
+
+export interface Song{
     name: string;
     authors: string;
     date: string;
