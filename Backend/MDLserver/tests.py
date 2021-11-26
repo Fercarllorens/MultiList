@@ -1,12 +1,12 @@
-from django.test import TestCase, client
+from django.test import TestCase, Client
 import unittest
 
 # Create your tests here.
 
-class Social_Content_Link_Test(unittest.TestCase):
+class Social_Series_Content_Link_Test_Correct(unittest.TestCase):
     def setUp(self):
         # Every test needs a client.
-        self.client = client()
+        self.client = Client()
 
     def test_details(self):
         # Issue a GET request.
@@ -14,7 +14,17 @@ class Social_Content_Link_Test(unittest.TestCase):
 
         # Check that the response is 200 OK.
         self.assertEqual(response.status_code, 200)
+        self.assertEqual('https://www.netflix.com/title/80125588' in str(response.json()), True)
 
-        # Check that the rendered context contains 5 customers.
-        self.assertEqual('https://www.netflix.com/title/80125588' in response.content, True)
-        print('AAAAAAAAA')
+class Social_Series_Content_Link_Test_Error(unittest.TestCase):
+    def setUp(self):
+        # Every test needs a client.
+        self.client = Client()
+
+    def test_details(self):
+        # Issue a GET request.
+        response = self.client.get('http://127.0.0.1:8000/video/get-by-id?source_id=tt3398228&source=imdb')
+
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual('https://www.netflix.com/title/80125589' in str(response.json()), False)
