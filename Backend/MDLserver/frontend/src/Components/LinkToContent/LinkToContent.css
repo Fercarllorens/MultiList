@@ -1,0 +1,11 @@
+.contentlink-img{
+    position: relative;
+    margin-left: 2rem;
+    height: 5%;
+}
+
+.contentlink-form{
+    position: relative;
+    width: 8rem;    
+    display: grid;
+}
