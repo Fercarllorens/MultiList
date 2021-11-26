@@ -122,7 +122,7 @@ class User_View_User_Profile_Test_Error(unittest.TestCase):
 
         # Check that the response is 200 OK.
         self.assertEqual(response.status_code, 200)
-        self.assertEqual('Genis' in str(response.json()), True)
+        self.assertEqual('Jondoe' in str(response.json()), True)
         self.assertEqual('multi@gmail.com' in str(response.json()), True)
 
 class User_View_User_Follows_Test_Correct(unittest.TestCase):
