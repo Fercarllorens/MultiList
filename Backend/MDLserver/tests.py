@@ -32,11 +32,6 @@ class Social_Series_Content_Link_Test_Error(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual('https://www.netflix.com/title/80125589' in str(response.json()), False)
 
-class Films_Response_Time_Test(unittest.TestCase):
-    def test_details(self):
-        #Check that response time is less than 1 second
-        time = requests.get("http://127.0.0.1:8000/video/get-by-id?source_id=tt3398228&source=imdb").elapsed.total_seconds()
-        self.assertLess(time, 1)
 # Films
 
 class Social_Films_Content_Link_Test_Correct(unittest.TestCase):
@@ -152,3 +147,11 @@ class User_View_User_Follows_Test_Error(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual('admin' in str(response.json()), True)
         self.assertEqual('Test' in str(response.json()), True)
+
+#Non Functional
+
+class Films_Response_Time_Test(unittest.TestCase):
+    def test_details(self):
+        #Check that response time is less than 1 second
+        time = requests.get("http://127.0.0.1:8000/video/get-by-id?source_id=tt3398228&source=imdb").elapsed.total_seconds()
+        self.assertLess(time, 1)
