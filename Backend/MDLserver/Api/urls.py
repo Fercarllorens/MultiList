@@ -1,4 +1,6 @@
 from django.urls import path
+
+from Backend.MDLserver.Api.views.category_view import GetCategoriesByType, GetCategory, GetCategoriesByType, PostCategory, PutCategory
 from .views.list_view import GetList, GetListsByUser, PostList, PutList, UpdateListContents, UpdateListContents, DeleteListContents, GetUserLists
 from .views.film_view import GetFilm, PostFilm, PutFilm
 from .views.series_view import GetSeries, PostSeries, PutSeries
@@ -60,6 +62,11 @@ urlpatterns = [
     path('get-progress', GetProgress.as_view()),
     path('post-progress', PostProgress.as_view()),
     path('update-progress', UpdateProgress.as_view()),
+
+    path('post-category', PostCategory.as_view()),
+    path('put-category', PutCategory.as_view()),
+    path('get-category', GetCategory.as_view()),
+    path('get-categories-by-type', GetCategoriesByType.as_view()),
     
     path('login', Login.as_view()),
     path('register', Register.as_view()),
