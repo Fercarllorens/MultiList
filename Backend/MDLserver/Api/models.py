@@ -57,3 +57,7 @@ class Series (models.Model):
 class Song (models.Model):
     external_id = models.CharField(max_length=300, unique=True)
     name = models.CharField(max_length=300, null=True)
+
+class Category(models.Model):
+    name = models.CharField(max_length=300)
+    type = models.CharField(max_length=50)

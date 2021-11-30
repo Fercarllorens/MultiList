@@ -123,3 +123,8 @@ class PROGRESS():
     CONTENT_ID = "content_id"
     STATE = "state"
     PROGRESS = "progress"
+
+class CATEGORY():
+    ID = "id"
+    NAME = "name"
+    TYPE = "type"
