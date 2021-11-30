@@ -1,6 +1,6 @@
 from django.urls import path
 
-from Backend.MDLserver.Api.views.category_view import GetCategoriesByType, GetCategory, GetCategoriesByType, PostCategory, PutCategory
+from .views.category_view import GetCategoriesByType, GetCategory, GetCategoriesByType, PostCategory, PutCategory
 from .views.list_view import GetList, GetListsByUser, PostList, PutList, UpdateListContents, UpdateListContents, DeleteListContents, GetUserLists
 from .views.film_view import GetFilm, PostFilm, PutFilm
 from .views.series_view import GetSeries, PostSeries, PutSeries

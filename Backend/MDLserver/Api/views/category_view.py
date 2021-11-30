@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.forms.models import model_to_dict
 
 # Local
-from ..models import Category, MultimediaContent, Progress, User
+from ..models import Category
 import global_variables as gv
 
 import json
@@ -28,11 +28,10 @@ class GetCategoriesByType(APIView):
 class PostCategory(APIView):
     def post(self, request, format=None):
         """Creates and return a Category Model"""
-        data = request.data[gv.COMMON.CONTENT]
-        obj = Category.objects.create(
-            name=data[gv.CATEGORY.NAME],
-            type=data[gv.CATEGORY.TYPE],
-        )
+        data = request.data
+        obj, created = Category.objects.update_or_create(name = data[gv.CATEGORY.NAME], type = data[gv.CATEGORY.TYPE])
+        if created:
+            return Response(model_to_dict(obj), status=status.HTTP_200_OK)
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
 
 class PutCategory(APIView):
