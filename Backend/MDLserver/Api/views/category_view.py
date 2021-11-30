@@ -20,7 +20,9 @@ class GetCategory(APIView):
 class GetCategoriesByType(APIView):
     def get(self, request, format=None):
         try:
-            objs = Category.objects.filter(type=request.GET[gv.LIST.TYPE])
+            print('trying')
+            objs = Category.objects.filter(type=request.GET[gv.CATEGORY.TYPE])
+            print(objs)
             return Response(json.dumps([model_to_dict(i) for i in objs]), status=status.HTTP_200_OK)
         except Exception as e:
             return Response({gv.COMMON.ERROR: "Item not found"}, status=status.HTTP_204_NO_CONTENT)
