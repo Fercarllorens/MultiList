@@ -138,7 +138,11 @@ const MultimediaContentLogic = (props:Props) => {
             const {genres} = artist;
 
             if(genres != undefined){
-                genres.forEach((element: any, index: number) => index == 0 ? genres_string = element : genres_string += (', ' + element));
+                genres.forEach((element: any, index: number) => {
+                    index == 0 ? genres_string = element : genres_string += (', ' + element)
+                    fetchHandler('api/post-category', 'POST', {'name': element, 'type': 'song'})
+                    }
+                );
             }            
         });
 
