@@ -61,7 +61,6 @@ const MultimediaContentLogic = (props:Props) => {
 
     function isContentAdded() {
         //TODO: refactorize fetch
-        
         let url = base_url + `api/get-list-user?user_id=${user_id}&content_type=${type_query}`
         let obj = fetch(url)
             .then(res => res ? res.json() : res)
@@ -104,9 +103,9 @@ const MultimediaContentLogic = (props:Props) => {
             case "song":
                 fetchHandlerCb(`spotify/get-track?id=${id_query}&user=${user_id}`, 'GET', null, processSong); break;
             case "series":
-                fetchHandlerCb(`video/get-by-id?source_id=${id_query}&source=imdb`, 'GET', null, processSeries); break;
+                fetchHandlerCb(`video/get-show-by-id?id=${id_query}`, 'GET', null, processSeries); break;
             case "film":
-                fetchHandlerCb(`video/get-by-id?source_id=${id_query}&source=imdb`, 'GET', null, processFilm); break;
+                fetchHandlerCb(`video/get-film-by-id?id=${id_query}`, 'GET', null, processFilm); break;
         }        
     }
 
@@ -156,42 +155,39 @@ const MultimediaContentLogic = (props:Props) => {
 
     function processFilm(json: any){
         const film: any = json;
-        const {collection} = film != null ? film : '';
-        const {name, picture, locations} = collection != null ? collection : '';
-        let preview_url = "";
+        const {original_title, poster_path, video} = film != null ? film : '';
+        // const {name, picture, locations} = collection != null ? collection : '';
+        let preview_url = video;
+        //TODO Hacer backend para get video para trailer
 
-        locations.forEach((link: { icon: string; url: string; }, index: number) => {
-            if (index == 0) preview_url = link.url
-            else if (locations.includes("Netflix")) preview_url = "Netflix"
-        })
+        let img = "https://image.tmdb.org/t/p/w500/" + poster_path;
+        
+        fetchHandler('api/post-content', 'POST', {'name': original_title, 'type': 'film', 'external_id': id_query});
 
-        //fetchRequest(id_query, 'film', 'post', 'api', {element_name: name});
-        // New way to use fetchHandler
-        fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'film', 'external_id': id_query});
-
-        setImageUrl(picture);
-        setListTop([name, props.type, 'red']);
-        setListBottom([preview_url]);
+        setImageUrl(img);
+        setTrailerUrl(preview_url);
+        setListTop([original_title, props.type, 'red']);
+        // setListBottom([preview_url]);
     }
 
     function processSeries(json: any){
-        const film: any = json;
-        const {collection} = film != null ? film : '';
-        const {name, picture, locations} = collection != null ? collection : '';
-        let preview_url = "";
-
-        locations.forEach((link: { icon: string; url: string; }, index: number) => {
+        const show: any = json;
+        const {original_title, poster_path} = show != null ? show : '';
+        /*locations.forEach((link: { icon: string; url: string; }, index: number) => {
             if (index == 0) preview_url = link.url
             if (locations.includes("Netflix")) preview_url = "Netflix"
-        })
+        })*/
 
         //fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});
         // New way to use fetchHandler
-        fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'series', 'external_id': id_query});
 
-        setImageUrl(picture);
-        setListTop([name, props.type, 'blue']);
-        setListBottom([preview_url]);
+        let img = "https://image.tmdb.org/t/p/w500/" + poster_path;
+
+        fetchHandler('api/post-content', 'POST', {'name': original_title, 'type': 'series', 'external_id': id_query});
+
+        setImageUrl(img);
+        setListTop([original_title, props.type, 'blue']);
+        //setListBottom([preview_url]);
     }
       
     function handleAddContent(){

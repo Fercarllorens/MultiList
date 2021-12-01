@@ -68,7 +68,7 @@ const FinderLogic = () => {
 
     // Fetch of the films query
     const fetchFilms = async (content: string) => {
-        let url = 'http://127.0.0.1:8000/video/get-film?api_key=0a9e56836e8d75c52e639aaec9c70352&query=' + content + '&page=1';
+        let url = 'http://127.0.0.1:8000/video/get-film?query=' + content + '&page=1';
 
         fetch(url)
             .then((res) => res.json())
@@ -78,7 +78,7 @@ const FinderLogic = () => {
 
     // Fetch of the series query
     const fetchSeries = async (content: string) => {
-        let url = 'http://127.0.0.1:8000/video/get-show?api_key=0a9e56836e8d75c52e639aaec9c70352&query=' + content + '&page=1';
+        let url = 'http://127.0.0.1:8000/video/get-show?query=' + content + '&page=1';
 
         fetch(url)
             .then((res) => res.json())
