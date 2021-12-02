@@ -22,6 +22,7 @@ const CategoriesLogic = (props:Props) => {
     function getFilmCategories(){
         fetchHandler(`api/get-categories-by-type?type=film`, 'GET', null)
             .then((obj:any) => {
+                console.log(obj)
                 if(obj!==undefined){ 
                     const filmsCategoriesArray = JSON.parse(obj)
                     setFilmsCategories(filmsCategoriesArray)
