@@ -21,7 +21,7 @@ const Categories: React.FC<Props> = (props) => {
                 {
                     filmsCategories != null && filmsCategories.map((element, index) => {
                         return(                           
-                            <li key={index}>{element}</li>                           
+                            <li key={index}>{element.name}</li>                           
                         )
                     })                   
                 }
