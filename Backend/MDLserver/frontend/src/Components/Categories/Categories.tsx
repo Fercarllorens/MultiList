@@ -6,10 +6,27 @@ interface Props{
 }
 
 const Categories: React.FC<Props> = (props) => {
-    const {} = CategoriesLogic(props)
+    const {getFilmCategories, filmsCategories, getSeriesCategories, seriesCategories, getSongsCategories, songsCategories} = CategoriesLogic(props)
+
+    useEffect(() => {
+        getFilmCategories()
+        getSeriesCategories()
+        getSongsCategories()
+    }, [])
+
 
     return(
-        <></>
+        <div className="categories-container">
+            <ul className="genres">
+                {
+                    filmsCategories != null && filmsCategories.map((element, index) => {
+                        return(                           
+                            <li key={index}>{element}</li>                           
+                        )
+                    })                   
+                }
+            </ul>
+        </div>
     )
 }
 

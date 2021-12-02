@@ -48,9 +48,13 @@ const Navbar = () => {
         ]}
       />
       {logged ? (
+        
         <div className='navbar__menu'>
           <Link className='navbar__link' to='/SearchUsers'>
             Search Users
+          </Link>
+          <Link className='navbar__link' to='/Categories'>
+            Categories
           </Link>
           {premium ? (
             <Link className='navbar__link' to='/Modal' onClick={() => { setOpenCustomListModal(!openCustomListModal) }}>

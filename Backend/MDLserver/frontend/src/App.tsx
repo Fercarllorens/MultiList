@@ -15,6 +15,7 @@ import MyFollows from './Components/MyFollows/MyFollows'
 import Casting from './Components/Casting/Casting'
 import { fetchHandler } from './Components/fetchHandler'
 import Artist from './Components/Artist/Artist'
+import Categories from './Components/Categories/Categories'
 import MyFollowsLogic from './Components/MyFollows/MyFollowsLogic'
 import LandingPage from './Components/LandingPage/LandingPage'
 import './App.css'
@@ -40,6 +41,7 @@ function App() {
         <PrivateRoute path='/MyFollows' component={MyFollows} />
         <PrivateRoute path='/MyLists' component={MyLists} />
         <PrivateRoute path='/List' component={ListContent} />
+        <PrivateRoute path='/Categories' component={Categories} />
         <Route path='/Artist' component={Artist} />
         <PrivateRoute path='/SearchUsers' component={UserFinder} />
         <PrivateRoute path='/Cast' component={Casting} />
