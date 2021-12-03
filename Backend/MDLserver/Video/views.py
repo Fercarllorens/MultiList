@@ -105,3 +105,11 @@ class GetShowTrailer(APIView):
         endpoint = f"tv/{request.GET['id']}/videos"
         res = ut.request_tmdb_api(endpoint, {})
         return Response(res, status=status.HTTP_200_OK)
+
+class GetTops(APIView):
+    def get(self, request, format=None):
+        endpoint = f"trending/{request.GET['media_type']}/week"
+        res = ut.request_tmdb_api(endpoint, {})
+        return Response(res, status=status.HTTP_200_OK)
+
+
