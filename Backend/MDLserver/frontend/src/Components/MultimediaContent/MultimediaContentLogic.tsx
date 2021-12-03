@@ -36,6 +36,7 @@ interface List {
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
     const [ imageUrl, setImageUrl] =        useState<null | string>(null)
+    const [ contentLink, setcontentLink] =        useState<null | string>(null)
     const [ trailerUrl , setTrailerUrl] =   useState<null | string>(null)
     const [ listTop , setListTop] =         useState<string[]>([])
     const [ listBottom , setListBottom] =   useState<string[]>([])
@@ -152,14 +153,13 @@ const MultimediaContentLogic = (props:Props) => {
         setImageUrl(img.url);
         setTrailerUrl(preview_url);
         setListTop([name, props.type, year, genres_string, 'green']);
-        setListBottom([url, formated_duration, '', '', release_date, album_name]);
+        setListBottom([formated_duration, '', '', release_date, album_name]);
+        setcontentLink(url)
     }
 
     function processFilm(json: any){
-        //TODO Mirar lo de content link externo
-        //TODO Coger la info que haga falta
         const film: any = json;
-        const {original_title, poster_path} = film != null ? film : '';
+        const {original_title, poster_path, overview, release_date} = film != null ? film : '';
 
         getTrailer()
 
@@ -168,14 +168,18 @@ const MultimediaContentLogic = (props:Props) => {
         fetchHandler('api/post-content', 'POST', {'name': original_title, 'type': 'film', 'external_id': id_query});
         setImageUrl(img);
         setListTop([original_title, props.type, 'red']);
-        // setListBottom([preview_url]);
+        console.log(overview)
+        setListBottom([release_date, overview]);
     }
 
     function processSeries(json: any){
-        //TODO Mirar lo de content link externo
-        //TODO Coger la info que haga falta
         const show: any = json;
-        const {original_name, poster_path} = show != null ? show : '';
+        const {original_name, poster_path, overview, seasons} = show != null ? show : '';
+
+        let release_date;
+        seasons.forEach(() => {
+            release_date = seasons[0].air_date
+        })
         
         getTrailer()
 
@@ -185,7 +189,7 @@ const MultimediaContentLogic = (props:Props) => {
 
         setImageUrl(img);
         setListTop([original_name, props.type, 'blue']);
-        //setListBottom([preview_url]);
+        setListBottom([release_date, overview]);
     }
       
     function handleAddContent(){
@@ -322,7 +326,7 @@ const MultimediaContentLogic = (props:Props) => {
         return type == 'series' ? type : type + 's'
     }
 
-    return {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating, 
+    return {listTop, imageUrl, trailerUrl, listBottom, contentLink, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating, 
         type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent,
         handleUpdateProgress, handleAddToListPremium, register, handleSubmit, added, isContentAdded,
          lists, getUserLists, selectedListName, setSelectedListName, getIdTMDB, artists, showArtist, getTrailer}
