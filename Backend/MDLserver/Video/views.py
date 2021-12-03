@@ -42,7 +42,7 @@ class GetMovie(APIView):
         endpoint = "search/movie"
         query_params = {
             "query": request.GET['query'],
-            "page": request.GET.get('page', 100)
+            "page": request.GET.get('page', 1)
         }
         res = ut.request_tmdb_api(endpoint, query_params)
         return Response(res, status=status.HTTP_200_OK)
@@ -60,7 +60,7 @@ class GetPeople(APIView):
         endpoint = "search/person"
         query_params = {
             "query": request.GET['query'],
-            "page": request.GET.get('page', 100)
+            "page": request.GET.get('page', 1)
         }
         res = ut.request_tmdb_api(endpoint, query_params)
         return Response(res, status=status.HTTP_200_OK)
