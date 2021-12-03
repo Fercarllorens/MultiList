@@ -155,13 +155,25 @@ const MultimediaContentLogic = (props:Props) => {
 
     function processFilm(json: any){
         const film: any = json;
-        const {original_title, poster_path, video} = film != null ? film : '';
-        // const {name, picture, locations} = collection != null ? collection : '';
+        const {original_title, poster_path, video, imdb_id} = film != null ? film : '';
         let preview_url = video;
+        
         //TODO Hacer backend para get video para trailer
+        //TODO Mirar lo de content link externo
+
+        // esto dvuelve un promise help :(
+        // let trailer_json = fetchHandler(`video/get-by-id?source_id=${imdb_id}&source=imdb`, 'GET', null);
+
+        // const {collection} = trailer_json != null ? trailer_json  : '';
+        // const {locations} = collection != null ? collection : '';
+        
+        // locations.forEach((link: { icon: string; url: string; }, index: number) => {
+        //     if (index == 0) preview_url = link.url
+        //     if (locations.includes("Netflix")) preview_url = "Netflix"
+        // })
 
         let img = "https://image.tmdb.org/t/p/w500/" + poster_path;
-        
+
         fetchHandler('api/post-content', 'POST', {'name': original_title, 'type': 'film', 'external_id': id_query});
 
         setImageUrl(img);
@@ -170,9 +182,19 @@ const MultimediaContentLogic = (props:Props) => {
         // setListBottom([preview_url]);
     }
 
+    function getTrailerJson(imdb_id: any){
+        fetch(`video/get-by-id?source_id=${imdb_id}&source=imdb`)
+            .then(res => res.json())
+            .then(json => console.log(json))
+            .catch(err => console.error(err))
+    }
+
     function processSeries(json: any){
         const show: any = json;
-        const {original_title, poster_path} = show != null ? show : '';
+        const {original_name, poster_path} = show != null ? show : '';
+        //TODO Hacer backend para get video para trailer
+        //TODO Mirar lo de content link externo
+
         /*locations.forEach((link: { icon: string; url: string; }, index: number) => {
             if (index == 0) preview_url = link.url
             if (locations.includes("Netflix")) preview_url = "Netflix"
@@ -183,10 +205,10 @@ const MultimediaContentLogic = (props:Props) => {
 
         let img = "https://image.tmdb.org/t/p/w500/" + poster_path;
 
-        fetchHandler('api/post-content', 'POST', {'name': original_title, 'type': 'series', 'external_id': id_query});
+        fetchHandler('api/post-content', 'POST', {'name': original_name, 'type': 'series', 'external_id': id_query});
 
         setImageUrl(img);
-        setListTop([original_title, props.type, 'blue']);
+        setListTop([original_name, props.type, 'blue']);
         //setListBottom([preview_url]);
     }
       
@@ -316,7 +338,7 @@ const MultimediaContentLogic = (props:Props) => {
     return {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating, 
         type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, 
         handleUpdateProgress, handleAddToListPremium, register, handleSubmit, added, isContentAdded,
-         lists, getUserLists, selectedListName, setSelectedListName, getIdTMDB, artists, showArtist}
+         lists, getUserLists, selectedListName, setSelectedListName, getIdTMDB, artists, showArtist, getTrailerJson}
 }
 
 export default MultimediaContentLogic
