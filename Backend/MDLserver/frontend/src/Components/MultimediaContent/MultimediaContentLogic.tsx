@@ -160,9 +160,16 @@ const MultimediaContentLogic = (props:Props) => {
 
     function processFilm(json: any){
         const film: any = json;
-        const {collection} = film != null ? film : '';
-        const {name, picture, locations} = collection != null ? collection : '';
-        let preview_url = "";
+        const {original_title, poster_path, overview, release_date, genres} = film != null ? film : '';
+        let genres_string = 'Not genres found';
+
+        if(genres != undefined){
+            genres.forEach((element: any, index: number) => {
+                index == 0 ? genres_string = element : genres_string += (', ' + element)
+                fetchHandler('api/post-category', 'POST', {'name': element.name, 'type': 'film'})
+                }
+            );
+        } 
 
         locations.forEach((link: { icon: string; url: string; }, index: number) => {
             if (index == 0) preview_url = link.url
@@ -179,15 +186,25 @@ const MultimediaContentLogic = (props:Props) => {
     }
 
     function processSeries(json: any){
-        const film: any = json;
-        const {collection} = film != null ? film : '';
-        const {name, picture, locations} = collection != null ? collection : '';
-        let preview_url = "";
-
-        locations.forEach((link: { icon: string; url: string; }, index: number) => {
-            if (index == 0) preview_url = link.url
-            if (locations.includes("Netflix")) preview_url = "Netflix"
+        const show: any = json;
+        const {original_name, poster_path, overview, seasons, genres} = show != null ? show : '';
+        let genres_string = 'Not genres found';
+        let release_date;
+        seasons.forEach(() => {
+            release_date = seasons[0].air_date
         })
+
+        if(genres != undefined){
+            genres.forEach((element: any, index: number) => {
+                index == 0 ? genres_string = element : genres_string += (', ' + element)
+                fetchHandler('api/post-category', 'POST', {'name': element.name, 'type': 'series'})
+                }
+            );
+        } 
+        
+        getTrailer()
+
+        let img = "https://image.tmdb.org/t/p/w500/" + poster_path;
 
         //fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});
         // New way to use fetchHandler
