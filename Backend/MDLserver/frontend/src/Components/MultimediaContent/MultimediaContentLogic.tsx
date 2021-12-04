@@ -163,7 +163,16 @@ const MultimediaContentLogic = (props:Props) => {
 
     function processFilm(json: any){
         const film: any = json;
-        const {original_title, poster_path, overview, release_date} = film != null ? film : '';
+        const {original_title, poster_path, overview, release_date, genres} = film != null ? film : '';
+        let genres_string = 'Not genres found';
+
+        if(genres != undefined){
+            genres.forEach((element: any, index: number) => {
+                index == 0 ? genres_string = element : genres_string += (', ' + element)
+                fetchHandler('api/post-category', 'POST', {'name': element.name, 'type': 'film'})
+                }
+            );
+        } 
 
         getTrailer()
 
@@ -178,12 +187,20 @@ const MultimediaContentLogic = (props:Props) => {
 
     function processSeries(json: any){
         const show: any = json;
-        const {original_name, poster_path, overview, seasons} = show != null ? show : '';
-
+        const {original_name, poster_path, overview, seasons, genres} = show != null ? show : '';
+        let genres_string = 'Not genres found';
         let release_date;
         seasons.forEach(() => {
             release_date = seasons[0].air_date
         })
+
+        if(genres != undefined){
+            genres.forEach((element: any, index: number) => {
+                index == 0 ? genres_string = element : genres_string += (', ' + element)
+                fetchHandler('api/post-category', 'POST', {'name': element.name, 'type': 'series'})
+                }
+            );
+        } 
         
         getTrailer()
 
