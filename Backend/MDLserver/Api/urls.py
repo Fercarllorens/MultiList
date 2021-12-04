@@ -21,7 +21,6 @@ urlpatterns = [
     path('put-series', PutSeries.as_view()),
     path('get-series', GetSeries.as_view()),
 
-
     path('post-song', PostSong.as_view()),
     path('put-song', PutSong.as_view()),
     path('get-song', GetSong.as_view()),

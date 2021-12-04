@@ -42,17 +42,25 @@ class GetMovie(APIView):
         endpoint = "search/movie"
         query_params = {
             "query": request.GET['query'],
-            "page": request.GET.get('page', 100)
+            "page": request.GET.get('page', 1)
         }
         res = ut.request_tmdb_api(endpoint, query_params)
         return Response(res, status=status.HTTP_200_OK)
+
+class GetMovieById(APIView):
+    def get(self, request, format=None):
+        endpoint = f"movie/{request.GET['id']}"
+        query_params = {}
+        res = ut.request_tmdb_api(endpoint, query_params)
+        return Response(res, status=status.HTTP_200_OK)
+
 
 class GetPeople(APIView):
     def get(self, request, format=None):
         endpoint = "search/person"
         query_params = {
             "query": request.GET['query'],
-            "page": request.GET.get('page', 100)
+            "page": request.GET.get('page', 1)
         }
         res = ut.request_tmdb_api(endpoint, query_params)
         return Response(res, status=status.HTTP_200_OK)
@@ -67,6 +75,12 @@ class GetShow(APIView):
         res = ut.request_tmdb_api(endpoint, query_params)    
         return Response(res, status=status.HTTP_200_OK)
 
+class GetShowById(APIView):
+    def get(self, request, format=None):
+        endpoint = f"tv/{request.GET['id']}"
+        query_params = {}
+        res = ut.request_tmdb_api(endpoint, query_params)
+        return Response(res, status=status.HTTP_200_OK)
 
 class GetMovieCredits(APIView):
     def get(self, request, format=None):
@@ -74,9 +88,20 @@ class GetMovieCredits(APIView):
         res = ut.request_tmdb_api(endpoint, {})
         return Response(res, status=status.HTTP_200_OK)
 
-
 class GetShowCredits(APIView):
     def get(self, request, format=None):
         endpoint = f"tv/{request.GET['id']}/credits"
+        res = ut.request_tmdb_api(endpoint, {})
+        return Response(res, status=status.HTTP_200_OK)
+
+class GetMovieTrailer(APIView):
+    def get(self, request, format=None):
+        endpoint = f"movie/{request.GET['id']}/videos"
+        res = ut.request_tmdb_api(endpoint, {})
+        return Response(res, status=status.HTTP_200_OK)
+
+class GetShowTrailer(APIView):
+    def get(self, request, format=None):
+        endpoint = f"tv/{request.GET['id']}/videos"
         res = ut.request_tmdb_api(endpoint, {})
         return Response(res, status=status.HTTP_200_OK)

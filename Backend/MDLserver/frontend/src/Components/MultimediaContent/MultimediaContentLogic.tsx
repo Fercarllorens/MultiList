@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+import { stringify } from 'querystring';
 import React, { useState } from 'react'
 import {useForm} from 'react-hook-form';
 import { useLocation } from 'react-router';
@@ -34,6 +36,7 @@ interface List {
 // trailer es string, pasamos la url para usarla como source
 const MultimediaContentLogic = (props:Props) => {
     const [ imageUrl, setImageUrl] =        useState<null | string>(null)
+    const [ contentLink, setcontentLink] =        useState<null | string>(null)
     const [ trailerUrl , setTrailerUrl] =   useState<null | string>(null)
     const [ listTop , setListTop] =         useState<string[]>([])
     const [ listBottom , setListBottom] =   useState<string[]>([])
@@ -61,7 +64,6 @@ const MultimediaContentLogic = (props:Props) => {
 
     function isContentAdded() {
         //TODO: refactorize fetch
-        
         let url = base_url + `api/get-list-user?user_id=${user_id}&content_type=${type_query}`
         let obj = fetch(url)
             .then(res => res ? res.json() : res)
@@ -104,9 +106,9 @@ const MultimediaContentLogic = (props:Props) => {
             case "song":
                 fetchHandlerCb(`spotify/get-track?id=${id_query}&user=${user_id}`, 'GET', null, processSong); break;
             case "series":
-                fetchHandlerCb(`video/get-by-id?source_id=${id_query}&source=imdb`, 'GET', null, processSeries); break;
+                fetchHandlerCb(`video/get-show-by-id?id=${id_query}`, 'GET', null, processSeries); break;
             case "film":
-                fetchHandlerCb(`video/get-by-id?source_id=${id_query}&source=imdb`, 'GET', null, processFilm); break;
+                fetchHandlerCb(`video/get-film-by-id?id=${id_query}`, 'GET', null, processFilm); break;
         }        
     }
 
@@ -151,47 +153,43 @@ const MultimediaContentLogic = (props:Props) => {
         setImageUrl(img.url);
         setTrailerUrl(preview_url);
         setListTop([name, props.type, year, genres_string, 'green']);
-        setListBottom([url, formated_duration, '', '', release_date, album_name]);
+        setListBottom([formated_duration, '', '', release_date, album_name]);
+        setcontentLink(url)
     }
 
     function processFilm(json: any){
         const film: any = json;
-        const {collection} = film != null ? film : '';
-        const {name, picture, locations} = collection != null ? collection : '';
-        let preview_url = "";
+        const {original_title, poster_path, overview, release_date} = film != null ? film : '';
 
-        locations.forEach((link: { icon: string; url: string; }, index: number) => {
-            if (index == 0) preview_url = link.url
-            else if (locations.includes("Netflix")) preview_url = "Netflix"
-        })
+        getTrailer()
 
-        //fetchRequest(id_query, 'film', 'post', 'api', {element_name: name});
-        // New way to use fetchHandler
-        fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'film', 'external_id': id_query});
+        let img = "https://image.tmdb.org/t/p/w500/" + poster_path;
 
-        setImageUrl(picture);
-        setListTop([name, props.type, 'red']);
-        setListBottom([preview_url]);
+        fetchHandler('api/post-content', 'POST', {'name': original_title, 'type': 'film', 'external_id': id_query});
+        setImageUrl(img);
+        setListTop([original_title, props.type, 'red']);
+        console.log(overview)
+        setListBottom([release_date, overview]);
     }
 
     function processSeries(json: any){
-        const film: any = json;
-        const {collection} = film != null ? film : '';
-        const {name, picture, locations} = collection != null ? collection : '';
-        let preview_url = "";
+        const show: any = json;
+        const {original_name, poster_path, overview, seasons} = show != null ? show : '';
 
-        locations.forEach((link: { icon: string; url: string; }, index: number) => {
-            if (index == 0) preview_url = link.url
-            if (locations.includes("Netflix")) preview_url = "Netflix"
+        let release_date;
+        seasons.forEach(() => {
+            release_date = seasons[0].air_date
         })
+        
+        getTrailer()
 
-        //fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});
-        // New way to use fetchHandler
-        fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'series', 'external_id': id_query});
+        let img = "https://image.tmdb.org/t/p/w500/" + poster_path;
 
-        setImageUrl(picture);
-        setListTop([name, props.type, 'blue']);
-        setListBottom([preview_url]);
+        fetchHandler('api/post-content', 'POST', {'name': original_name, 'type': 'series', 'external_id': id_query});
+
+        setImageUrl(img);
+        setListTop([original_name, props.type, 'blue']);
+        setListBottom([release_date, overview]);
     }
       
     function handleAddContent(){
@@ -277,7 +275,6 @@ const MultimediaContentLogic = (props:Props) => {
         } else if (type_query == 'film'){
             fetchHandlerCb(`video/get-film?query=${listTop[0]}&page={1}`, 'GET', null, setIdTMDB)
         }
-        
     }
 
     function setIdTMDB(json:any){
@@ -289,7 +286,19 @@ const MultimediaContentLogic = (props:Props) => {
             search: `?name=${listTop[0]}&id=${json.results[0].id}&type=${type_query}&img=${imageUrl}}`
          })
     }
-    
+
+    function getTrailer(){
+        if(type_query == 'series'){
+            fetchHandlerCb(`video/get-show-trailer?id=${id_query}`, 'GET', null, setTrailer)
+        } else if (type_query == 'film'){
+            fetchHandlerCb(`video/get-film-trailer?id=${id_query}`, 'GET', null, setTrailer)
+        }
+    }
+
+    function setTrailer(json:any){
+        setTrailerUrl('https://www.youtube.com/embed/'+json.results[0].key)
+    }
+
     function handleAddToListPremium(){ 
         const body = JSON.stringify({
             user_id: user_id,
@@ -317,10 +326,10 @@ const MultimediaContentLogic = (props:Props) => {
         return type == 'series' ? type : type + 's'
     }
 
-    return {listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating, 
-        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent, 
+    return {listTop, imageUrl, trailerUrl, listBottom, contentLink, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating, 
+        type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent,
         handleUpdateProgress, handleAddToListPremium, register, handleSubmit, added, isContentAdded,
-         lists, getUserLists, selectedListName, setSelectedListName, getIdTMDB, artists, showArtist}
+         lists, getUserLists, selectedListName, setSelectedListName, getIdTMDB, artists, showArtist, getTrailer}
 }
 
 export default MultimediaContentLogic

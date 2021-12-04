@@ -42,26 +42,6 @@ const FinderLogic = () => {
         songs_selected: false
     
     })
-    const [shows, setShows] = useState([
-        {
-            "name": "Persona 4 The Animation",
-            "authors": "Seiji Kishi",
-            "date": "March 30, 2012s",
-            "img": "https://upload.wikimedia.org/wikipedia/en/5/55/P4A_promo.jpg",
-            "preview_url": "https://www.youtube.com/watch?v=SwwJ00PqqFI",
-            "genre": "Action / Fantasy",
-        }
-    ])
-    const [movies, setMovies] = useState([
-        {
-            "name": "Persona 3 The Movie #1: Spring of Birth",
-            "authors": "Noriaki Akitaya",
-            "date": "November 23th, 2013",
-            "img": "https://static.wikia.nocookie.net/megamitensei/images/e/e0/P3TM1-ost.jpg/revision/latest?cb=20160824205251",
-            "preview_url": "https://www.youtube.com/watch?v=r7-M90PNk5E",
-            "genre": "Action / Fantasy",
-        }
-    ])
     const [tracks_list, setTracksList] = useState<any | undefined>()
     const [shows_list, setShowsList] = useState<any | undefined>()
     const [movies_list, setMoviesList] = useState<any | undefined>()
@@ -88,7 +68,7 @@ const FinderLogic = () => {
 
     // Fetch of the films query
     const fetchFilms = async (content: string) => {
-        let url = 'http://127.0.0.1:8000/video/search?term=' + content + '&country=uk';
+        let url = 'http://127.0.0.1:8000/video/get-film?query=' + content + '&page=1';
 
         fetch(url)
             .then((res) => res.json())
@@ -98,7 +78,7 @@ const FinderLogic = () => {
 
     // Fetch of the series query
     const fetchSeries = async (content: string) => {
-        let url = 'http://127.0.0.1:8000/video/search?term=' + content + '&country=uk';
+        let url = 'http://127.0.0.1:8000/video/get-show?query=' + content + '&page=1';
 
         fetch(url)
             .then((res) => res.json())
@@ -133,13 +113,14 @@ const FinderLogic = () => {
 
         if(typeof series_list === "object" && series_list !== null && series_list !== undefined){
             series_list.forEach((element) => {
-                const { name, picture, external_ids } = element
-                const { imdb } = external_ids
+                const { name, poster_path, id } = element
+
+                let img = "https://image.tmdb.org/t/p/w500/" + poster_path;
 
                 res.push({
-                    id: imdb.id,
+                    id: id,
                     name: name,
-                    img: picture
+                    img: img,
                 })
             })
         }
@@ -154,16 +135,18 @@ const FinderLogic = () => {
 
         if(typeof films_list === "object" && films_list !== null && films_list !== undefined){
             films_list.forEach((element) => {
-                const { name, picture, external_ids } = element
-                const { imdb } = external_ids
+                const { original_title, poster_path, id } = element
+
+                let img = "https://image.tmdb.org/t/p/w500/" + poster_path;
 
                 res.push({
-                    id: imdb.id,
-                    name: name,
-                    img: picture,
+                    id: id,
+                    name: original_title,
+                    img: img,
                 })
             })
         }
+        
         setFilms(res)
     }
 
