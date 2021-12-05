@@ -17,16 +17,28 @@ const Categories: React.FC<Props> = (props) => {
 
     return(
         <div className="categories-container">
-            <ul className="genres">
+            <div className="genres">
+                <h4 className="bottom-title">Film Categories</h4>
                 {
                     filmsCategories != null && filmsCategories.map((element, index) => {
                         return(                           
-                            <li key={index}>{element.name}</li>                           
+                            <><p> {element.name} </p><input type="image" src="http://www.clker.com/cliparts/L/q/T/i/P/S/add-button-white-md.png" /></>
                         )
                     })                   
                 }
-            </ul>
+            </div>
+            <div className="genres">
+                <h4 className="bottom-title">Film Categories</h4>
+                {
+                    seriesCategories != null && seriesCategories.map((element, index) => {
+                        return(                           
+                            <><p> {element.name} </p><input type="image" src="http://www.clker.com/cliparts/L/q/T/i/P/S/add-button-white-md.png" /></>                         
+                        )
+                    })                   
+                }
+            </div>
         </div>
+        
     )
 }
 
