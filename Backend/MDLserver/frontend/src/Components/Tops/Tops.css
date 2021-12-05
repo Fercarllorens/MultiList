@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+.tops-container{
+    background: linear-gradient(180deg, #0E0E0E 0%, #393838 100%);
+    width: 100vw;
+    height: 91.8vh;
+}
+
+.movies{
+    /* position: absolute;    
+    left: 42px;
+    top: 150px; */
+    padding-top: 70px;
+    padding-left: 42px;
+
+    width: 405.54px;
+    height: 97.07px;
+
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 30px;
+
+    color: #FFFFFF;
+
+    margin-bottom: 285px;
+}
+
+.series{
+    width: 405.54px;
+    height: 97.07px;
+    padding-left: 42px;
+
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 30px;
+
+    color: #FFFFFF;
+}
+
+.movies-list{
+    width: 90vw;
+    max-height: 276px;
+    display: flex;
+    overflow-x:auto;
+    padding-bottom: 10px;
+    padding-top: 30px;
+    margin-bottom: 40px;
+}
+
+/* .movies-list::-webkit-scrollbar {
+    display: none;
+  } */
+
+.movies-list::-webkit-scrollbar {
+	width: 7px;
+    height: 7px;
+}
+
+.movies-list::-webkit-scrollbar-thumb {
+	background: white;
+	border-radius: 5px;
+}
