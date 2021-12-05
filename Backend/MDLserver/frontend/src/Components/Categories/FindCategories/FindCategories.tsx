@@ -1,6 +1,5 @@
 import React from 'react'
-import FindCategoriesLogic from './FindCategoriesLogic'
-import CategoryPreview from '../../ItemPreview/FilmPreview/FilmPreview'
+import CategoryPreview from '../CategoryPreview/CategoryPreview'
 import './FindCategories.css'
 
 interface Category{
@@ -14,19 +13,16 @@ interface Props{
 }
 
 const FindCategories: React.FC<Props> = ({categories}) => {
-    const {} = FindCategoriesLogic()
 
     return (
-        <div className="FindCategoriesContainer">
-            <>
+        <div>
             {
                 categories!==undefined ?
                     categories?.map((element) => (
-                        <p>{element.name}</p>
+                        <CategoryPreview category={element}/>
                     ))
                 : 'No results'
             }
-            </>
         </div>
     )
 }
