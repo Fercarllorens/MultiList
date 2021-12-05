@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router'
 import { fetchHandlerCb } from '../fetchHandler'
 
 export interface VisualContent{
@@ -10,6 +11,8 @@ export interface VisualContent{
 const ComponentNameLogic = () => {
     const [movies, setMovies] = useState<undefined | VisualContent[]>()
     const [tv, setTv] = useState<undefined | VisualContent[]>()
+
+    let history = useHistory()  
 
     const fetchMovies = () => {
         fetchHandlerCb(`video/get-tops?media_type=movie`, 'GET', null, processMovies)
@@ -59,7 +62,15 @@ const ComponentNameLogic = () => {
         }
     }
 
+    const showSheet = (id: string, type: "films" | "series" | "songs") => {
+        
+        history.push({
+            pathname:'/MultimediaContent',
+            search: `?type=${type}&id=${id}`
+         })
+    }
 
-    return { movies, tv, fetchMovies, fetchTv }
+
+    return { movies, tv, fetchMovies, fetchTv, showSheet }
 }
 export default ComponentNameLogic

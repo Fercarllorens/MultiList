@@ -8,7 +8,7 @@ interface Props{
 }
 
 const Tops: React.FC = (props) => {
-    const { movies, tv, fetchMovies, fetchTv} = TopsLogic()
+    const { movies, tv, fetchMovies, fetchTv, showSheet} = TopsLogic()
 
     useEffect(() => {
         fetchMovies()
@@ -25,7 +25,7 @@ const Tops: React.FC = (props) => {
                     {
                         movies!==undefined ?
                             movies.map((element, index) => (
-                                <VisualContentPreview content={{id: element.id, img: element.img, name: element.name}}/>
+                                <VisualContentPreview content={{id: element.id, img: element.img, name: element.name}} type="films" showSheet={showSheet}/>
                             ))
                         : 'No results'
                     }
@@ -41,7 +41,7 @@ const Tops: React.FC = (props) => {
                     {
                         tv!==undefined ?
                             tv.map((element) => (
-                                <VisualContentPreview content={{id: element.id, img: element.img, name: element.name}}/>
+                                <VisualContentPreview content={{id: element.id, img: element.img, name: element.name}} type="series" showSheet={showSheet}/>
                             ))
                         : 'No results'
                     }
