@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react'
 import './Categories.css'
 import CategoriesLogic from './CategoriesLogic'
+import SearchBar from "../Finder/SearchBar/SearchBar"
+import Filters from "../Finder/Filters/Filters"
+import FindCategories from './FindCategories/FindCategories'
 
 interface Props{
 }
 
 const Categories: React.FC<Props> = (props) => {
-    const {getFilmCategories, filmsCategories, getSeriesCategories, seriesCategories, getSongsCategories, songsCategories} = CategoriesLogic(props)
+    const {getFilmCategories, filmsCategories, getSeriesCategories, seriesCategories, getSongsCategories, songsCategories, find, selectType, type_selected,
+        filteredFilmsCategories, filteredSeriesCategories, filteredSongsCategories} = CategoriesLogic(props)
 
     useEffect(() => {
         getFilmCategories()
@@ -16,29 +20,15 @@ const Categories: React.FC<Props> = (props) => {
 
 
     return(
-        <div className="categories-container">
-            <div className="genres">
-                <h4 className="bottom-title">Film Categories</h4>
-                {
-                    filmsCategories != null && filmsCategories.map((element, index) => {
-                        return(                           
-                            <><p> {element.name} </p><input type="image" src="http://www.clker.com/cliparts/L/q/T/i/P/S/add-button-white-md.png" /></>
-                        )
-                    })                   
-                }
+        <div className="FinderContainer">
+            <div className="searchbar-container">
+                <SearchBar find={find} />
             </div>
-            <div className="genres">
-                <h4 className="bottom-title">Film Categories</h4>
-                {
-                    seriesCategories != null && seriesCategories.map((element, index) => {
-                        return(                           
-                            <><p> {element.name} </p><input type="image" src="http://www.clker.com/cliparts/L/q/T/i/P/S/add-button-white-md.png" /></>                         
-                        )
-                    })                   
-                }
-            </div>
+            <Filters selectType={selectType} type_selected={type_selected}/>         
+            {type_selected.films_selected && <FindCategories categories={filteredFilmsCategories}/>}
+            {type_selected.series_selected && <FindCategories categories={filteredSeriesCategories}/>}
+            {type_selected.songs_selected && <FindCategories categories={filteredSongsCategories}/>}
         </div>
-        
     )
 }
 
