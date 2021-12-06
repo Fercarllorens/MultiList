@@ -104,3 +104,12 @@ class GetArtists(APIView):
             return Response({}, status=status.HTTP_204_NO_CONTENT)
 
         return Response(response, status=status.HTTP_200_OK)
+
+class GetPlaylist(APIView):
+    def get(self, request, format=None):
+        """Returns an artist object given the id"""
+        response = ut.get_item("playlist", request.query_params.get(gv.COMMON.USER), request.query_params.get(gv.COMMON.ID))
+        if gv.COMMON.ERROR in response:
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        return Response(response, status=status.HTTP_200_OK)
