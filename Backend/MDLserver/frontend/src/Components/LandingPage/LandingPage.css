@@ -1,0 +1,59 @@
+.landingpage-screen{
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    scroll-behavior: smooth;
+}
+
+
+.landingpage-screen__section{
+    margin: auto;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100vh;
+    position: relative
+}
+
+.landingpage-screen__bg-image {
+    background-image: url(../../img/bg_image.png);
+    filter: blur(1.5px) grayscale(700%);
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: -1;
+}
+
+.landingpage-screen__section#register h1{
+    margin-bottom: 5%;
+} 
+
+.landingpage-screen__section#register h2{
+    margin-bottom: 10%;
+}
+
+.landingpage-screen__section#register h3{
+    margin-top: 20%;
+}
+
+.landingpage-screen__register-button {
+    font-size: 18px;
+    background: #FE795B;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 1px #FE795B80;
+    border-style: none;
+    align-self: center;
+    min-width: 20rem;
+    transition: all .3s ease;
+}
+
+.landingpage-screen__register-button:hover {
+    background-color: #FE795B80;
+    color: #F7ECE1;
+    cursor: pointer;
+}
