@@ -1,3 +1,17 @@
-body {
-  background-color: #cac4ce;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,400&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+}
+
+body, html{
+  margin:0;
+  padding:0;
+  background: linear-gradient(180deg, rgba(14, 14, 14, 0.8) 0%, rgba(57, 56, 56, 0.8) 100%) no-repeat;
+  background-size: cover;
+  font:normal 12px;
+  font-family: 'Poppins', sans-serif;
+  color:#FFFFFF;
+  overflow: hidden;
 }

@@ -12,30 +12,21 @@ const Login: React.FC<RouteComponentProps> = ({history}) => {
 
     return (
         <div className='login-screen'>
+            <div className='login-screen_bg-image'></div>
             <form className='login-screen__form' onSubmit={loginHandler}>
-                <h3 className='login-screen__title'>Login</h3>
+                <h3 className='login-screen__title'>Login to MultiList</h3>
                 {error&& <span className='error-message'>{error}</span>}
-                <div className='form-group'>
-                    <label htmlFor='email'>Email: </label>
-                    <input type='email' required id='email' placeholder='email@email.com' value={email} onChange={(e) => {setEmail(e.target.value)}}/>
-                </div>
+                <input type='email' required id='email' placeholder='Email' value={email} className='form-text-input'
+                onChange={(e) => {setEmail(e.target.value)}}/>
 
-                <div className='form-group'>
-                    <label htmlFor='password'>Password: </label>
-                    <input type='password' required id='password' placeholder='password' value={password} onChange={(e) => {setPassword(e.target.value)}}/>
-                </div>
+                <input type='password' required id='password' placeholder='Password' value={password} className='form-text-input'
+                onChange={(e) => {setPassword(e.target.value)}}/>
 
-                <div className='form-group'>
-                    <input type='submit' className='form-btn' value='Login'/>
-                </div>
+                <span className='login-screen__subtext'>Don't have an account? <Link to='/register'>Register here!</Link></span>
 
-                <div className='form-group'>
-                    <span className='login-screen__subtext'>Don't have an account? <Link to='/register'>Register here!</Link></span>
-                </div>
+                <span className='login-screen__subtext'>Forgot your password? <Link to='/forgotpassword'>Click here!</Link></span>
 
-                <div className='form-group'>
-                    <span className='login-screen__subtext'>Forgot your password? <Link to='/forgotpassword'>Click here!</Link></span>
-                </div>
+                <input type='submit' className='form-btn' value='Login'/>
 
            </form>
         </div>

@@ -13,10 +13,11 @@ import Spotify from './Components/Spotify/Spotify'
 import UserFinder from './Components/UserFinder/UserFinder'
 import MyFollows from './Components/MyFollows/MyFollows'
 import Casting from './Components/Casting/Casting'
-import './App.css'
 import { fetchHandler } from './Components/fetchHandler'
 import Artist from './Components/Artist/Artist'
 import MyFollowsLogic from './Components/MyFollows/MyFollowsLogic'
+import LandingPage from './Components/LandingPage/LandingPage'
+import './App.css'
 
 function App() {
   
@@ -30,6 +31,7 @@ function App() {
       <Navbar />
       <Switch>
         {/*Todo las rutas que haya que meter, se meten aqui como una Route*/}
+        <Route exact path='/' component={LandingPage}/>
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
         <PrivateRoute path='/Spotify' component={Spotify} />

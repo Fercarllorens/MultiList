@@ -16,9 +16,7 @@ const Navbar = () => {
 
   return (
     <div className='navbar'>
-      <Link className='navbar__logo' to='/'>
-        Logo
-      </Link>
+      <Link className='navbar__logo' to='/' />
       <Modal 
         open={openCustomListModal} 
         onClose={() => setOpenCustomListModal(false)} 
@@ -75,11 +73,9 @@ const Navbar = () => {
           <Link className='navbar__link' to='/login'>
             Login
           </Link>
-          <Link className='navbar__link' to='/register'>
-            Register
-          </Link>
         </div>
       )}
+      <div className='navbar__line'></div>
     </div>
   )
 }

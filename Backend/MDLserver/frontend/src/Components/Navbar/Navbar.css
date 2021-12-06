@@ -3,34 +3,48 @@
   height: 80px;
   align-items: center;
   display: inline-flex;
-  background: #242038;
+  background: none;
 }
 
 .navbar__logo {
   margin-left: 2rem;
   margin-right: auto;
   text-decoration: none;
+  width: 140px;
+  height: 80px;
+  border: none;
+  background-position: center center;
+  background-image: url(../../img/LOGO.png);
+  background-repeat: no-repeat;
+}
+
+.navbar__line {
+  position: fixed;
+  top: 8%;
+  left: 2%;
+  border-bottom: 1.5px solid #3A3A3A;
+  width: 96vw;
 }
 
 .navbar__link {
   text-decoration: none;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .navbar__menu {
-  margin-right: 4rem;
+  margin-right: 2rem;
 }
 
 .navbar__menu > .navbar__link {
-  color: #f7ece1;
+  color: #FFFFFF;
   margin: 2rem;
+  margin-right: .5rem;
   font-weight: bolder;
-  padding: 10px;
   transition: ease-in 0.3s all;
 }
 
 .navbar__menu > .navbar__link:hover {
-  background: #f7ece1;
-  border-radius: 2px 10px 12px 12px;
-  color: #9067c6;
+  background: #FE795B;
+  padding: 10px;
+  border-radius: 10px;
 }
