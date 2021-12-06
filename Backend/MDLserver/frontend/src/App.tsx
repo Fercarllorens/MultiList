@@ -20,10 +20,10 @@ import LandingPage from './Components/LandingPage/LandingPage'
 import './App.css'
 
 function App() {
-  
+
   useEffect(() => {
     const user_id: string | null = localStorage.getItem('user_id')
-    if(user_id) fetchHandler(`spotify/is-auth?user_id=${user_id}`, 'GET', null)  
+    if (user_id) fetchHandler(`spotify/is-auth?user_id=${user_id}`, 'GET', null)
   }, [])
 
   return (
@@ -31,7 +31,6 @@ function App() {
       <Navbar />
       <Switch>
         {/*Todo las rutas que haya que meter, se meten aqui como una Route*/}
-        <Route exact path='/' component={LandingPage}/>
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
         <PrivateRoute path='/Spotify' component={Spotify} />
@@ -44,7 +43,8 @@ function App() {
         <PrivateRoute path='/SearchUsers' component={UserFinder} />
         <PrivateRoute path='/Cast' component={Casting} />
         <PrivateRoute path='/' component={Finder} />
-        <Route path="*" component={() => {return <div>404 NOT FOUND</div>}} />
+        <Route exact path='/' component={LandingPage} />
+        <Route path="*" component={() => { return <div>404 NOT FOUND</div> }} />
       </Switch>
     </Router>
   )

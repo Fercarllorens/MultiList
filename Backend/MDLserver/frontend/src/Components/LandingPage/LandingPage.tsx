@@ -14,28 +14,49 @@ function LandingPage(): ReactElement {
             </div>
             {/* SECOND SCREEN */}
             <div className="landingpage-screen__section" id="contents">
-                <h1>SAVE CONTENTS.<br />REVIEW THEM.<br />ENJOY.</h1>
-                <p>
-                    Sigue a otros usuarios para ver sus listas. <br />
-                    Organiza todos los contenidos a tu gusto. <br />
-                    Consulta dónde los puedes encontrar. <br />
-                    Valóralos y recomiéndale a tus amigos y a todo el mundo lo que a ti te gusta.
-                </p>
-                <img alt="sample selector" />
-                <img alt="sample content previews" />
+                <div className="landingpage-screen__left-contents">
+                    <h1>SAVE CONTENTS.<br />REVIEW THEM.<br />ENJOY.</h1>
+                    <p>
+                        Follow other users to see their lists.<br />
+                        Organize all the contents to your liking.<br />
+                        See where you can find them.<br />
+                        Value them and recommend to your friends<br />
+                        and everyone what you like.
+                    </p>
+                </div>
+                <div className="landingpage-screen__right-contents">
+                    <img src="film_preview1.png" id="filmpreview1" />
+                    <img src="film_preview2.png" id="filmpreview2" />
+                </div>
             </div>
             {/* THIRD SCREEN */}
             <div className="landingpage-screen__section" id="tops">
-                <img alt="sample top films" />
-                <h1>CHECK THE TOP CONTENTS OF ALL TIME</h1>
-                <p>you'll find global, national and weekly tops for any kind of media</p>
-                <img alt="sample top lists" />
+                <div className="landingpage-screen__left-tops">
+                    <img src="top1.png" alt="sample top lists" id="top1" />
+                    <img src="top2.png" alt="sample top lists" id="top2" />
+                    <img src="top3.png" alt="sample top lists" id="top3" />
+                </div>
+                <div className="landingpage-screen__right-tops">
+                    <h1>CHECK THE TOP CONTENTS OF ALL TIME</h1>
+                    <p>
+                        You will find global, national and weekly tops <br />
+                        of both series and movies as well as the best <br />
+                        rated songs of today.
+                    </p>
+                </div>
             </div>
             {/* FOURTH SCREEN */}
             <div className="landingpage-screen__section" id="profiles">
-                <h1>DO YOU WANT TO BECOME A FAMOUS CRITIC?</h1>
-                <p>The more content you value and the more interactions your opinions have, the more chances you have of reaching other users and that they follow your recommendations.</p>
-                <img alt="sample user profile" />
+                <div className="landingpage-screen__top-profiles">
+                    <h1>DO YOU WANT TO BECOME A FAMOUS CRITIC?</h1>
+                </div>
+                <div className="landingpage-screen__bottom-profiles">
+                    <p>The more content you value and the more <br />
+                        interactions your opinions have, <br />
+                        the more chances you have of reaching other <br />
+                        users and that they follow your recommendations.</p>
+                    <img src="profile_sample.png" alt="sample user profile" id="profile_sample" />
+                </div>
             </div>
         </div>
     )
