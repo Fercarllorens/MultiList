@@ -5,7 +5,7 @@ from django.forms.models import model_to_dict
 
 # Local
 from ..utils import create_token
-from ..models import MultimediaContent, Progress, User
+from ..models import MultimediaContent, Progress, User, Category
 import global_variables as gv
 
 import json
@@ -119,6 +119,28 @@ class UpdateUserLists(APIView):
         })
         obj = User.objects.get(id=request.GET[gv.USER.ID])
         return Response(model_to_dict(obj), status=status.HTTP_200_OK)
+
+class UpdateUserCategories(APIView):
+    def post(self, request, format=None):
+        user = User.objects.get(id=request.GET[gv.USER.ID])
+        category = Category.objects.get(name=request.GET[gv.CATEGORY.NAME], type=request.GET[gv.CATEGORY.TYPE])
+        categoryId = category.id
+        categoryIdInt = int(categoryId) #Hasta aquí está bien, se obtiene bien la categoria
+        if user is None:
+            return Response(model_to_dict(user), status=status.HTTP_204_NO_CONTENT)
+        string_json = user.categories
+        print('CCCCCCC')
+        content_json = json.loads(string_json)
+        print('BBBBBB')
+        if categoryIdInt not in content_json :
+            content_json.append(categoryIdInt)
+        print('AAAAAAAAAA')
+        string_json = json.dumps(content_json)
+        User.objects.update_or_create(id = user.id, defaults={
+            gv.USER.CATEGORIES: string_json
+        })
+        user = User.objects.get(id=request.GET[gv.USER.ID])
+        return Response(model_to_dict(user), status=status.HTTP_200_OK)
 
 class GetStatisticsFromUser(APIView):
     def get(self, request, format=None):

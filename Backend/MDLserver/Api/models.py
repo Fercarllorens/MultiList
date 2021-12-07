@@ -10,6 +10,7 @@ class User(models.Model):
     lists = models.TextField(null=True)
     following = models.TextField(null= True)
     premium = models.BooleanField(null=True, default=False)
+    categories = models.TextField(null=True)
 
 
 class MultimediaContent (models.Model):
