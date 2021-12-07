@@ -18,13 +18,11 @@ const CategoryPreviewLogic = (category:Category) => {
 
 
     function addCategory(category:Category){
-        console.log(user_id)
         let body = {
             user_id: user_id,
             name: category.name,
             type: category.type
         }
-        console.log(body)
         fetchHandler(`api/update-user-categories`, "POST", body)
     }
 

@@ -20,7 +20,8 @@ interface Type{
 }
 
 const CategoriesLogic = (props:Props) => {
-
+    
+    const [ user, setUser ] =   useState<null | any>(null)
     const [ filmsCategories, setFilmsCategories] = useState<null | any[]>(null)
     const [ filteredFilmsCategories, setFilteredFilmsCategories] = useState<null | any[]>(null)
     const [ seriesCategories, setSeriesCategories] = useState<null | any[]>(null)
@@ -34,6 +35,12 @@ const CategoriesLogic = (props:Props) => {
         songs_selected: false
     
     })
+
+    const user_id: any = localStorage.getItem('user_id')
+
+    function getData(){
+        fetchHandlerCb(`api/get-user?user_id=${user_id}`, "GET", null, (obj) => setUser(obj))
+    }
 
     function getFilmCategories(){
         fetchHandler(`api/get-categories-by-type?type=film`, 'GET', null)
