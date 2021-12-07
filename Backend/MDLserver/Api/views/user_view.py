@@ -130,14 +130,17 @@ class UpdateUserCategories(APIView):
         categoryIdInt = int(categoryId) #Hasta aquí está bien, se obtiene bien la categoria
         if user is None:
             return Response(model_to_dict(user), status=status.HTTP_204_NO_CONTENT)
-        string_json = user.categories
-        print('CCCCCCC')
-        content_json = json.loads(string_json)
-        print('BBBBBB')
-        if categoryIdInt not in content_json :
-            content_json.append(categoryIdInt)
-        print('AAAAAAAAAA')
-        string_json = json.dumps(content_json)
+        
+        if(user.categories):
+            print('la lista no es nula')
+            string_json = user.categories
+            content_json = json.loads(string_json)
+            if categoryIdInt not in content_json :
+                content_json.append(categoryIdInt)
+                string_json = json.dumps(content_json)
+        else:
+            string_json = [categoryIdInt]
+
         User.objects.update_or_create(id = user.id, defaults={
             gv.USER.CATEGORIES: string_json
         })
