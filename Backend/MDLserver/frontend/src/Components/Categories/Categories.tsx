@@ -3,7 +3,7 @@ import './Categories.css'
 import CategoriesLogic from './CategoriesLogic'
 import SearchBar from "../Finder/SearchBar/SearchBar"
 import Filters from "../Finder/Filters/Filters"
-import FindCategories from './FindCategories/FindCategories'
+import CategoryPreview from './CategoryPreview/CategoryPreview'
 
 interface Props{
 }
@@ -25,9 +25,24 @@ const Categories: React.FC<Props> = (props) => {
                 <SearchBar find={find} />
             </div>
             <Filters selectType={selectType} type_selected={type_selected}/>         
-            {type_selected.films_selected && <FindCategories categories={filteredFilmsCategories}/>}
-            {type_selected.series_selected && <FindCategories categories={filteredSeriesCategories}/>}
-            {type_selected.songs_selected && <FindCategories categories={filteredSongsCategories}/>}
+            {type_selected.films_selected &&
+                    filteredFilmsCategories?.map((element) => (
+                        <CategoryPreview category={element}/>
+                        )
+                    )
+            }
+            {type_selected.series_selected && 
+                filteredSeriesCategories?.map((element) => (
+                        <CategoryPreview category={element}/>
+                        )
+                    )
+            }
+            {type_selected.songs_selected && 
+                filteredSongsCategories?.map((element) => (
+                        <CategoryPreview category={element}/>
+                        )
+                    )
+            }
         </div>
     )
 }
