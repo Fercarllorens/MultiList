@@ -11,6 +11,7 @@ class SPOTIFY():
             "album": "albums/{id}",
             "episode": "episodes/{id}",
             "show": "shows/{id}",
+            "playlist": "playlists/{playlist_id}",
         }
         SEARCH = "search?q={query}&type={type}"
 
