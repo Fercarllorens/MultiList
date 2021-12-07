@@ -122,15 +122,14 @@ class UpdateUserLists(APIView):
 
 class UpdateUserCategories(APIView):
     def post(self, request, format=None):
-        user = User.objects.get(id=request.GET[gv.USER.ID])
-        category = Category.objects.get(name=request.GET[gv.CATEGORY.NAME], type=request.GET[gv.CATEGORY.TYPE])
+        user = User.objects.get(id=request.data[gv.USER.ID])
+        category = Category.objects.get(name=request.data[gv.CATEGORY.NAME], type=request.data[gv.CATEGORY.TYPE])
         categoryId = category.id
-        categoryIdInt = int(categoryId) #Hasta aquí está bien, se obtiene bien la categoria
+        categoryIdInt = int(categoryId) 
         if user is None:
             return Response(model_to_dict(user), status=status.HTTP_204_NO_CONTENT)
         
         if(user.categories):
-            print('la lista no es nula')
             string_json = user.categories
             content_json = json.loads(string_json)
             if categoryIdInt not in content_json :
@@ -142,7 +141,7 @@ class UpdateUserCategories(APIView):
         User.objects.update_or_create(id = user.id, defaults={
             gv.USER.CATEGORIES: string_json
         })
-        user = User.objects.get(id=request.GET[gv.USER.ID])
+        user = User.objects.get(id=request.data[gv.USER.ID])
         return Response(model_to_dict(user), status=status.HTTP_200_OK)
 
 class GetStatisticsFromUser(APIView):
