@@ -52,6 +52,7 @@ class USER():
     LISTS = "lists"
     FOLLOWING = "following"
     PREMIUM = "premium"
+    CATEGORIES = "categories"
 
 class VIDEO():
     class URL():
