@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { History } from 'history';
 
 const LoginLogic = (history: History) => {
@@ -9,19 +9,19 @@ const LoginLogic = (history: History) => {
     const loginHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         fetch('http://localhost:8000/api/login', {
-            method: "POST", 
-            body: JSON.stringify({email, password}), 
-            headers: {'Content-Type' : 'application/json'}
+            method: "POST",
+            body: JSON.stringify({ email, password }),
+            headers: { 'Content-Type': 'application/json' }
         })
-        .then(res => res.json())
-        .then(json => {localStorage.setItem('user_id', json.user_id); window.location.href = '/'})
-        .catch(err => {
-            setTimeout(() => {setError('')}, 5000)
-            //setError(err)
-        })
+            .then(res => res.json())
+            .then(json => { localStorage.setItem('user_id', json.user_id); window.location.href = '/Finder' })
+            .catch(err => {
+                setTimeout(() => { setError('') }, 5000)
+                //setError(err)
+            })
     }
 
-    return {email, password, error, setEmail, setPassword, loginHandler}
+    return { email, password, error, setEmail, setPassword, loginHandler }
 }
 
 export default LoginLogic

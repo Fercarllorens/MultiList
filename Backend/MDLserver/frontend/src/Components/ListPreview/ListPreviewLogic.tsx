@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { useHistory } from 'react-router'
 
-interface Props{
-    id: string;
-}
-
-interface List{
+export interface Props {
     id: number
     name: string
     type: string
@@ -13,30 +9,24 @@ interface List{
     user_id: string
 }
 
-const ListPreviewLogic = (props:Props) => {
-    const [data , setData] = useState<null | List>(null)
-    let id : string | null = props.id
-    let url : string = `http://localhost:8000/api/get-list?id=${id}`
+const ListPreviewLogic = (props: Props) => {
     const history = useHistory()
-    const user_id : string | null = localStorage.getItem('user_id') 
-    function getData ()
-    {
-        fetch(url)
-        .then((res) => { return res? res.json() : res})
-        .then((json) => { if(json) setData(json)})
-        .catch((err) => console.error(err))
+
+    const backgrounds: any = {
+        "film": "#590811",
+        "series": "#002d60",
+        "song": "#186b15"
     }
-    let list = data != null ? data: null;
-    console.log(list)
-    const show_list = (id: number) => {  
+
+    const show_list = (id: number) => {
         history.push({
-            pathname:'/List',
+            pathname: '/List',
             search: `?id=${id}`
-         })
+        })
 
     }
 
-    return{list, getData, show_list}
+    return { show_list, backgrounds }
 }
 
 export default ListPreviewLogic

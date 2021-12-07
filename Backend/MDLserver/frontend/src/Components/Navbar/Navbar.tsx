@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return (
     <div className='navbar'>
-      <Link className='navbar__logo' to='/' />
+      <Link className='navbar__logo' to={logged ? '/Finder' : '/'} />
       <Modal
         title="Create custom list"
         open={openCustomListModal}

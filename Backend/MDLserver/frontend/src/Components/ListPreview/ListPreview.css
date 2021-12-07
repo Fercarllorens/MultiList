@@ -1,18 +1,19 @@
-.list{
+.list-preview{
     position:relative;
     margin-top:20px;
-    width:40%;
     margin-left: auto;
     margin-right: auto;
-    height:100px;
-    background-color: white;
-    box-shadow: rgba(0,0,0,.4) -5px 5px;
-    color: black;
+    width: 14%;
+    height: 18vh;
+    max-width: 140px;
+    border-radius: 18px;
+    color: #FFFFFF;
 }
 
-.title{
+.list-preview h4{
     position: absolute;
-    top:20%;
-    text-align: center;
-    width: 100%;
+    top: 10%;
+    left: 5%;
+    text-align: left;
+    font-size: 16px;
 }
