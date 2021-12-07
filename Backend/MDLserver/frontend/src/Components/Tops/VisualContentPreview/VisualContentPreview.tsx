@@ -1,12 +1,12 @@
 import React from 'react'
 import VisualContentPreviewLogic from './VisualContentPreviewLogic'
 import {VisualContent} from '../TopsLogic'
-import './VisualContent.css'
+import './VisualContentPreview.css'
 
 interface Props{
     content: VisualContent;
-    type: "films" | "series";
-    showSheet: (id: string, type: "films" | "series" | "songs") => void;
+    type: "film" | "series";
+    showSheet: (id: string, type: "film" | "series" | "song") => void;
 }
 
 const VisualContentPreview: React.FC<Props> = ({content, type, showSheet}) => {

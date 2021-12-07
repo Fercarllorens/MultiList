@@ -2,17 +2,19 @@ import React, { useEffect } from 'react'
 import TopsLogic from './TopsLogic'
 import './Tops.css'
 import VisualContentPreview from './VisualContentPreview/VisualContentPreview'
+import AudioContentPreview from './AudioContentPreview/AudioContentPreview'
 
 interface Props{
     
 }
 
 const Tops: React.FC = (props) => {
-    const { movies, tv, fetchMovies, fetchTv, showSheet} = TopsLogic()
+    const { movies, tv, songs, fetchMovies, fetchTv, fetchSongs, showSheet} = TopsLogic()
 
     useEffect(() => {
         fetchMovies()
         fetchTv()
+        fetchSongs()
     }, [])
 
     return (
@@ -25,7 +27,7 @@ const Tops: React.FC = (props) => {
                     {
                         movies!==undefined ?
                             movies.map((element, index) => (
-                                <VisualContentPreview content={{id: element.id, img: element.img, name: element.name}} type="films" showSheet={showSheet}/>
+                                <VisualContentPreview content={{id: element.id, img: element.img, name: element.name}} type="film" showSheet={showSheet}/>
                             ))
                         : 'No results'
                     }
@@ -46,6 +48,22 @@ const Tops: React.FC = (props) => {
                         : 'No results'
                     }
                     </>
+
+                </div>
+            </div>
+            <div className="series">
+                Top songs
+                <div className="songs-list">
+
+                <>
+                {
+                    songs!==undefined ?
+                        songs.map((element, index) => (
+                            index<20 && <AudioContentPreview content={{id: element.id, img: element.img, name: element.name, authors: element.authors}} tier={(index+1).toString()} showSheet={showSheet}/>
+                        ))
+                    : 'No results'
+                }
+                </>
 
                 </div>
             </div>

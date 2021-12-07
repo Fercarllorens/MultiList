@@ -4,6 +4,16 @@
     background: linear-gradient(180deg, #0E0E0E 0%, #393838 100%);
     width: 100vw;
     height: 91.8vh;
+    overflow: auto;
+}
+
+.tops-container::-webkit-scrollbar {
+	width: 7px;
+}
+
+.tops-container::-webkit-scrollbar-thumb {
+	background: white;
+	border-radius: 5px;
 }
 
 .movies{
@@ -39,14 +49,16 @@
     line-height: 30px;
 
     color: #FFFFFF;
+
+    margin-bottom: 285px;
 }
 
 .movies-list{
-    width: 90vw;
+    width: 95vw;
     max-height: 276px;
     display: flex;
     overflow-x:auto;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     padding-top: 30px;
     margin-bottom: 40px;
 }
@@ -61,6 +73,27 @@
 }
 
 .movies-list::-webkit-scrollbar-thumb {
+	background: white;
+	border-radius: 5px;
+}
+
+.songs-list{
+    width: 95vw;
+    max-height: 181px;
+    height: 181px;
+    display: flex;
+    overflow-x:auto;
+    padding-bottom: 10px;
+    padding-top: 30px;
+    margin-bottom: 40px;
+}
+
+.songs-list::-webkit-scrollbar {
+	width: 7px;
+    height: 7px;
+}
+
+.songs-list::-webkit-scrollbar-thumb {
 	background: white;
 	border-radius: 5px;
 }
