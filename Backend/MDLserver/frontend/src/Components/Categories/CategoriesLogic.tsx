@@ -22,13 +22,14 @@ interface Type{
 const CategoriesLogic = (props:Props) => {
     
     const [ user, setUser ] =   useState<null | any>(null)
+    const [ userCategories, setUserCategories ] =   useState<null | any[]>(null)
     const [ filmsCategories, setFilmsCategories] = useState<null | any[]>(null)
     const [ filteredFilmsCategories, setFilteredFilmsCategories] = useState<null | any[]>(null)
     const [ seriesCategories, setSeriesCategories] = useState<null | any[]>(null)
     const [ filteredSeriesCategories, setFilteredSeriesCategories] = useState<null | any[]>(null)
     const [ songsCategories, setSongsCategories] = useState<null | any[]>(null)
     const [ filteredSongsCategories, setFilteredSongsCategories] = useState<null | any[]>(null)
-    const [type_selected, setTypeSelected] = useState<Type>({
+    const [ type_selected, setTypeSelected] = useState<Type>({
         
         films_selected: false,
         series_selected: false,
@@ -38,14 +39,16 @@ const CategoriesLogic = (props:Props) => {
 
     const user_id: any = localStorage.getItem('user_id')
 
-    function getData(){
-        fetchHandlerCb(`api/get-user?user_id=${user_id}`, "GET", null, (obj) => setUser(obj))
+    function getUserAndUserCategories(){
+        fetchHandlerCb(`api/get-user?user_id=${user_id}`, "GET", null, (obj) => {
+            setUser(obj);
+            setUserCategories(obj.categories);
+        })       
     }
 
     function getFilmCategories(){
         fetchHandler(`api/get-categories-by-type?type=film`, 'GET', null)
             .then((obj:any) => {
-                console.log(obj)
                 if(obj!==undefined){ 
                     const filmsCategoriesArray = JSON.parse(obj)
                     setFilmsCategories(filmsCategoriesArray)
@@ -100,22 +103,41 @@ const CategoriesLogic = (props:Props) => {
     }
 
     const filterFilmsCategories = (content: string) => {
-        let filmsCategoriesFilteredByContent = filmsCategories != null ? filmsCategories.filter(item => item.name.toLowerCase().includes(content.toLowerCase())) : null
+        let filmsCategoriesFilteredByContent = filmsCategories != null ? filmsCategories.filter(
+            item => item.name.toLowerCase().includes(content.toLowerCase())) : null
         setFilteredFilmsCategories(filmsCategoriesFilteredByContent)
     }
 
     const filterSeriesCategories = (content: string) => {
-        let seriesCategoriesFilteredByContent = seriesCategories != null ? seriesCategories.filter(item => item.name.toLowerCase().includes(content.toLowerCase())) : null
+        let seriesCategoriesFilteredByContent = seriesCategories != null ? seriesCategories.filter(
+            item => item.name.toLowerCase().includes(content.toLowerCase())) : null
         setFilteredSeriesCategories(seriesCategoriesFilteredByContent)
     }
 
     const filterSongsCategories = (content: string) => {
-        let songsCategoriesFilteredByContent = songsCategories != null ? songsCategories.filter(item => item.name.toLowerCase().includes(content.toLowerCase())) : null
+        let songsCategoriesFilteredByContent = songsCategories != null ? songsCategories.filter(
+            item => item.name.toLowerCase().includes(content.toLowerCase())) : null
         setFilteredSongsCategories(songsCategoriesFilteredByContent)
     }
 
+    function updateFilteredCategoriesAfterUserAddition(){
+        getUserAndUserCategories();
+        setFilteredFilmsCategories(filteredFilmsCategories != null ? filteredFilmsCategories.filter((item: { id: any; }) => !userCategories?.includes(item.id)) : null)
+        setFilteredSeriesCategories(filteredSeriesCategories != null ? filteredSeriesCategories.filter((item: { id: any; }) => !userCategories?.includes(item.id)) : null)
+        setFilteredSongsCategories(filteredSongsCategories != null ? filteredSongsCategories.filter((item: { id: any; }) => !userCategories?.includes(item.id)) : null)
+    }
+
+    function addCategory(category:Category){
+        let body = {
+            user_id: user_id,
+            name: category.name,
+            type: category.type
+        }
+        fetchHandlerCb(`api/update-user-categories`, "POST", body, () => {getUserAndUserCategories(); updateFilteredCategoriesAfterUserAddition()})
+    }
+
     return {getFilmCategories, filmsCategories, getSeriesCategories, seriesCategories, getSongsCategories, songsCategories, find, selectType, type_selected, 
-        filteredFilmsCategories, filteredSeriesCategories, filteredSongsCategories}
+        filteredFilmsCategories, filteredSeriesCategories, filteredSongsCategories, getUserAndUserCategories, userCategories, updateFilteredCategoriesAfterUserAddition, addCategory}
 }
 
 export default CategoriesLogic

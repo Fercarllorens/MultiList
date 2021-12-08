@@ -10,9 +10,10 @@ interface Props{
 
 const Categories: React.FC<Props> = (props) => {
     const {getFilmCategories, filmsCategories, getSeriesCategories, seriesCategories, getSongsCategories, songsCategories, find, selectType, type_selected,
-        filteredFilmsCategories, filteredSeriesCategories, filteredSongsCategories} = CategoriesLogic(props)
+        filteredFilmsCategories, filteredSeriesCategories, filteredSongsCategories, getUserAndUserCategories, userCategories} = CategoriesLogic(props)
 
     useEffect(() => {
+        getUserAndUserCategories()
         getFilmCategories()
         getSeriesCategories()
         getSongsCategories()
