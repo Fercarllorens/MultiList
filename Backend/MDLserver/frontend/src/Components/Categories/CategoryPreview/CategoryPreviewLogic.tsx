@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form';
 import { useLocation } from 'react-router';
 import { useHistory } from 'react-router-dom';
 import { fetchHandler, fetchHandlerCb } from '../../fetchHandler'
+import CategoriesLogic from '../../Categories/CategoriesLogic'
 
 interface Category{
     id: string
@@ -15,7 +16,17 @@ const CategoryPreviewLogic = (category:Category) => {
 
     //const [ filmsCategories, setFilmsCategories] = useState<null | any[]>(null)
     const user_id: any = localStorage.getItem('user_id')
+    const [ user, setUser ] =   useState<null | any>(null)
+    const [ userCategories, setUserCategories ] =   useState<null | any[]>(null)
 
+    const {updateFilteredCategoriesAfterUserAddition} = CategoriesLogic(category)
+
+    function getUserAndUserCategories(){
+        fetchHandlerCb(`api/get-user?user_id=${user_id}`, "GET", null, (obj) => {
+            setUser(obj);
+            setUserCategories(obj.categories);
+        })       
+    }
 
     function addCategory(category:Category){
         let body = {
@@ -23,10 +34,10 @@ const CategoryPreviewLogic = (category:Category) => {
             name: category.name,
             type: category.type
         }
-        fetchHandler(`api/update-user-categories`, "POST", body)
+        fetchHandlerCb(`api/update-user-categories`, "POST", body, () => {getUserAndUserCategories(); updateFilteredCategoriesAfterUserAddition()})
     }
 
-    return {addCategory}
+    return {addCategory, getUserAndUserCategories, userCategories}
 }
 
 export default CategoryPreviewLogic
