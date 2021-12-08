@@ -24,9 +24,9 @@ const AudioContentPreview: React.FC<Props> = ({content, tier, showSheet}) => {
                 <div className="song-authors">
                     {content.authors}
                 </div>
-                <div className="song-tier">
+                {/* <div className="song-tier">
                     {tier}
-                </div>
+                </div> */}
             </div>
         </div>
     )

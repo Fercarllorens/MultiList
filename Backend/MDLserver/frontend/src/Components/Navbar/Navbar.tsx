@@ -60,6 +60,9 @@ const Navbar = () => {
           ) : 
             (<></>)
           }
+          <Link className='navbar__link' to='/Tops'>
+            Tops
+          </Link>
           <Link className='navbar__link' to='/MyLists'>
             My Lists
           </Link>
