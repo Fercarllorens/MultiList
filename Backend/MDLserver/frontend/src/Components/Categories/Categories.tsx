@@ -27,13 +27,13 @@ const Categories: React.FC<Props> = (props) => {
             <Filters selectType={selectType} type_selected={type_selected}/>         
             {type_selected.films_selected &&
                     filteredFilmsCategories?.map((element) => (
-                        <div>
+                        <div className="CategoryPreview">
                             <div className="CategoryName">
                                 {element.name}
                             </div>
                             {userCategories?.includes(element.id) ? 
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Green_tick.svg/1200px-Green_tick.svg.png" width="100" height="100"/> :
-                                <input type="image" onClick={()=>{addCategory(element)}} src="https://static.thenounproject.com/png/2453491-200.png" width="100" height="100"/>
+                                <img src="added-button.png" width="25" height="25"/> :
+                                <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="30" height="25"/>
                             }
                         </div>
                         )
@@ -46,8 +46,8 @@ const Categories: React.FC<Props> = (props) => {
                                 {element.name}
                             </div>
                             {userCategories?.includes(element.id) ? 
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Green_tick.svg/1200px-Green_tick.svg.png" width="100" height="100"/> :
-                                <input type="image" onClick={()=>{addCategory(element)}} src="https://static.thenounproject.com/png/2453491-200.png" width="100" height="100"/>
+                                <img src="added-button.png" width="25" height="25"/> :
+                                <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="30" height="25"/>
                             }
                         </div>
                         )
@@ -60,8 +60,8 @@ const Categories: React.FC<Props> = (props) => {
                                 {element.name}
                             </div>
                             {userCategories?.includes(element.id) ? 
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Green_tick.svg/1200px-Green_tick.svg.png" width="100" height="100"/> :
-                                <input type="image" onClick={()=>{addCategory(element)}} src="https://static.thenounproject.com/png/2453491-200.png" width="100" height="100"/>
+                                <img src="added-button.png" width="25" height="25"/> :
+                                <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="30" height="25"/>
                             }
                         </div>
                         )
