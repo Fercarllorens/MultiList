@@ -6,7 +6,9 @@ import Modal from '../Modal/Modal'
 import { Link } from 'react-router-dom'
 
 const Profile = () => {
-  const { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query, follow_user, unfollow_user, followed, show_myFollows, checkFollowed, userStats, barLengths, getStatistics } = ProfileLogic()
+  const { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query, follow_user, unfollow_user, followed, 
+          show_myFollows, checkFollowed, userStats, barLengths, getStatistics, filmsCategories, seriesCategories, songsCategories,
+          getFilmCategories, getSeriesCategories, getSongsCategories } = ProfileLogic()
   //TODO: MODIFICAR CUANDO SE AÑADA EL LOGIN
   useEffect(() => {
     if( uid != localStorage.getItem('user_id')){
@@ -14,6 +16,9 @@ const Profile = () => {
     }
     getUserData()
     getStatistics()
+    getFilmCategories()
+    getSeriesCategories()
+    getSongsCategories()
   }, [])
 
   const styleFinishedFilms = {
@@ -183,6 +188,7 @@ const Profile = () => {
           </tr>         
         </table>
       </div>
+      
       <div className='songs-statistics-bar'>
         <h1> Songs </h1>
         <span className="bar" style={ styleFinishedSongs }></span> 
@@ -200,7 +206,47 @@ const Profile = () => {
             <td><span className="red-dot"/> Dropped: { userStats === undefined ? 0 : userStats[14] } </td>
             <td><span className="grey-dot"/> Plan To Watch: { userStats === undefined ? 0 : userStats[12] }</td>
           </tr>         
-        </table> </div>
+        </table> 
+      </div>
+      <div className = 'user-films-categories'>
+          <h1> User's Film Categories </h1>
+          {
+            filmsCategories?.map((element) => (
+                data?.categories.includes(element.id) ?
+                  <div className="category-name">          
+                      {element.name}
+                  </div> :
+                  <></>
+              )
+          )
+          }
+        </div>
+        <div className = 'user-series-categories'>
+          <h1> User's Series Categories </h1>
+          {
+            seriesCategories?.map((element) => (
+                data?.categories.includes(element.id) ?
+                  <div className="category-name">          
+                      {element.name}
+                  </div> :
+                  <></>
+              )
+          )
+          }
+        </div>
+        <div className = 'user-songs-categories'>
+          <h1> User's Songs Categories </h1>
+          {
+            songsCategories?.map((element) => (
+                data?.categories.includes(element.id) ?
+                  <div className="category-name">          
+                      {element.name}
+                  </div> :
+                  <></>
+              )
+            )
+          }
+        </div>
       <div className='profile-data'>
         <h4>User Info</h4>
         <ul>
@@ -236,8 +282,7 @@ const Profile = () => {
             </button>
           }
         </>
-    }
-    
+    }  
     </div>
   )
 }

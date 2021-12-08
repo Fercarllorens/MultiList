@@ -7,6 +7,7 @@ import { History } from 'history';
 interface Data {
   username: string
   email: string
+  categories: string
 }
 
 const ProfileLogic = () => {
@@ -18,6 +19,9 @@ const ProfileLogic = () => {
   const [userStats, setUserStats] = useState<undefined | Array<number>>(undefined)
   const [barLengths, setBarLengths] = useState<undefined | Array<number>>(undefined)
   const {search} = useLocation()
+  const [ filmsCategories, setFilmsCategories] = useState<null | any[]>(null)
+  const [ seriesCategories, setSeriesCategories] = useState<null | any[]>(null)
+  const [ songsCategories, setSongsCategories] = useState<null | any[]>(null)
   const query = new URLSearchParams(search)
   const id_query: any = query.get('id')
   const my_user: any = localStorage.getItem('user_id')
@@ -156,7 +160,47 @@ const ProfileLogic = () => {
     setBarLengths(barLengths)
   }
 
+  function getCategories() {
+    let url = `http://localhost:8000/api/get-statistics?user_id=${uid}`
+    fetch(url)
+      .then((res) => res.json())
+      .then((json) => calculateBars(json))
+      .catch((err) => console.error(err))
+  }
 
-  return { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query, follow_user, unfollow_user, followed, show_myFollows, checkFollowed, userStats, barLengths, getStatistics }
+  function getFilmCategories(){
+    fetchHandler(`api/get-categories-by-type?type=film`, 'GET', null)
+        .then((obj:any) => {
+            if(obj!==undefined){ 
+                const filmsCategoriesArray = JSON.parse(obj)
+                setFilmsCategories(filmsCategoriesArray)
+            }
+        })
+}
+
+function getSeriesCategories(){
+    fetchHandler(`api/get-categories-by-type?type=series`, 'GET', null)
+        .then((obj:any) => {
+            if(obj!==undefined){ 
+                const seriesCategoriesArray = JSON.parse(obj)
+                setSeriesCategories(seriesCategoriesArray)
+            }
+        })
+}
+
+function getSongsCategories(){
+    fetchHandler(`api/get-categories-by-type?type=song`, 'GET', null)
+        .then((obj:any) => {
+            if(obj!==undefined){ 
+                const songsCategoriesArray = JSON.parse(obj)
+                setSongsCategories(songsCategoriesArray)
+            }
+        })
+}
+
+
+  return { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query, follow_user, unfollow_user, followed, 
+          show_myFollows, checkFollowed, userStats, barLengths, getStatistics, filmsCategories, seriesCategories, songsCategories,
+          getFilmCategories, getSeriesCategories, getSongsCategories }
 }
 export default ProfileLogic
