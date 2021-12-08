@@ -9,3 +9,27 @@
     -webkit-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
     -moz-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
 }
+
+.PictureDiv{
+    float: left;
+    height: 130px;
+    width: 130px;
+    border-radius: 50px;
+    margin-top: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.Picture{
+    border-radius: 10px;
+}
+
+.CategoryName{
+    color: black;
+    font-weight: bold;
+    width: 225px;
+    font-size: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

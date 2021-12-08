@@ -22,7 +22,7 @@ interface Type{
 const CategoriesLogic = (props:Props) => {
     
     const [ user, setUser ] =   useState<null | any>(null)
-    const [ userCategories, setUserCategories ] =   useState<null | any[]>(null)
+    const [ userCategories, setUserCategories ] =   useState<null | any>(null)
     const [ filmsCategories, setFilmsCategories] = useState<null | any[]>(null)
     const [ filteredFilmsCategories, setFilteredFilmsCategories] = useState<null | any[]>(null)
     const [ seriesCategories, setSeriesCategories] = useState<null | any[]>(null)
@@ -79,6 +79,12 @@ const CategoriesLogic = (props:Props) => {
             })
     }
 
+    function updateUserCategories(categories: any){
+        console.log(userCategories)
+        setUserCategories(categories);
+        setTimeout(() => console.log(userCategories), 2000)
+    }
+
     const find = (e: any, content: string) => {
         var keycode = (e.keyCode ? e.keyCode : e.which);
         if (keycode == '13') {
@@ -120,24 +126,23 @@ const CategoriesLogic = (props:Props) => {
         setFilteredSongsCategories(songsCategoriesFilteredByContent)
     }
 
-    function updateFilteredCategoriesAfterUserAddition(){
-        getUserAndUserCategories();
-        setFilteredFilmsCategories(filteredFilmsCategories != null ? filteredFilmsCategories.filter((item: { id: any; }) => !userCategories?.includes(item.id)) : null)
-        setFilteredSeriesCategories(filteredSeriesCategories != null ? filteredSeriesCategories.filter((item: { id: any; }) => !userCategories?.includes(item.id)) : null)
-        setFilteredSongsCategories(filteredSongsCategories != null ? filteredSongsCategories.filter((item: { id: any; }) => !userCategories?.includes(item.id)) : null)
-    }
-
     function addCategory(category:Category){
         let body = {
             user_id: user_id,
             name: category.name,
             type: category.type
         }
-        fetchHandlerCb(`api/update-user-categories`, "POST", body, () => {getUserAndUserCategories(); updateFilteredCategoriesAfterUserAddition()})
+
+        let newUserCategories = userCategories?.slice(0, -1) + ', ' + category.id + ']'
+        
+        fetchHandlerCb(`api/update-user-categories`, "POST", body, () => {
+            setUserCategories(newUserCategories);
+            updateUserCategories(newUserCategories);
+        })
     }
 
     return {getFilmCategories, filmsCategories, getSeriesCategories, seriesCategories, getSongsCategories, songsCategories, find, selectType, type_selected, 
-        filteredFilmsCategories, filteredSeriesCategories, filteredSongsCategories, getUserAndUserCategories, userCategories, updateFilteredCategoriesAfterUserAddition, addCategory}
+        filteredFilmsCategories, filteredSeriesCategories, filteredSongsCategories, getUserAndUserCategories, userCategories, updateUserCategories, addCategory}
 }
 
 export default CategoriesLogic
