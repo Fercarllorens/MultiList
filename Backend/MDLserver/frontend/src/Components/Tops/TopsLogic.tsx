@@ -36,7 +36,6 @@ const ComponentNameLogic = () => {
     }
 
     const processMovies = (json: any) => {
-        setMovies(undefined);
         const { results } = json != null ?  json : ''
         let movie_list: Array<any> = results != null ? results : []
         let res: Array<VisualContent> = []
@@ -56,7 +55,6 @@ const ComponentNameLogic = () => {
     }
 
     const processTv = (json: any) => {
-        setMovies(undefined);
         const { results } = json != null ?  json : ''
         let movie_list: Array<any> = results != null ? results : []
         let res: Array<VisualContent> = []
@@ -76,7 +74,6 @@ const ComponentNameLogic = () => {
     }
 
     const processSongs = (json: any) => {
-        setSongs(undefined)
         const { tracks } = json != null ?  json : ''
         let track_list: Array<any> = tracks.items != null ? tracks.items : []
         let res: Array<AudioContent> = []

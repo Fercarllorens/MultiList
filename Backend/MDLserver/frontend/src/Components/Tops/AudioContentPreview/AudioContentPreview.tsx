@@ -5,7 +5,7 @@ import './AudioContentPreview.css'
 
 interface Props{
     content: AudioContent;
-    tier: string;
+    tier?: string;
     //showSheet: (id: string, type: "film" | "series" | "song") => void;
 }
 
@@ -32,3 +32,34 @@ const AudioContentPreview: React.FC<Props> = ({content, tier}) => {
     )
 }
 export default AudioContentPreview
+
+
+
+// import './contentPreview.css'
+
+// interface no_item{
+//     type: number;
+//     id: string;
+// }
+
+// interface Props {
+//     item: no_item | any;
+// }
+
+// const ContentPreview: React.FC<Props> = (props:Props) => {
+//     const {getData} = ...Logic(props)
+//     useEffect(() => {getData()})
+
+//     switch(props.type){
+//         // 1 == type Film & Serie
+//         case 1:
+//             return <videoPreview />
+//             break;
+//         // 2 == type audio
+//         case 2: 
+//             return <AudioContentPreview />
+//             break; 
+//         default:
+//             return <></>
+//     }
+// }

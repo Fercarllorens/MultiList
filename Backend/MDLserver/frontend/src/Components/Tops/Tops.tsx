@@ -3,6 +3,7 @@ import TopsLogic from './TopsLogic'
 import './Tops.css'
 import VisualContentPreview from './VisualContentPreview/VisualContentPreview'
 import AudioContentPreview from './AudioContentPreview/AudioContentPreview'
+import ContentPreview from './ContentPreview/ContentPreview'
 
 interface Props{
     
@@ -25,9 +26,9 @@ const Tops: React.FC = (props) => {
 
                     <>
                     {
-                        movies!==undefined ?
+                        movies?
                             movies.map((element, index) => (
-                                <VisualContentPreview content={{id: element.id, img: element.img, name: element.name}} type="film"/>
+                                <VisualContentPreview key={index} content={{id: element.id, img: element.img, name: element.name}} type="film"/>
                             ))
                         : 'No results'
                     }
@@ -41,9 +42,9 @@ const Tops: React.FC = (props) => {
 
                     <>
                     {
-                        tv!==undefined ?
-                            tv.map((element) => (
-                                <VisualContentPreview content={{id: element.id, img: element.img, name: element.name}} type="series"/>
+                        tv?
+                            tv.map((element, index) => (
+                                <VisualContentPreview key={index} content={{id: element.id, img: element.img, name: element.name}} type="series"/>
                             ))
                         : 'No results'
                     }
@@ -57,9 +58,10 @@ const Tops: React.FC = (props) => {
 
                 <>
                 {
-                    songs!==undefined ?
+                    songs?
                         songs.map((element, index) => (
-                            index<20 && <AudioContentPreview content={{id: element.id, img: element.img, name: element.name, authors: element.authors}} tier={(index+1).toString()}/>
+                            index<20 && 
+                            <AudioContentPreview key={index} content={{id: element.id, img: element.img, name: element.name, authors: element.authors}} tier={(index+1).toString()}/>
                         ))
                     : 'No results'
                 }

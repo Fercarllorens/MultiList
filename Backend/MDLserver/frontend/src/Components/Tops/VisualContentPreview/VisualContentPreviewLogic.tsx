@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-const ComponentNameLogic = () => {
+const VisualContentLogic = () => {
 
     let history = useHistory()
 
@@ -14,4 +14,4 @@ const ComponentNameLogic = () => {
 
     return { showSheet }
 }
-export default ComponentNameLogic
+export default VisualContentLogic
