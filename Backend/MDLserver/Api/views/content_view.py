@@ -44,11 +44,9 @@ class GetContent(APIView):
 
 
 class GetContentArray(APIView):
-    def post(self, request, format=None):
-        obj = request.data["list"]
-        print("ITEM", obj)
-        content_list = [MultimediaContent.objects.get(external_id=i) for i in obj]
-        print("LIST", content_list)
+    def get(self, request, format=None):
+        content_ids = json.loads(request.GET['list'])['items']
+        content_list = [MultimediaContent.objects.get(external_id=i) for i in content_ids]
         return Response(json.dumps([model_to_dict(item) for item in content_list]))
 
 

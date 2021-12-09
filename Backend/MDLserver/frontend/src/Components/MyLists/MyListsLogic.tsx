@@ -11,55 +11,46 @@ interface User {
 }
 
 const MyListsLogic = () => {
-    const [lists, setLists] = useState<null | any[]>(null)
-    const [selectedList, setSelectedList] = useState<null | any[]>(null)
+    const [lists, setLists] = useState<any[]>([])
+    const [selectedList, setSelectedList] = useState<any[]>([])
     const [filter, setFilter] = useState<null | string>(null)
 
     let userId: string | null = localStorage.getItem('user_id')
-    let url = `http://localhost:8000/api/get-user?user_id=${userId}`
 
     function getData() {
+        let url = `http://localhost:8000/api/get-user-lists?user_id=${userId}`
         fetch(url)
             .then((res) => { return res ? res.json() : res })
             .then((json) => {
                 if (json) {
-                    getList(json)
+                    let parsed_json = JSON.parse(json);
+                    setLists(parsed_json);
+                    setSelectedList(parsed_json);
                 }
             })
             .catch((err) => console.error(err))
     }
 
-    function getList(user: any) {
-        if (user == null) return
-        // Parse user lists ( JSON ARRAY ) to an actual array
-        let listsIds: any[] = JSON.parse(user.lists)
-        // For each list id, get the list contents
-        let lists_arr: any[] = []
-        listsIds.forEach((list_id) => {
-            let url = `http://localhost:8000/api/get-list?id=${list_id}`
-            fetch(url)
-                .then(res => { return res ? res.json() : res })
-                .then(json => { lists_arr.push(json) })
-                .catch(err => { console.error(err) })
-        })
-        setLists(lists_arr);
-        setSelectedList(lists_arr);
-    }
-
     function handleFilters(e: any) {
         if (lists == null) return
         let current_filter = e.currentTarget.innerHTML.toLowerCase()
-        setFilter(current_filter)
         let new_list: any[] = []
+
+        if (filter == current_filter) {
+            setSelectedList(lists)
+            setFilter(null)
+            return
+        }
+
+        setFilter(current_filter)
         lists.forEach(list => {
             if (list.type === current_filter) new_list.push(list)
         })
         setSelectedList(new_list)
     }
 
-    return { lists, selectedList, getData, filter, handleFilters }
+    return { selectedList, getData, filter, handleFilters, lists }
 }
-
 
 
 export default MyListsLogic

@@ -1,5 +1,4 @@
 .mylist-content{
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
 }
@@ -44,14 +43,14 @@
 }
 
 .mylist-list_container{
-    background: red;
-    overflow-y: auto;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
     scrollbar-width: thin;
     scrollbar-color: #FE795B transparent;
-    display: flex;
-    
 }
 
 .mylist-list_container::-webkit-scrollbar{

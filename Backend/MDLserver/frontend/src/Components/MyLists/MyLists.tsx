@@ -4,7 +4,7 @@ import ListPreview from "../ListPreview/ListPreview";
 import './MyLists.css'
 
 const MyLists: React.FC = () => {
-    const { selectedList, getData, filter, handleFilters } = MyListsLogic()
+    const { selectedList, getData, filter, handleFilters, lists } = MyListsLogic()
 
     useEffect(() => {
         getData()
@@ -20,10 +20,9 @@ const MyLists: React.FC = () => {
             <div className="mylist-line"></div>
             <div className="mylist-list_container">
                 {
-                    selectedList && (
-                        selectedList.map((item) => {
-                            return (<ListPreview {...item} />)
-                        }))
+                    selectedList?.map((item, index) => {
+                        return (<ListPreview {...item} key={index} />)
+                    })
                 }
             </div>
         </div >
