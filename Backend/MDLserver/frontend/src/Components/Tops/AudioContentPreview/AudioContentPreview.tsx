@@ -6,11 +6,11 @@ import './AudioContentPreview.css'
 interface Props{
     content: AudioContent;
     tier: string;
-    showSheet: (id: string, type: "film" | "series" | "song") => void;
+    //showSheet: (id: string, type: "film" | "series" | "song") => void;
 }
 
-const AudioContentPreview: React.FC<Props> = ({content, tier, showSheet}) => {
-    const {} = AudioContentPreviewLogic()
+const AudioContentPreview: React.FC<Props> = ({content, tier}) => {
+    const { showSheet } = AudioContentPreviewLogic()
 
     return (
         <div className="preview-container" onClick={() => {showSheet(content.id.toString(), "song")}}>

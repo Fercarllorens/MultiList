@@ -27,7 +27,7 @@ const Tops: React.FC = (props) => {
                     {
                         movies!==undefined ?
                             movies.map((element, index) => (
-                                <VisualContentPreview content={{id: element.id, img: element.img, name: element.name}} type="film" showSheet={showSheet}/>
+                                <VisualContentPreview content={{id: element.id, img: element.img, name: element.name}} type="film"/>
                             ))
                         : 'No results'
                     }
@@ -43,7 +43,7 @@ const Tops: React.FC = (props) => {
                     {
                         tv!==undefined ?
                             tv.map((element) => (
-                                <VisualContentPreview content={{id: element.id, img: element.img, name: element.name}} type="series" showSheet={showSheet}/>
+                                <VisualContentPreview content={{id: element.id, img: element.img, name: element.name}} type="series"/>
                             ))
                         : 'No results'
                     }
@@ -59,7 +59,7 @@ const Tops: React.FC = (props) => {
                 {
                     songs!==undefined ?
                         songs.map((element, index) => (
-                            index<20 && <AudioContentPreview content={{id: element.id, img: element.img, name: element.name, authors: element.authors}} tier={(index+1).toString()} showSheet={showSheet}/>
+                            index<20 && <AudioContentPreview content={{id: element.id, img: element.img, name: element.name, authors: element.authors}} tier={(index+1).toString()}/>
                         ))
                     : 'No results'
                 }

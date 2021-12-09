@@ -6,11 +6,11 @@ import './VisualContentPreview.css'
 interface Props{
     content: VisualContent;
     type: "film" | "series";
-    showSheet: (id: string, type: "film" | "series" | "song") => void;
+    //showSheet: (id: string, type: "film" | "series" | "song") => void;
 }
 
-const VisualContentPreview: React.FC<Props> = ({content, type, showSheet}) => {
-    const {} = VisualContentPreviewLogic()
+const VisualContentPreview: React.FC<Props> = ({content, type}) => {
+    const {showSheet} = VisualContentPreviewLogic()
 
     return (
         <div className="content" onClick={() => {showSheet(content.id.toString(), type)}}>
