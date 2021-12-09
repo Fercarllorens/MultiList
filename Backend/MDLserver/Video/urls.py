@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import GetById, GetByQuery, GetMovie, GetPeople, GetShow, GetMovieCredits, GetShowCredits, GetMovieById, GetShowById, GetMovieTrailer, GetShowTrailer
+from .views import GetById, GetByQuery, GetMovie, GetPeople, GetShow, GetMovieCredits, GetShowCredits, GetMovieById, GetShowById, GetMovieTrailer, GetShowTrailer, GetTops
 
 urlpatterns = [
     path("get-by-id", GetById.as_view()),
@@ -13,4 +13,5 @@ urlpatterns = [
     path("get-show-credits", GetShowCredits.as_view()),
     path("get-film-trailer", GetMovieTrailer.as_view()),
     path("get-show-trailer", GetShowTrailer.as_view()),
+    path("get-tops", GetTops.as_view())
 ]

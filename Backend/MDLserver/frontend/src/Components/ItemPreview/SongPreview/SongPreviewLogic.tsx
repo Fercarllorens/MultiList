@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
 
-const ComponentNameLogic = () => {
+const SongPreviewLogic = () => {
     const user_id : string | null = localStorage.getItem('user_id') 
     const base_url = 'http://127.0.0.1:8000/'
     let history = useHistory()
@@ -17,4 +17,4 @@ const ComponentNameLogic = () => {
 
     return {show_song}
 }
-export default ComponentNameLogic
+export default SongPreviewLogic

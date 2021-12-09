@@ -17,6 +17,7 @@ import './App.css'
 import { fetchHandler } from './Components/fetchHandler'
 import Artist from './Components/Artist/Artist'
 import MyFollowsLogic from './Components/MyFollows/MyFollowsLogic'
+import Tops from './Components/Tops/Tops'
 
 function App() {
   
@@ -39,6 +40,7 @@ function App() {
         <PrivateRoute path='/MyLists' component={MyLists} />
         <PrivateRoute path='/List' component={ListContent} />
         <Route path='/Artist' component={Artist} />
+        <Route path='/Tops' component={Tops} />
         <PrivateRoute path='/SearchUsers' component={UserFinder} />
         <PrivateRoute path='/Cast' component={Casting} />
         <PrivateRoute path='/' component={Finder} />
