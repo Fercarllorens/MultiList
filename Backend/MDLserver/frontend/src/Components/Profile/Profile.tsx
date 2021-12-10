@@ -212,7 +212,7 @@ const Profile = () => {
           <h1> User's Film Categories </h1>
           {
             filmsCategories?.map((element) => (
-                data?.categories.includes(element.id) ?
+                data?.categories?.includes(element.id) ?
                   <div className="category-name">          
                       {element.name}
                   </div> :
@@ -225,7 +225,7 @@ const Profile = () => {
           <h1> User's Series Categories </h1>
           {
             seriesCategories?.map((element) => (
-                data?.categories.includes(element.id) ?
+                data?.categories?.includes(element.id) ?
                   <div className="category-name">          
                       {element.name}
                   </div> :
@@ -238,7 +238,7 @@ const Profile = () => {
           <h1> User's Songs Categories </h1>
           {
             songsCategories?.map((element) => (
-                data?.categories.includes(element.id) ?
+                data?.categories?.includes(element.id) ?
                   <div className="category-name">          
                       {element.name}
                   </div> :
