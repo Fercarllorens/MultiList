@@ -1,83 +1,78 @@
-.SongPreviewContainer{
-    background: white;
-    height: 180px;
-    /* width: 430px; */
-    width: 45.26%;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
-    box-shadow: -4px 6px 5px #4c4848;
+.preview-container{
+    margin-top: 40px;
+    min-width: 386px;
+    height: 155px;
+    left: 42px;
+    top: 1238px;
+
+    background: #171717;
+    box-shadow: 0px 0px 19px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 18px;
+
     float: left;
-    margin-right: 40px;
-    margin-bottom: 35px;
+    margin-right: 53px;
+    cursor: pointer;
 }
 
-.PictureDiv{
-    float: left;
-    height: 130px;
-    width: 130px;
-    border-radius: 50px;
-    margin-top: 25px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-.Picture{
-    border-radius: 10px;
-}
-
-.SongInfo{
-    margin-top: 10px;
-    float: left;
-    width: 52.72%;
-}
-
-.SongName{
-    color: rgb(127 118 220);
-    font-weight: bold;
-    border-bottom: 3px solid black;
-    /* width: 225px; */
+.song-image{
     width: 100%;
-    font-size: 20px;
+    height: 100%;
+}
+
+.image-container{
+    position: relative;
+    width: 170.95px;
+    height: 155px;
+    overflow: hidden;
+    box-shadow: 0px 0px 19px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 18px;
+    float: left;
+}
+
+.song-info{
+    margin-left: 200px;
+    margin-top: 18px;
+}
+
+.song-name{
+    width: 140px;
+    height: 22px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+
+    color: #FFFFFF;
+
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-.SongAuthor{
-    color: rgb(127 118 220);
-    border-bottom: 1px solid black;
-    /* width: 150px; */
-    width: 66.67%;
-    margin-top: 20px;
-    /* margin-left: 15px; */
-    margin-left: 6.67%;
+.song-authors{
+    width: 136px;
+    height: 22px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+
+    color: #FFFFFF;
+
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-.SongDate{
-    color: rgb(127 118 220);
-    border-bottom: 1px solid black;
-    /* width: 100px; */
-    width: 44.44%;
-    margin-top: 10px;
-    /* margin-left: 125px; */
-    margin-left: 55.56%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
+.song-tier{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 110.265px;
+    line-height: 90px;
+    height: 84px;
+    width: 180px;
 
-.SongGenre{
-    color: rgb(127 118 220);
-    border-bottom: 1px solid black;
-    /* width: 100px; */
-    width: 44.44%;
-    margin-top: 10px;
-    /* margin-left: 30px; */
-    margin-left: 13.33%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    color: #FFFFFF;
+
+    text-align: right;
 }
