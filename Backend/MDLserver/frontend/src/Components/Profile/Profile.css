@@ -1,64 +1,87 @@
 .profile-container {
-  position: fixed;
-  margin: 50px;
-  width: 80vw;
-  height: 80vh;
-  background: #8d86c9;
-  box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
-  -webkit-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 100vh;
+  background: none;
+  display: flex;
+  flex-direction: row;
 }
 
 .profile-pic {
-  top: 3rem;
-  left: 40px;
-  width: 18rem;
-  height: 18rem;
-  position: absolute;
+  border-radius: 200px;
+  min-width: 180px;
+  min-height: 180px;
+  height: 20%;
+  width: 20%;
 }
 
 .profile-data {
-  bottom: 3rem;
-  left: 40px;
-  width: 18rem;
-  position: absolute;
+  margin-top: 2%;
+  margin-left: 2%;
+  height: 240px;
+  display: flex;
+  min-width: 400px;
+  width: 20%;
+}
+
+.profile-data-contents h2{
+  border-bottom: 1px solid white;
+  width: 180%;
+  height: 30px;
+}
+
+.profile-data-contents{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 
 .profile-settings {
-  top: 3rem;
-  right: 40px;
-  width: 18rem;
-  position: absolute;
-}
-
-.profile-linked-accounts{
-  bottom: 3rem;
-  right: 40px;
-  width: 18rem;
-  position: absolute;
-}
-
-.profile-data h4,
-.profile-settings h4,
-.profile-linked-accounts h4 {
+  margin-left: 3%;
+  background: #FE795B;
+  padding: 5px;
   text-align: center;
-}
-
-.update-profile{
-  text-decoration: underline;
-  background-color: white;
-  text-align: center;
-  box-shadow: rgba(0,0,0,.4) -2px 2px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 1px #FE795B80;
+  border-style: none;
   cursor: pointer;
 }
 
-.profile-linked-spotify{
-  background: rgb(41, 177, 41);
-  width: 8rem;
-  padding: 4px;
-  border-radius: 2px;
+.profile-settings:hover{
+  background-color: #FE795B80;
+  color: #F7ECE1;
+  cursor: pointer;
+}
+
+.profile-linked-accounts{
+  display: flex;
+  flex-direction: column;
+  margin-left: 15%;
+}
+
+.profile-user-options{
+  margin-top: 5%;
+  margin-left: 16%;
+  min-width: 200px;
+  display: flex;
+  flex-direction: row;
   text-align: center;
-  box-shadow: -4px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.profile-linked-acc{
+  margin-top: 12px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  border-style: none;
+}
+
+.spotify{
+  background: rgb(41, 177, 41);
+  box-shadow: 0px 0px 20px 1px rgba(41, 177, 41, 0.568);
+}
+
+.spotify:hover{
+  background: 0px 0px 20px 1px rgba(41, 177, 41, 0.568);
 }
 
 .follow-btn{
@@ -68,83 +91,30 @@
 }
 
 .my-follows-btn{
-  position: absolute;
-  top: 40%;
-  right: 5%;
-  background-color: white;
+  background: #FE795B;
   border: 1px solid black;
-  box-shadow: -4px 4px 4px 0px rgba(0, 0, 0, 0.25);
   text-decoration: none;
-  color: black;
-}
-
-.film-statistics-bar{
-  width: 500px;
-  height: 15px;
+  color: white;
+  padding: 1px 5px 1px 5px;
   border-radius: 10px;
-  position: absolute;
-  top: 3rem;
-  right: 30rem;
+  box-shadow: 0px 0px 20px 1px #FE795B80;
+  border-style: none;
 }
 
-.series-statistics-bar{
-  width: 500px;
-  height: 15px;
-  border-radius: 10px;
-  position: absolute;
-  top: 17rem;
-  right: 30rem;
+.my-follows-btn:hover{
+  background-color: #FE795B80;
+  color: #F7ECE1;
+  cursor: pointer;
 }
 
-.songs-statistics-bar{
-  width: 500px;
-  height: 15px;
-  border-radius: 10px;
-  position: absolute;
-  top: 32rem;
-  right: 30rem;
+.profile-statistics-container{
+  margin-left: 20%;
+  margin-top: 2%;
 }
 
-.bar{
-  display: inline-block;
-}
-
-.blue-dot {
-  height: 10px;
-  width: 10px;
-  background-color: blue;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.green-dot {
-  height: 10px;
-  width: 10px;
-  background-color: green;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.yellow-dot {
-  height: 10px;
-  width: 10px;
-  background-color: yellow;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.red-dot {
-  height: 10px;
-  width: 10px;
-  background-color: red;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.grey-dot {
-  height: 10px;
-  width: 10px;
-  background-color: grey;
-  border-radius: 50%;
-  display: inline-block;
+.profile-statistics-line {
+  border-bottom: 1px solid white;
+  width: 100%;
+  margin-bottom: 3%;
+  margin-top: 1%;
 }
