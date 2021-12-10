@@ -1,6 +1,6 @@
 import React from 'react'
 import SongPreviewLogic from './SongPreviewLogic'
-import './SongPreview.css'
+import '../ContentPreview.css'
 
 interface Song{
     name: string;
