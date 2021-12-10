@@ -1,17 +1,27 @@
-.FindFilmsContainer{
+.FindSongsContainer{
     margin-top: 30px;
     padding-left: 20px;
     padding-right: 20px;
-    height: 550px;
-    width: 950px;
+    /* height: 550px; */
+    height: 86%;
+    /* width: 950px; */
+    width: 100%;
     overflow: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-color: #FE795B transparent
 }
 
-.FindFilmsContainer::-webkit-scrollbar {
-	width: 7px;
+
+
+.FinderContainer::-webkit-scrollbar{
+    width: thin;
 }
 
-.FindFilmsContainer::-webkit-scrollbar-thumb {
-	background: white;
-	border-radius: 5px;
+.FinderContainer::-webkit-scrollbar-track{
+    color: #FE795B;
+}
+
+.FinderContainer::-webkit-scrollbar-thumb{
+    color: #FE795B;
 }

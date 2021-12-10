@@ -1,6 +1,6 @@
 import React from 'react'
 import SongPreviewLogic from './SongPreviewLogic'
-import '../ContentPreview.css'
+import './SongPreview.css'
 
 interface Song{
     name: string;
@@ -21,21 +21,21 @@ const SongPreview: React.FC<Props> = ({song}) => {
     const {show_song} = SongPreviewLogic()
 
     return (
-        <div className="SongPreviewContainer" onClick={() => {show_song(song.id)}}>
-            <div className="PictureDiv">
-                <img className="Picture" src={song.img} height="130" width="130"></img>
+        <div className="preview-container" onClick={() => {show_song(song.id)}}>
+            <div className="image-container">
+                <img className="song-image" src={song.img} height="130" width="130"></img>
             </div>
             <div className="SongInfo">
-                <div className="SongName">
+                <div className="song-name">
                     {song.name}
                 </div>
-                <div className="SongAuthor">
+                <div className="song-authors">
                     {song.authors}
                 </div>
-                <div className="SongDate">
+                {/* <div className="SongDate">
                     {song.date}
-                </div>
-                <div className="SongGenre">
+                </div> */}
+                <div className="song-info">
                     {song.genres}
                 </div>
             </div>
