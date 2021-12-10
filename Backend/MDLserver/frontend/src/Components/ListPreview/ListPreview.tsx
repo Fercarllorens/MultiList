@@ -1,27 +1,16 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import './ListPreview.css'
-import ListPreviewLogic from "./ListPreviewLogic";
+import ListPreviewLogic, { Props } from "./ListPreviewLogic";
 import { Link } from 'react-router-dom'
-interface Props{
-    id: string;
-}
-
-interface List{
-    id: number
-    name: string
-    type: string
-    contents: string[]
-    user_id: string
-}
 
 const ListPreview: React.FC<Props> = (props) => {
-    const {list, getData, show_list} = ListPreviewLogic(props)
-    useEffect(() => {
-        getData()
-     }, [])
-    return(
-        <div className="list" onClick={() => {show_list(list? list.id: 100000000000000)}}>
-            <h4 className="title"> {list != null? list.name : ""} </h4>
+    const { show_list, backgrounds } = ListPreviewLogic(props)
+
+    return props && (
+        <div className="list-preview"
+            style={{ backgroundColor: backgrounds[props.type] }}
+            onClick={() => { show_list(props.id) }}>
+            <h4> {props.name} </h4>
         </div>
     )
 }

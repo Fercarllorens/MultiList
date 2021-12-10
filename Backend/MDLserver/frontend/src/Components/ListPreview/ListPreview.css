@@ -1,18 +1,27 @@
-.list{
+.list-preview{
     position:relative;
-    margin-top:20px;
-    width:40%;
-    margin-left: auto;
-    margin-right: auto;
-    height:100px;
-    background-color: white;
-    box-shadow: rgba(0,0,0,.4) -5px 5px;
-    color: black;
+    float: left;
+    margin-top: 2%;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    width: 14%;
+    height: 18vh;
+    max-width: 140px;
+    min-width: 120px;
+    border-radius: 18px;
+    color: #FFFFFF;
+    transition: all .2s ease-in-out;
 }
 
-.title{
+.list-preview h4{
     position: absolute;
-    top:20%;
-    text-align: center;
-    width: 100%;
+    top: 10%;
+    left: 5%;
+    text-align: left;
+    font-size: 16px;
+}
+
+.list-preview:hover{
+    transform: scale(1.1);
+    box-shadow: 0px 0px 10px 5px #fe795ba9;
 }

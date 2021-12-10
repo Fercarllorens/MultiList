@@ -31,8 +31,9 @@ function App() {
       <Navbar />
       <Switch>
         {/*Todo las rutas que haya que meter, se meten aqui como una Route*/}
-        <Route exact path='/login' component={Login} />
+        <Route exact path='/' component={LandingPage} />
         <Route exact path='/register' component={Register} />
+        <Route exact path='/login' component={Login} />
         <PrivateRoute path='/Spotify' component={Spotify} />
         <Route path='/MultimediaContent' component={MultimediaContent} />
         <PrivateRoute path='/profile' component={Profile} />
@@ -42,8 +43,7 @@ function App() {
         <Route path='/Artist' component={Artist} />
         <PrivateRoute path='/SearchUsers' component={UserFinder} />
         <PrivateRoute path='/Cast' component={Casting} />
-        <PrivateRoute path='/' component={Finder} />
-        <Route exact path='/' component={LandingPage} />
+        <PrivateRoute path='/Finder' component={Finder} />
         <Route path="*" component={() => { return <div>404 NOT FOUND</div> }} />
       </Switch>
     </Router>

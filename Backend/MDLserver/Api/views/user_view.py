@@ -99,9 +99,7 @@ class PutUser(APIView):
 class GetUserArray(APIView):
     def post(self, request, format=None):
         obj = request.data["list"]
-        print("ITEM", obj)
         content_list = [User.objects.get(id=i) for i in obj]
-        print("LIST", content_list)
         return Response(json.dumps([model_to_dict(item) for item in content_list]))
 
 class UpdateUserLists(APIView):
