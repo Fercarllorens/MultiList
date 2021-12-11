@@ -42,7 +42,10 @@ const ProfileLogic = () => {
     let url = `http://localhost:8000/api/get-user?user_id=${uid}`
     fetch(url)
       .then((res) => res.json())
-      .then((json) => { setData(json) })
+      .then((json) => {
+        setData(json)
+
+      })
       .catch((err) => console.error(err))
 
     fetchHandler(`spotify/is-auth?user_id=${uid}`, 'GET', null)
