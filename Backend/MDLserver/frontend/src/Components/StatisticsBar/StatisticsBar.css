@@ -1,12 +1,48 @@
+.bar-holder{
+    margin-top: 40px;
+}
 .bar{
     display: inline-block;
     height: 17px;
-    border-radius: 10px;
 }
 
-.dot{
-    border-radius: 50%;
-    display: inline-block;
-    height: 10px;
-    width: 10px;
+.bar:hover{
+    transform: scale(1.1);
 }
+
+.text{    
+    display: block;
+    margin-top: 30px;
+    margin-right: 20px;
+}
+
+.text-holder{
+    display: flex;
+    flex-direction: row;
+}
+
+.bar-holder:nth-child(0):hover > .text-holder:nth-child(0) {
+    display: block;
+    color: red;
+}
+
+.bar-holder:nth-child(1):hover > .text-holder:nth-child(1) {
+    display: block;
+    color: red;
+}
+
+.bar-holder:nth-child(2):hover > .text-holder:nth-child(2) {
+    display: block;
+    color: red;
+}
+
+.bar-holder:nth-child(3):hover > .text-holder:nth-child(3) {
+    display: block;
+    color: red;
+}
+
+.bar-holder:nth-child(4):hover > .text-holder:nth-child(4) {
+    display: block;
+    color: red;
+}
+

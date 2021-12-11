@@ -8,7 +8,7 @@ interface Props {
 }
 
 function StatisticsBar(props: Props): ReactElement {
-    const barTotalPx = 500
+    const barTotalPx = 550
     let statistics: any = {
         //STATE: [CUANTITY, BARLENGTH]
         "Watching": [0, 10],
@@ -29,56 +29,96 @@ function StatisticsBar(props: Props): ReactElement {
         }
     }
 
+    function calculateBarRadius(arr: string[]): number{
+        let ret = 10
+        arr.forEach(str => {
+            if (statistics[str][0] != 0) ret = 0
+        })
+        return ret
+    }
+
+
     //Calculate bars on load since it will be static, can be modified into states if statistics need to be dynamic
     calculateBars()
-
+    // Vars used to calculate the bar radius, 0 if another bar exists, 10 if its the only bar, or is the first/last one
+    let bar_radius_left;
+    let bar_radius_right = calculateBarRadius(["Watching", "On hold", "Droped", "Planning to view"]);
     const finished_style = {
-        backgroundColor: 'blue',
+        backgroundColor: "#DCDCDC",
         width: statistics["Finished"][1],
-    };
-
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderTopRightRadius: bar_radius_right,
+        borderBottomRightRadius: bar_radius_right
+    };    
+    
+    bar_radius_left = calculateBarRadius(["Finished"])
+    bar_radius_right = calculateBarRadius(["On hold", "Droped", "Planning to view"])
     const watching_style = {
-        backgroundColor: 'green',
+        backgroundColor: '#978172',
         width: statistics["Watching"][1],
+        borderTopLeftRadius: bar_radius_left,
+        borderBottomLeftRadius: bar_radius_left,
+        borderTopRightRadius: bar_radius_right,
+        borderBottomRightRadius: bar_radius_right
     };
 
+    bar_radius_left = calculateBarRadius(["Finished", "Watching"])
+    bar_radius_right = calculateBarRadius(["Droped", "Planning to view"])
     const onhold_style = {
-        backgroundColor: 'yellow',
+        backgroundColor: '#E9C2A7',
         width: statistics["On hold"][1],
+        borderTopLeftRadius: bar_radius_left,
+        borderBottomLeftRadius: bar_radius_left,
+        borderTopRightRadius: bar_radius_right,
+        borderBottomRightRadius: bar_radius_right
     };
 
+    bar_radius_left = calculateBarRadius(["Finished", "Watching", "On hold"])
+    bar_radius_right = calculateBarRadius(["Planning to view"])
     const dropped_style = {
-        backgroundColor: 'red',
+        backgroundColor: '#D8844A',
         width: statistics["Droped"][1],
+        borderTopLeftRadius: bar_radius_left,
+        borderBottomLeftRadius: bar_radius_left,
+        borderTopRightRadius: bar_radius_right,
+        borderBottomRightRadius: bar_radius_right
     };
 
+    bar_radius_left = calculateBarRadius(["Finished", "Watching", "On hold", "Droped"])
     const ptw_style = {
-        backgroundColor: 'grey',
+        backgroundColor: "#D86313",
         width: statistics["Planning to view"][1],
+        borderTopLeftRadius: bar_radius_left,
+        borderBottomLeftRadius: bar_radius_left,
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10
     };
 
     return (
-        <div className='film-statistics-bar'>
-            <h1> {props.name} </h1>
-            <span className="bar" style={finished_style}></span>
-            <span className="bar" style={watching_style}></span>
-            <span className="bar" style={onhold_style}></span>
-            <span className="bar" style={dropped_style}></span>
-            <span className="bar" style={ptw_style}></span>
-            <table>
-                <tr>
-                    <td><span className="dot" style={{ backgroundColor: "blue" }} /> Finished: {statistics["Finished"][0]}</td>
-                    <td><span className="dot" style={{ backgroundColor: "green" }} /> Watching: {statistics["Watching"][0]}</td>
-                </tr>
-                <tr>
-                    <td><span className="dot" style={{ backgroundColor: "yellow" }} /> On Hold: {statistics["On hold"][0]}</td>
-                    <td><span className="dot" style={{ backgroundColor: "red" }} /> Dropped: {statistics["Droped"][0]} </td>
-                    <td><span className="dot" style={{ backgroundColor: "grey" }} /> Plan To Watch: {statistics["Planning to view"][0]}</td>
-                </tr>
-            </table>
+        <div className='statistics-bar'>
+            <div className="bar-holder">
+                <span className="bar" style={finished_style}/>
+                <span className="bar" style={watching_style}/>
+                <span className="bar" style={onhold_style}/>
+                <span className="bar" style={dropped_style}/>
+                <span className="bar" style={ptw_style}/>  
+            </div>         
+            <div className="text-holder"> 
+                <div className="text">Finished: {statistics["Finished"][0]}</div>
+                <div className="text">Watching: {statistics["Watching"][0]}</div>
+                <div className="text">On Hold: {statistics["On hold"][0]}</div>
+                <div className="text">Dropped: {statistics["Droped"][0]}</div>
+                <div className="text">Plan To Watch: {statistics["Planning to view"][0]}</div>
+            </div>                
         </div>
     )
 }
 
 
 export default StatisticsBar
+
+
+// .bar-holder.child(0):hover > .text-holder.child(0){
+
+// }
