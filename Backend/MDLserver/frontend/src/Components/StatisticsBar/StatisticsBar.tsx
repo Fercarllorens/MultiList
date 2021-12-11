@@ -37,6 +37,14 @@ function StatisticsBar(props: Props): ReactElement {
         return ret
     }
 
+    function handleHover(e: any, bool: boolean) {
+        let id = e.currentTarget.id
+        let element = document.getElementById("text" + id)
+        bool
+         ? element?.classList.add("text-active") 
+         : element?.classList.remove("text-active")        
+    }
+
 
     //Calculate bars on load since it will be static, can be modified into states if statistics need to be dynamic
     calculateBars()
@@ -98,18 +106,18 @@ function StatisticsBar(props: Props): ReactElement {
     return (
         <div className='statistics-bar'>
             <div className="bar-holder">
-                <span className="bar" style={finished_style}/>
-                <span className="bar" style={watching_style}/>
-                <span className="bar" style={onhold_style}/>
-                <span className="bar" style={dropped_style}/>
-                <span className="bar" style={ptw_style}/>  
+                <span className="bar" id="1" style={finished_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)}/>
+                <span className="bar" id="2" style={watching_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)}/>
+                <span className="bar" id="3"style={onhold_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)}/>
+                <span className="bar" id="4"style={dropped_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)}/>
+                <span className="bar" id="5" style={ptw_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)}/>  
             </div>         
             <div className="text-holder"> 
-                <div className="text">Finished: {statistics["Finished"][0]}</div>
-                <div className="text">Watching: {statistics["Watching"][0]}</div>
-                <div className="text">On Hold: {statistics["On hold"][0]}</div>
-                <div className="text">Dropped: {statistics["Droped"][0]}</div>
-                <div className="text">Plan To Watch: {statistics["Planning to view"][0]}</div>
+                <div className="text" id="text1">Finished: {statistics["Finished"][0]}</div>
+                <div className="text"id="text2">Watching: {statistics["Watching"][0]}</div>
+                <div className="text" id="text3">On Hold: {statistics["On hold"][0]}</div>
+                <div className="text" id="text4">Dropped: {statistics["Droped"][0]}</div>
+                <div className="text" id="text5">Plan To Watch: {statistics["Planning to view"][0]}</div>
             </div>                
         </div>
     )
@@ -117,8 +125,3 @@ function StatisticsBar(props: Props): ReactElement {
 
 
 export default StatisticsBar
-
-
-// .bar-holder.child(0):hover > .text-holder.child(0){
-
-// }
