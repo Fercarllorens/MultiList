@@ -12,6 +12,7 @@ interface Data {
   password: string;
   premium: boolean;
   spotify_token: string;
+  categories: any;
 }
 
 const ProfileLogic = () => {
@@ -24,6 +25,10 @@ const ProfileLogic = () => {
   const [filter, setFilter] = useState<string>("Film")
   const [categoryFilter, setCategoryFilter] = useState<string>("Film")
   // const [barLengths, setBarLengths] = useState<undefined | Array<number>>(undefined)
+  const [ filmsCategories, setFilmsCategories] = useState<null | any[]>(null)
+  const [ seriesCategories, setSeriesCategories] = useState<null | any[]>(null)
+  const [ songsCategories, setSongsCategories] = useState<null | any[]>(null)
+  const [ selectedCategories, setSelectedCategories] = useState<null | any[]>(null)
   const { search } = useLocation()
   const query = new URLSearchParams(search)
   const id_query: any = query.get('id')
@@ -120,13 +125,58 @@ const ProfileLogic = () => {
   function handleCategoryFilters(e: any) {
     let current_filter = e.currentTarget.innerHTML
     setCategoryFilter(current_filter)
+    setSelectedCategoriesType(current_filter)
+    console.log('CAMBIADAS CATEGORIAS')
+    console.log(current_filter)
+    console.log(selectedCategories)
   }
 
+  function getFilmCategories(){
+    fetchHandler(`api/get-categories-by-type?type=film`, 'GET', null)
+        .then((obj:any) => {
+            if(obj!==undefined){ 
+                const filmsCategoriesArray = JSON.parse(obj)
+                setFilmsCategories(filmsCategoriesArray)
+            }
+        })
+  }
+
+  function getSeriesCategories(){
+      fetchHandler(`api/get-categories-by-type?type=series`, 'GET', null)
+          .then((obj:any) => {
+              if(obj!==undefined){ 
+                  const seriesCategoriesArray = JSON.parse(obj)
+                  setSeriesCategories(seriesCategoriesArray)
+              }
+          })
+  }
+
+  function setSelectedCategoriesType(type: string){
+    switch(type){
+      case 'Film':
+        setSelectedCategories(filmsCategories); break;
+      case 'Series':
+        setSelectedCategories(seriesCategories); break;
+      case 'Song':
+        setSelectedCategories(songsCategories); break;
+    }
+  }
+
+  function getSongsCategories(){
+      fetchHandler(`api/get-categories-by-type?type=song`, 'GET', null)
+          .then((obj:any) => {
+              if(obj!==undefined){ 
+                  const songsCategoriesArray = JSON.parse(obj)
+                  setSongsCategories(songsCategoriesArray)
+              }
+          })
+  }
 
   return {
     uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query,
     follow_user, unfollow_user, followed, show_myFollows, checkFollowed, userStats, getStatistics,
-    filter, handleFilters, categoryFilter, handleCategoryFilters
+    filter, handleFilters, categoryFilter, handleCategoryFilters, filmsCategories, getFilmCategories,
+    seriesCategories, getSeriesCategories, songsCategories, getSongsCategories, selectedCategories
   }
 
 }

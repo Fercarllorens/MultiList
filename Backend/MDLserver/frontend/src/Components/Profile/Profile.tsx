@@ -10,7 +10,8 @@ import { type } from 'os'
 const Profile = () => {
   const { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query,
     follow_user, unfollow_user, followed, show_myFollows, checkFollowed, userStats, getStatistics,
-    filter, handleFilters, categoryFilter, handleCategoryFilters } = ProfileLogic()
+    filter, handleFilters, categoryFilter, handleCategoryFilters, filmsCategories, getFilmCategories,
+    seriesCategories, getSeriesCategories, songsCategories, getSongsCategories, selectedCategories } = ProfileLogic()
 
   useEffect(() => {
     if (uid != localStorage.getItem('user_id')) {
@@ -18,6 +19,9 @@ const Profile = () => {
     }
     getUserData()
     getStatistics()
+    getFilmCategories()
+    getSeriesCategories()
+    getSongsCategories()
   }, [])
 
   return (
@@ -101,9 +105,16 @@ const Profile = () => {
           <li className={categoryFilter === "Song" ? 'liactive' : ''} onClick={handleCategoryFilters}>Song</li>
         </ul>
         <div className="profile-categories-line"></div>
-        {/*userStats && filter && (
-          <StatisticsBar type={filter.toLowerCase()} name={filter} content_arr={userStats} />
-        )*/}
+        {
+            selectedCategories?.map((element) => (
+                data?.categories?.includes(element.id) ?
+                  <div className="category-name">          
+                      {element.name}
+                  </div> :
+                  <></>
+              )
+            )
+        }
       </div>
     </div>
     
