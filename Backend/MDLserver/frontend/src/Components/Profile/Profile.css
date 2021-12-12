@@ -118,3 +118,14 @@
   margin-bottom: 3%;
   margin-top: 1%;
 }
+
+.profile-categories-container{
+  margin-top: 2%;
+}
+
+.profile-categories-line {
+  border-bottom: 1px solid white;
+  width: 100%;
+  margin-bottom: 3%;
+  margin-top: 1%;
+}

@@ -22,6 +22,7 @@ const ProfileLogic = () => {
   const [spotifyAuth, setSpotifyAuth] = useState<boolean>(false)
   const [userStats, setUserStats] = useState<undefined | Array<number>>(undefined)
   const [filter, setFilter] = useState<string>("Film")
+  const [categoryFilter, setCategoryFilter] = useState<string>("Film")
   // const [barLengths, setBarLengths] = useState<undefined | Array<number>>(undefined)
   const { search } = useLocation()
   const query = new URLSearchParams(search)
@@ -116,11 +117,16 @@ const ProfileLogic = () => {
     setFilter(current_filter)
   }
 
+  function handleCategoryFilters(e: any) {
+    let current_filter = e.currentTarget.innerHTML
+    setCategoryFilter(current_filter)
+  }
+
 
   return {
     uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query,
     follow_user, unfollow_user, followed, show_myFollows, checkFollowed, userStats, getStatistics,
-    filter, handleFilters
+    filter, handleFilters, categoryFilter, handleCategoryFilters
   }
 
 }

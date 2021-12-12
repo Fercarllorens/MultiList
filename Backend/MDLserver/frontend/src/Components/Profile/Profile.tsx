@@ -10,7 +10,7 @@ import { type } from 'os'
 const Profile = () => {
   const { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query,
     follow_user, unfollow_user, followed, show_myFollows, checkFollowed, userStats, getStatistics,
-    filter, handleFilters } = ProfileLogic()
+    filter, handleFilters, categoryFilter, handleCategoryFilters } = ProfileLogic()
 
   useEffect(() => {
     if (uid != localStorage.getItem('user_id')) {
@@ -94,7 +94,19 @@ const Profile = () => {
           <StatisticsBar type={filter.toLowerCase()} name={filter} content_arr={userStats} />
         )}
       </div>
+      <div className="profile-categories-container">
+        <ul className="profile-statistics mylist-filter">
+          <li className={categoryFilter === "Film" ? 'liactive' : ''} onClick={handleCategoryFilters}>Film</li>
+          <li className={categoryFilter === "Series" ? 'liactive' : ''} onClick={handleCategoryFilters}>Series</li>
+          <li className={categoryFilter === "Song" ? 'liactive' : ''} onClick={handleCategoryFilters}>Song</li>
+        </ul>
+        <div className="profile-categories-line"></div>
+        {/*userStats && filter && (
+          <StatisticsBar type={filter.toLowerCase()} name={filter} content_arr={userStats} />
+        )*/}
+      </div>
     </div>
+    
   )
 }
 export default Profile
