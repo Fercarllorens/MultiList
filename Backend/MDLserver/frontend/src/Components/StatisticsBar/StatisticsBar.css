@@ -16,6 +16,8 @@
     margin-top: 20px;
     margin-right: 20px;
     font-size: 20px;
+    width: 100%;
+    text-align: center;
 }
 
 .text-active{    
@@ -26,5 +28,6 @@
 .text-holder{
     display: flex;
     flex-direction: row;
+    position: relative;
 }
 
