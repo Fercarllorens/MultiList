@@ -24,7 +24,7 @@ const FindSeries: React.FC<Props> = ({series}) => {
                     series.map((element) => (
                         <SeriesPreview series={element} key={element.name}/>
                     ))
-                : 'No results'
+                : <p className ="nrf">No results found ...</p>
             }
             </>
         </div>

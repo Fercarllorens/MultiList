@@ -29,7 +29,7 @@ const FindSongs: React.FC<Props> = ({songs}) => {
                     songs.map((element) => (
                         <SongPreview song={element} key={element.name}/>
                     ))
-                : 'No results'
+                : <p className ="nrf">No results found ...</p>
             }
             </>
         </div>

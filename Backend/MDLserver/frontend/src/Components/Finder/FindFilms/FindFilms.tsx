@@ -25,7 +25,7 @@ const FindFilms: React.FC<Props> = ({films}) => {
                     films.map((element) => (
                         <FilmPreview film={element} key={element.name}/>
                     ))
-                : 'No results'
+                : <p className ="nrf">No results found ...</p>
             }
             </>
         </div>

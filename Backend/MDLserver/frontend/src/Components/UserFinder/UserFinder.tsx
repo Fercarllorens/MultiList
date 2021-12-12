@@ -8,7 +8,7 @@ const UserFinder = () =>{
     return(
         <div className="user-container">
             <div className="top-user-container">
-                <h2 className="search-title">BUSCAR USUARIO</h2>
+                <h3 className="search-title">BUSCAR USUARIO</h3>
                 <input className="SearchBar SearchBarUser" type="search" placeholder="Search..." onKeyPress={(e) => find(e, content)} onChange={(e) => on_change(e)}/>
             </div>
             <div className="bottom-user-container">
