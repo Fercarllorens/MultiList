@@ -70,7 +70,7 @@ const MultimediaContent: React.FC<Props> = (props) => {
             </div>
             <div className="data-container-bottom">
                 <h4 className="bottom-title">MÁS INFORMACIÓN</h4>
-                <p className="data">
+                <p className="cont-link">
                     {type_query == "song" ? listBottom.map((item) => {
                         return (item != '' && item != null) ? (item == listBottom[0] ? <a href={item}>Content Link</a> : <p className="data">{item}</p>) : <></>;
                     }) : listBottom.map((item) => {
@@ -129,7 +129,7 @@ const MultimediaContent: React.FC<Props> = (props) => {
                 {watching === "Watching" && (
                     <input type="text" defaultValue={progress != null ? progress : "Sin registrar"} {...register("watching_progress")} />
                 )}
-                <input type="submit" value="Submit" />
+                <input className="btn-submit" type="submit" value="Submit" />
             </form>
             <div className="contentlinks">
                 <LinkToContent icon="https://img.icons8.com/color/48/000000/twitter--v1.png" website="https://twitter.com" alt="Share on twitter" />

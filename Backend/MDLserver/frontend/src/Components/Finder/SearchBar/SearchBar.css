@@ -9,10 +9,10 @@
 .SearchBar{
     position: absolute;
     right: 5%;
-    top: 3%;
+    top: 10%;
     border-radius: 20px;
     height: 30px;
-    width: 20%;
+    width: 20% !important;
     border: none;
     z-index: 1;
 }

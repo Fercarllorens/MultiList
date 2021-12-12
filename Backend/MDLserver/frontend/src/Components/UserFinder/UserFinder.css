@@ -1,18 +1,28 @@
-.user-container{
-    position: fixed;
-    margin: 50px;
-    width: 80vw;
-    height: 80vh;
-    background: #8d86c9;
-    box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
-    -webkit-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
-    -moz-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+.user-container::-webkit-scrollbar{
+    width: thin;
 }
 
+.user-container::-webkit-scrollbar-track{
+    color: #FE795B;
+}
+
+.user-container::-webkit-scrollbar-thumb{
+    color: #FE795B;
+}
+
+.user-container {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 85px);
+    margin:0;
+    background: none;
+}
 .top-user-container{
-    width: 100%;
-    height: 10%;
-    border-bottom: 1px solid black;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    min-height: 6%;
+    border-bottom: 3px solid white;
 }
 
 .bottom-user-container{
@@ -22,13 +32,13 @@
 
 .SearchBarUser{
     position: absolute;
-    top: 3%;
-    left: 30%;
+    top: 0;
+    right: 5%;
 }
 
 .search-title{
-    margin-top: 2%;
-    margin-left: 5%;
+    margin-top: 1.5%;
+    margin-left: 3%;
 }
 
 .user{
@@ -37,18 +47,24 @@
     margin-left:2.5%;
     margin-right:2.5%;
     width:40%;
-    height: 100px;
+    height: 150px;
     text-align: center;
-    background-color: white;
+    background-color: transparent;
     margin-top: 2%;
-    border: 1px solid black;
-    box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 }
 
 .img-user{
     position: absolute;
-    width :20%;
+    min-width :20%;
     height: 100%;
     left: 0;
+    border-radius: 100px;
+}
 
+.user-name{
+    position: absolute;
+    font-size: 24px;
+    left:30%;
+    top: 30%;
 }

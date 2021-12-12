@@ -13,18 +13,26 @@ const MyFollows = () =>{
     return(
         <div className="user-container">
             <h2 className="title-myFollows">FOLLOWING</h2>
-            {
-                follows.map((element : any) => {
-                    return(
-                        <div className="user userMyFollows">
-                            <img className="img-user" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPXKo36JFQDLpzs9giWMBSBEKgmjDNsXd7cA&usqp=CAU" />
-                            <h4 className="user-name">{element.name}</h4>
-                            <button className="unfollow-btn" onClick={() => unfollow_user(element.id)}>unfollow</button>
-                        </div>
-                    )
-                    
-                })
-            }
+            <h2 className="title-recommended">RECOMMENDED FOLLOWS</h2>
+            <div className="myfollows-cont">
+                {
+                    follows.map((element : any) => {
+                        return(
+                            <div className="user userMyFollows">
+                                <img className="img-user" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPXKo36JFQDLpzs9giWMBSBEKgmjDNsXd7cA&usqp=CAU" />
+                                <h4 className="user-name">{element.name}</h4>
+                                <button className="unfollow-btn" onClick={() => unfollow_user(element.id)}>
+                                    <img className="unfollow-button" src="unfollow.png"></img>
+                                </button>
+                            </div>
+                        )
+                        
+                    })
+                }
+            </div>
+            <div className="recommended-cont">
+                
+            </div>
         </div>
 
     )

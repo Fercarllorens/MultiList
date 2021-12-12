@@ -121,7 +121,7 @@ const MultimediaContentLogic = (props:Props) => {
         // New way to use fetchHandler
         //TODO: save output -> itll be the obj retrieved, need to get the comments if exists and the rating.
         fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'song', 'external_id': id_query})
-            //.then((obj:any) => {setRating(obj.total_rating)})
+            .then((obj:any) => {setRating(obj.total_rating)})
 
         // let artists_string = 'No artists found';
         let artists_array: Artist[] = []
@@ -167,8 +167,8 @@ const MultimediaContentLogic = (props:Props) => {
 
         //fetchRequest(id_query, 'film', 'post', 'api', {element_name: name});
         // New way to use fetchHandler
-        fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'film', 'external_id': id_query});
-
+        fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'film', 'external_id': id_query})
+          .then((obj:any) => {setRating(obj.total_rating)});
         setImageUrl(picture);
         setListTop([name, props.type, 'red']);
         setListBottom([preview_url]);
@@ -187,8 +187,8 @@ const MultimediaContentLogic = (props:Props) => {
 
         //fetchRequest(id_query, 'series', 'post', 'api', {element_name: name});
         // New way to use fetchHandler
-        fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'series', 'external_id': id_query});
-
+        fetchHandler('api/post-content', 'POST', {'name': name, 'type': 'series', 'external_id': id_query})
+          .then((obj:any) => {setRating(obj.total_rating)});
         setImageUrl(picture);
         setListTop([name, props.type, 'blue']);
         setListBottom([preview_url]);
