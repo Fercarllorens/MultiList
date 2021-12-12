@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     const user_id: string | null = localStorage.getItem('user_id')
-    if (user_id) fetchHandler(`spotify/is-auth?user_id=${user_id}`, 'GET', null)
+    if (user_id) { fetchHandler(`spotify/is-auth?user_id=${user_id}`, 'GET', null); }
   }, [])
 
   return (

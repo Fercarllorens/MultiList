@@ -124,6 +124,7 @@ class GetStatisticsFromUser(APIView):
     def get(self, request, format=None):
         """Returns a list of tuples in format {type_of_content, state} for frontend processing"""
         progress_list = Progress.objects.filter(user_id=request.GET[gv.USER.ID])
+        print(progress_list)
         returned_array = [
             (prog.state,
              MultimediaContent.objects.get(external_id=prog.content_id).type)
