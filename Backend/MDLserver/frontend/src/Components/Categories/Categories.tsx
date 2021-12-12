@@ -20,8 +20,8 @@ const Categories: React.FC<Props> = (props) => {
 
 
     return(
-        <div className="FinderContainer">
-            <div className="searchbar-container">
+        <div className="CategoriesContainer">
+            <div className="SearchbarContainer">
                 <SearchBar find={find} />
             </div>
             <Filters selectType={selectType} type_selected={type_selected}/>         
@@ -32,8 +32,8 @@ const Categories: React.FC<Props> = (props) => {
                                 {element.name}
                             </div>
                             {userCategories?.includes(element.id) ? 
-                                <img src="added-button.png" width="25" height="25"/> :
-                                <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="30" height="25"/>
+                                <img src="added-button.png" width="35" height="30"/> :
+                                <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="35" height="30"/>
                             }
                         </div>
                         )
@@ -46,8 +46,8 @@ const Categories: React.FC<Props> = (props) => {
                                 {element.name}
                             </div>
                             {userCategories?.includes(element.id) ? 
-                                <img src="added-button.png" width="25" height="25"/> :
-                                <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="30" height="25"/>
+                                <img src="added-button.png" width="30" height="30"/> :
+                                <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="35" height="30"/>
                             }
                         </div>
                         )
@@ -60,8 +60,8 @@ const Categories: React.FC<Props> = (props) => {
                                 {element.name}
                             </div>
                             {userCategories?.includes(element.id) ? 
-                                <img src="added-button.png" width="25" height="25"/> :
-                                <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="30" height="25"/>
+                                <img src="added-button.png" width="30" height="30"/> :
+                                <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="35" height="30"/>
                             }
                         </div>
                         )
