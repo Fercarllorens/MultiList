@@ -1,5 +1,5 @@
-.bar-holder{
-    margin-top: 40px;
+.statistics-bar{
+    height: 80px;
 }
 .bar{
     display: inline-block;

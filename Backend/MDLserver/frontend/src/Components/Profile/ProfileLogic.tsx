@@ -120,12 +120,27 @@ const ProfileLogic = () => {
   function handleFilters(e: any) {
     let current_filter = e.currentTarget.innerHTML
     setFilter(current_filter)
+    switch(current_filter){
+      case 'Film':
+        setSelectedCategories(filmsCategories); break;
+      case 'Series':
+        setSelectedCategories(seriesCategories); break;
+      case 'Song':
+        setSelectedCategories(songsCategories); break;
+    }
   }
 
   function handleCategoryFilters(e: any) {
     let current_filter = e.currentTarget.innerHTML
     setCategoryFilter(current_filter)
-    setSelectedCategoriesType(current_filter)
+    switch(current_filter){
+      case 'Film':
+        setSelectedCategories(filmsCategories); break;
+      case 'Series':
+        setSelectedCategories(seriesCategories); break;
+      case 'Song':
+        setSelectedCategories(songsCategories); break;
+    }
     console.log('CAMBIADAS CATEGORIAS')
     console.log(current_filter)
     console.log(selectedCategories)

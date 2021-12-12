@@ -31,7 +31,7 @@ const CategoriesLogic = (props:Props) => {
     const [ filteredSongsCategories, setFilteredSongsCategories] = useState<null | any[]>(null)
     const [ type_selected, setTypeSelected] = useState<Type>({
         
-        films_selected: false,
+        films_selected: true,
         series_selected: false,
         songs_selected: false
     

@@ -20,31 +20,18 @@ const Categories: React.FC<Props> = (props) => {
 
 
     return(
-        <div className="CategoriesContainer">
+        <div className="categories-container">
             <div className="SearchbarContainer">
                 <SearchBar find={find} />
             </div>
-            <Filters selectType={selectType} type_selected={type_selected}/>         
-            {type_selected.films_selected &&
-                    filteredFilmsCategories?.map((element) => (
-                        <div className="CategoryPreview">
-                            <div className="CategoryName">
+            <Filters selectType={selectType} type_selected={type_selected}/>     
+            <div className='categories_type_container'>  
+                { type_selected.songs_selected ?
+                    filteredSongsCategories?.map((element, index) => (
+                        <div className='category-preview' key={index}>
+                            <h3 className="CategoryName">
                                 {element.name}
-                            </div>
-                            {userCategories?.includes(element.id) ? 
-                                <img src="added-button.png" width="35" height="30"/> :
-                                <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="35" height="30"/>
-                            }
-                        </div>
-                        )
-                    )
-            }
-            {type_selected.series_selected && 
-                filteredSeriesCategories?.map((element) => (
-                        <div>
-                            <div className="CategoryName">
-                                {element.name}
-                            </div>
+                            </h3>
                             {userCategories?.includes(element.id) ? 
                                 <img src="added-button.png" width="30" height="30"/> :
                                 <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="35" height="30"/>
@@ -52,13 +39,23 @@ const Categories: React.FC<Props> = (props) => {
                         </div>
                         )
                     )
-            }
-            {type_selected.songs_selected && 
-                filteredSongsCategories?.map((element) => (
-                        <div>
-                            <div className="CategoryName">
+                    : type_selected.series_selected ? 
+                    filteredSeriesCategories?.map((element, index) => (
+                        <div className='category-preview' key={index}>
+                            <h3 className="CategoryName">
                                 {element.name}
-                            </div>
+                            </h3>
+                            {userCategories?.includes(element.id) ? 
+                                <img src="added-button.png" width="30" height="30"/> :
+                                <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="35" height="30"/>
+                            }
+                        </div>
+                        )
+                    ) : filteredFilmsCategories?.map((element, index) => (
+                        <div className='category-preview' key={index}>
+                            <h3 className="CategoryName">
+                                {element.name}
+                            </h3>
                             {userCategories?.includes(element.id) ? 
                                 <img src="added-button.png" width="30" height="30"/> :
                                 <img src="add-button.png" onClick={()=>{addCategory(element)}}  width="35" height="30"/>
@@ -66,7 +63,8 @@ const Categories: React.FC<Props> = (props) => {
                         </div>
                         )
                     )
-            }
+                }
+            </div> 
         </div>
     )
 }

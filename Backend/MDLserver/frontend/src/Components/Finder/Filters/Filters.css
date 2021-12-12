@@ -7,6 +7,16 @@
     height: 50px;
 }
 
+.FilterContainer button{
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.FilterContainer button:hover{
+    box-shadow: 0px 0px 10px .5px #FE795B80;
+    background: #FE795B;
+}
+
 .Type{
     margin-left: 12px;
     margin-right: 12px;

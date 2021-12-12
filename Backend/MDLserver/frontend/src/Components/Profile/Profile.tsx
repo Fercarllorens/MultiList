@@ -94,17 +94,12 @@ const Profile = () => {
           <li className={filter === "Song" ? 'liactive' : ''} onClick={handleFilters}>Song</li>
         </ul>
         <div className="profile-statistics-line"></div>
+        <h2>Statistics</h2>
         {userStats && filter && (
-          <StatisticsBar type={filter.toLowerCase()} name={filter} content_arr={userStats} />
+          <StatisticsBar type={filter.toLowerCase()} name={filter} content_arr={userStats} />        
         )}
-      </div>
-      <div className="profile-categories-container">
-        <ul className="profile-statistics mylist-filter">
-          <li className={categoryFilter === "Film" ? 'liactive' : ''} onClick={handleCategoryFilters}>Film</li>
-          <li className={categoryFilter === "Series" ? 'liactive' : ''} onClick={handleCategoryFilters}>Series</li>
-          <li className={categoryFilter === "Song" ? 'liactive' : ''} onClick={handleCategoryFilters}>Song</li>
-        </ul>
-        <div className="profile-categories-line"></div>
+        <div className='profile-categories-container'>
+          <h2>Categories</h2>
         {
             selectedCategories?.map((element) => (
                 data?.categories?.includes(element.id) ?
@@ -115,6 +110,7 @@ const Profile = () => {
               )
             )
         }
+        </div>
       </div>
     </div>
     
