@@ -1,0 +1,33 @@
+.bar-holder{
+    margin-top: 40px;
+}
+.bar{
+    display: inline-block;
+    height: 17px;
+    transition: all .2s ease-in-out;
+}
+
+.bar:hover{
+    transform: scale(1.1);
+}
+
+.text{    
+    display: none;
+    margin-top: 20px;
+    margin-right: 20px;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.text-active{    
+    display: block
+}
+
+
+.text-holder{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+

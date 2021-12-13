@@ -16,13 +16,12 @@ const Navbar = () => {
 
   return (
     <div className='navbar'>
-      <Link className='navbar__logo' to='/'>
-        Logo
-      </Link>
-      <Modal 
-        open={openCustomListModal} 
-        onClose={() => setOpenCustomListModal(false)} 
-        uid={uid} 
+      <Link className='navbar__logo' to={logged ? '/Finder' : '/'} />
+      <Modal
+        title="Create custom list"
+        open={openCustomListModal}
+        onClose={() => setOpenCustomListModal(false)}
+        uid={uid}
         endpoint={"api/post-list"}
         method={"POST"}
         values={[{
@@ -36,15 +35,15 @@ const Navbar = () => {
           type: "Select",
           value: "Select",
           api_value: "content_type",
-          select_opts: [{value: "song", text: "Song"}, {value: "film", text: "Film"}, {value: "series", text: "Series"}]
+          select_opts: [{ value: "song", text: "Song" }, { value: "film", text: "Film" }, { value: "series", text: "Series" }]
         },]}
         opt_values={[{
-          value : uid != null ? uid : "",
-          api_value : "user_id",
+          value: uid != null ? uid : "",
+          api_value: "user_id",
         },
         {
-          value : "1",
-          api_value : "custom",
+          value: "1",
+          api_value: "custom",
         }
         ]}
       />
@@ -58,10 +57,10 @@ const Navbar = () => {
             Categories
           </Link>
           {premium ? (
-            <Link className='navbar__link' to='/Modal' onClick={() => {setOpenCustomListModal(!openCustomListModal)}}>
+            <Link className='navbar__link' to='/Modal' onClick={() => { setOpenCustomListModal(!openCustomListModal) }}>
               New Custom List
             </Link>
-          ) : 
+          ) :
             (<></>)
           }
           <Link className='navbar__link' to='/Tops'>
@@ -82,11 +81,9 @@ const Navbar = () => {
           <Link className='navbar__link' to='/login'>
             Login
           </Link>
-          <Link className='navbar__link' to='/register'>
-            Register
-          </Link>
         </div>
       )}
+      <div className='navbar__line'></div>
     </div>
   )
 }

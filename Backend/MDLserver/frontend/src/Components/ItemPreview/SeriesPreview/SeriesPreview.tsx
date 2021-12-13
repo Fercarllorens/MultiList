@@ -1,6 +1,6 @@
 import React from 'react'
 import SeriesPreviewLogic from './SeriesPreviewLogic'
-import './SeriesPreview.css'
+import '../ContentPreview.css'
 
 interface Series{
     name: string;
@@ -16,14 +16,12 @@ const SeriesPreview: React.FC<Props> = ({series}) => {
     const {show_series} = SeriesPreviewLogic()
 
     return (
-        <div className="SeriesPreviewContainer" onClick={() => {show_series(series.id)}}>
-            <div className="PictureDiv">
-                <img className="Picture" src={series.img} height="130" width="130"></img>
-            </div>
-            <div className="SeriesInfo">
-                <div className="SeriesName">
+        <div className="content" onClick={() => {show_series(series.id)}}>
+            <img className="Picture" src={series.img} height="130" width="130"></img>
+            <div className="Info">
+                {/* <div className="Name">
                     {series.name}
-                </div>
+                </div> */}
             </div>
         </div>
     )

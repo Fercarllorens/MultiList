@@ -1,27 +1,77 @@
-.user-container{
-    position: fixed;
-    margin: 50px;
-    width: 80vw;
-    height: 80vh;
-    background: #8d86c9;
-    box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
-    -webkit-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
-    -moz-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+.user-container::-webkit-scrollbar{
+    width: thin;
+}
+
+.user-container::-webkit-scrollbar-track{
+    color: #FE795B;
+}
+
+.user-container::-webkit-scrollbar-thumb{
+    color: #FE795B;
+}
+
+.user-container {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 85px);
+    margin:0;
+    background: none;
 }
 
 .userMyFollows{
     width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 20%;
+    cursor: initial;
+    margin-top: 20px;
+}
+
+
+
+.title-myFollows{
+    position: absolute;
+    left: 2.5%;
+    width: 45%;
+    min-height: 6%;
+    border-bottom: 3px solid white;
+}
+
+.title-recommended{
+    position: absolute;
+    right: 2.5%;
+    width: 45%;
+    min-height: 6%;
+    border-bottom: 3px solid white;
+    text-align: right;
+}
+
+.myfollows-cont , .recommended-cont{
+    position: relative;
+    width: 49%;
+    margin-top: 7%;
+    height: 95vh;
+    background-color: transparent;
+    float: left;
+    
+    margin-left: 0.5%;
+    margin-right: 0.4%;
 }
 
 .unfollow-btn{
     position: absolute;
-    background-color: red;
-    right: 5%;
-    bottom: 5%;
+    width: 7%;
+    height:auto;
+    bottom:2%;
+    left: 50%;
+    background-color: transparent;
+    border:none;
+    background-color: #FE795B;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px 1px #FE795B80;
+    z-index: 1;
+    cursor: pointer;
 }
 
-.title-myFollows{
-    text-align: center;
+.unfollow-button{
+    width: 100%;
+    height: 100%;
 }

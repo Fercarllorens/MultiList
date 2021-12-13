@@ -14,7 +14,7 @@ const CommentSection: React.FC<Props> = (props) => {
 
     return (
         <>
-            <h3>Comments</h3>
+            <h3 className='coment-title'>Comments</h3>
             <CommentForm commented={commented} toggleCommented={toggleCommented} content_id={props.content_id}/>
                 {/*TODO: ADD COMMENT HOLDER COMPONENT*/}
                 {comments && comments.map((comment) => {

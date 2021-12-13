@@ -92,3 +92,10 @@ def create_default(user):
     seriesList = List.objects.create(name = "series", type = "series", contents = '{"items":[]}', user_id = user)
     obj = [songList.id, filmList.id, seriesList.id]
     return obj
+
+
+class GetUserLists(APIView):
+    def get(self, request, format=None):
+        objs = List.objects.filter(user_id=request.GET['user_id'])
+        print(objs)
+        return Response(json.dumps([model_to_dict(item) for item in objs]))

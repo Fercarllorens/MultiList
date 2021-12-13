@@ -7,11 +7,16 @@
 }
 
 .SearchBar{
-    border-radius: 10px;
+    position: absolute;
+    right: 5%;
+    top: 10%;
+    border-radius: 20px;
     height: 30px;
-    box-shadow: -4px 4px 5px #4c4848;
+    width: 20% !important;
+    border: none;
+    z-index: 1;
 }
 
 .SearchBar:focus{
-    outline: none;
+    outline: white;
 }

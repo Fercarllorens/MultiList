@@ -1,16 +1,35 @@
+.FinderContainer::-webkit-scrollbar{
+    width: thin;
+}
+
+.FinderContainer::-webkit-scrollbar-track{
+    color: #FE795B;
+}
+
+.FinderContainer::-webkit-scrollbar-thumb{
+    color: #FE795B;
+}
+
 .FinderContainer {
-    position: fixed;
-    margin: 50px;
-    width: 80vw;
-    height: 80vh;
-    background: #8d86c9;
-    box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
-    -webkit-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
-    -moz-box-shadow: -12px 12px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: calc(100vh - 85px);
+    background: none;
+    
 }
 
 .searchbar-container{
+    position: relative;
     display: block;
     margin-top: 2rem;
     margin-left: 2rem;
+}
+
+.nrf{
+    position: absolute;
+    top:50%;
+    width: 40%;
+    word-wrap: break-word;
+    left: 30%;
+    right: 30%;
+    font-size: 50px;
 }

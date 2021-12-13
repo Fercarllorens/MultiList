@@ -4,31 +4,37 @@
     height: 30%;
     left: 5%;
     top: 10%;
-    box-shadow: rgba(0, 0, 0, 0.4) -5px  5px;
 }
 
 .cast-label{
     position: absolute;
-    top: 40%;
+    top: 45%;
     left: 5%;
+    font-size: 32px;
 }
 
 .cast-cont{
     position: absolute;
-    width: 100%;
+    width: 80%;
+    left: 10%;
+    right: 10%;
     height: 50%;
     top: 50%;
 }
 
 .actor-name{
-    color: rgb(141, 134, 201);
+    color: white;
+    font-weight: bold;
     text-decoration: underline;
     
 }
 
 .actor-cont{
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.4) -5px  5px;
+    box-shadow: 0px 0px 20px 1px #FE795B80;
+    font-weight: bold;
+    border: none;
+    color: white;
+    background-color: #FE795B;
     width:20%;
     height: 70px;
     overflow: hidden;
@@ -41,5 +47,6 @@
 
 .actor-character{
     position: absolute;
-    top: 30px;
+    top: 20px;
+    color:white;
 }

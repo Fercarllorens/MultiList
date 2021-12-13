@@ -1,12 +1,12 @@
 from django.urls import path
 
 from .views.category_view import GetCategoriesByType, GetCategory, GetCategoriesByType, PostCategory, PutCategory
-from .views.list_view import GetList, GetListsByUser, PostList, PutList, UpdateListContents, UpdateListContents, DeleteListContents
+from .views.list_view import GetList, GetListsByUser, PostList, PutList, UpdateListContents, UpdateListContents, DeleteListContents, GetUserLists
 from .views.film_view import GetFilm, PostFilm, PutFilm
 from .views.series_view import GetSeries, PostSeries, PutSeries
 from .views.song_view import GetSong, PostSong, PutSong
 from .views.user_view import GetUser, PostUser, PutUser, GetUsersByName, UpdateFollows, DeleteFollows, GetUserArray, UpdateUserCategories, UpdateUserLists, GetStatisticsFromUser
-from .views.content_view import GetContent, PostContent, PutContent, GetContentArray
+from .views.content_view import GetContent, PostContent, PutContent, GetContentArray, GetFullContentArray
 from .views.progress_view import GetProgress, PostProgress, UpdateProgress
 from .views.comment_view import GetComment, PostComment, PutComment, GetAllUserComments, GetAllContentComments
 from .views.auth_view import Login, Register
@@ -31,6 +31,7 @@ urlpatterns = [
     path('put-content', PutContent.as_view()),
     path('get-content', GetContent.as_view()),
     path('get-content-array', GetContentArray.as_view()),
+    path('get-content-items', GetFullContentArray.as_view()),
 
     path('post-comment', PostComment.as_view()),
     path('put-comment', PutComment.as_view()),
@@ -45,6 +46,8 @@ urlpatterns = [
     path('put-list', PutList.as_view()),
     path('update-list', UpdateListContents.as_view()),
 
+    path('get-user-lists', GetUserLists.as_view()),
+    
     path('get-user', GetUser.as_view()),
     path('get-users-name', GetUsersByName.as_view()),
     path('post-user', PostUser.as_view()),

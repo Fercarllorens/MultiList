@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 .tops-container{
-    background: linear-gradient(180deg, #0E0E0E 0%, #393838 100%);
+    background: none;
     width: 100vw;
     height: 91.8vh;
     overflow: auto;

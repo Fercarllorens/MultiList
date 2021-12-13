@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from "react-hook-form";
 import { fetchHandler } from '../fetchHandler';
 
-interface item{
+interface item {
     text: string;
     type: string;
     value: string;
@@ -10,17 +10,18 @@ interface item{
     select_opts?: option[]
 }
 
-interface option{
+interface option {
     value: string;
     text: string;
 }
 
-interface opt_item{
+interface opt_item {
     value: string;
     api_value: string;
 }
 
-export interface Props{
+export interface Props {
+    title: string;
     open: boolean;
     onClose: React.MouseEventHandler<HTMLButtonElement>;
     uid: string | null;
@@ -34,19 +35,19 @@ const ModalLogic = (props: Props) => {
     const { register, handleSubmit } = useForm();
     //TODO: Usable for more things? maybe import the request func instead???
     //TODO: Make fields required
-    function onSubmit(data: any){
+    function onSubmit(data: any) {
         let body: any = {}
         props.values.forEach((value: any) => {
             body[value.api_value] = data[value.api_value]
         })
-        props.opt_values && props.opt_values.forEach((value:any) => {
+        props.opt_values && props.opt_values.forEach((value: any) => {
             body[value.api_value] = value.value
         });
         //TODO: Modify to treat the response
         fetchHandler(props.endpoint, props.method, body)
-            .catch((err:any) => console.log(err))
+            .catch((err: any) => console.log(err))
     }
 
-    return {register, handleSubmit, onSubmit}
+    return { register, handleSubmit, onSubmit }
 }
 export default ModalLogic

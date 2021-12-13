@@ -18,7 +18,7 @@ def get_user_tokens(user_id: str) -> SpotifyToken or None:
         return user_token
     return None
 
-def update_user_tokens(access_token: str, token_type: str, refresh_token: str, expires_in: int, user_id: str=None) -> tuple:
+def update_user_tokens(user_id, access_token, token_type, expires_in, refresh_token) -> tuple:
     """
         Updates or Creates a new SpotifyToken with the given data and returns the object, 
         and a bool determining whether the object was created or not
@@ -67,11 +67,11 @@ def refresh_spotify_token(user_id: str) -> None:
         gv.SPOTIFY.REQUEST.CLIENT_ID: CLIENT_ID,
         gv.SPOTIFY.REQUEST.CLIENT_SECRET: CLIENT_SECRET,
     }).json()
-
     access_token = response[gv.SPOTIFY.MODEL.ACCESS_TOKEN]
     token_type = response[gv.SPOTIFY.MODEL.TOKEN_TYPE]
     expires_in = response[gv.SPOTIFY.MODEL.EXPIRES_IN]
-    refresh_token = response[gv.SPOTIFY.MODEL.REFRESH_TOKEN]
+    new_refresh_token = response.get(gv.SPOTIFY.MODEL.REFRESH_TOKEN, None)
+    refresh_token = new_refresh_token if new_refresh_token else refresh_token
 
     update_user_tokens(user_id, access_token, token_type, expires_in, refresh_token)
 
