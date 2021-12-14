@@ -45,7 +45,7 @@ const RegisterLogic = (history: History) => {
         .then(res => res.json())
         .then(json => {
             if(json.user_id){
-            localStorage.setItem('user_id', json.user_id); window.location.href = '/'
+            localStorage.setItem('user_id', json.user_id); window.location.href = '/Finder'
         }else {setError('Something went wrong'); setTimeout(() => {setError('')}, 5000)}
         })
         .catch(err => {
