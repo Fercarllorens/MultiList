@@ -43,13 +43,20 @@ const ContentPreviewLogic = (props: Props) => {
 
     function processSong(json: any) {
         const track: any = json;
-        const { id, album } = track != null ? track : '';
+        const { id, album, name, artists } = track != null ? track : '';
         const { images } = album != null ? album : '';
 
-        const img = images.find((element: { height: number; }) => element.height === 300)
-        let image = img.url;
+        const image = images.find((element: { height: number; }) => element.height === 300)
+        let img = image.url;
 
-        setItem({id, image})
+        let authors: string = ""
+
+                artists.forEach((artist: { name: string; }, index: number) => {
+                    index == 0 ? authors = artist.name
+                    : authors += ", " + artist.name
+                })
+
+        setItem({id, img, name, authors})
     }
 
     return { item, getItem }
