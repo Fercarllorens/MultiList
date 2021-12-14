@@ -52,10 +52,12 @@ const ProfileLogic = () => {
       })
       .catch((err) => console.error(err))
 
-    fetchHandler(`spotify/is-auth?user_id=${uid}`, 'GET', null)
-      .then((obj: any) => {
-        setSpotifyAuth(obj)
-      })
+    if (uid === my_user) {
+      fetchHandler(`spotify/is-auth?user_id=${uid}`, 'GET', null)
+        .then((obj: any) => {
+          setSpotifyAuth(obj)
+        })
+    }
   }
 
   function follow_user() {

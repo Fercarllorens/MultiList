@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './ListContent.css'
 import ListContentLogic from './ListContentLogic';
-
+import ContentPreview from '../Tops/ContentPreview/ContentPreview';
 
 const ListContent = () => {
     const { list, currentContents, getData, filterData } = ListContentLogic()
@@ -16,9 +16,10 @@ const ListContent = () => {
             <input type="text" className="list-content-searchbar" placeholder="Search..." onChange={filterData} />
             <div className="list-content__container">
                 {
-                    currentContents?.map((item, index) => {
+                    currentContents?.map((item: any, index) => {
                         return (
-                            <div className="content-preview" key={index}><h4>{item.name}</h4></div>
+                            <ContentPreview {...item} />
+                            // <div className="content-preview" key={index}><h4>{item.name}</h4></div>
                         )
                     })
                 }

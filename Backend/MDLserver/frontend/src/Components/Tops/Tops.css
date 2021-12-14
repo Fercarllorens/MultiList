@@ -20,9 +20,6 @@
 }
 
 .movies{
-    /* position: absolute;    
-    left: 42px;
-    top: 150px; */
     padding-top: 70px;
     padding-left: 42px;
 
@@ -61,6 +58,7 @@
     max-height: 276px;
     display: flex;
     overflow-x:auto;
+    overflow-y:hidden;
     padding-bottom: 20px;
     padding-top: 30px;
     margin-bottom: 40px;
@@ -68,10 +66,6 @@
     scrollbar-color: #FFFFFF transparent;
     scrollbar-width: thin;
 }
-
-/* .movies-list::-webkit-scrollbar {
-    display: none;
-  } */
 
 .movies-list::-webkit-scrollbar {
 	width: 7px;
@@ -89,6 +83,7 @@
     height: 181px;
     display: flex;
     overflow-x:auto;
+    overflow-y:hidden;
     padding-bottom: 10px;
     padding-top: 30px;
     margin-bottom: 40px;

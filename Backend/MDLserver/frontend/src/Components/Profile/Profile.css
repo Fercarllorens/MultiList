@@ -85,9 +85,21 @@
 }
 
 .follow-btn{
-  position: absolute;
-  top: 5%;
-  right: 5%;
+  position: absolute;   
+  left: 35%;
+  top: 30%;
+  background: #FE795B;
+  padding: 5px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 1px #FE795B80;
+  border-style: none;
+  cursor: pointer;  
+  color: white;
+}
+
+.follow-btn:hover{
+  background: #FE795B80;
 }
 
 .my-follows-btn{

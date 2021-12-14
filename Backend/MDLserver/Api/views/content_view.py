@@ -50,20 +50,4 @@ class GetContentArray(APIView):
     def get(self, request, format=None):
         content_ids = json.loads(request.GET['list'])['items']
         content_list = [MultimediaContent.objects.get(external_id=i) for i in content_ids]
-        return Response(json.dumps([model_to_dict(item) for item in content_list]), status=status.HTTP_204_NO_CONTENT)
-
-
-class GetFullContentArray(APIView): 
-    def get(self, request, format=None):
-        content_ids = json.loads(request.GET['list'])['items']
-        content_list = [MultimediaContent.objects.get(id=i) for i in content_ids]
-        items_list = []
-        for i in content_list:
-            if i.type == 'song': 
-                url = "spotify/get-track"
-            elif i.type == 'film':
-                 url = "/video/get-film-credits"
-            elif i.type == 'series':
-                url = "/video/get-film-credits"
-            items_list.append(req.get(url+f'?id={i.external_id}'))
-        return Response({items_list}, status=status.HTTP_204_NO_CONTENT)
+        return Response(json.dumps([model_to_dict(item) for item in content_list]), status=status.HTTP_200_OK)

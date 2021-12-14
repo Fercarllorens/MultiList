@@ -14,7 +14,8 @@
     width: 100%;
     height: calc(100vh - 85px);
     background: none;
-    
+    scrollbar-width: thin;
+    scrollbar-color: #FE795B transparent;
 }
 
 .searchbar-container{

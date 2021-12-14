@@ -24,6 +24,8 @@ const Profile = () => {
     getSongsCategories()
   }, [])
 
+  useEffect(() => { console.log(userStats) }, [userStats])
+
   return (
     <div className='profile-container'>
       <Modal
@@ -49,14 +51,16 @@ const Profile = () => {
       <div className='profile-data'>
         <div className='profile-pic'>
           <img className="profile-pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPXKo36JFQDLpzs9giWMBSBEKgmjDNsXd7cA&usqp=CAU" alt='Profile Pic' />
-          <div className='profile-settings'>
-            <h4 onClick={() => { setOpen(!open) }}>Settings</h4>
-          </div>
+          {
+            uid == localStorage.getItem('user_id') &&
+            <div className='profile-settings'>
+              <h4 onClick={() => { setOpen(!open) }}>Settings</h4>
+            </div>}
         </div>
         <div className='profile-data-contents'>
           <h2>{data?.username}</h2>
           <div className='profile-line'></div>
-          <p>following: {data && JSON.parse(data.following).users.length}</p>
+          <p>following: {data?.following && JSON.parse(data.following).users.length}</p>
           {
             uid == localStorage.getItem('user_id') &&
             <Link className="my-follows-btn" to="/MyFollows">My Follows</Link>
@@ -67,7 +71,6 @@ const Profile = () => {
         //If Yourself -> Show settings
         uid == localStorage.getItem('user_id') ?
           <div className='profile-user-options'>
-
             <div className='profile-linked-accounts'>
               <h4>Accounts</h4>
               {spotifyAuth
@@ -94,9 +97,9 @@ const Profile = () => {
           <li className={filter === "Song" ? 'liactive' : ''} onClick={handleFilters}>Song</li>
         </ul>
         <div className="profile-statistics-line"></div>
-        {userStats && filter && (
+        {userStats && userStats.length > 0 ? filter && (
           <StatisticsBar type={filter.toLowerCase()} name={filter} content_arr={userStats} />
-        )}
+        ) : <div>No statistics found</div>}
       </div>
     </div>
   )

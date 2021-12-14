@@ -9,7 +9,6 @@ const MyLists: React.FC = () => {
     useEffect(() => {
         getData()
     }, [])
-
     return (
         <div className="mylist-content">
             <ul className="mylist-filter">
