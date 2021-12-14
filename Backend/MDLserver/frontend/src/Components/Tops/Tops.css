@@ -5,6 +5,9 @@
     width: 100vw;
     height: 91.8vh;
     overflow: auto;
+
+    scrollbar-color: #FFFFFF transparent;
+    scrollbar-width: thin;
 }
 
 .tops-container::-webkit-scrollbar {
