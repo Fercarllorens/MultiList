@@ -16,14 +16,16 @@ const FilmPreview: React.FC<Props> = ({film}) => {
     const {show_film} = FilmPreviewLogic()
 
     return (
-        <div className="content" onClick={() => {show_film(film.id)}}>
-            <img className="Picture" src={film.img} height="130" width="130"></img>
-            <div className="Info">
-                {/* <div className="Name">
-                    {film.name}
-                </div> */}
-            </div>
-        </div>
+        !film.img.includes('null') ?
+            <div className="content" onClick={() => {show_film(film.id)}}>
+                <img className="Picture" src={film.img} height="130" width="130"></img>
+                <div className="Info">
+                    {/* <div className="Name">
+                        {film.name}
+                    </div> */}
+                </div>
+            </div> :
+            <></>
     )
 }
 export default FilmPreview

@@ -13,13 +13,15 @@ const ContentPreview: React.FC<Props> = (props) => {
 
     return (
         <>
-            {
+            {              
                 item && (
-                    props.type === "film"
-                        ? <VisualContentPreview content={item} type={props.type} />
-                        : <AudioContentPreview content={item} />
+                    props.type === "song"
+                        ? <AudioContentPreview content={item} />
+                        : <VisualContentPreview content={item} type={props.type} />
                 )
             }
+            {console.log(props)}
+            {console.log(props.type)}
         </>
     )
 
