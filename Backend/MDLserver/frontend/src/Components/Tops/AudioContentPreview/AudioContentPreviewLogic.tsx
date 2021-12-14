@@ -5,7 +5,7 @@ const ComponentNameLogic = () => {
 
     let history = useHistory()
 
-    const showSheet = (id: string, type: "film" | "series" | "song") => {        
+    const showSheet = (id: string, type: "film" | "series" | "song") => {    
         history.push({
             pathname:'/MultimediaContent',
             search: `?type=${type}&id=${id}`
