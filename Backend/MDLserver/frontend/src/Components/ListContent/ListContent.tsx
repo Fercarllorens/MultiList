@@ -5,7 +5,7 @@ import ContentPreview from '../Tops/ContentPreview/ContentPreview';
 
 const ListContent = () => {
     const { list, currentContents, getData, filterData } = ListContentLogic()
-
+    
     useEffect(() => {
         getData()
     }, [])
@@ -16,10 +16,9 @@ const ListContent = () => {
             <input type="text" className="list-content-searchbar" placeholder="Search..." onChange={filterData} />
             <div className="list-content__container">
                 {
-                    currentContents?.map((item: any, index) => {
+                    currentContents?.map((element: any, index) => {
                         return (
-                            <ContentPreview {...item} />
-                            // <div className="content-preview" key={index}><h4>{item.name}</h4></div>
+                            <ContentPreview {...element}/>
                         )
                     })
                 }
