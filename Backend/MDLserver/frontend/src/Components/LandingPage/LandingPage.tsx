@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { Link } from 'react-router-dom';
 import './LandingPage.css'
 
 function LandingPage(): ReactElement {
@@ -9,7 +10,7 @@ function LandingPage(): ReactElement {
                 <div className="landingpage-screen__bg-image"></div>
                 <h1 className="landingpage-screen__title">DON'T KNOW WHICH FILM TO WATCH OR SONG TO LISTEN TO?</h1>
                 <h2 className="landingpage-screen__subtitle">LET US HELP YOU OUT!</h2>
-                <button className="landingpage-screen__register-button">REGISTER HERE!</button>
+                <Link to="/Register"className="landingpage-screen__register-button">REGISTER HERE!</Link>
                 <h3>THE SOCIAL NETWORK FOR ENTERTAINMENT LOVERS</h3>
             </div>
             {/* SECOND SCREEN */}

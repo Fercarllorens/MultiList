@@ -23,7 +23,7 @@ interface opt_item {
 export interface Props {
     title: string;
     open: boolean;
-    onClose: React.MouseEventHandler<HTMLButtonElement>;
+    onClose: () => void;
     uid: string | null;
     endpoint: string;
     method: "GET" | "POST" | "PUT" | "DELETE";
@@ -46,6 +46,7 @@ const ModalLogic = (props: Props) => {
         //TODO: Modify to treat the response
         fetchHandler(props.endpoint, props.method, body)
             .catch((err: any) => console.log(err))
+        props.onClose()
     }
 
     return { register, handleSubmit, onSubmit }

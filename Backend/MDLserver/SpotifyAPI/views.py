@@ -43,10 +43,11 @@ def spotify_callback(request, format=None) -> redirect:
         return Response({gv.COMMON.ERROR: error}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     obj = ut.update_user_tokens(
+        response.get("null"), 
         response.get(gv.SPOTIFY.MODEL.ACCESS_TOKEN), 
         response.get(gv.SPOTIFY.MODEL.TOKEN_TYPE), 
-        response.get(gv.SPOTIFY.MODEL.REFRESH_TOKEN), 
         response.get(gv.SPOTIFY.MODEL.EXPIRES_IN),
+        response.get(gv.SPOTIFY.MODEL.REFRESH_TOKEN)
     )
 
     return HttpResponseRedirect(redirect_to='http://localhost:3000/Spotify?sptk={}'.format(obj.id))

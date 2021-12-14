@@ -50,7 +50,7 @@ const Modal: React.FC<Props> = (props) => {
                         </div>)
                     })}
                     <div className="form-buttons">
-                        <input type="submit" value="Submit" className="form-btn" />
+                        <input type="submit" value="Submit" className="form-btn"/>
                         <button onClick={props.onClose} className="form-btn">
                             Close
                         </button>
