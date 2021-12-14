@@ -1,15 +1,15 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Link, RouteComponentProps } from "react-router-dom";
 import UserFinderLogic from './UserFinderLogic'
 import './UserFinder.css'
 
-const UserFinder = () =>{
-    const {content, on_change, find, userList, show_user} = UserFinderLogic()
-    return(
+const UserFinder = () => {
+    const { content, on_change, find, userList, show_user } = UserFinderLogic()
+    return (
         <div className="user-container">
             <div className="top-user-container">
-                <h3 className="search-title">BUSCAR USUARIO</h3>
-                <input className="SearchBar SearchBarUser" type="search" placeholder="Search..." onKeyPress={(e) => find(e, content)} onChange={(e) => on_change(e)}/>
+                <h3 className="search-title">Find Users</h3>
+                <input className="SearchBar SearchBarUser" type="search" placeholder="Search..." onKeyPress={(e) => find(e, content)} onChange={(e) => on_change(e)} />
             </div>
             <div className="bottom-user-container">
                 {
