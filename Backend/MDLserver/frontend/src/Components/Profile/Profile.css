@@ -130,3 +130,24 @@
   margin-bottom: 3%;
   margin-top: 1%;
 }
+
+.profile-categories-container{
+  margin-top: 2%;
+}
+
+.profile-categories-line {
+  border-bottom: 1px solid white;
+  width: 100%;
+  margin-bottom: 3%;
+  margin-top: 1%;
+}
+
+.CategoryName{
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  width: 225px;
+  font-size: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

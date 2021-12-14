@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form';
 import { useLocation } from 'react-router';
 import { useHistory } from 'react-router-dom';
 import { fetchHandler, fetchHandlerCb } from '../fetchHandler'
+//Comment to commit
 
 interface Props {
 }
@@ -31,7 +32,7 @@ const CategoriesLogic = (props:Props) => {
     const [ filteredSongsCategories, setFilteredSongsCategories] = useState<null | any[]>(null)
     const [ type_selected, setTypeSelected] = useState<Type>({
         
-        films_selected: false,
+        films_selected: true,
         series_selected: false,
         songs_selected: false
     
