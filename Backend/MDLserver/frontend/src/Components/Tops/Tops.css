@@ -15,7 +15,7 @@
 }
 
 .tops-container::-webkit-scrollbar-thumb {
-	background: white;
+	background: #FE795B;
 	border-radius: 5px;
 }
 
@@ -73,7 +73,7 @@
 }
 
 .movies-list::-webkit-scrollbar-thumb {
-	background: white;
+	background: #FE795B;
 	border-radius: 5px;
 }
 
@@ -98,6 +98,6 @@
 }
 
 .songs-list::-webkit-scrollbar-thumb {
-	background: white;
+	background: #FE795B;
 	border-radius: 5px;
 }
