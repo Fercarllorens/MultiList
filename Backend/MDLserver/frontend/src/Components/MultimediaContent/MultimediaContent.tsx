@@ -66,7 +66,7 @@ const MultimediaContent: React.FC<Props> = (props) => {
                     {type_query == "song" ? listBottom.map((item) => {
                         return (item != '' && item != null) ? <p className="data">{item}</p> : <></>;
                     }) : listBottom.map((item) => {
-                        return (item != '' && item != null) ? <p className="data">{item}</p> : <></>;
+                        return (item != '' && item != null) ? <h5 className="data">{item}</h5> : <></>;
                     })}
                     {artists.map((item, index) => {
                         if (index == 0) return (item != undefined && item != null) ? <a className='artist-link' onClick={() => showArtist(item.id)}>{item.name}</a> : <></>;
