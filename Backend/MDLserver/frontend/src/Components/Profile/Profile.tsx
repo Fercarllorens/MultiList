@@ -8,9 +8,10 @@ import { Link } from 'react-router-dom'
 import { type } from 'os'
 
 const Profile = () => {
-  const { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query, follow_user, unfollow_user, followed,
-    show_myFollows, checkFollowed, userStats, getStatistics, filmsCategories, seriesCategories, songsCategories,
-    getFilmCategories, getSeriesCategories, getSongsCategories, filter, handleFilters } = ProfileLogic()
+  const { uid, spotifyAuth, open, setOpen, pic, data, getUserData, handleSpotifyClick, id_query,
+    follow_user, unfollow_user, followed, show_myFollows, checkFollowed, userStats, getStatistics,
+    filter, handleFilters, categoryFilter, handleCategoryFilters, filmsCategories, getFilmCategories,
+    seriesCategories, getSeriesCategories, songsCategories, getSongsCategories, selectedCategories } = ProfileLogic()
 
   //TODO: MODIFICAR CUANDO SE AÑADA EL LOGIN
   useEffect(() => {
@@ -97,11 +98,26 @@ const Profile = () => {
           <li className={filter === "Song" ? 'liactive' : ''} onClick={handleFilters}>Song</li>
         </ul>
         <div className="profile-statistics-line"></div>
-        {userStats && userStats.length > 0 ? filter && (
-          <StatisticsBar type={filter.toLowerCase()} name={filter} content_arr={userStats} />
-        ) : <div>No statistics found</div>}
+        <h2>Statistics</h2>
+        {userStats && filter && (
+          <StatisticsBar type={filter.toLowerCase()} name={filter} content_arr={userStats} />        
+        )}
+        <div className='profile-categories-container'>
+          <h2>Categories</h2>
+        {
+            selectedCategories?.map((element) => (
+                data?.categories?.includes(element.id) ?
+                  <div className="category-name">          
+                      {element.name}
+                  </div> :
+                  <></>
+              )
+            )
+        }
+        </div>
       </div>
     </div>
+    
   )
 }
 export default Profile

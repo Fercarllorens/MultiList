@@ -6,7 +6,7 @@ from .views.film_view import GetFilm, PostFilm, PutFilm
 from .views.series_view import GetSeries, PostSeries, PutSeries
 from .views.song_view import GetSong, PostSong, PutSong
 from .views.user_view import GetUser, PostUser, PutUser, GetUsersByName, UpdateFollows, DeleteFollows, GetUserArray, UpdateUserCategories, UpdateUserLists, GetStatisticsFromUser
-from .views.content_view import GetContent, PostContent, PutContent, GetContentArray
+from .views.content_view import GetContent, PostContent, PutContent, GetContentArray, GetFullContentArray
 from .views.progress_view import GetProgress, PostProgress, UpdateProgress
 from .views.comment_view import GetComment, PostComment, PutComment, GetAllUserComments, GetAllContentComments
 from .views.auth_view import Login, Register
