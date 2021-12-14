@@ -50,7 +50,6 @@ const MultimediaContent: React.FC<Props> = (props) => {
             {/*<AddList contentId={id_query!= null? id_query: ""} type={type_query!= null? type_query: ""} />*/}
             <div className="data-container-top">
                 <h3 className="title-top-data">{listTop[0]}</h3>
-                <p className="data"><span className="label-data-type" style={{ backgroundColor: listTop[4] != null ? listTop[4] : 'transparent', borderRadius: 20 }}>{listTop[1]}</span> - {listTop[2]} - {listTop[3]}</p>
             </div>
             <div className="image">
                 <img src={imageUrl != null ? imageUrl : 'https://us.123rf.com/450wm/seetwo/seetwo1907/seetwo190700208/126635447-ning%C3%BAn-signo-vac%C3%ADo-c%C3%ADrculo-tachado-rojo-signo-no-permitido-aislar-sobre-fondo-blanco-ilustraci%C3%B3n-vec.jpg?ver=6'} alt="No disponible" />
