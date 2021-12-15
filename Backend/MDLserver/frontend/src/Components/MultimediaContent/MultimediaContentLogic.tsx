@@ -147,8 +147,14 @@ const MultimediaContentLogic = (props: Props) => {
 
         const year = release_date.substring(0, 4);
         const img = images.find((element: { height: number; }) => element.height === 300)
-        const duration = (duration_ms / 60000).toString();
-        const formated_duration = duration.split('.')[0] + '.' + duration.split('.')[1].substring(0, 2);
+        let ms_to_segs = duration_ms / 1000;
+        let min = ms_to_segs / 60;
+        let seg = ms_to_segs % 60;
+        let formatted_segs = seg < 10 ? '0' + seg.toString() : seg.toString();
+        console.log(ms_to_segs)
+        console.log(min)
+        console.log(seg)
+        const formated_duration = min.toString().split('.')[0] + ':' + formatted_segs.toString().split('.')[0];
         const album_name = album.name;
         const url = spotify;
 
