@@ -345,7 +345,7 @@ const MultimediaContentLogic = (props: Props) => {
         setidTMDB(json.results[0].id)
         history.push({
             pathname: '/Cast',
-            search: `?name=${listTop[0]}&id=${json.results[0].id}&type=${type_query}&img=${imageUrl}}`
+            search: `?name=${listTop[0]}&id=${json.results[0].id}&type=${type_query}&img=${imageUrl}`
         })
     }
 

@@ -51,7 +51,7 @@ const Profile = () => {
       />
       <div className='profile-data'>
         <div className='profile-pic'>
-          <img className="profile-pic" src={pic ? pic : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPXKo36JFQDLpzs9giWMBSBEKgmjDNsXd7cA&usqp=CAU"} alt='Profile Pic' />
+          <img className="profile-pic" src={pic ? pic : "https://us.123rf.com/450wm/thesomeday123/thesomeday1231709/thesomeday123170900021/85622928-icono-de-perfil-de-avatar-predeterminado-marcador-de-posici%C3%B3n-de-foto-gris-vectores-de-ilustraciones.jpg?ver=6"} alt='Profile Pic' />
           {
             uid == localStorage.getItem('user_id') &&
             <div className='profile-settings'>
