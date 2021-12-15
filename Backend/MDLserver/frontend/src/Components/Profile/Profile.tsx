@@ -51,7 +51,7 @@ const Profile = () => {
       />
       <div className='profile-data'>
         <div className='profile-pic'>
-          <img className="profile-pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPXKo36JFQDLpzs9giWMBSBEKgmjDNsXd7cA&usqp=CAU" alt='Profile Pic' />
+          <img className="profile-pic" src={pic ? pic : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPXKo36JFQDLpzs9giWMBSBEKgmjDNsXd7cA&usqp=CAU"} alt='Profile Pic' />
           {
             uid == localStorage.getItem('user_id') &&
             <div className='profile-settings'>
@@ -100,24 +100,24 @@ const Profile = () => {
         <div className="profile-statistics-line"></div>
         <h2>Statistics</h2>
         {userStats && filter && (
-          <StatisticsBar type={filter.toLowerCase()} name={filter} content_arr={userStats} />        
+          <StatisticsBar type={filter.toLowerCase()} name={filter} content_arr={userStats} />
         )}
         <div className='profile-categories-container'>
           <h2>Categories</h2>
-        {
+          {
             selectedCategories?.map((element) => (
-                data?.categories?.includes(element.id) ?
-                  <div className="category-name">          
-                      {element.name}
-                  </div> :
-                  <></>
-              )
+              data?.categories?.includes(element.id) ?
+                <div className="category-name">
+                  {element.name}
+                </div> :
+                <></>
             )
-        }
+            )
+          }
         </div>
       </div>
     </div>
-    
+
   )
 }
 export default Profile

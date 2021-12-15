@@ -22,10 +22,10 @@ const ProfileLogic = () => {
   const [data, setData] = useState<null | Data>(null)
   const [spotifyAuth, setSpotifyAuth] = useState<boolean>(false)
   const [userStats, setUserStats] = useState<undefined | Array<number>>(undefined)
-  const [ filmsCategories, setFilmsCategories] = useState<null | any[]>(null)
-  const [ seriesCategories, setSeriesCategories] = useState<null | any[]>(null)
-  const [ songsCategories, setSongsCategories] = useState<null | any[]>(null)
-  const [ selectedCategories, setSelectedCategories] = useState<null | any[]>(null)
+  const [filmsCategories, setFilmsCategories] = useState<null | any[]>(null)
+  const [seriesCategories, setSeriesCategories] = useState<null | any[]>(null)
+  const [songsCategories, setSongsCategories] = useState<null | any[]>(null)
+  const [selectedCategories, setSelectedCategories] = useState<null | any[]>(null)
   const [filter, setFilter] = useState<string>("Film")
   const [categoryFilter, setCategoryFilter] = useState<string>("Film")
   // const [barLengths, setBarLengths] = useState<undefined | Array<number>>(undefined)
@@ -122,7 +122,7 @@ const ProfileLogic = () => {
   function handleFilters(e: any) {
     let current_filter = e.currentTarget.innerHTML
     setFilter(current_filter)
-    switch(current_filter){
+    switch (current_filter) {
       case 'Film':
         setSelectedCategories(filmsCategories); break;
       case 'Series':
@@ -135,7 +135,7 @@ const ProfileLogic = () => {
   function handleCategoryFilters(e: any) {
     let current_filter = e.currentTarget.innerHTML
     setCategoryFilter(current_filter)
-    switch(current_filter){
+    switch (current_filter) {
       case 'Film':
         setSelectedCategories(filmsCategories); break;
       case 'Series':
@@ -143,50 +143,36 @@ const ProfileLogic = () => {
       case 'Song':
         setSelectedCategories(songsCategories); break;
     }
-    console.log('CAMBIADAS CATEGORIAS')
-    console.log(current_filter)
-    console.log(selectedCategories)
   }
 
-  function getFilmCategories(){
+  function getFilmCategories() {
     fetchHandler(`api/get-categories-by-type?type=film`, 'GET', null)
-        .then((obj:any) => {
-            if(obj!==undefined){ 
-                const filmsCategoriesArray = JSON.parse(obj)
-                setFilmsCategories(filmsCategoriesArray)
-            }
-        })
+      .then((obj: any) => {
+        if (obj !== undefined) {
+          const filmsCategoriesArray = JSON.parse(obj)
+          setFilmsCategories(filmsCategoriesArray)
+        }
+      })
   }
 
-  function getSeriesCategories(){
-      fetchHandler(`api/get-categories-by-type?type=series`, 'GET', null)
-          .then((obj:any) => {
-              if(obj!==undefined){ 
-                  const seriesCategoriesArray = JSON.parse(obj)
-                  setSeriesCategories(seriesCategoriesArray)
-              }
-          })
+  function getSeriesCategories() {
+    fetchHandler(`api/get-categories-by-type?type=series`, 'GET', null)
+      .then((obj: any) => {
+        if (obj !== undefined) {
+          const seriesCategoriesArray = JSON.parse(obj)
+          setSeriesCategories(seriesCategoriesArray)
+        }
+      })
   }
 
-  function setSelectedCategoriesType(type: string){
-    switch(type){
-      case 'Film':
-        setSelectedCategories(filmsCategories); break;
-      case 'Series':
-        setSelectedCategories(seriesCategories); break;
-      case 'Song':
-        setSelectedCategories(songsCategories); break;
-    }
-  }
-
-  function getSongsCategories(){
-      fetchHandler(`api/get-categories-by-type?type=song`, 'GET', null)
-          .then((obj:any) => {
-              if(obj!==undefined){ 
-                  const songsCategoriesArray = JSON.parse(obj)
-                  setSongsCategories(songsCategoriesArray)
-              }
-          })
+  function getSongsCategories() {
+    fetchHandler(`api/get-categories-by-type?type=song`, 'GET', null)
+      .then((obj: any) => {
+        if (obj !== undefined) {
+          const songsCategoriesArray = JSON.parse(obj)
+          setSongsCategories(songsCategoriesArray)
+        }
+      })
   }
 
   return {

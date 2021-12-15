@@ -29,7 +29,7 @@ function StatisticsBar(props: Props): ReactElement {
         }
     }
 
-    function calculateBarRadius(arr: string[]): number{
+    function calculateBarRadius(arr: string[]): number {
         let ret = 10
         arr.forEach(str => {
             if (statistics[str][0] != 0) ret = 0
@@ -41,8 +41,8 @@ function StatisticsBar(props: Props): ReactElement {
         let id = e.currentTarget.id
         let element = document.getElementById("text" + id)
         bool
-         ? element?.classList.add("text-active") 
-         : element?.classList.remove("text-active")        
+            ? element?.classList.add("text-active")
+            : element?.classList.remove("text-active")
     }
 
 
@@ -58,8 +58,8 @@ function StatisticsBar(props: Props): ReactElement {
         borderBottomLeftRadius: 10,
         borderTopRightRadius: bar_radius_right,
         borderBottomRightRadius: bar_radius_right
-    };    
-    
+    };
+
     bar_radius_left = calculateBarRadius(["Finished"])
     bar_radius_right = calculateBarRadius(["On hold", "Droped", "Planning to view"])
     const watching_style = {
@@ -103,22 +103,22 @@ function StatisticsBar(props: Props): ReactElement {
         borderBottomRightRadius: 10
     };
 
-    return (
+    return props.content_arr == [] ? <></> : (
         <div className='statistics-bar'>
             <div className="bar-holder">
-                <span className="bar" id="1" style={finished_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)}/>
-                <span className="bar" id="2" style={watching_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)}/>
-                <span className="bar" id="3"style={onhold_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)}/>
-                <span className="bar" id="4"style={dropped_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)}/>
-                <span className="bar" id="5" style={ptw_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)}/>  
-            </div>         
-            <div className="text-holder"> 
+                <span className="bar" id="1" style={finished_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)} />
+                <span className="bar" id="2" style={watching_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)} />
+                <span className="bar" id="3" style={onhold_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)} />
+                <span className="bar" id="4" style={dropped_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)} />
+                <span className="bar" id="5" style={ptw_style} onMouseEnter={(e) => handleHover(e, true)} onMouseLeave={(e) => handleHover(e, false)} />
+            </div>
+            <div className="text-holder">
                 <div className="text" id="text1">Finished: {statistics["Finished"][0]}</div>
-                <div className="text"id="text2">Watching: {statistics["Watching"][0]}</div>
+                <div className="text" id="text2">Watching: {statistics["Watching"][0]}</div>
                 <div className="text" id="text3">On Hold: {statistics["On hold"][0]}</div>
                 <div className="text" id="text4">Dropped: {statistics["Droped"][0]}</div>
                 <div className="text" id="text5">Plan To Watch: {statistics["Planning to view"][0]}</div>
-            </div>                
+            </div>
         </div>
     )
 }
