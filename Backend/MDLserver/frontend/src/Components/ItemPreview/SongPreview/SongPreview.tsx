@@ -35,9 +35,6 @@ const SongPreview: React.FC<Props> = ({song}) => {
                 {/* <div className="SongDate">
                     {song.date}
                 </div> */}
-                <div className="song-info">
-                    {song.genres}
-                </div>
             </div>
         </div>
     )

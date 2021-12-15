@@ -54,11 +54,19 @@ const MultimediaContent: React.FC<Props> = (props) => {
             <div className="image">
                 <img src={imageUrl != null ? imageUrl : 'https://us.123rf.com/450wm/seetwo/seetwo1907/seetwo190700208/126635447-ning%C3%BAn-signo-vac%C3%ADo-c%C3%ADrculo-tachado-rojo-signo-no-permitido-aislar-sobre-fondo-blanco-ilustraci%C3%B3n-vec.jpg?ver=6'} alt="No disponible" />
             </div>
-            <div className="data-container-trailer">
-                {type_query !== "song" && trailerUrl != null?
-                        <iframe className="trailer" width="560" height="315" src={trailerUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe> : (trailerUrl && <audio src={trailerUrl} preload="none" controls></audio>)
-                }
-            </div>
+            {type_query !== "song" ? 
+                <div className= "data-container-trailer">
+                    {trailerUrl != null ?
+                        <iframe className="trailer" width="560" height="315" src={trailerUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe> : <></>
+                    }
+                </div>
+                :
+                <div className= "data-container-trailer-song">
+                    {trailerUrl != null ?
+                        <audio src={trailerUrl} preload="none" controls></audio> : <></>
+                    }
+                </div>
+            }
             <div className="data-container-bottom">
                 <h4 className="bottom-title">More information</h4>
                 <p className="cont-link">
@@ -83,9 +91,15 @@ const MultimediaContent: React.FC<Props> = (props) => {
                 <p>Rating</p>
                 <p>{rating}%</p>
             </div>
-            <div className="comment-holder">
-                <CommentSection content_id={id_query} user_id={localStorage.getItem('user_id')} />
-            </div>
+            {type_query !== "song" ? 
+                <div className="comment-holder-video">
+                    <CommentSection content_id={id_query} user_id={localStorage.getItem('user_id')} />
+                </div>
+                :
+                <div className="comment-holder-song">
+                    <CommentSection content_id={id_query} user_id={localStorage.getItem('user_id')} />
+                </div>
+            }
             {
                 added ?
                     <button className="add-content-btn" onClick={handleDeleteContent}>Delete from list</button> :

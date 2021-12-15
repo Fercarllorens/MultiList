@@ -41,9 +41,15 @@
 }
 
 .data-container-trailer{
+    margin-top: 350px;
+    position: relative !important;
+    width: 100%;   
+}
+
+.data-container-trailer-song{
     margin-top: 20px;
     position: relative;
-    width: 100%;   
+    width: 100%; 
 }
 
 .data-container-trailer iframe, .data-container-trailer img{
@@ -183,8 +189,19 @@
     color: #FE795B;
 }
 
-.comment-holder{
+.comment-holder-video{
     position: relative;
+    margin-top: 50px;
+    margin-left: 10%;
+    margin-right: 10%;
+    width:80%;
+    height: auto;
+    padding-bottom: 100px;
+}
+
+.comment-holder-song{
+    position: relative;
+    margin-top: 60px;
     margin-left: 10%;
     margin-right: 10%;
     width:80%;
