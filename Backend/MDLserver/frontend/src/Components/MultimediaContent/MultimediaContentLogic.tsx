@@ -194,15 +194,20 @@ const MultimediaContentLogic = (props: Props) => {
     function updateArrayString(genres: string[]){
         let aux_string = ''
         genres.forEach((genre: string) => { 
-                fetchHandler('api/post-category', 'POST', { 'name': genre, 'type': 'song' })
+                fetchHandler('api/post-category', 'POST', { 'name': capitalize(genre), 'type': 'song' })
             }
         );
         genres.forEach((genre: string) => { 
-            aux_string == '' ? aux_string = genre : aux_string = aux_string + ', ' + genre
+            aux_string == '' ? aux_string = capitalize(genre) : aux_string = aux_string + ', ' + capitalize(genre)
             }
         );
         setTimeout(() => setGenresString(aux_string), 1000)
     }
+
+    function capitalize(word: string) {
+        const lower = word.toLowerCase();
+        return word.charAt(0).toUpperCase() + lower.slice(1);
+      }
 
     function processFilm(json: any) {
         const film: any = json;
