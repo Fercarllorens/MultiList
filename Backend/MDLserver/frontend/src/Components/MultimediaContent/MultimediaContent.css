@@ -32,12 +32,11 @@
     position: relative;
     min-width: 30%;
     width: 50%;
-    max-height: 450px;
+    max-height: 450px; 
 }
 
 .image img{
     max-width: 90%;
-    
 }
 
 .data-container-trailer{
@@ -71,6 +70,7 @@
     font-size: 38px;
     border-bottom: 1px solid white;
     overflow: hidden;
+    text-align: center;
 }
 
 
