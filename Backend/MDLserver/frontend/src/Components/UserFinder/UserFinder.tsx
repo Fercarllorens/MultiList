@@ -17,7 +17,7 @@ const UserFinder = () => {
 
                         return (
                             <div className="user" onClick={() => show_user(element.user_id)}>
-                                <img className="img-user" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPXKo36JFQDLpzs9giWMBSBEKgmjDNsXd7cA&usqp=CAU" />
+                                <img className="img-user" src="https://us.123rf.com/450wm/thesomeday123/thesomeday1231709/thesomeday123170900021/85622928-icono-de-perfil-de-avatar-predeterminado-marcador-de-posici%C3%B3n-de-foto-gris-vectores-de-ilustraciones.jpg?ver=6" />
                                 <h4 className="user-name">{element.username}</h4>
                             </div>
                         )

@@ -3,6 +3,23 @@
     padding-left: 20px;
     height: 100vh;
     width: 100%;
+    padding-bottom:50px;
+    overflow-y: scroll;
+    scrollbar-color: #FE795B transparent;
+}
+
+
+
+.artist-container::-webkit-scrollbar{
+    width: thin;
+}
+
+.artist-container::-webkit-scrollbar-track{
+    color: #FE795B;
+}
+
+.artist-container::-webkit-scrollbar-thumb{
+    color: #FE795B;
 }
 
 .pic-info-div{
