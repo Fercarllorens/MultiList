@@ -5,7 +5,6 @@ import './MyFollows.css'
 
 const MyFollows = () =>{
     const {getData, follows, unfollow_user} = MyFollowsLogic()
-    console.log(follows)
     useEffect(() => {
         getData()
      }, [])

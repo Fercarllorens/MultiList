@@ -41,7 +41,6 @@ const UserFinderLogic = () => {
     }
 
     const show_user = (id: string) => {  
-        console.log(id)
         history.push({
             pathname:'/profile',
             search: `?id=${id}`

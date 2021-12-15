@@ -19,7 +19,7 @@ const MultimediaContent: React.FC<Props> = (props) => {
     const { listTop, imageUrl, trailerUrl, listBottom, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating,
         type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent,
         handleUpdateProgress, handleAddToListPremium, register, handleSubmit, added, isContentAdded,
-        lists, getUserLists, selectedListName, setSelectedListName, getIdTMDB, artists, showArtist } = MultimediaContentLogic(props)
+        lists, getUserLists, selectedListName, setSelectedListName, getIdTMDB, artists, showArtist, genresString } = MultimediaContentLogic(props)
 
     useEffect(() => {
         isContentAdded()
@@ -55,7 +55,6 @@ const MultimediaContent: React.FC<Props> = (props) => {
                 <img src={imageUrl != null ? imageUrl : 'https://us.123rf.com/450wm/seetwo/seetwo1907/seetwo190700208/126635447-ning%C3%BAn-signo-vac%C3%ADo-c%C3%ADrculo-tachado-rojo-signo-no-permitido-aislar-sobre-fondo-blanco-ilustraci%C3%B3n-vec.jpg?ver=6'} alt="No disponible" />
             </div>
             <div className="data-container-trailer">
-                {console.log(type_query)}
                 {type_query !== "song" && trailerUrl != null?
                         <iframe className="trailer" width="560" height="315" src={trailerUrl} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe> : (trailerUrl && <audio src={trailerUrl} preload="none" controls></audio>)
                 }
@@ -68,10 +67,12 @@ const MultimediaContent: React.FC<Props> = (props) => {
                     }) : listBottom.map((item) => {
                         return (item != '' && item != null) ? ( item == listBottom[0] ? <p className="data">{item}</p> : <p className="sinopsis">{item}</p>) : <></>;
                     })}
+                    <p className="data">{genresString}</p>
                     {artists.map((item, index) => {
                         if (index == 0) return (item != undefined && item != null) ? <a className='artist-link' onClick={() => showArtist(item.id)}>{item.name}</a> : <></>;
                         else return (item != undefined && item != null) ? <a className='artist-link' onClick={() => showArtist(item.id)}>, {item.name}</a> : <></>;
                     })}
+
                 </p>
                 {type_query == 'film' || type_query == 'series' ?
                     <h4 className="casting-label" onClick={() => { getIdTMDB() }}>Casting</h4>

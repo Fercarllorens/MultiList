@@ -143,9 +143,6 @@ const ProfileLogic = () => {
       case 'Song':
         setSelectedCategories(songsCategories); break;
     }
-    console.log('CAMBIADAS CATEGORIAS')
-    console.log(current_filter)
-    console.log(selectedCategories)
   }
 
   function getFilmCategories(){

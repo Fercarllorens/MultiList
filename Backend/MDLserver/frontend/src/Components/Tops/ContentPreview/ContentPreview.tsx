@@ -20,8 +20,6 @@ const ContentPreview: React.FC<Props> = (props) => {
                         : <VisualContentPreview content={item} type={props.type} />
                 )
             }
-            {console.log(props)}
-            {console.log(props.type)}
         </>
     )
 

@@ -81,9 +81,7 @@ const CategoriesLogic = (props:Props) => {
     }
 
     function updateUserCategories(categories: any){
-        console.log(userCategories)
         setUserCategories(categories);
-        setTimeout(() => console.log(userCategories), 2000)
     }
 
     const find = (e: any, content: string) => {

@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 import { stringify } from 'querystring';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router';
 import { useHistory } from 'react-router-dom';
@@ -22,6 +22,10 @@ interface Progress {
 interface Artist {
     name: string
     id: string
+}
+
+interface Genre {
+    name: string
 }
 
 interface List {
@@ -48,6 +52,7 @@ const MultimediaContentLogic = (props: Props) => {
     const [rating, setRating] = useState<null | number>(null)
     const [contentCheck, addContentCheck] = useState<boolean>(false)
     const [artists, setArtists] = useState<Artist[]>([])
+    const [genresString, setGenresString] = useState<string>('')
     const [nombreTMDB, setNombreTMDB] = useState<string>("")
     const [idTMDB, setidTMDB] = useState<string>("")
     const { register, handleSubmit } = useForm();
@@ -60,6 +65,11 @@ const MultimediaContentLogic = (props: Props) => {
     const user_id: string | null = localStorage.getItem('user_id')
     const base_url = 'http://127.0.0.1:8000/'
     const [added, setAdded] = useState<null | boolean>(null)
+    let genres_array: string[] = []
+
+    /*useEffect(() => {
+        //updateArrayString()
+    }, [])*/
 
 
     function isContentAdded() {
@@ -126,34 +136,49 @@ const MultimediaContentLogic = (props: Props) => {
 
         // let artists_string = 'No artists found';
         let artists_array: Artist[] = []
-        let genres_string = 'Not genres found';
+        //let genres_array: string[] = [];
+        let genres_string = 'Not genres found';       
 
-        artists.forEach((artist: { name: string; genres: string[]; id: string }, index: number) => {
+        artists.forEach((artist: { name: string; id: string }, index: number) => {
             // index == 0 ? artists_string = artist.name : artists_string += (", " + artist.name)
             artists_array.push({
                 name: artist.name,
                 id: artist.id
             })
-            const { genres } = artist;
 
-            if (genres != undefined) {
-                genres.forEach((element: any, index: number) => {
-                    index == 0 ? genres_string = element : genres_string += (', ' + element)
-                    fetchHandler('api/post-category', 'POST', { 'name': element, 'type': 'song' })
-                }
-                );
-            }
+            fetchHandler(`spotify/get-artist?id=${artist.id}&user=${user_id}`, 'GET', null)
+                .then((obj: any) => {
+                    const {genres} = obj
+                    genres.forEach((genre: string, index: number) => {
+                        /*genres_string == 'Not genres found' ? 
+                            genres_string = genre : 
+                            (!genres_string.includes(genre) ? 
+                                (
+                                    genres_string = genres_string + ', ' + genre
+                                    //fetchHandler('api/post-category', 'POST', { 'name': genre, 'type': 'song' })
+                                ) : 
+                                console.log('Genero ya existente')
+                            )
+                        */                       
+                       !genres_array.includes(genre) ? genres_array.push(genre) : console.log('Existing genre')                   
+                    })
+                })         
         });
 
+        genres_array.forEach((genre: string) => { 
+            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAA'); 
+            //fetchHandler('api/post-category', 'POST', { 'name': genre.name, 'type': 'song' })
+            }
+        );
+        
+        setTimeout(() => updateArrayString(genres_array), 1000)
+        
         const year = release_date.substring(0, 4);
         const img = images.find((element: { height: number; }) => element.height === 300)
         let ms_to_segs = duration_ms / 1000;
         let min = ms_to_segs / 60;
         let seg = ms_to_segs % 60;
         let formatted_segs = seg < 10 ? '0' + seg.toString() : seg.toString();
-        console.log(ms_to_segs)
-        console.log(min)
-        console.log(seg)
         const formated_duration = min.toString().split('.')[0] + ':' + formatted_segs.toString().split('.')[0];
         const album_name = album.name;
         const url = spotify;
@@ -163,7 +188,20 @@ const MultimediaContentLogic = (props: Props) => {
         setTrailerUrl(preview_url);
         setListTop([name, props.type, year, genres_string, 'green']);
         setListBottom([formated_duration, '', '', release_date, album_name]);
-        setcontentLink(url)
+        setcontentLink(url);
+    }
+
+    function updateArrayString(genres: string[]){
+        let aux_string = ''
+        genres.forEach((genre: string) => { 
+                fetchHandler('api/post-category', 'POST', { 'name': genre, 'type': 'song' })
+            }
+        );
+        genres.forEach((genre: string) => { 
+            aux_string == '' ? aux_string = genre : aux_string = aux_string + ', ' + genre
+            }
+        );
+        setTimeout(() => setGenresString(aux_string), 1000)
     }
 
     function processFilm(json: any) {
@@ -187,7 +225,6 @@ const MultimediaContentLogic = (props: Props) => {
             .then((obj: any) => { setRating(obj.total_rating) });
         setImageUrl(img);
         setListTop([original_title, props.type, 'red']);
-        console.log(overview)
         setListBottom([release_date, overview]);
     }
 
@@ -235,7 +272,6 @@ const MultimediaContentLogic = (props: Props) => {
         if (!added) {
             fetch(base_url + 'api/update-list', { method: "POST", body: body, headers: { 'Content-Type': 'application/json' } })
                 .then(res => res.json())
-                .then(json => console.log(json))
                 .catch(err => console.error(err))
         }
         setAdded(!added)
@@ -253,7 +289,6 @@ const MultimediaContentLogic = (props: Props) => {
         if (added) {
             fetch(base_url + 'api/delete-list', { method: "POST", body: body, headers: { 'Content-Type': 'application/json' } })
                 .then(res => res.json())
-                .then(json => console.log(json))
                 .catch(err => console.error(err))
         }
         setAdded(!added)
@@ -263,7 +298,6 @@ const MultimediaContentLogic = (props: Props) => {
         fetch(base_url + `api/get-progress?user_id=${user_id}&content_id=${id_query}`)
             .then(res => res.json())
             .then(json => {
-                console.log(json)
                 if (json != null) {
                     setProgress(json.progress)
                     setWatching(json.state)
@@ -272,8 +306,6 @@ const MultimediaContentLogic = (props: Props) => {
     }
 
     function handleUpdateProgress(data: any) {
-        console.log(data)
-        console.log(typeof (data))
         const body = JSON.stringify({
             user_id: user_id,
             content_id: id_query,
@@ -283,7 +315,6 @@ const MultimediaContentLogic = (props: Props) => {
 
         fetch(base_url + `api/update-progress`, { method: 'POST', body: body, headers: { 'Content-Type': 'application/json' } })
             .then(res => res.json())
-            .then(json => console.log(json))
             .catch(err => console.error(err))
     }
 
@@ -297,7 +328,6 @@ const MultimediaContentLogic = (props: Props) => {
     }
 
     function getIdTMDB() {
-        console.log(listTop[0])
         if (type_query == 'series') {
             fetchHandlerCb(`video/get-show?query=${listTop[0]}&page={1}`, 'GET', null, setIdTMDB)
         } else if (type_query == 'film') {
@@ -308,7 +338,6 @@ const MultimediaContentLogic = (props: Props) => {
     function setIdTMDB(json: any) {
         setNombreTMDB(listTop[0])
         setidTMDB(json.results[0].id)
-        console.log(json.results[0].id)
         history.push({
             pathname: '/Cast',
             search: `?name=${listTop[0]}&id=${json.results[0].id}&type=${type_query}&img=${imageUrl}}`
@@ -339,7 +368,6 @@ const MultimediaContentLogic = (props: Props) => {
         if (!added) {
             fetch(base_url + 'api/update-list', { method: "POST", body: body, headers: { 'Content-Type': 'application/json' } })
                 .then(res => res.json())
-                .then(json => console.log(json))
                 .catch(err => console.error(err))
         }
 
@@ -358,7 +386,7 @@ const MultimediaContentLogic = (props: Props) => {
         listTop, imageUrl, trailerUrl, listBottom, contentLink, setWatching, progress, watching, addToListPremium, setAddToListPremium, rating,
         type_query, id_query, getData, getProgress, handleAddContent, handleDeleteContent,
         handleUpdateProgress, handleAddToListPremium, register, handleSubmit, added, isContentAdded,
-        lists, getUserLists, selectedListName, setSelectedListName, getIdTMDB, artists, showArtist, getTrailer
+        lists, getUserLists, selectedListName, setSelectedListName, getIdTMDB, artists, showArtist, getTrailer, genresString
     }
 }
 
