@@ -99,6 +99,9 @@ class PutUser(APIView):
 class GetUserArray(APIView):
     def post(self, request, format=None):
         obj = request.data["list"]
+        if type(obj) is str:
+            obj = json.loads(obj)
+        print("OBJECT" , type(obj))
         content_list = [User.objects.get(id=i) for i in obj]
         return Response(json.dumps([model_to_dict(item) for item in content_list]))
 

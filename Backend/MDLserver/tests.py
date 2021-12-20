@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 import unittest
 import requests
-
+import json
 # Create your tests here.
 
 # Series
@@ -133,9 +133,9 @@ class User_View_User_Follows_Test_Correct(unittest.TestCase):
 
     def test_details(self):
         # Issue a GET request.
-        body = {'list': ["44", "54"]}
+        body = {'list': json.dumps(["44", "54"])}
         response = self.client.post('http://127.0.0.1:8000/api/get-user-array', body)
-        print("DATA" , response)
+        
         # Check that the response is 200 OK.
         self.assertEqual(response.status_code, 200)
         self.assertEqual('MultilistPremium' in str(response.json()), True)
@@ -148,7 +148,7 @@ class User_View_User_Follows_Test_Error(unittest.TestCase):
 
     def test_details(self):
         # Issue a GET request.
-        body = {'list': ["44", "54"]}
+        body = {'list': json.dumps(["44", "54"])}
         response = self.client.post('http://127.0.0.1:8000/api/get-user-array', body)
 
         # Check that the response is 200 OK.
