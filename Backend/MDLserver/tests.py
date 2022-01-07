@@ -156,6 +156,44 @@ class User_View_User_Follows_Test_Error(unittest.TestCase):
         self.assertEqual('Jondoe' in str(response.json()), False)
         self.assertEqual('Juanjo' in str(response.json()), False)
 
+# Valoración
+
+class User_View_Get_Content_Comments_Test_Correct(unittest.TestCase):
+    def setUp(self):
+        # Every test needs a client.
+        self.client = Client()
+
+    def test_details(self):
+        # Issue a GET request.
+        response = self.client.get('http://127.0.0.1:8000/api/get-content-comments?id=557')
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue("557" in str(response.json()))
+
+class User_View_Get_Content_Comments_Test_Error(unittest.TestCase):
+    def setUp(self):
+        # Every test needs a client.
+        self.client = Client()
+
+    def test_details(self):
+        # Issue a GET request.
+        response = self.client.get('http://127.0.0.1:8000/api/get-content-comments?id=557')
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse("558" in str(response.json()))
+
+class User_View_Get_Content_Comments_Test_Empty(unittest.TestCase):
+    def setUp(self):
+        # Every test needs a client.
+        self.client = Client()
+
+    def test_details(self):
+        # Issue a GET request.
+        response = self.client.get('http://127.0.0.1:8000/api/get-content-comments?id=7')
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual("[]", str(response.json()))
+
 #Non Functional
 
 class Content_Response_Time_Test(unittest.TestCase):
