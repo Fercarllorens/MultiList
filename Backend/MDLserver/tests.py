@@ -163,3 +163,63 @@ class Content_Response_Time_Test(unittest.TestCase):
         #Check that response time is less than 1 second
         time = requests.get("http://127.0.0.1:8000/video/get-show?query=bojack&page=1").elapsed.total_seconds()
         self.assertLess(time, 1)
+
+
+# Contenido Multimedia
+
+class Content_Request_Get_Film_True(unittest.TestCase):
+    def setUp(self):
+        # Every test needs a client.
+        self.client = Client()
+
+    def test_details(self):
+        # Issue a GET request.
+        response = self.client.get('http://127.0.0.1:8000/video/get-film?query="Spider-Man No Way Home"&page=1')
+
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('634649' in str(response.json()))
+        self.assertTrue('Spider-Man No Way Home' in str(response.json()))
+
+class Content_Request_Get_Film_False(unittest.TestCase):
+    def setUp(self):
+        # Every test needs a client.
+        self.client = Client()
+
+    def test_details(self):
+        # Issue a GET request.
+        response = self.client.get('http://127.0.0.1:8000/video/get-film?query="patata"&page=1')
+
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse('634649' in str(response.json()))
+        self.assertFalse('Spider-Man No Way Home' in str(response.json()))
+
+
+class Content_Request_Get_Show_True(unittest.TestCase):
+    def setUp(self):
+        # Every test needs a client.
+        self.client = Client()
+
+    def test_details(self):
+        # Issue a GET request.
+        response = self.client.get('http://127.0.0.1:8000/video/get-show?query="Bojack Horseman"&page=1')
+
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('61222' in str(response.json()))
+        self.assertTrue('BoJack Horseman' in str(response.json()))
+
+class Content_Request_Get_Show_False(unittest.TestCase):
+    def setUp(self):
+        # Every test needs a client.
+        self.client = Client()
+
+    def test_details(self):
+        # Issue a GET request.
+        response = self.client.get('http://127.0.0.1:8000/video/get-show?query="patata"&page=1')
+
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse('61222' in str(response.json()))
+        self.assertFalse('BoJack Horseman' in str(response.json()))
