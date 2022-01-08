@@ -72,7 +72,6 @@ class LinkUser(APIView):
 class Search(APIView):
     def get(self, request, format=None):
         """Returns a list of items given the query and the search_type"""
-        print("REQUEST: ", request.query_params.get('query'))
         endpoint = gv.SPOTIFY.ENDPOINTS.SEARCH.format(query=request.query_params.get(gv.COMMON.QUERY), type=request.query_params.get(gv.COMMON.TYPE))
         response = ut.request_spotify_api("GET", request.query_params.get(gv.COMMON.USER), endpoint)
         if gv.COMMON.ERROR in response:

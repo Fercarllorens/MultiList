@@ -79,7 +79,6 @@ def request_spotify_api(req_type: str, user_id: str, endpoint: str) -> dict:
     """Executes a request to the spotify api, provided with the req_type, the endpoint, and the user id"""
     tokens = get_user_tokens(user_id)
     headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + tokens.access_token} 
-    print("Headers: ", headers)
     requests = {
         "POST": req.post,
         "PUT":  req.put,

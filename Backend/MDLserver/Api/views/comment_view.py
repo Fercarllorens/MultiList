@@ -74,8 +74,6 @@ def calculate_total_rating(content_id: str):
     item = MultimediaContent.objects.get(external_id=content_id)
     item_comments = Comment.objects.filter(content_id=content_id)
     ratings = [rat.rating for rat in item_comments]
-    print(ratings)
     new_rating = (sum(ratings)/len(ratings))*20
-    print(new_rating)
     item.total_rating = new_rating
     item.save()

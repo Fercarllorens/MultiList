@@ -50,19 +50,15 @@ class GetList(APIView):
 
 class UpdateListContents(APIView):
     def post(self, request, format=None):
-        print(request.data)
         obj = List.objects.get(type=request.data[gv.LIST.TYPE], user_id=request.data[gv.LIST.USER_ID], name=request.data[gv.LIST.NAME])
-        print(obj)
         contentId = request.data['content_id']
         if obj is None:
             return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
         string_json = obj.contents
         content_json = json.loads(string_json)
-        print("DATA ANTES", content_json["items"])
         if contentId not in content_json["items"] :
             content_json["items"].append(contentId)
         string_json = json.dumps(content_json)
-        print("DATA DESPUES", string_json)
         List.objects.update_or_create(id = obj.id, defaults={
             gv.LIST.CONTENTS: string_json
         })
@@ -97,5 +93,4 @@ def create_default(user):
 class GetUserLists(APIView):
     def get(self, request, format=None):
         objs = List.objects.filter(user_id=request.GET['user_id'])
-        print(objs)
         return Response(json.dumps([model_to_dict(item) for item in objs]))

@@ -24,9 +24,7 @@ class GetUsersByName(APIView):
         obj = User.objects.filter(username__icontains=request.GET[gv.USER.USERNAME])
         if obj is None:
             return Response(model_to_dict(obj), status=status.HTTP_204_NO_CONTENT)
-        print("ITEM", obj)
         content_list = [User.objects.get(id=i.id) for i in obj]
-        print("LIST", content_list)
         return Response(json.dumps([model_to_dict(item) for item in content_list]))
 
 class UpdateFollows(APIView):
@@ -40,11 +38,9 @@ class UpdateFollows(APIView):
         else:
             string_json = obj.following
         content_json = json.loads(string_json)
-        print("DATA ANTES", content_json["users"])
         if followId not in content_json["users"] :
             content_json["users"].append(followId)
         string_json = json.dumps(content_json)
-        print("DATA DESPUES", string_json)
         User.objects.update_or_create(id = obj.id, defaults={
             gv.USER.FOLLOWING: string_json
         })
@@ -62,11 +58,9 @@ class DeleteFollows(APIView):
         else:
             string_json = obj.following
         content_json = json.loads(string_json)
-        print("DATA ANTES", content_json["users"])
         if followId in content_json["users"] :
             content_json["users"].remove(followId)
         string_json = json.dumps(content_json)
-        print("DATA DESPUES", string_json)
         User.objects.update_or_create(id = obj.id, defaults={
             gv.USER.FOLLOWING: string_json
         })
@@ -101,7 +95,6 @@ class GetUserArray(APIView):
         obj = request.data["list"]
         if type(obj) is str:
             obj = json.loads(obj)
-        print("OBJECT" , type(obj))
         content_list = [User.objects.get(id=i) for i in obj]
         return Response(json.dumps([model_to_dict(item) for item in content_list]))
 
@@ -151,7 +144,6 @@ class GetStatisticsFromUser(APIView):
     def get(self, request, format=None):
         """Returns a list of tuples in format {type_of_content, state} for frontend processing"""
         progress_list = Progress.objects.filter(user_id=request.GET[gv.USER.ID])
-        print(progress_list)
         returned_array = [
             (prog.state,
              MultimediaContent.objects.get(external_id=prog.content_id).type)

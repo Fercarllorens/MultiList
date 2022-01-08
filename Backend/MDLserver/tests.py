@@ -97,6 +97,29 @@ class Social_Songs_Content_Link_Test_Error(unittest.TestCase):
         self.assertEqual('https://open.spotify.com/album/6Re7sviVustR53KeArspwj' in str(response.json()), False)
 
 # Usuarios
+class User_Statistics_Test_Correct(unittest.TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_details(self):
+        # Issue a GET request.
+        response = self.client.get('http://127.0.0.1:8000/api/get-statistics?user_id=44')
+
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(type(json.loads(response.json())) == type([]), True)
+
+class User_Statistics_Test_Error(unittest.TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_details(self):
+        # Issue a GET request.
+        response = self.client.get('http://127.0.0.1:8000/api/get-statistics?user_id=44')
+
+        # Check that the response is 200 OK.
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(type(json.loads(response.json())) != type([]), False)
 
 class User_View_User_Profile_Test_Correct(unittest.TestCase):
     def setUp(self):
